@@ -1,5 +1,7 @@
 import pytest
+import time
 from playwright.sync_api import Browser, BrowserContext, sync_playwright
+from mysql_logger import log_test_result
 
 @pytest.fixture(scope="session")
 def browser():
@@ -15,7 +17,7 @@ def browser():
 #   page.close()
 
 @pytest.fixture(scope="session")
-def page():
+def page(request):
     with sync_playwright() as p:
         #browser = p.chromium.launch(headless=False)
         browser = p.firefox.launch(headless=True)
@@ -25,12 +27,11 @@ def page():
         # SINGLE TAB
         page = context.new_page()
 
+        # Start timing
+        login_start = time.time()
+
         # LOGIN ONCE
         page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
-
-        #page.get_by_role("textbox", name="Username").fill("Admin")
-        #page.get_by_role("textbox", name="Password").fill("admin123")
-        #page.get_by_role("button", name="Login").click()
 
         page.locator("//input[@name='username']").fill("Admin") 
         page.locator("//input[@name='password']").fill("admin123")
@@ -38,7 +39,35 @@ def page():
 
         page.wait_for_url("**/dashboard/index")
 
+        # End timing
+        login_duration = time.time() - login_start
+
+        # Attach login duration to pytest session object
+        request.session.login_duration = login_duration
+
         yield page
 
         browser.close()
 
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    start_time = time.time()
+    outcome = yield
+    result = outcome.get_result()
+
+    # Only log after the test "call" phase (not setup/teardown)
+    if result.when == "call":
+        duration = time.time() - start_time
+        status = "passed" if result.passed else "failed"
+        error_message = str(result.longrepr) if result.failed else None
+
+        # Retrieve login duration from session (if available)
+        login_duration = getattr(item.session, "login_duration", None)
+
+        log_test_result(
+            test_name=item.name,
+            status=status,
+            duration=duration,
+            error_message=error_message,
+            login_duration=login_duration
+        )
