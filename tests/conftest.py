@@ -2,6 +2,13 @@ import pytest
 import time
 from playwright.sync_api import Browser, BrowserContext, sync_playwright
 from mysql_logger import log_test_result
+from dotenv import load_dotenv
+import os
+
+load_dotenv()  # Load environment variables from .env file
+
+app_username = os.getenv("APP_USERNAME")
+app_password = os.getenv("APP_PASSWORD")
 
 @pytest.fixture(scope="session")
 def browser():
@@ -33,8 +40,8 @@ def page(request):
         # LOGIN ONCE
         page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
 
-        page.locator("//input[@name='username']").fill("Admin") 
-        page.locator("//input[@name='password']").fill("admin123")
+        page.locator("//input[@name='username']").fill(app_username) 
+        page.locator("//input[@name='password']").fill(app_password)
         page.locator("//button[@type='submit']").click()
 
         page.wait_for_url("**/dashboard/index")
