@@ -21,7 +21,7 @@ def log_test_result(test_name, status, duration, error_message=None, login_durat
     cursor = conn.cursor()
 
     query = """
-        INSERT INTO playwright_test_run_results (test_name, status, duration, error_message, executed_at, login_duration)
+        INSERT INTO playwright_orangehrmlive_demo (test_name, status, duration, error_message, executed_at, login_duration)
         VALUES (%s, %s, %s, %s, %s, %s)
     """
 
