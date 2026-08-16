@@ -6,3 +6,4 @@ class AdminPage:
 
     def click_admin_menu(self):
         self.admin_menu.click()
+        self.page.wait_for_load_state("networkidle")

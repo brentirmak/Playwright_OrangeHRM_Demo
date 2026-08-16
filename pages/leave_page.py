@@ -6,3 +6,4 @@ class LeavePage:
 
     def click_leave_menu(self):
         self.leave_menu.click()
+        self.page.wait_for_load_state("networkidle")

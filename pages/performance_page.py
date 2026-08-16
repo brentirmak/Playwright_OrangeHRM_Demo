@@ -5,5 +5,4 @@ class PerformancePage:
         self.performance_menu = page.get_by_role("link", name="Performance")
 
     def click_performance_menu(self):
-        #self.performance_menu.click()
         self.performance_menu.click()
