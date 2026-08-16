@@ -4,5 +4,5 @@ class AdminPage:
         self.page = page
         self.admin_menu = page.get_by_role("link", name="Admin")
 
-    def open_admin(self):
+    def click_admin_menu(self):
         self.admin_menu.click()

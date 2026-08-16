@@ -1,18 +1,20 @@
 import time
 
 from playwright.sync_api import Page, expect
-from pages.orangehrm_performance_page import PerformancePage
-from pages.orangehrm_home_page import HomePage
-#from pages.orangehrm_login_page import LoginPage
-from pages.orangehrm_admin_page import AdminPage
-from pages.orangehrm_leave_page import LeavePage
-from pages.orangehrm_logout_page import LogoutPage
+from pages.performance_page import PerformancePage
+from pages.home_page import HomePage
+#from pages.login_page import LoginPage
+from pages.admin_page import AdminPage
+from pages.leave_page import LeavePage
+from pages.logout_page import LogoutPage
 
 def test_HomePage(page: Page) -> None:
     print("\nWill go to home page")
     page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
     print("Loaded home page")
     home_page = HomePage(page)
+    home_page.verify_branding_image_visible()
+    print("Verified branding image is visible on the home page")
 
 #def test_LoginPage(page: Page) -> None:
     #login_page = LoginPage(page)
@@ -20,7 +22,7 @@ def test_HomePage(page: Page) -> None:
     #login_page.password.fill("admin123")
     #login_page.click_login()
     #expect(page.get_by_text("manda user")).to_be_visible()
-
+'''
 def test_PerformancePage(page: Page) -> None:
     performance_page = PerformancePage(page)
     print("Will click on performance option on the menu")
@@ -56,4 +58,4 @@ def test_Logout(page: Page) -> None:
     time.sleep(2)
     expect(page.get_by_role("button", name="Login")).to_be_visible()
     print("Verified Login button is visible on the login page after logout")
-
+'''

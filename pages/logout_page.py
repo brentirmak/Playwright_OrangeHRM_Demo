@@ -8,7 +8,7 @@ class LogoutPage:
         self.profile_menu = page.locator(".oxd-userdropdown-tab")
         self.logout_link = page.get_by_role("menuitem", name="Logout")
 
-    def logout(self):
+    def click_logout(self):
 
         self.profile_menu.click()
 
