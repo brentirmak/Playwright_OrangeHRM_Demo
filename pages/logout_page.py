@@ -11,7 +11,7 @@ class LogoutPage:
     def click_logout(self):
 
         self.profile_menu.click()
-
+        self.page.wait_for_load_state("networkidle")
         expect(self.logout_link).to_be_visible()
-
         self.logout_link.click()
+        self.page.wait_for_load_state("networkidle")
