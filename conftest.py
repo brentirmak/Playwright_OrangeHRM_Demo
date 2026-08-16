@@ -6,7 +6,7 @@ from utils.mysql_logger import log_test_result
 @pytest.fixture(scope="session")
 def shared_page():
     playwright = sync_playwright().start()
-    browser = playwright.chromium.launch(headless=False)
+    browser = playwright.chromium.launch(headless=True)
     context = browser.new_context()
     page = context.new_page()
 
