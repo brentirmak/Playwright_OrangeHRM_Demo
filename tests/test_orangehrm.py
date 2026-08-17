@@ -13,6 +13,8 @@ from pages.myinfo_page import MyInfoPage
 from pages.performance_page import PerformancePage
 from pages.directory_page import DirectoryPage
 from pages.maintenance_page import MaintenancePage
+from pages.claim_page import ClaimPage
+from pages.buzz_page import BuzzPage
 from pages.logout_page import LogoutPage
 
 def test_HomePage(shared_page):
@@ -138,7 +140,27 @@ def test_MaintenancePage(shared_page):
     maintenance_page.click_cancel_button()
     print("Clicked on cancel button on the maintenance page")
     print("Ended test_MaintenancePage transaction")
-    
+
+def test_ClaimPage(shared_page):
+    print("\nStarting test_ClaimPage transaction")
+    claim_page = ClaimPage(shared_page)
+    print("Will click on claim option on the menu")
+    claim_page.click_claim_menu()
+    print("Clicked on claim option on the menu")
+    expect(shared_page.get_by_role("heading", name="Employee Claims")).to_be_visible()
+    print("Verified Employee Claims heading is visible on the Claim page")
+    print("Ended test_ClaimPage transaction")
+
+def test_BuzzPage(shared_page):
+    print("\nStarting test_BuzzPage transaction")
+    buzz_page = BuzzPage(shared_page)
+    print("Will click on buzz option on the menu")
+    buzz_page.click_buzz_menu()
+    print("Clicked on buzz option on the menu")
+    shared_page.wait_for_selector("//p[contains(.,'Buzz Newsfeed')]")
+    print("Verified Buzz heading is visible on the Buzz page")
+    print("Ended test_BuzzPage transaction")
+
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")
     logout_page = LogoutPage(shared_page)
