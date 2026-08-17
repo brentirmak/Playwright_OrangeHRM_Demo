@@ -1,15 +1,18 @@
 import time
 
 from playwright.sync_api import Page, expect
-from pages.myinfo_page import MyInfoPage
-from pages.performance_page import PerformancePage
+
 from pages.home_page import HomePage
 from pages.login_page import LoginPage
 from pages.admin_page import AdminPage
 from pages.pim_page import PIMPage
-from pages.recruitment_page import RecruitmentPage
-from pages.time_page import TimePage
 from pages.leave_page import LeavePage
+from pages.time_page import TimePage
+from pages.recruitment_page import RecruitmentPage
+from pages.myinfo_page import MyInfoPage
+from pages.performance_page import PerformancePage
+from pages.directory_page import DirectoryPage
+from pages.maintenance_page import MaintenancePage
 from pages.logout_page import LogoutPage
 
 def test_HomePage(shared_page):
@@ -25,8 +28,12 @@ def test_HomePage(shared_page):
 def test_LoginPage(shared_page):
     print("\nStarting test_LoginPage transaction")
     login_page = LoginPage(shared_page)
+    print("Enter username and password and click Login button")
     login_page.login("Admin", "admin123")
+    print("Clicked Login button")
+    expect(shared_page.get_by_role("heading", name="Dashboard")).to_be_visible()
     shared_page.wait_for_selector("//h6[contains(.,'Dashboard')]")
+    print("Verified Dashboard heading is visible on the dashboard page")
     print("Ended test_LoginPage transaction")
 
 def test_AdminPage(shared_page):
@@ -93,7 +100,8 @@ def test_MyInfoPage(shared_page):
     print("Clicked on my info option on the menu")
     expect(shared_page.get_by_role("heading", name="Personal Details")).to_be_visible()
     print("Verified Personal Details heading is visible on the my info page")
-    expect(shared_page.get_by_role("button", name="Save")).to_be_visible()
+    #expect(shared_page.get_by_role("button", name="Save")).to_be_visible()
+    expect(shared_page.locator("form.oxd-form").get_by_role("button", name="Save")).to_be_visible()
     print("Verified Save button is visible on the my info page")
     print("Ended test_MyInfoPage transaction")
 
@@ -107,6 +115,30 @@ def test_PerformancePage(shared_page):
     print("Verified Employee Reviews heading is visible on the performance page")
     print("Ended test_PerformancePage transaction")
 
+def test_DirectoryPage(shared_page):
+    print("\nStarting test_DirectoryPage transaction")
+    directory_page = DirectoryPage(shared_page)
+    print("Will click on directory option on the menu")
+    directory_page.click_directory_menu()
+    print("Clicked on directory option on the menu")
+    shared_page.wait_for_selector("//h5[contains(.,'Directory')]")
+    print("Verified Search Directory heading is visible on the directory page")
+    expect(shared_page.get_by_role("button", name="Search")).to_be_visible()
+    print("Verified Search button is visible on the directory page")
+    print("Ended test_DirectoryPage transaction")
+
+def test_MaintenancePage(shared_page):
+    print("\nStarting test_MaintenancePage transaction")
+    maintenance_page = MaintenancePage(shared_page)
+    print("Will click on maintenance option on the menu")
+    maintenance_page.click_maintenance_menu()
+    print("Clicked on maintenance option on the menu")
+    expect(shared_page.get_by_role("heading", name="Administrator Access")).to_be_visible()
+    print("Verified Administrator Access heading is visible on the maintenance page")
+    maintenance_page.click_cancel_button()
+    print("Clicked on cancel button on the maintenance page")
+    print("Ended test_MaintenancePage transaction")
+    
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")
     logout_page = LogoutPage(shared_page)
