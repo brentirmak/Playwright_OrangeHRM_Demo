@@ -3,10 +3,27 @@ import time
 from playwright.sync_api import sync_playwright
 from utils.mysql_logger import log_test_result
 
+def pytest_addoption(parser):
+    parser.addoption(
+        "--browser",
+        action="store",
+        default="chromium",
+        help="Browser to run tests: chromium, firefox, webkit"
+    )
+
 @pytest.fixture(scope="session")
-def shared_page():
+def shared_page(request):
+    browser_name = request.config.getoption("--browser").lower()
+
     playwright = sync_playwright().start()
-    browser = playwright.chromium.launch(headless=True)
+
+    if browser_name == "firefox":
+        browser = playwright.firefox.launch(True)
+    elif browser_name == "webkit":
+        browser = playwright.webkit.launch(headless=True)
+    else:
+        browser = playwright.chromium.launch(headless=True)
+
     context = browser.new_context()
     page = context.new_page()
 
