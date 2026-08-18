@@ -18,7 +18,7 @@ def shared_page(request):
     playwright = sync_playwright().start()
 
     if browser_name == "firefox":
-        browser = playwright.firefox.launch(True)
+        browser = playwright.firefox.launch(headless=True)
     elif browser_name == "webkit":
         browser = playwright.webkit.launch(headless=True)
     else:
