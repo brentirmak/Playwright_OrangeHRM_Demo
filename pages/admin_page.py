@@ -5,8 +5,10 @@ class AdminPage:
         self.admin_menu = page.get_by_role("link", name="Admin")
         self.search_button = page.get_by_role("button", name="Search")
         self.username_field = page.get_by_role("textbox").nth(1)
-        self.job_submenu = page.get_by_text("Job", exact=True)
+        self.job_submenu = page.get_by_role("listitem").filter(has_text="Job")
         self.job_titles_submenu = page.get_by_role("menuitem", name="Job Titles")
+        self.pay_grades_submenu = page.get_by_role("menuitem", name="Pay Grades")
+        self.employment_status_submenu = page.get_by_role("menuitem", name="Employment Status")
 
     def click_admin_menu(self):
         self.admin_menu.click()
@@ -28,17 +30,17 @@ class AdminPage:
         self.job_titles_submenu.click()
         self.page.wait_for_load_state("networkidle")
 
+    def click_pay_grades_submenu(self):
+        self.pay_grades_submenu.click()
+        self.page.wait_for_load_state("networkidle")
+
+    def click_employment_status_submenu(self):
+        self.employment_status_submenu.click()
+        self.page.wait_for_load_state("networkidle")
+
     '''
-    page.get_by_text("Job", exact=True).click()
-    page.get_by_role("menuitem", name="Job Titles").click()
-    expect(page.get_by_role("heading", name="Job Titles")).to_be_visible()
-    expect(page.get_by_role("columnheader", name="Job Description")).to_be_visible()
-    expect(page.get_by_text("Automaton Tester")).to_be_visible()
-    page.get_by_role("listitem").filter(has_text="Job").locator("i").click()
-    page.get_by_role("menuitem", name="Pay Grades").click()
-    expect(page.get_by_role("heading", name="Pay Grades")).to_be_visible()
-    expect(page.get_by_role("columnheader", name="Currency")).to_be_visible()
-    expect(page.get_by_text("United States Dollar").first).to_be_visible()
+
+
     page.get_by_role("listitem").filter(has_text="Job").click()
     page.get_by_role("menuitem", name="Employment Status").click()
     expect(page.get_by_role("heading", name="Employment Status")).to_be_visible()

@@ -85,6 +85,34 @@ def test_AccessAdminPageJobTitlesSubmenu(shared_page):
     print("Verified Automaton Tester job title is visible on the Job Titles submenu page")
     print("Ended test_AccessAdminPageJobTitlesSubmenu transaction")
 
+def test_AccessAdminPagePayGradesSubmenu(shared_page):
+    print("\nStarting test_AccessAdminPagePayGradesSubmenu transaction")
+    admin_page = AdminPage(shared_page)
+    print("Will click on Job submenu under Admin menu")
+    admin_page.click_job_submenu()
+    print("Clicked on Job submenu under Admin menu")
+    print("Will click on Pay Grades submenu under Job submenu")
+    admin_page.click_pay_grades_submenu()
+    print("Clicked on Pay Grades submenu under Job submenu")
+    expect(shared_page.get_by_role("columnheader", name="Currency")).to_be_visible()
+    print("Verified Currency column header is visible on the Pay Grades submenu page")
+    print("Ended test_AccessAdminPagePayGradesSubmenu transaction")
+
+def test_AccessAdminPageEmploymentStatusSubmenu(shared_page):
+    print("\nStarting test_AccessAdminPageEmploymentStatusSubmenu transaction")
+    admin_page = AdminPage(shared_page)
+    print("Will click on Job submenu under Admin menu")
+    admin_page.click_job_submenu()
+    print("Clicked on Job submenu under Admin menu")
+    print("Will click on Employment Status submenu under Job submenu")
+    admin_page.click_employment_status_submenu()
+    print("Clicked on Employment Status submenu under Job submenu")
+    expect(shared_page.get_by_role("columnheader", name="Employment Status")).to_be_visible()
+    print("Verified Employment Status column header is visible on the Employment Status submenu page")
+    expect(shared_page.get_by_text("Full-Time Permanent")).to_be_visible()
+    print("Verified Full-Time Permanent employment status is visible on the Employment Status submenu page")
+    print("Ended test_AccessAdminPageEmploymentStatusSubmenu transaction")
+
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")
     logout_page = LogoutPage(shared_page)
