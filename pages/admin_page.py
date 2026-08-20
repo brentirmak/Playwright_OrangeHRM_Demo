@@ -43,12 +43,13 @@ class AdminPage:
         self.corporate_branding_submenu = page.get_by_role("link", name="Corporate Branding")
 
         # Configuration section
-        self.configuration_submenu = page.get_by_role("link", name="Configuration")
+        self.configuration_submenu = page.get_by_role("listitem").filter(has_text="Configuration")
         self.email_configuration_submenu = page.get_by_role("menuitem", name="Email Configuration")
         self.email_subscription_submenu = page.get_by_role("menuitem", name="Email Subscriptions")
         self.localization_submenu = page.get_by_role("menuitem", name="Localization")
         self.language_packages_submenu = page.get_by_role("menuitem", name="Language Packages")
         self.modules_submenu = page.get_by_role("menuitem", name="Modules")
+        self.social_media_authentication_submenu = page.get_by_role("menuitem", name="Social Media Authentication")
         self.register_oauth_client_submenu = page.get_by_role("menuitem", name="Register OAuth Client")
         self.ldap_configuration_submenu = page.get_by_role("menuitem", name="LDAP Configuration")
 
@@ -181,4 +182,43 @@ class AdminPage:
 
     def click_corporate_branding_submenu(self):
         self.corporate_branding_submenu.click()
+        self.page.wait_for_load_state("networkidle")
+
+    ################################################
+    # Configuration section methods
+    def click_configuration_submenu(self):
+        self.configuration_submenu.click()
+        self.page.wait_for_load_state("networkidle")
+
+    def click_email_configuration_submenu(self):
+        self.email_configuration_submenu.click()
         self.page.wait_for_load_state("networkidle")    
+
+    def click_email_subscription_submenu(self):
+        self.email_subscription_submenu.click()
+        self.page.wait_for_load_state("networkidle")
+
+    def click_localization_submenu(self):
+        self.localization_submenu.click()
+        self.page.wait_for_load_state("networkidle")    
+
+    def click_language_packages_submenu(self):
+        self.language_packages_submenu.click()
+        self.page.wait_for_load_state("networkidle")
+
+    def click_modules_submenu(self):
+        self.modules_submenu.click()
+        self.page.wait_for_load_state("networkidle")
+
+    def click_social_media_authentication_submenu(self):
+        self.social_media_authentication_submenu.click()
+        self.page.wait_for_load_state("networkidle")
+        
+    def click_register_oauth_client_submenu(self):
+        self.register_oauth_client_submenu.click()
+        self.page.wait_for_load_state("networkidle")   
+
+    def click_ldap_configuration_submenu(self):
+        self.ldap_configuration_submenu.click()
+        self.page.wait_for_load_state("networkidle")    
+
