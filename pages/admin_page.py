@@ -38,6 +38,20 @@ class AdminPage:
         self.languages_submenu = page.get_by_role("menuitem", name="Languages")
         self.memberships_submenu = page.get_by_role("menuitem", name="Memberships")
 
+        # Nationalities/Corporate Branding section
+        self.nationalities_submenu = page.get_by_role("link", name="Nationalities")
+        self.corporate_branding_submenu = page.get_by_role("link", name="Corporate Branding")
+
+        # Configuration section
+        self.configuration_submenu = page.get_by_role("link", name="Configuration")
+        self.email_configuration_submenu = page.get_by_role("menuitem", name="Email Configuration")
+        self.email_subscription_submenu = page.get_by_role("menuitem", name="Email Subscriptions")
+        self.localization_submenu = page.get_by_role("menuitem", name="Localization")
+        self.language_packages_submenu = page.get_by_role("menuitem", name="Language Packages")
+        self.modules_submenu = page.get_by_role("menuitem", name="Modules")
+        self.register_oauth_client_submenu = page.get_by_role("menuitem", name="Register OAuth Client")
+        self.ldap_configuration_submenu = page.get_by_role("menuitem", name="LDAP Configuration")
+
     ################################################
     # Admin page/section methods
     def click_admin_menu(self):
@@ -87,7 +101,6 @@ class AdminPage:
         self.page.wait_for_load_state("networkidle")
 
     
-
     ################################################
     # Job section methods
     def click_job_submenu(self):
@@ -159,3 +172,13 @@ class AdminPage:
     def click_memberships_submenu(self):
         self.memberships_submenu.click()
         self.page.wait_for_load_state("networkidle")
+
+    ################################################
+    # Nationalities/Corporate Branding section methods
+    def click_nationalities_submenu(self):
+        self.nationalities_submenu.click()
+        self.page.wait_for_load_state("networkidle")
+
+    def click_corporate_branding_submenu(self):
+        self.corporate_branding_submenu.click()
+        self.page.wait_for_load_state("networkidle")    
