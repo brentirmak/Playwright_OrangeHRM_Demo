@@ -30,6 +30,14 @@ class AdminPage:
         self.locations_submenu = page.get_by_role("menuitem", name="Locations")
         self.structure_submenu = page.get_by_role("menuitem", name="Structure")
 
+        # Qualifications section
+        self.qualifications_submenu = page.get_by_text("Qualifications")
+        self.skills_submenu = page.get_by_role("menuitem", name="Skills")
+        self.education_submenu = page.get_by_role("menuitem", name="Education")
+        self.licenses_submenu = page.get_by_role("menuitem", name="Licenses")
+        self.languages_submenu = page.get_by_role("menuitem", name="Languages")
+        self.memberships_submenu = page.get_by_role("menuitem", name="Memberships")
+
     ################################################
     # Admin page/section methods
     def click_admin_menu(self):
@@ -124,4 +132,30 @@ class AdminPage:
 
     def click_structure_submenu(self):
         self.structure_submenu.click()
+        self.page.wait_for_load_state("networkidle")
+
+    ################################################
+    # Qualifications section methods
+    def click_qualifications_submenu(self):
+        self.qualifications_submenu.click()
+        self.page.wait_for_load_state("networkidle")
+
+    def click_skills_submenu(self):
+        self.skills_submenu.click()
+        self.page.wait_for_load_state("networkidle")
+
+    def click_education_submenu(self):
+        self.education_submenu.click()
+        self.page.wait_for_load_state("networkidle")
+
+    def click_licenses_submenu(self):
+        self.licenses_submenu.click()
+        self.page.wait_for_load_state("networkidle")
+
+    def click_languages_submenu(self):
+        self.languages_submenu.click()
+        self.page.wait_for_load_state("networkidle")
+
+    def click_memberships_submenu(self):
+        self.memberships_submenu.click()
         self.page.wait_for_load_state("networkidle")
