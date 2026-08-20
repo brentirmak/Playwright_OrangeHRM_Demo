@@ -15,9 +15,7 @@ class AdminPage:
         self.employee_name_field = page.get_by_role("textbox", name="Type for hints...")
         self.status_dropdown = page.get_by_text("Status-- Select --")
         self.enabled_option = page.get_by_role("option", name="Enabled")
-        #self.employee_name_option = page.get_by_text("Test Automation")
         
-
         # Job section
         self.job_submenu = page.get_by_role("listitem").filter(has_text="Job")
         self.job_titles_submenu = page.get_by_role("menuitem", name="Job Titles")
@@ -25,6 +23,12 @@ class AdminPage:
         self.employment_status_submenu = page.get_by_role("menuitem", name="Employment Status")
         self.job_categories_submenu = page.get_by_role("menuitem", name="Job Categories")
         self.work_shifts_submenu = page.get_by_role("menuitem", name="Work Shifts")
+
+        # Organization section
+        self.organization_submenu = page.get_by_text("Organization")
+        self.general_information_submenu = page.get_by_role("menuitem", name="General Information")
+        self.locations_submenu = page.get_by_role("menuitem", name="Locations")
+        self.structure_submenu = page.get_by_role("menuitem", name="Structure")
 
     ################################################
     # Admin page/section methods
@@ -74,6 +78,8 @@ class AdminPage:
         self.enabled_option.click()
         self.page.wait_for_load_state("networkidle")
 
+    
+
     ################################################
     # Job section methods
     def click_job_submenu(self):
@@ -100,3 +106,22 @@ class AdminPage:
         self.work_shifts_submenu.click()
         self.page.wait_for_load_state("networkidle")
     ################################################
+
+
+    ################################################
+    # Organization section methods
+    def click_organization_submenu(self):
+        self.organization_submenu.click()
+        self.page.wait_for_load_state("networkidle")
+
+    def click_general_information_submenu(self):
+        self.general_information_submenu.click()
+        self.page.wait_for_load_state("networkidle")
+
+    def click_locations_submenu(self):
+        self.locations_submenu.click()
+        self.page.wait_for_load_state("networkidle")
+
+    def click_structure_submenu(self):
+        self.structure_submenu.click()
+        self.page.wait_for_load_state("networkidle")
