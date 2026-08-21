@@ -19,11 +19,11 @@ def shared_page(request):
     browser = None
     try:
         if browser_name == "firefox":
-            browser = playwright.firefox.launch(headless=False)
+            browser = playwright.firefox.launch(headless=True)
         elif browser_name == "webkit":
-            browser = playwright.webkit.launch(headless=False)
+            browser = playwright.webkit.launch(headless=True)
         else:
-            browser = playwright.chromium.launch(headless=False)
+            browser = playwright.chromium.launch(headless=True)
 
         context = browser.new_context()
         page = context.new_page()
