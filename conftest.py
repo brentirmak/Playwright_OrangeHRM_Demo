@@ -11,26 +11,27 @@ def pytest_addoption(parser):
         help="Browser to run tests: chromium, firefox, webkit"
     )
 
-@pytest.fixture(scope="session")
+#@pytest.fixture(scope="session")
+@pytest.fixture(scope="module")
 def shared_page(request):
     browser_name = request.config.getoption("--browser").lower()
-
     playwright = sync_playwright().start()
+    browser = None
+    try:
+        if browser_name == "firefox":
+            browser = playwright.firefox.launch(headless=False)
+        elif browser_name == "webkit":
+            browser = playwright.webkit.launch(headless=False)
+        else:
+            browser = playwright.chromium.launch(headless=False)
 
-    if browser_name == "firefox":
-        browser = playwright.firefox.launch(headless=True)
-    elif browser_name == "webkit":
-        browser = playwright.webkit.launch(headless=True)
-    else:
-        browser = playwright.chromium.launch(headless=True)
-
-    context = browser.new_context()
-    page = context.new_page()
-
-    yield page
-
-    browser.close()
-    playwright.stop()
+        context = browser.new_context()
+        page = context.new_page()
+        yield page
+    finally:
+        if browser:
+            browser.close()
+        playwright.stop()
 
 # attach login duration if needed
 @pytest.fixture(scope="function", autouse=True)
