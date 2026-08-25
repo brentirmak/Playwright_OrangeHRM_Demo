@@ -1,5 +1,6 @@
 import pytest
 import time
+import os
 from playwright.sync_api import sync_playwright
 from utils.mysql_logger import log_test_result
 
@@ -57,8 +58,12 @@ def pytest_runtest_makereport(item, call):
     login_duration = getattr(item, "login_duration", None)
     duration = getattr(item, "duration", result.duration)
 
+    # Extract the filename (e.g., "test_login.py")
+    script_name = os.path.basename(item.fspath)
+
     log_test_result(
         test_name=item.name,
+        script_name=script_name,
         status=status,
         duration=duration,
         error_message=error,
