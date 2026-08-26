@@ -39,8 +39,8 @@ def test_LoginPage(shared_page):
     print("Verified Dashboard heading is visible on the dashboard page")
     print("Ended test_LoginPage transaction")
 
-def test_PIMPageEmployeeListEmployeeSearch(shared_page):
-    print("\nStarting test_PIMPage transaction")
+def test_PIMPageEmployeeListSearchByEmployeeName(shared_page):
+    print("\nStarting test_PIMPageEmployeeListSearchByEmployeeName transaction")
     pim_page = PIMPage(shared_page)
     pim_page.click_pim_menu()
     print("Clicked PIM menu option")
@@ -53,7 +53,27 @@ def test_PIMPageEmployeeListEmployeeSearch(shared_page):
     pim_page.click_search_button()
     print("Entered AutoTest Runner into the Employee Name field and clicked Search button")
     expect(shared_page.get_by_text("(1) Record Found")).to_be_visible()
-    
+    print("Verified that record was found")
+    print("Ended test_PIMPageEmployeeListSearchByEmployeeName transaction")
+
+def test_PIMPageEmployeeListSearchByEmploymentStatus(shared_page):
+    print("\nStarting test_PIMPageEmployeeListSearchByEmploymentStatus transaction")
+    pim_page = PIMPage(shared_page)
+    print("Clicking on reset button")
+    pim_page.click_reset_button()
+    print("Clicked on reset button")
+    print("Will click on employment status dropdown")
+    pim_page.click_employment_status_dropdown()
+    print("Clicked on employment status dropdown - selecting full time permanent option")
+    pim_page.click_full_time_permanent_option()
+    print("Full time permanent option selected - will click on Search button")
+    pim_page.click_search_button()
+    print("Clicked on Search button")
+    expect(shared_page.get_by_text("Records Found")).to_be_visible()
+    print("Verified that records were found")
+    expect(shared_page.get_by_text("Full-Time Permanent").nth(1)).to_be_visible()
+    print("Verified that Full-Time Permanent text is visible")
+    print("\nEnded test_PIMPageEmployeeListSearchByEmploymentStatus transaction")
 
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")
