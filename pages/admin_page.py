@@ -89,8 +89,8 @@ class AdminPage:
     def enter_employee_name(self, employee_name):
         self.employee_name_field.fill(employee_name)
         self.page.wait_for_load_state("networkidle")
-        #self.page.get_by_text(employee_name).click()
-        self.page.get_by_text("manda akhil user").click()
+        self.page.get_by_text(employee_name).click()
+        #self.page.get_by_text("manda akhil user").click()
         self.page.wait_for_load_state("networkidle")
 
     def click_status_dropdown(self):

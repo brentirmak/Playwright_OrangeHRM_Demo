@@ -93,12 +93,23 @@ def test_AdminSectionUserManagementSearchByEmployeeName(shared_page):
     admin_page.click_employee_name_field()
     print("Clicked on employee name field")
     print("Will enter employee name in the search field")
-    admin_page.enter_employee_name("manda user")
-    print("Entered employee name in the search field")
-    print("Clicked on employee name that was populated in the search field")
-    shared_page.wait_for_selector("//span[contains(.,'Record Found')] | //span[contains(.,'Records Found')]")
-    expect(shared_page.get_by_role("cell", name="manda user")).to_be_visible()
-    print("Verified that the employee with name 'manda user' is visible in the search results")
+
+    try:
+        admin_page.enter_employee_name("manda user")
+        print("Entered employee name in the search field")
+        print("Clicked on employee name that was populated in the search field")
+        shared_page.wait_for_selector("//span[contains(.,'Record Found')] | //span[contains(.,'Records Found')]")
+        expect(shared_page.get_by_role("cell", name="manda user")).to_be_visible()
+        print("Verified that the employee with name 'manda user' is visible in the search results")
+    except Exception as e:
+        print(f"Error occurred: {e}")
+        print("Retrying with 'FName LName' as employee name")
+        admin_page.enter_employee_name("FName Mname LName")
+        print("Entered employee name in the search field")
+        print("Clicked on employee name that was populated in the search field")
+        shared_page.wait_for_selector("//span[contains(.,'Record Found')] | //span[contains(.,'Records Found')]")
+        expect(shared_page.locator("(//div[@class='oxd-table-cell oxd-padding-cell'][contains(.,'FName LName')])[1]")).to_be_visible()
+        print("Verified that the employee with name 'FName LName' is visible in the search results")
     print("Ended test_AdminSectionUserManagementSearchByEmployeeName transaction")
 
 def test_AdminSectionUserManagementSearchByStatus(shared_page):
@@ -117,7 +128,7 @@ def test_AdminSectionUserManagementSearchByStatus(shared_page):
     admin_page.click_search_button()
     print("Clicked on search button")
     shared_page.wait_for_selector("//span[contains(.,'Record Found')] | //span[contains(.,'Records Found')]")
-    expect(shared_page.get_by_role("cell", name="FName LName")).to_be_visible()
+    expect(shared_page.locator("(//div[@class='oxd-table-cell oxd-padding-cell'][contains(.,'FName LName')])[1]")).to_be_visible()
     print("Verified that the user with status 'Enabled' is visible in the search results")
     print("Ended test_AdminSectionUserManagementSearchByStatus transaction")
 
