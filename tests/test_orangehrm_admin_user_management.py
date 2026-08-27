@@ -95,11 +95,11 @@ def test_AdminSectionUserManagementSearchByEmployeeName(shared_page):
     print("Will enter employee name in the search field")
 
     try:
-        admin_page.enter_employee_name("manda user")
+        admin_page.enter_employee_name("manda akhil user")
         print("Entered employee name in the search field")
         print("Clicked on employee name that was populated in the search field")
         shared_page.wait_for_selector("//span[contains(.,'Record Found')] | //span[contains(.,'Records Found')]")
-        expect(shared_page.get_by_role("cell", name="manda user")).to_be_visible()
+        expect(shared_page.get_by_role("cell", name="manda user").first).to_be_visible()
         print("Verified that the employee with name 'manda user' is visible in the search results")
     except Exception as e:
         print(f"Error occurred: {e}")
