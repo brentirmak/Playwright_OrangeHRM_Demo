@@ -1,3 +1,5 @@
+import re
+
 class PIMPage:
 
     def __init__(self, page):
@@ -16,6 +18,11 @@ class PIMPage:
         self.checkbox_field = page.locator(".oxd-table-card-cell-checkbox > .oxd-checkbox-wrapper > label > .oxd-checkbox-input > .oxd-icon")
         self.delete_button = page.get_by_role("button", name=" Delete Selected")
         self.confirm_delete_button = page.get_by_role("button", name=" Yes, Delete")
+        self.reports_tab = page.get_by_role("listitem").filter(has_text="Reports")
+        self.report_name_field = page.get_by_role("textbox", name="Type for hints...")
+        self.pim_sample_report_option = page.get_by_role("option").get_by_text("PIM Sample Report")
+        self.pim_sample_report_icon = page.get_by_role("button").filter(has_text=re.compile(r"^$")).nth(5)
+
 
     def get_employee_option_by_name(self, name: str):
         """Returns the first option matching the given employee name."""
@@ -79,5 +86,18 @@ class PIMPage:
     def click_confirm_delete_button(self):
         self.confirm_delete_button.click()
     
+    def click_reports_tab(self):
+        self.reports_tab.click()
 
+    def click_report_name_field(self):
+        self.report_name_field.click()
+
+    def fill_report_name_field(self):
+        self.report_name_field.fill("PIM Sample Report")
+
+    def click_pim_sample_report_option(self):
+        self.pim_sample_report_option.click()
+
+    def click_pim_sample_report_icon(self):
+        self.pim_sample_report_icon.click()
     
