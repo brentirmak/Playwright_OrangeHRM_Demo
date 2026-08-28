@@ -88,25 +88,6 @@ def test_AdminSectionUserManagementAddUser(shared_page):
     print("Verified Successfully Saved toast message")
     print("\nEnded test_AdminSectionUserManagementAddUser transaction")
 
-def test_AdminSectionUserManagementDeleteUser(shared_page):
-    print("\nStarting test_AdminSectionUserManagementDeleteUser transaction")
-    admin_page = AdminPage(shared_page)
-    print("Will click on admin option on the menu")
-    admin_page.click_admin_menu()
-    print("Clicked on admin option on the menu - will verify the System Users header")
-    expect(shared_page.get_by_role("heading", name="System Users")).to_be_visible()
-    print("Verified the System Users header - will click on the Trash Bin icon of the to be deleted item")
-    admin_page.click_trashbin_of_tobedeleted_item()
-    print("Clicked on the trashbin - will confirm that the Are you sure? pop-up is displayed")
-    expect(shared_page.get_by_text("Are you Sure?")).to_be_visible()
-    expect(shared_page.get_by_role("button", name=" Yes, Delete")).to_be_visible()
-    print("Are you Sure? pop-up was displayed - will click on the Delete button")
-    admin_page.click_delete_button()
-    print("Clicked on the Delete button")
-    expect(shared_page.get_by_text("Successfully Deleted")).to_be_visible()
-    print("Verified that the Successfully Deleted toast message was displayed")
-    print("\nEnded test_AdminSectionUserManagementDeleteUser transaction")
-    
 def test_AdminSectionUserManagementSearchByUsername(shared_page):
     print("\nStarting test_AdminSectionUserManagementSearchByUsername transaction")
     admin_page = AdminPage(shared_page)
@@ -117,7 +98,7 @@ def test_AdminSectionUserManagementSearchByUsername(shared_page):
     admin_page.click_search_button()
     print("Clicked on search button")
     shared_page.wait_for_selector("//span[contains(.,'Record Found')] | //span[contains(.,'Records Found')]")
-    shared_page.get_by_role("table").get_by_text("Alexa Siri")
+    shared_page.get_by_role("table").get_by_text("TestUser123")
     print("Verified that the username 'Admin' is visible in the search results")
     print("Ended test_AdminSectionUserManagementSearchByUsername transaction")
 
@@ -137,7 +118,7 @@ def test_AdminSectionUserManagementSearchByUserRole(shared_page):
     admin_page.click_search_button()
     print("Clicked on search button")
     shared_page.wait_for_selector("//span[contains(.,'Record Found')] | //span[contains(.,'Records Found')]")
-    shared_page.get_by_role("table").get_by_text("Alexa Siri")
+    shared_page.get_by_role("table").get_by_text("TestUser123")
     print("Verified that the user with role 'Admin' is visible in the search results")
     print("Ended test_AdminSectionUserManagementSearchByUserRole transaction")
 
@@ -189,6 +170,25 @@ def test_AdminSectionUserManagementSearchByStatus(shared_page):
     expect(shared_page.locator("(//div[@class='oxd-table-cell oxd-padding-cell'][contains(.,'FName LName')])[1]")).to_be_visible()
     print("Verified that the user with status 'Enabled' is visible in the search results")
     print("Ended test_AdminSectionUserManagementSearchByStatus transaction")
+
+def test_AdminSectionUserManagementDeleteUser(shared_page):
+    print("\nStarting test_AdminSectionUserManagementDeleteUser transaction")
+    admin_page = AdminPage(shared_page)
+    print("Will click on admin option on the menu")
+    admin_page.click_admin_menu()
+    print("Clicked on admin option on the menu - will verify the System Users header")
+    expect(shared_page.get_by_role("heading", name="System Users")).to_be_visible()
+    print("Verified the System Users header - will click on the Trash Bin icon of the to be deleted item")
+    admin_page.click_trashbin_of_tobedeleted_item()
+    print("Clicked on the trashbin - will confirm that the Are you sure? pop-up is displayed")
+    expect(shared_page.get_by_text("Are you Sure?")).to_be_visible()
+    expect(shared_page.get_by_role("button", name=" Yes, Delete")).to_be_visible()
+    print("Are you Sure? pop-up was displayed - will click on the Delete button")
+    admin_page.click_delete_button()
+    print("Clicked on the Delete button")
+    expect(shared_page.get_by_text("Successfully Deleted")).to_be_visible()
+    print("Verified that the Successfully Deleted toast message was displayed")
+    print("\nEnded test_AdminSectionUserManagementDeleteUser transaction")
 
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")
