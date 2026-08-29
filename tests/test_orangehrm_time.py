@@ -79,6 +79,29 @@ def test_AccessAttendancePunchInOutPage(shared_page):
     print("Verified that the Punch In header was displayed")
     print("\nEnded test_AccessAttendancePunchInOutPage transaction")
 
+def test_AccessAttendanceEmployeeRecordsPage(shared_page):
+    print("\nStarting test_AccessAttendanceEmployeeRecordsPage transaction")
+    time_page = TimePage(shared_page)
+    print("Will click on the Attendance submenu")
+    time_page.click_attendance_submenu()
+    print("Clicked on the Attendance submenu")
+    time_page.click_employee_records_submenu()
+    print("Clicked on the Employee Records submenu")
+    expect(shared_page.get_by_role("heading", name="Employee Attendance Records")).to_be_visible()
+    print("Verified that the Employee Attendance Reocrds header was displayed")
+    print("\nEnded test_AccessAttendanceEmployeeRecordsPage transaction")
+
+def test_AccessAttendanceConfigurationPage(shared_page):
+    print("\nStarting test_AccessAttendanceConfigurationPage transaction")
+    time_page = TimePage(shared_page)
+    print("Will click on the Attendance submenu")
+    time_page.click_attendance_submenu()
+    print("Clicked on the Attendance submenu")
+    time_page.click_configuration_submenu()
+    print("Clicked on the Configuration submenu")
+    expect(shared_page.get_by_role("heading", name="Attendance Configuration")).to_be_visible()
+    print("Verified that the Attendance Configuration header was displayed")
+    print("\nEnded test_AccessAttendanceConfigurationPage transaction")
 
 
 
