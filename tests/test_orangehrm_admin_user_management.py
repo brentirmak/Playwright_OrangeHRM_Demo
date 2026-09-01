@@ -57,7 +57,7 @@ def test_AdminSectionUserManagementAddUser(shared_page):
     admin_page.click_status_dropdown()
     print("Clicked on the Status dropdown - will click on the Enabled option")
     admin_page.click_enabled_option()
-    print("Clicked on the Enabnled option - will click on the Create Username field")
+    print("Clicked on the Enabled option - will click on the Create Username field")
     admin_page.click_create_username_field()
     print("Clicked on the Create Username field, will enter TestUser123")
     admin_page.enter_create_username()
@@ -122,12 +122,14 @@ def test_AdminSectionUserManagementSearchByEmployeeName(shared_page):
     print("Will enter employee name in the search field")
 
     try:
-        admin_page.enter_employee_name("manda akhil user")
+        #admin_page.enter_employee_name("manda akhil user")
+        admin_page.enter_employee_name("TestUser123")
         print("Entered employee name in the search field")
         print("Clicked on employee name that was populated in the search field")
         shared_page.wait_for_selector("//span[contains(.,'Record Found')] | //span[contains(.,'Records Found')]")
-        expect(shared_page.get_by_role("cell", name="manda user").first).to_be_visible()
-        print("Verified that the employee with name 'manda user' is visible in the search results")
+        #expect(shared_page.get_by_role("cell", name="manda user").first).to_be_visible()
+        expect(shared_page.get_by_role("cell", name="TestUser123").first).to_be_visible()
+        print("Verified that the employee with name 'TestUser123' is visible in the search results")
     except Exception as e:
         print(f"Error occurred: {e}")
         print("Retrying with 'FName LName' as employee name")
