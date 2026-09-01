@@ -20,9 +20,27 @@ class PIMPage:
         self.confirm_delete_button = page.get_by_role("button", name=" Yes, Delete")
         self.reports_tab = page.get_by_role("listitem").filter(has_text="Reports")
         self.report_name_field = page.get_by_role("textbox", name="Type for hints...")
+
+
         self.pim_sample_report_option = page.get_by_role("option").get_by_text("PIM Sample Report")
         self.pim_sample_report_icon = page.get_by_role("button").filter(has_text=re.compile(r"^$")).nth(5)
 
+        self.pim_add_report_button = page.get_by_role("button", name=" Add")
+        self.pim_report_name_field = page.get_by_role("textbox", name="Type here")
+        self.pim_selection_criteria_dropdown = page.get_by_text("-- Select --").first
+        self.pim_selection_criteria_dropdown_employee_name_option = page.get_by_text("Employee Name")
+        self.pim_include_dropdown = page.get_by_text("Current Employees Only")
+        self.pim_include_dropdown_current_and_past_employees_only_option = page.get_by_text("Current and Past Employees")
+        self.pim_display_field_group_dropdown = page.get_by_text("-- Select --").first
+        self.pim_display_field_group_dropdown_personal_option = page.get_by_text("Personal")
+        self.pim_select_display_field_dropdown = page.get_by_text("-- Select --")
+        self.pim_select_display_field_dropdown_employee_id_option = page.get_by_text("Employee Id")
+
+        self.pim_add_display_fields_button = page.get_by_role("button").nth(4)
+
+        self.pim_to_be_deleted_report_checkbox = page.get_by_role("row", name=" Temporary Test Report   ").locator("label")
+        self.pim_to_be_deleted_report_delete_button = page.get_by_role("button").filter(has_text=re.compile(r"^$")).nth(3)
+        self.pim_delete_report_confirm_button = page.get_by_role("button", name=" Yes, Delete")
 
     def get_employee_option_by_name(self, name: str):
         """Returns the first option matching the given employee name."""
@@ -100,4 +118,61 @@ class PIMPage:
 
     def click_pim_sample_report_icon(self):
         self.pim_sample_report_icon.click()
+
+    #################################################################################################################
+    # Add Report sub-menu methods
+    #################################################################################################################
+    def click_pim_add_report_button(self):
+        self.pim_add_report_button.click()
+
+    def click_pim_report_name_field(self):
+        self.pim_report_name_field.click()
+
+    def enter_pim_report_name(self, report_name):
+        self.pim_report_name_field.fill(report_name)
+
+    def click_pim_selection_criteria_dropdown(self):
+        self.pim_selection_criteria_dropdown.click()
+
+    def click_pim_selection_criteria_employee_name_option(self):
+        self.pim_selection_criteria_dropdown_employee_name_option.click()
+
+    def click_pim_include_dropdown(self):
+        self.pim_include_dropdown.click()
+
+    def click_pim_include_current_and_past_employees_only_option(self):
+        self.pim_include_dropdown_current_and_past_employees_only_option.click()
+
+    def click_pim_display_field_group_dropdown(self):
+        self.pim_display_field_group_dropdown.click()
+
+    def click_pim_display_field_group_dropdown_personal_option(self):
+        self.pim_display_field_group_dropdown_personal_option.click()
+
+    def click_pim_select_display_field_dropdown(self):
+        self.pim_select_display_field_dropdown.click()
+
+    def click_pim_select_display_field_dropdown_employee_id_option(self):
+        self.pim_select_display_field_dropdown_employee_id_option.click()
+
+    def click_pim_add_display_fields_button(self):
+        self.pim_add_display_fields_button.click()
+
+    def click_trashbin_of_tobedeleted_item(self):
+        row = self.page.locator("div.oxd-table-card").filter(has_text="Temporary Test Report")
+        row.get_by_role("button").filter(has=self.page.locator("i.bi-trash")).click()
+        self.page.wait_for_load_state("networkidle")
+
+
+    #def click_pim_to_be_deleted_report_checkbox(self):
+    #    self.pim_to_be_deleted_report_checkbox.click()
+
+    #def click_pim_to_be_deleted_report_delete_button(self):
+    #    self.pim_to_be_deleted_report_delete_button.click()
+
+
+
+
+    def click_pim_delete_report_confirm_button(self):
+        self.pim_delete_report_confirm_button.click()
     
