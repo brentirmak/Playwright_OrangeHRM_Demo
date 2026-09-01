@@ -102,7 +102,6 @@ def test_MyInfoPage(shared_page):
     print("Clicked on my info option on the menu")
     expect(shared_page.get_by_role("heading", name="Personal Details")).to_be_visible()
     print("Verified Personal Details heading is visible on the my info page")
-    #expect(shared_page.get_by_role("button", name="Save")).to_be_visible()
     expect(shared_page.locator("form.oxd-form").get_by_role("button", name="Save")).to_be_visible()
     print("Verified Save button is visible on the my info page")
     print("Ended test_MyInfoPage transaction")
