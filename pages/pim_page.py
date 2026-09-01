@@ -20,11 +20,8 @@ class PIMPage:
         self.confirm_delete_button = page.get_by_role("button", name=" Yes, Delete")
         self.reports_tab = page.get_by_role("listitem").filter(has_text="Reports")
         self.report_name_field = page.get_by_role("textbox", name="Type for hints...")
-
-
-        self.pim_sample_report_option = page.get_by_role("option").get_by_text("PIM Sample Report")
-        self.pim_sample_report_icon = page.get_by_role("button").filter(has_text=re.compile(r"^$")).nth(5)
-
+        self.temporary_test_report_option = page.get_by_role("option").get_by_text("Temporary Test Report")
+        self.pim_test_report_icon = page.get_by_role("button").filter(has_text=re.compile(r"^$")).nth(5)
         self.pim_add_report_button = page.get_by_role("button", name=" Add")
         self.pim_report_name_field = page.get_by_role("textbox", name="Type here")
         self.pim_selection_criteria_dropdown = page.get_by_text("-- Select --").first
@@ -35,9 +32,7 @@ class PIMPage:
         self.pim_display_field_group_dropdown_personal_option = page.get_by_text("Personal")
         self.pim_select_display_field_dropdown = page.get_by_text("-- Select --")
         self.pim_select_display_field_dropdown_employee_id_option = page.get_by_text("Employee Id")
-
         self.pim_add_display_fields_button = page.get_by_role("button").nth(4)
-
         self.pim_to_be_deleted_report_checkbox = page.get_by_role("row", name=" Temporary Test Report   ").locator("label")
         self.pim_to_be_deleted_report_delete_button = page.get_by_role("button").filter(has_text=re.compile(r"^$")).nth(3)
         self.pim_delete_report_confirm_button = page.get_by_role("button", name=" Yes, Delete")
@@ -111,13 +106,13 @@ class PIMPage:
         self.report_name_field.click()
 
     def fill_report_name_field(self):
-        self.report_name_field.fill("PIM Sample Report")
+        self.report_name_field.fill("Temporary Test Report")
 
-    def click_pim_sample_report_option(self):
-        self.pim_sample_report_option.click()
+    def click_temporary_test_report_option(self):
+        self.temporary_test_report_option.click()
 
-    def click_pim_sample_report_icon(self):
-        self.pim_sample_report_icon.click()
+    def click_pim_test_report_icon(self):
+        self.pim_test_report_icon.click()
 
     #################################################################################################################
     # Add Report sub-menu methods
