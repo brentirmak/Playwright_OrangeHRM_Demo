@@ -111,13 +111,14 @@ class AdminPage:
         self.page.wait_for_load_state("networkidle")
 
     def enter_employee_name(self, employee_name):
-        if employee_name == "manda akhil user":
+        if employee_name == "FName Mname LName":
             self.employee_name_field.fill(employee_name)
             self.page.wait_for_load_state("networkidle")
             self.page.get_by_text(employee_name).click()
             self.page.wait_for_load_state("networkidle")
         else:
             employee_name = "FName Mname LName"
+            self.employee_name_field.clear()
             self.employee_name_field.fill(employee_name)
             self.page.wait_for_load_state("networkidle")
             self.page.get_by_text(employee_name).click()
