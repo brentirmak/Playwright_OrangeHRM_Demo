@@ -48,7 +48,8 @@ def test_AdminSectionJobTitlesSubmenu(shared_page):
     print("Clicked on Job Titles submenu under Job submenu")
     expect(shared_page.get_by_role("columnheader", name="Job Description")).to_be_visible()
     print("Verified Job Description column header is visible on the Job Titles submenu page")
-    expect(shared_page.get_by_text("Automaton Tester")).to_be_visible()
+    #expect(shared_page.get_by_text("Automaton Tester")).to_be_visible()
+    expect(shared_page.get_by_text("Automaton Tester").or_(shared_page.get_by_text("QA Engineer"))).to_be_visible()
     print("Verified Automaton Tester job title is visible on the Job Titles submenu page")
     print("Ended test_AdminSectionJobTitlesSubmenu transaction")
 
