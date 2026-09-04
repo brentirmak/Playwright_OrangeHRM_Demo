@@ -1,5 +1,5 @@
+import re
 from playwright.sync_api import Page, expect
-
 from conftest import shared_page
 from pages.home_page import HomePage
 from pages.login_page import LoginPage
@@ -48,8 +48,16 @@ def test_AdminSectionJobTitlesSubmenu(shared_page):
     print("Clicked on Job Titles submenu under Job submenu")
     expect(shared_page.get_by_role("columnheader", name="Job Description")).to_be_visible()
     print("Verified Job Description column header is visible on the Job Titles submenu page")
+    if shared_page.get_by_text("Automaton Tester").count() > 0:
+        expect(shared_page.get_by_text("Automaton Tester")).to_be_visible()
+    else:
+        expect(shared_page.get_by_text("QA Engineer")).to_be_visible()
+
     #expect(shared_page.get_by_text("Automaton Tester")).to_be_visible()
-    expect(shared_page.get_by_text("Automaton Tester").or_(shared_page.get_by_text("QA Engineer"))).to_be_visible()
+    #expect(shared_page.locator(":text-matches('Automaton Tester|QA Engineer')")).to_be_visible()
+    #expect(shared_page.get_by_text("Automaton Tester").or_(shared_page.get_by_text("QA Engineer"))).to_be_visible()
+    #expect(shared_page.get_by_text(r"^(Automaton Tester|QA Engineer)$")).to_be_visible()
+    #expect(shared_page.get_by_role("row", name=re.compile(r"Automaton Tester|QA Engineer"))).to_be_visible()
     print("Verified Automaton Tester job title is visible on the Job Titles submenu page")
     print("Ended test_AdminSectionJobTitlesSubmenu transaction")
 
