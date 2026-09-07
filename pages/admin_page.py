@@ -116,8 +116,13 @@ class AdminPage:
             self.page.wait_for_load_state("networkidle")
             self.page.get_by_text(employee_name).click()
             self.page.wait_for_load_state("networkidle")
+        elif employee_name == "John Doe":
+            self.employee_name_field.clear()
+            self.employee_name_field.fill(employee_name)
+            self.page.wait_for_load_state("networkidle")
+            self.page.get_by_text(employee_name).click()
+            self.page.wait_for_load_state("networkidle")
         else:
-            employee_name = "FName Mname LName"
             self.employee_name_field.clear()
             self.employee_name_field.fill(employee_name)
             self.page.wait_for_load_state("networkidle")
