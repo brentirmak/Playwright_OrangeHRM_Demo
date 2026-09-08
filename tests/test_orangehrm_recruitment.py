@@ -112,6 +112,26 @@ def test_RecruitmentPageSearchByStatus(shared_page):
     print("Verified Records Found is visible in the search results")
     print("Ended test_RecruitmentPageSearchByStatus transaction")
 
+def test_RecruitmentPageSearchByKeywords(shared_page):
+    print("\nStarting test_RecruitmentPageSearchByKeywords transaction")
+    recruitment_page = RecruitmentPage(shared_page)
+    print("Will click on Recruitment menu")
+    recruitment_page.click_recruitment_menu()
+    print("Clicked on Recruitment menu")
+    print("Will click on Keywords textbox")
+    recruitment_page.click_keywords_textbox()
+    print("Clicked on Keywords textbox")
+    print("Will enter keywords in the textbox")
+    recruitment_page.enter_keywords("Test")
+    print("Entered keywords in the textbox")
+    print("Will click on Search button")
+    recruitment_page.click_search_button()
+    print("Clicked on Search button")
+    #expect(shared_page.wait_for_selector("//span[contains(.,'Record Found')] | //span[contains(.,'Records Found')]"))
+    expect(shared_page.locator("span", has_text=re.compile(r"Records? Found"))).to_be_visible()
+    print("Verified Records Found is visible in the search results")
+    print("Ended test_RecruitmentPageSearchByKeywords transaction")
+
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")
     logout_page = LogoutPage(shared_page)

@@ -16,6 +16,7 @@ class RecruitmentPage:
         self.hiring_manager_dropdown_first_option = page.get_by_role("option").first
         self.status_dropdown = page.get_by_text("-- Select --").nth(3)
         self.status_dropdown_application_initiated_option = page.get_by_role("listbox").get_by_text("Application Initiated")
+        self.keywords_textbox = page.get_by_role("textbox", name="Enter comma seperated words...")
 
     def click_recruitment_menu(self):
         self.recruitment_menu.click()
@@ -49,5 +50,12 @@ class RecruitmentPage:
 
     def click_status_dropdown_application_initiated_option(self):
         self.status_dropdown_application_initiated_option.click()
+
+    def click_keywords_textbox(self):
+        self.keywords_textbox.click()
+
+    def enter_keywords(self, keywords): 
+        self.keywords_textbox.fill(keywords)
+    
 
     
