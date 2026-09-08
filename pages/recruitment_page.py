@@ -14,6 +14,8 @@ class RecruitmentPage:
         self.software_engineer_vacancy_option = page.get_by_role("option", name="Software Engineer")
         self.hiring_manager_dropdown = page.get_by_text("-- Select --").nth(2)
         self.hiring_manager_dropdown_first_option = page.get_by_role("option").first
+        self.status_dropdown = page.get_by_text("-- Select --").nth(3)
+        self.status_dropdown_application_initiated_option = page.get_by_role("listbox").get_by_text("Application Initiated")
 
     def click_recruitment_menu(self):
         self.recruitment_menu.click()
@@ -41,4 +43,11 @@ class RecruitmentPage:
 
     def click_hiring_manager_dropdown_first_option(self):
         self.hiring_manager_dropdown_first_option.click()
+
+    def click_status_dropdown(self):
+        self.status_dropdown.click()
+
+    def click_status_dropdown_application_initiated_option(self):
+        self.status_dropdown_application_initiated_option.click()
+
     
