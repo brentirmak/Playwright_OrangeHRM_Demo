@@ -28,8 +28,8 @@ def test_LoginPage(shared_page):
     print("Verified Dashboard heading is visible on the dashboard page")
     print("Ended test_LoginPage transaction")
 
-def test_RecruitmentPage(shared_page):
-    print("\nStarting test_RecruitmentPage transaction")
+def test_RecruitmentPageSearchByTitle(shared_page):
+    print("\nStarting test_RecruitmentPageSearchByTitle transaction")
     recruitment_page = RecruitmentPage(shared_page)
     print("Will click on Recruitment menu")
     recruitment_page.click_recruitment_menu()
@@ -48,7 +48,29 @@ def test_RecruitmentPage(shared_page):
     #expect(shared_page.wait_for_selector("//span[contains(.,'Record Found')] | //span[contains(.,'Records Found')]"))
     expect(shared_page.locator("span", has_text=re.compile(r"Records? Found"))).to_be_visible()
     print("Verified Records Found is visible in the search results")
-    print("Ended test_RecruitmentPage transaction")
+    print("Ended test_RecruitmentPageSearchByTitle transaction")
+
+def test_RecruitmentPageSearchByVacancy(shared_page):
+    print("\nStarting test_RecruitmentPageSearchByVacancy transaction")
+    recruitment_page = RecruitmentPage(shared_page)
+    print("Will click on Recruitment menu")
+    recruitment_page.click_recruitment_menu()
+    print("Clicked on Recruitment menu")
+    print("Will click on Vacancy dropdown")
+    recruitment_page.click_vacancy_dropdown()
+    print("Clicked on Vacancy dropdown")
+    print("Will select Software Engineer option from the dropdown")
+    recruitment_page.click_software_engineer_vacancy_option()
+    print("Selected Software Engineer option from the dropdown")
+    print("Will click on Search button")
+    recruitment_page.click_search_button()
+    print("Clicked on Search button")
+    expect(shared_page.get_by_role("cell", name="Software Engineer").first).to_be_visible()
+    print("Verified Software Engineer job title is visible in the search results")
+    #expect(shared_page.wait_for_selector("//span[contains(.,'Record Found')] | //span[contains(.,'Records Found')]"))
+    expect(shared_page.locator("span", has_text=re.compile(r"Records? Found"))).to_be_visible()
+    print("Verified Records Found is visible in the search results")
+    print("Ended test_RecruitmentPageSearchByVacancy transaction")
 
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")
