@@ -11,9 +11,9 @@ class RecruitmentPage:
         self.search_button = page.get_by_role("button", name="Search")
         self.reset_button = page.get_by_role("button", name="Reset")
         self.vacancy_dropdown = page.get_by_text("-- Select --").nth(1)
-        #self.software_engineer_vacancy_option = page.locator("div").filter(has_text=re.compile(r"^Software Engineer$")).nth(2)
-        # page.get_by_role("option", name="Software Engineer")
         self.software_engineer_vacancy_option = page.get_by_role("option", name="Software Engineer")
+        self.hiring_manager_dropdown = page.get_by_text("-- Select --").nth(2)
+        self.hiring_manager_dropdown_first_option = page.get_by_role("option").first
 
     def click_recruitment_menu(self):
         self.recruitment_menu.click()
@@ -35,4 +35,10 @@ class RecruitmentPage:
 
     def click_software_engineer_vacancy_option(self):
         self.software_engineer_vacancy_option.click()
+
+    def click_hiring_manager_dropdown(self):
+        self.hiring_manager_dropdown.click()
+
+    def click_hiring_manager_dropdown_first_option(self):
+        self.hiring_manager_dropdown_first_option.click()
     
