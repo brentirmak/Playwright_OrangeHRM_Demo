@@ -5,6 +5,10 @@ class RecruitmentPage:
 
     def __init__(self, page):
         self.page = page
+
+        #
+        # Candidates
+        #
         self.recruitment_menu = page.get_by_role("link", name="Recruitment")
         self.job_title_dropdown = page.get_by_text("-- Select --").first
         self.software_engineer_option = page.get_by_role("listbox").get_by_text("Software Engineer", exact=True)
@@ -17,6 +21,12 @@ class RecruitmentPage:
         self.status_dropdown = page.get_by_text("-- Select --").nth(3)
         self.status_dropdown_application_initiated_option = page.get_by_role("listbox").get_by_text("Application Initiated")
         self.keywords_textbox = page.get_by_role("textbox", name="Enter comma seperated words...")
+
+        #
+        # Vacancies
+        #
+        self.vacancies_submenu = page.get_by_role("link", name="Vacancies")
+        self.job_title_dropdown_account_assistant_option = page.get_by_role("listbox").get_by_text("Account Assistant")
 
     def click_recruitment_menu(self):
         self.recruitment_menu.click()
@@ -57,5 +67,11 @@ class RecruitmentPage:
     def enter_keywords(self, keywords): 
         self.keywords_textbox.fill(keywords)
     
+    def click_vacancies_submenu(self):
+        self.vacancies_submenu.click()
 
+    def click_job_title_dropdown_account_assistant_option(self):
+        self.job_title_dropdown_account_assistant_option.click()
+    
+    
     
