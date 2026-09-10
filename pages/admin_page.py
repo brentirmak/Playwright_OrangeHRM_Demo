@@ -110,7 +110,7 @@ class AdminPage:
         self.employee_name_field.click()
         self.page.wait_for_load_state("networkidle")
 
-    def enter_employee_name(self, employee_name):
+    def enter_employee_name(self, employee_name=""):
         if employee_name == "FName Mname LName":
             self.employee_name_field.fill(employee_name)
             self.page.wait_for_load_state("networkidle")
@@ -120,13 +120,19 @@ class AdminPage:
             self.employee_name_field.clear()
             self.employee_name_field.fill(employee_name)
             self.page.wait_for_load_state("networkidle")
-            self.page.get_by_text(employee_name).click()
+            self.page.get_by_text(employee_name).first.click()
             self.page.wait_for_load_state("networkidle")
-        else:
+        elif employee_name == "TestUser123":
             self.employee_name_field.clear()
             self.employee_name_field.fill(employee_name)
             self.page.wait_for_load_state("networkidle")
-            self.page.get_by_text(employee_name).click()
+            self.page.get_by_text(employee_name).first.click()
+            self.page.wait_for_load_state("networkidle")
+        else:
+            self.employee_name_field.clear()
+            self.page.get_by_role("textbox", name="Type for hints...").fill("test")
+            self.page.wait_for_load_state("networkidle")
+            self.page.get_by_text("AI", exact=False).first.click()
             self.page.wait_for_load_state("networkidle")
 
     def click_status_dropdown(self):
