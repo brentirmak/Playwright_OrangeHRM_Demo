@@ -43,20 +43,7 @@ class MyInfoPage:
     def click_memberships_submenu(self):
         self.memberships_submenu.click()
 
-    
-    '''
-    page.get_by_role("link", name="Report-to").click()
-    expect(page.get_by_role("heading", name="Report to")).to_be_visible()
-    expect(page.get_by_role("heading", name="Assigned Subordinates")).to_be_visible()
-    expect(page.get_by_role("heading", name="Attachments")).to_be_visible()
-    page.get_by_role("link", name="Qualifications").click()
-    expect(page.get_by_role("heading", name="Qualifications")).to_be_visible()
-    expect(page.get_by_role("heading", name="Work Experience")).to_be_visible()
-    expect(page.get_by_role("heading", name="Education")).to_be_visible()
-    page.get_by_role("link", name="Memberships").click()
-    expect(page.get_by_role("heading", name="Assigned Memberships")).to_be_visible()
-    expect(page.get_by_role("heading", name="Attachments")).to_be_visible()
-    '''
+
 
 
 

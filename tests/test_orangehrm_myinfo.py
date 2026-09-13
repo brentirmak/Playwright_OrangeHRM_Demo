@@ -111,6 +111,48 @@ def test_AccessMyInfoSalarySubmenu(shared_page):
     print("Verified that the Attachments header was displayed")
     print("\nEnded test_AccessMyInfoSalarySubmenu transaction")
 
+def test_AccessMyInfoReportToSubmenu(shared_page):
+    print("\nStarting test_AccessMyInfoReportToSubmenu transaction")
+    myinfo_page = MyInfoPage(shared_page)
+    print("Will access the Report-to submenu under My Info section/page")
+    myinfo_page.click_report_to_submenu()
+    print("Clicked on the Report-to submenu item")
+    expect(shared_page.get_by_role("heading", name="Report to")).to_be_visible()
+    print("Verified that the Report to header was displayed")
+    expect(shared_page.get_by_role("heading", name="Assigned Subordinates")).to_be_visible()
+    print("Verified that the Assigned Subordinates header was displayed")
+    expect(shared_page.get_by_role("heading", name="Attachments")).to_be_visible()
+    print("Verified that the Attachments header was displayed")
+    print("\nEnded test_AccessMyInfoReportToSubmenu transaction")
+
+def test_AccessMyInfoQualificationsSubmenu(shared_page):
+    print("\nStarting test_AccessMyInfoQualificationsSubmenu transaction")
+    myinfo_page = MyInfoPage(shared_page)
+    print("Will access the Qualifications submenu under My Info section/page")
+    myinfo_page.click_qualifications_submenu()
+    print("Clicked on the Qualifications submenu item")
+    expect(shared_page.get_by_role("heading", name="Qualifications")).to_be_visible()
+    print("Verified that the Qualifications header was displayed")
+    expect(shared_page.get_by_role("heading", name="Work Experience")).to_be_visible()
+    print("Verified that the Work Experience header was displayed")
+    expect(shared_page.get_by_role("heading", name="Education")).to_be_visible()
+    print("Verified that the Education header was displayed")
+    expect(shared_page.get_by_role("heading", name="Attachments")).to_be_visible()
+    print("Verified that the Attachments header was displayed")
+    print("\nEnded test_AccessMyInfoQualificationsSubmenu transaction")
+
+def test_AccessMyInfoMembershipsSubmenu(shared_page):
+    print("\nStarting test_AccessMyInfoMembershipsSubmenu transaction")
+    myinfo_page = MyInfoPage(shared_page)
+    print("Will access the Memberships submenu under My Info section/page")
+    myinfo_page.click_memberships_submenu()
+    print("Clicked on the Memberships submenu item")
+    expect(shared_page.get_by_role("heading", name="Assigned Memberships")).to_be_visible()
+    print("Verified that the Assigned Memberships header was displayed")
+    expect(shared_page.get_by_role("heading", name="Attachments")).to_be_visible()
+    print("Verified that the Attachments header was displayed")
+    print("\nEnded test_AccessMyInfoMembershipsSubmenu transaction")
+
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")
     logout_page = LogoutPage(shared_page)
