@@ -45,14 +45,6 @@ class MyInfoPage:
 
     
     '''
-    page.get_by_role("link", name="Contact Details").click()
-                expect(page.get_by_role("heading", name="Contact Details")).to_be_visible()
-    
-    expect(page.get_by_role("heading", name="Attachments")).to_be_visible()
-                page.get_by_role("link", name="Emergency Contacts").click()
-    
-    expect(page.get_by_role("heading", name="Assigned Emergency Contacts")).to_be_visible()
-    expect(page.get_by_role("heading", name="Attachments")).to_be_visible()
                 page.get_by_role("link", name="Dependents").click()
     
     expect(page.get_by_role("heading", name="Assigned Dependents")).to_be_visible()
