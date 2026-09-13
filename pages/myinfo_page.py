@@ -45,13 +45,6 @@ class MyInfoPage:
 
     
     '''
-
-    page.get_by_role("link", name="Job").click()
-    expect(page.get_by_role("heading", name="Job Details")).to_be_visible()
-    expect(page.get_by_role("heading", name="Attachments")).to_be_visible()
-    page.get_by_role("link", name="Salary").click()
-    expect(page.get_by_role("heading", name="Assigned Salary Components")).to_be_visible()
-    page.get_by_role("heading", name="Attachments").click()
     page.get_by_role("link", name="Report-to").click()
     expect(page.get_by_role("heading", name="Report to")).to_be_visible()
     expect(page.get_by_role("heading", name="Assigned Subordinates")).to_be_visible()
