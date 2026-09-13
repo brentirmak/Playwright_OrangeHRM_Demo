@@ -45,14 +45,7 @@ class MyInfoPage:
 
     
     '''
-                page.get_by_role("link", name="Dependents").click()
-    
-    expect(page.get_by_role("heading", name="Assigned Dependents")).to_be_visible()
-    expect(page.get_by_role("heading", name="Attachments")).to_be_visible()
-                page.get_by_role("link", name="Immigration").click()
 
-    expect(page.get_by_role("heading", name="Assigned Immigration Records")).to_be_visible()
-    expect(page.get_by_role("heading", name="Attachments")).to_be_visible()
     page.get_by_role("link", name="Job").click()
     expect(page.get_by_role("heading", name="Job Details")).to_be_visible()
     expect(page.get_by_role("heading", name="Attachments")).to_be_visible()

@@ -63,6 +63,30 @@ def test_AccessMyInfoEmergencyContactsSubmenu(shared_page):
     print("Verified that the Attachments header was displayed")
     print("\nEnded test_AccessMyInfoEmergencyContactsSubmenu transaction")
 
+def test_AccessMyInfoDependentsSubmenu(shared_page):
+    print("\nStarting test_AccessMyInfoDependentsSubmenu transaction")
+    myinfo_page = MyInfoPage(shared_page)
+    print("Will access the Dependents submenu under My Info section/page")
+    myinfo_page.click_dependents_submenu()
+    print("Clicked on the Dependents submenu item")
+    expect(shared_page.get_by_role("heading", name="Assigned Dependents")).to_be_visible()
+    print("Verified that the Assigned Dependents header was displayed")
+    expect(shared_page.get_by_role("heading", name="Attachments")).to_be_visible()
+    print("Verified that the Attachments header was displayed")
+    print("\nEnded test_AccessMyInfoDependentsSubmenu transaction")
+
+def test_AccessMyInfoImmigrationSubmenu(shared_page):
+    print("\nStarting test_AccessMyInfoImmigrationSubmenu transaction")
+    myinfo_page = MyInfoPage(shared_page)
+    print("Will access the Immigration submenu under My Info section/page")
+    myinfo_page.click_immigration_submenu()
+    print("Clicked on the Immigration submenu item")
+    expect(shared_page.get_by_role("heading", name="Assigned Immigration Records")).to_be_visible()
+    print("Verified that the Assigned Immigration Records header was displayed")
+    expect(shared_page.get_by_role("heading", name="Attachments")).to_be_visible()  
+    print("Verified that the Attachments header was displayed")
+    print("\nEnded test_AccessMyInfoImmigrationSubmenu transaction")
+
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")
     logout_page = LogoutPage(shared_page)
