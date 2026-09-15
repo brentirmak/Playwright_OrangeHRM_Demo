@@ -58,11 +58,7 @@ def test_AccessPerformanceTrackersSubmenu(shared_page):
     print("\nStarting test_AccessPerformanceTrackersSubmenu transaction")
     performance_page = PerformancePage(shared_page)
     print("Will click on the Configure submenu under Performance section/page")
-
-
     performance_page.click_configure_submenu()
-
-
     print("Clicked on the Configure submenu item")
     print("Will click on the Trackers submenu under Configure submenu")
     performance_page.click_trackers_submenu()
@@ -70,6 +66,20 @@ def test_AccessPerformanceTrackersSubmenu(shared_page):
     expect(shared_page.get_by_role("heading", name="Performance Trackers")).to_be_visible()
     print("Verified that the Performance Trackers header was displayed")
     print("\nEnded test_AccessPerformanceTrackersSubmenu transaction")
+
+def test_AccessPerformanceManageReviewsSubmenu(shared_page):
+    print("\nStarting test_AccessPerformanceManageReviewsSubmenu transaction")
+    performance_page = PerformancePage(shared_page)
+    print("Will click on the Manage Reviews submenu under Performance section/page")
+    performance_page.click_manage_reviews_submenu()
+    print("Clicked on the Manage Reviews submenu item")
+
+    performance_page.click_manage_reviews_manage_reviews_submenu()
+
+    print("Clicked on the Manage Reviews submenu item under Manage Reviews")
+    expect(shared_page.get_by_role("heading", name="Manage Performance Reviews")).to_be_visible()
+    print("Verified that the Manage Performance Reviews header was displayed")
+    print("\nEnded test_AccessPerformanceManageReviewsSubmenu transaction")
 
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")
