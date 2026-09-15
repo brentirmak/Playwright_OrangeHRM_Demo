@@ -40,6 +40,18 @@ def test_AccessPerformanceSection(shared_page):
     print("Verified that the Employee Reviews header was displayed")
     print("\nEnded test_AccessPerformanceSection transaction")
 
+def test_AccessPerformanceConfigureKPIsSubmenu(shared_page):
+    print("\nStarting test_AccessPerformanceConfigureKPIsSubmenu transaction")
+    performance_page = PerformancePage(shared_page)
+    print("Will access the Configure KPIs submenu under Performance section/page")
+    performance_page.click_configure_submenu()
+    print("Clicked on the Configure submenu item")
+    performance_page.click_configure_kpis_submenu()
+    print("Clicked on the KPIs submenu item")
+    expect(shared_page.get_by_role("heading", name="Key Performance Indicators")).to_be_visible()
+    print("Verified that the Key Performance Indicators header was displayed")
+    print("\nEnded test_AccessPerformanceConfigureKPIsSubmenu transaction")
+
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")
     logout_page = LogoutPage(shared_page)
