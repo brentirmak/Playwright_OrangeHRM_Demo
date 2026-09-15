@@ -12,7 +12,8 @@ class PerformancePage:
         self.manage_reviews_manage_reviews_submenu = page.locator("//a[contains(.,'Manage Reviews')]")
         self.my_reviews_submenu = page.get_by_role("menuitem", name="My Reviews")
         self.employee_reviews_submenu = page.get_by_role("menuitem", name="Employee Reviews")
-        self.my_trackers_submenu = page.get_by_role("link", name="My Trackers")
+        #self.my_trackers_submenu = page.get_by_role("link", name="My Trackers")
+        self.my_trackers_submenu = page.locator("//a[@class='oxd-topbar-body-nav-tab-item'][contains(.,'My Trackers')]")
         self.employee_trackers_submenu = page.get_by_role("link", name="Employee Trackers")
 
     def click_performance_menu(self):
