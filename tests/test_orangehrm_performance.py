@@ -115,6 +115,16 @@ def test_AccessPerformanceMyTrackersSubmenu(shared_page):
     print("Verified that the My Trackers header was displayed")
     print("\nEnded test_AccessPerformanceMyTrackersSubmenu transaction")
 
+def test_AccessPerformanceEmployeeTrackersSubmenu(shared_page):
+    print("\nStarting test_AccessPerformanceEmployeeTrackersSubmenu transaction")
+    performance_page = PerformancePage(shared_page)
+    print("Will click on the Employee Trackers submenu under Performance section/page")
+    performance_page.click_employee_trackers_submenu()
+    print("Clicked on the Employee Trackers submenu item")
+    expect(shared_page.get_by_role("heading", name="Employee Performance Trackers")).to_be_visible()
+    print("Verified that the Employee Trackers header was displayed")
+    print("\nEnded test_AccessPerformanceEmployeeTrackersSubmenu transaction")
+
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")
     logout_page = LogoutPage(shared_page)
