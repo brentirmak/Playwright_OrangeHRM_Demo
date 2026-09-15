@@ -5,9 +5,16 @@ class PerformancePage:
     def __init__(self, page):
         self.page = page
         self.performance_menu = page.get_by_role("link", name="Performance")
-        self.configure_submenu = page.get_by_text("Configure")
+
+        #self.configure_submenu = page.get_by_text("Configure")
+        self.configure_submenu = page.locator("//span[@class='oxd-topbar-body-nav-tab-item'][contains(.,'Configure')]")
+
+
+
         self.configure_kpis_submenu = page.get_by_role("listitem").filter(has_text=re.compile(r"^KPIs$"))
+
         self.trackers_submenu = page.get_by_role("menuitem", name="Trackers")
+
         self.manage_reviews_submenu = page.get_by_role("menuitem", name="Manage Reviews")
         self.manage_reviews_manage_reviews_submenu = page.get_by_label("Topbar Menu").get_by_text("Manage Reviews")
         self.my_reviews_submenu = page.get_by_role("menuitem", name="My Reviews")

@@ -3,6 +3,7 @@ import re
 from playwright.sync_api import Page, expect
 
 from conftest import shared_page
+from pages import performance_page
 from pages.home_page import HomePage
 from pages.login_page import LoginPage
 from pages.performance_page import PerformancePage
@@ -43,14 +44,32 @@ def test_AccessPerformanceSection(shared_page):
 def test_AccessPerformanceConfigureKPIsSubmenu(shared_page):
     print("\nStarting test_AccessPerformanceConfigureKPIsSubmenu transaction")
     performance_page = PerformancePage(shared_page)
-    print("Will access the Configure KPIs submenu under Performance section/page")
+    print("Will click on the Configure submenu under Performance section/page")
     performance_page.click_configure_submenu()
     print("Clicked on the Configure submenu item")
+    print("Will click on the KPIs submenu under Configure submenu")
     performance_page.click_configure_kpis_submenu()
     print("Clicked on the KPIs submenu item")
     expect(shared_page.get_by_role("heading", name="Key Performance Indicators")).to_be_visible()
     print("Verified that the Key Performance Indicators header was displayed")
     print("\nEnded test_AccessPerformanceConfigureKPIsSubmenu transaction")
+
+def test_AccessPerformanceTrackersSubmenu(shared_page):
+    print("\nStarting test_AccessPerformanceTrackersSubmenu transaction")
+    performance_page = PerformancePage(shared_page)
+    print("Will click on the Configure submenu under Performance section/page")
+
+
+    performance_page.click_configure_submenu()
+
+
+    print("Clicked on the Configure submenu item")
+    print("Will click on the Trackers submenu under Configure submenu")
+    performance_page.click_trackers_submenu()
+    print("Clicked on the Trackers submenu item")
+    expect(shared_page.get_by_role("heading", name="Performance Trackers")).to_be_visible()
+    print("Verified that the Performance Trackers header was displayed")
+    print("\nEnded test_AccessPerformanceTrackersSubmenu transaction")
 
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")
