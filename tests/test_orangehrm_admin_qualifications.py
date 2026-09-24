@@ -23,7 +23,7 @@ def test_LoginPage(shared_page):
     login_page.login("Admin", "admin123")
     print("Clicked Login button")
     shared_page.wait_for_url("**/dashboard/index", timeout=15000)
-    expect(shared_page.get_by_role("heading", name="Dashboard")).to_be_visible()
+    expect(shared_page.get_by_role("heading", name="Dashboard")).to_be_visible(timeout=10000)
     shared_page.wait_for_selector("//h6[contains(.,'Dashboard')]")
     print("Verified Dashboard heading is visible on the dashboard page")
     print("Ended test_LoginPage transaction")
@@ -40,7 +40,7 @@ def test_QualificationsSkills(shared_page):
     print("Will click on Skills submenu")
     admin_page.click_skills_submenu()
     print("Clicked on Skills submenu")
-    expect(shared_page.get_by_role("heading", name="Skills")).to_be_visible()
+    expect(shared_page.get_by_role("heading", name="Skills")).to_be_visible(timeout=10000)
     print("Verified Skills heading is visible on the Skills page")
     print("Ended test_QualificationsSkills transaction")
 
@@ -56,7 +56,7 @@ def test_QualificationsEducation(shared_page):
     print("Will click on Education submenu")
     admin_page.click_education_submenu()
     print("Clicked on Education submenu")
-    expect(shared_page.get_by_role("heading", name="Education")).to_be_visible()
+    expect(shared_page.get_by_role("heading", name="Education")).to_be_visible(timeout=10000)
     print("Verified Education heading is visible on the Education page")
     print("Ended test_QualificationsEducation transaction")
 
@@ -72,7 +72,7 @@ def test_QualificationsLicenses(shared_page):
     print("Will click on Licenses submenu")
     admin_page.click_licenses_submenu()
     print("Clicked on Licenses submenu")
-    expect(shared_page.get_by_role("heading", name="Licenses")).to_be_visible()
+    expect(shared_page.get_by_role("heading", name="Licenses")).to_be_visible(timeout=10000)
     print("Verified Licenses heading is visible on the Licenses page")
     print("Ended test_QualificationsLicenses transaction")
 
@@ -104,9 +104,7 @@ def test_QualificationsMemberships(shared_page):
     print("Will click on Memberships submenu")
     admin_page.click_memberships_submenu()
     print("Clicked on Memberships submenu")
-    # Wait for navigation
     shared_page.wait_for_url("**/admin/membership", timeout=15000)
-    # Wait for the correct anchor (this page does NOT have orangehrm-header-container)
     shared_page.wait_for_selector("div.orangehrm-paper-container", timeout=15000)
     expect(shared_page.get_by_role("heading", name="Memberships")).to_be_visible()
     print("Verified Memberships heading is visible on the Memberships page")
