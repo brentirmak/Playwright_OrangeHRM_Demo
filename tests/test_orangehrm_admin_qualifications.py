@@ -104,6 +104,10 @@ def test_QualificationsMemberships(shared_page):
     print("Will click on Memberships submenu")
     admin_page.click_memberships_submenu()
     print("Clicked on Memberships submenu")
+    # Wait for navigation
+    shared_page.wait_for_url("**/admin/membership", timeout=15000)
+    # Wait for the correct anchor (this page does NOT have orangehrm-header-container)
+    shared_page.wait_for_selector("div.orangehrm-paper-container", timeout=15000)
     expect(shared_page.get_by_role("heading", name="Memberships")).to_be_visible()
     print("Verified Memberships heading is visible on the Memberships page")
     print("Ended test_QualificationsMemberships transaction")
