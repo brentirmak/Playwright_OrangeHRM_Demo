@@ -23,6 +23,7 @@ def test_LoginPage(shared_page):
     print("Enter username and password and click Login button")
     login_page.login("Admin", "admin123")
     print("Clicked Login button")
+    shared_page.wait_for_url("**/dashboard/index", timeout=15000)
     expect(shared_page.get_by_role("heading", name="Dashboard")).to_be_visible()
     shared_page.wait_for_selector("//h6[contains(.,'Dashboard')]")
     print("Verified Dashboard heading is visible on the dashboard page")
