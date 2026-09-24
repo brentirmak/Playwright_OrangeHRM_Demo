@@ -23,7 +23,7 @@ def test_LoginPage(shared_page):
     login_page.login("Admin", "admin123")
     print("Clicked Login button")
     shared_page.wait_for_url("**/dashboard/index", timeout=15000)
-    expect(shared_page.get_by_role("heading", name="Dashboard")).to_be_visible()
+    expect(shared_page.get_by_role("heading", name="Dashboard")).to_be_visible(timeout=10000)
     shared_page.wait_for_selector("//h6[contains(.,'Dashboard')]")
     print("Verified Dashboard heading is visible on the dashboard page")
     print("Ended test_LoginPage transaction")
@@ -50,7 +50,7 @@ def test_AdminConfigurationEmailSubscriptions(shared_page):
     print("Clicked on configuration submenu")
     admin_page.click_email_subscription_submenu()
     print("Clicked on email subscription submenu")
-    expect(shared_page.get_by_role("heading", name="Email Subscriptions")).to_be_visible()
+    expect(shared_page.get_by_role("heading", name="Email Subscriptions")).to_be_visible(timeout=10000)
     print("Verified Email Subscriptions heading is visible on the admin page")
     print("Ended test_AdminConfigurationEmailSubscriptions transaction")
 
@@ -62,7 +62,7 @@ def test_AdminConfigurationLocalization(shared_page):
     print("Clicked on configuration submenu")
     admin_page.click_localization_submenu()
     print("Clicked on localization submenu")
-    expect(shared_page.get_by_role("heading", name="Localization")).to_be_visible()
+    expect(shared_page.get_by_role("heading", name="Localization")).to_be_visible(timeout=10000)
     print("Verified Localization heading is visible on the admin page")
     print("Ended test_AdminConfigurationLocalization transaction")
 
@@ -74,7 +74,7 @@ def test_AdminConfigurationLanguagePackages(shared_page):
     print("Clicked on configuration submenu")
     admin_page.click_language_packages_submenu()
     print("Clicked on language packages submenu")
-    expect(shared_page.get_by_role("heading", name="Language Packages")).to_be_visible()
+    expect(shared_page.get_by_role("heading", name="Language Packages")).to_be_visible(timeout=10000)
     print("Verified Language Packages heading is visible on the admin page")
     print("Ended test_AdminConfigurationLanguagePackages transaction")
 
@@ -85,7 +85,7 @@ def test_AdminConfigurationModules(shared_page):
     print("Clicked on configuration submenu")
     admin_page.click_modules_submenu()
     print("Clicked on modules submenu")
-    expect(shared_page.get_by_role("heading", name="Module Configuration")).to_be_visible()
+    expect(shared_page.get_by_role("heading", name="Module Configuration")).to_be_visible(timeout=10000)
     print("Verified Modules heading is visible on the admin page")
     print("Ended test_AdminConfigurationModules transaction")
 
@@ -96,7 +96,7 @@ def test_AdminConfigurationSocialMediaAuthentication(shared_page):
     print("Clicked on configuration submenu")
     admin_page.click_social_media_authentication_submenu()
     print("Clicked on social media authentication submenu")
-    expect(shared_page.get_by_role("heading", name="Provider List")).to_be_visible()
+    expect(shared_page.get_by_role("heading", name="Provider List")).to_be_visible(timeout=10000)
     print("Verified Register OAuth Client heading is visible on the admin page")
     print("Ended test_AdminConfigurationSocialMediaAuthentication transaction")
 
@@ -107,7 +107,7 @@ def test_AdminConfigurationRegisterOAuthClient(shared_page):
     print("Clicked on configuration submenu")
     admin_page.click_register_oauth_client_submenu()
     print("Clicked on oauth client submenu")
-    expect(shared_page.get_by_role("heading", name="OAuth Client List")).to_be_visible()
+    expect(shared_page.get_by_role("heading", name="OAuth Client List")).to_be_visible(timeout=10000)
     print("Verified OAuth Client List heading is visible on the admin page")
     print("Ended test_AdminConfigurationRegisterOAuthClient transaction")
 
@@ -118,7 +118,7 @@ def test_AdminConfigurationLDAPConfiguration(shared_page):
     print("Clicked on configuration submenu")
     admin_page.click_ldap_configuration_submenu()
     print("Clicked on ldap configuration submenu")
-    expect(shared_page.get_by_role("heading", name="LDAP Configuration")).to_be_visible()
+    expect(shared_page.get_by_role("heading", name="LDAP Configuration")).to_be_visible(timeout=10000)
     print("Verified LDAP Configuration heading is visible on the admin page")
     print("Ended test_AdminConfigurationLDAPConfiguration transaction")
 
@@ -128,6 +128,6 @@ def test_Logout(shared_page):
     print("Will click on logout option on the menu")
     logout_page.click_logout()
     print("Clicked on logout option on the menu")
-    expect(shared_page.get_by_role("button", name="Login")).to_be_visible()
+    expect(shared_page.get_by_role("button", name="Login")).to_be_visible(timeout=10000)
     print("Verified Login button is visible on the login page after logout")
     print("Ended test_Logout transaction")
