@@ -161,7 +161,9 @@ def test_ConfigureHolidaysPage(shared_page):
     print("Clicked on the Configure submenu - clicking on Holidays submenu")
     leave_page.click_holidays_submenu()
     print("Clicked on the Holidays submenu")
+    shared_page.wait_for_url("**/leave/viewHolidayList", timeout=15000)
     expect(shared_page.get_by_role("heading", name="Holidays")).to_be_visible()
+
     print("Verified Holidays header was displayed")
     print("\nEnded test_ConfigureHolidaysPage transaction")
 
