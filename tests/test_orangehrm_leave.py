@@ -149,6 +149,8 @@ def test_ConfigureWorkWeekPage(shared_page):
     print("Clicked on the Configure submenu - clicking on Work Week submenu")
     leave_page.click_work_week_submenu()
     print("Clicked on the Work Week submenu")
+    # Wait for navigation to finish
+    shared_page.wait_for_selector("div.orangehrm-card-container", timeout=15000)
     expect(shared_page.get_by_text("Work Week")).to_be_visible()
     print("Verified Work Week header was displayed")
     print("\nEnded test_ConfigureWorkWeekPage transaction")
