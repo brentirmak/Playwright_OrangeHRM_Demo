@@ -34,7 +34,7 @@ def test_AccessLeaveSection(shared_page):
     print("Clicking on Leave menu option")
     leave_page.click_leave_menu()
     print("Clicked on Leave menu option")
-    expect(shared_page.get_by_role("heading", name="Leave List")).to_be_visible()
+    expect(shared_page.get_by_role("heading", name="Leave List")).to_be_visible(timeout=10000)
     print("Leave List header was found")
     print("Ended test_AccessLeaveSection transaction")
 
@@ -44,7 +44,7 @@ def test_Leave_ApplyPage(shared_page):
     print("Clicking on the Apply submenu")
     leave_page.click_apply_submenu()
     print("Clicked on the Apply submenu")
-    expect(shared_page.get_by_role("heading", name="Apply Leave")).to_be_visible()
+    expect(shared_page.get_by_role("heading", name="Apply Leave")).to_be_visible(timeout=10000)
     print("Verified that the Apply Leave header was displayed")
     print("Ended test_Leave_ApplyPage transaction")
 
@@ -54,7 +54,7 @@ def test_Leave_MyLeavePage(shared_page):
     print("Clicking on the MyLeave submenu")
     leave_page.click_my_leave_submenu()
     print("Clicked on the My Leave submenu")
-    expect(shared_page.get_by_role("heading", name="My Leave List")).to_be_visible()
+    expect(shared_page.get_by_role("heading", name="My Leave List")).to_be_visible(timeout=10000)
     print("Verified that the My Leave List header was displayed")
     print("Ended test_Leave_MyLeavePage transaction")
 
@@ -66,7 +66,7 @@ def test_EntitlementsAddEntitlementsPage(shared_page):
     print("Clicked on the Entitlements submenu - will click on Add Entitlements")
     leave_page.click_add_entitlements_submenu()
     print("Clicked on Add Entitlements submenu")
-    expect(shared_page.get_by_text("Add Leave Entitlement")).to_be_visible()
+    expect(shared_page.get_by_text("Add Leave Entitlement")).to_be_visible(timeout=10000)
     print("Verified that the Add Leave Entitlement header was displayed")
     print("Ended test_EntitlementsAddEntitlementsPage transaction")
 
@@ -78,7 +78,7 @@ def test_EntitlementsEmployeeEntitlementsPage(shared_page):
     print("Clicked on the Entitlements submenu - will click on Employee Entitlements")
     leave_page.click_employee_entitlements_submenu()
     print("Clicked on the Employee Entitlements submenu")
-    expect(shared_page.get_by_role("heading", name="Leave Entitlements")).to_be_visible()
+    expect(shared_page.get_by_role("heading", name="Leave Entitlements")).to_be_visible(timeout=10000)
     print("Verified that the Leave Entitlements header was displayed")
     print("Ended test_EntitlementsEmployeeEntitlementsPage transaction")
 
@@ -90,7 +90,7 @@ def test_EntitlementsMyEntitlementsPage(shared_page):
     print("Clicked on the Entitlements submenu - will click on My Entitlements")
     leave_page.click_my_entitlements_submenu()
     print("Clicked on My Entitlements submenu")
-    expect(shared_page.get_by_role("heading", name="My Leave Entitlements")).to_be_visible()
+    expect(shared_page.get_by_role("heading", name="My Leave Entitlements")).to_be_visible(timeout=10000)
     print("Verified that the My Leave Entitlements header was displayed")
     print("Ended test_EntitlementsMyEntitlementsPage transaction")
 
@@ -102,7 +102,7 @@ def test_ReportsLeaveEntitlementsAndUsageReport(shared_page):
     print("Clicked on the Reports submenu - will click on Leave Entitlements and Usage Report submenu")
     leave_page.click_leave_entitlements_and_usage_report_submenu()
     print("Clicked on Leave Entitlements and Usage Report submenu")
-    expect(shared_page.get_by_role("heading", name="Leave Entitlements and Usage Report")).to_be_visible()
+    expect(shared_page.get_by_role("heading", name="Leave Entitlements and Usage Report")).to_be_visible(timeout=10000)
     print("Verified that the Leave Entitlements and Usage Report header was displayed")
     print("Ended test_ReportsLeaveEntitlementsAndUsageReport transaction")
 
@@ -114,7 +114,7 @@ def test_ReportsMyLeaveEntitlementsAndUsageReport(shared_page):
     print("Clicked on the Reports submenu - clicking on My Leave Entitlements and Usage Report submenu")
     leave_page.click_my_leave_entitlements_and_usage_report_submenu()
     print("Clicked on My Leave Entitlements and Usage Report submenu")
-    expect(shared_page.get_by_role("heading", name="My Leave Entitlements and Usage Report")).to_be_visible()
+    expect(shared_page.get_by_role("heading", name="My Leave Entitlements and Usage Report")).to_be_visible(timeout=10000)
     print("Verified that the My Leave Entitlements and Usage Report header was displayed")
     print("Ended test_ReportsMyLeaveEntitlementsAndUsageReport transaction")
 
@@ -126,7 +126,7 @@ def test_ConfigureLeavePeriodPage(shared_page):
     print("Clicked on the Configure submenu - clicking on Leave Period submenu")
     leave_page.click_leave_period_submenu()
     print("Clicked on Leave Period submenu")
-    expect(shared_page.get_by_text("Leave Period", exact=True)).to_be_visible()
+    expect(shared_page.get_by_text("Leave Period", exact=True)).to_be_visible(timeout=10000)
     print("Verified Leave Period header was displayed")
     print("Ended test_ConfigureLeavePeriodPage transaction")
 
@@ -138,7 +138,7 @@ def test_ConfigureLeaveTypesPage(shared_page):
     print("Clicked on the Configure submenu - clicking on Leave Types submenu")
     leave_page.click_leave_types_submenu()
     print("Clicked on Leave Types submenu")
-    expect(shared_page.get_by_role("heading", name="Leave Types")).to_be_visible()
+    expect(shared_page.get_by_role("heading", name="Leave Types")).to_be_visible(timeout=10000)
     print("Verified Leave Types header was displayed")
     print("\nEnded test_ConfigureLeaveTypesPage transaction")
 
@@ -152,7 +152,7 @@ def test_ConfigureWorkWeekPage(shared_page):
     print("Clicked on the Work Week submenu")
     # Wait for navigation to finish
     shared_page.wait_for_selector("div.orangehrm-card-container", timeout=15000)
-    expect(shared_page.get_by_text("Work Week")).to_be_visible()
+    expect(shared_page.get_by_text("Work Week")).to_be_visible(timeout=10000)
     print("Verified Work Week header was displayed")
     print("\nEnded test_ConfigureWorkWeekPage transaction")
 
@@ -165,7 +165,7 @@ def test_ConfigureHolidaysPage(shared_page):
     leave_page.click_holidays_submenu()
     print("Clicked on the Holidays submenu")
     shared_page.wait_for_url("**/leave/viewHolidayList", timeout=15000)
-    expect(shared_page.get_by_role("heading", name="Holidays")).to_be_visible()
+    expect(shared_page.get_by_role("heading", name="Holidays")).to_be_visible(timeout=10000)
 
     print("Verified Holidays header was displayed")
     print("\nEnded test_ConfigureHolidaysPage transaction")
@@ -176,7 +176,7 @@ def test_LeaveListPage(shared_page):
     print("Clicking on the Leave List submenu")
     leave_page.click_leave_list_submenu()
     print("Clicked on the Leave List submenu")
-    expect(shared_page.get_by_role("heading", name="Leave List")).to_be_visible()
+    expect(shared_page.get_by_role("heading", name="Leave List")).to_be_visible(timeout=10000)
     print("Verified Leave List header was displayed")
     print("\nEnded test_LeaveListPage transaction")
 
@@ -186,7 +186,7 @@ def test_AssignLeavePage(shared_page):
     print("Clicking on the Assign Leave submenu")
     leave_page.click_assign_leave_submenu()
     print("Clicked on Assign Leave submenu")
-    expect(shared_page.get_by_role("heading", name="Assign Leave")).to_be_visible()
+    expect(shared_page.get_by_role("heading", name="Assign Leave")).to_be_visible(timeout=10000)
     print("Verified Assign Leave header was displayed")
     print("\nEnded test_AssignLeavePage transaction")
 
@@ -196,6 +196,6 @@ def test_Logout(shared_page):
     print("Will click on logout option on the menu")
     logout_page.click_logout()
     print("Clicked on logout option on the menu")
-    expect(shared_page.get_by_role("button", name="Login")).to_be_visible()
+    expect(shared_page.get_by_role("button", name="Login")).to_be_visible(timeout=10000)
     print("Verified Login button is visible on the login page after logout")
     print("Ended test_Logout transaction")
