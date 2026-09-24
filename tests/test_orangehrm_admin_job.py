@@ -22,6 +22,7 @@ def test_LoginPage(shared_page):
     print("Enter username and password and click Login button")
     login_page.login("Admin", "admin123")
     print("Clicked Login button")
+    shared_page.wait_for_url("**/dashboard/index", timeout=15000)
     expect(shared_page.get_by_role("heading", name="Dashboard")).to_be_visible()
     shared_page.wait_for_selector("//h6[contains(.,'Dashboard')]")
     print("Verified Dashboard heading is visible on the dashboard page")
@@ -52,12 +53,6 @@ def test_AdminSectionJobTitlesSubmenu(shared_page):
         expect(shared_page.get_by_text("Automaton Tester")).to_be_visible()
     else:
         expect(shared_page.get_by_text("QA Engineer")).to_be_visible()
-
-    #expect(shared_page.get_by_text("Automaton Tester")).to_be_visible()
-    #expect(shared_page.locator(":text-matches('Automaton Tester|QA Engineer')")).to_be_visible()
-    #expect(shared_page.get_by_text("Automaton Tester").or_(shared_page.get_by_text("QA Engineer"))).to_be_visible()
-    #expect(shared_page.get_by_text(r"^(Automaton Tester|QA Engineer)$")).to_be_visible()
-    #expect(shared_page.get_by_role("row", name=re.compile(r"Automaton Tester|QA Engineer"))).to_be_visible()
     print("Verified Automaton Tester job title is visible on the Job Titles submenu page")
     print("Ended test_AdminSectionJobTitlesSubmenu transaction")
 
