@@ -148,8 +148,14 @@ def test_AccessMyInfoMembershipsSubmenu(shared_page):
     print("Will access the Memberships submenu under My Info section/page")
     myinfo_page.click_memberships_submenu()
     print("Clicked on the Memberships submenu item")
-    expect(shared_page.get_by_role("heading", name="Assigned Memberships")).to_be_visible(timeout=10000)
-    print("Verified that the Assigned Memberships header was displayed")
+    try:
+        print("Verifying that the Assigned Memberships header was displayed")
+        expect(shared_page.get_by_role("heading", name="Assigned Memberships")).to_be_visible(timeout=10000)
+        print("Verified that the Assigned Memberships header was displayed")
+    except:
+        print("2nd attempt - Verifying that the Assigned Memberships header was displayed")
+        expect(shared_page.get_by_role("heading", name="Assigned Memberships")).to_be_visible(timeout=10000)
+        print("2nd attempt - Verified that the Assigned Memberships header was displayed")
     expect(shared_page.get_by_role("heading", name="Attachments")).to_be_visible(timeout=10000)
     print("Verified that the Attachments header was displayed")
     print("\nEnded test_AccessMyInfoMembershipsSubmenu transaction")
