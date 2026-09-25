@@ -158,16 +158,6 @@ class PIMPage:
         row.get_by_role("button").filter(has=self.page.locator("i.bi-trash")).click()
         self.page.wait_for_load_state("networkidle")
 
-
-    #def click_pim_to_be_deleted_report_checkbox(self):
-    #    self.pim_to_be_deleted_report_checkbox.click()
-
-    #def click_pim_to_be_deleted_report_delete_button(self):
-    #    self.pim_to_be_deleted_report_delete_button.click()
-
-
-
-
     def click_pim_delete_report_confirm_button(self):
         self.pim_delete_report_confirm_button.click()
     

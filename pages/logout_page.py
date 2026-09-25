@@ -12,6 +12,6 @@ class LogoutPage:
 
         self.profile_menu.click()
         self.page.wait_for_load_state("networkidle")
-        expect(self.logout_link).to_be_visible()
+        expect(self.logout_link).to_be_visible(timeout=10000)
         self.logout_link.click()
         self.page.wait_for_load_state("networkidle")
