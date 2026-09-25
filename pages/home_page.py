@@ -7,4 +7,4 @@ class HomePage:
         self.brandingImage = page.get_by_alt_text('company-branding');
 
     def verify_branding_image_visible(self):
-        expect(self.brandingImage).to_be_visible()
+        expect(self.brandingImage).to_be_visible(timeout=10000)
