@@ -4,6 +4,12 @@ import os
 from playwright.sync_api import sync_playwright
 from utils.mysql_logger import log_test_result
 
+def detect_run_type() -> str:
+    """Automatically determines if the test execution is running on Jenkins or manually."""
+    if "JENKINS_URL" in os.environ or "BUILD_NUMBER" in os.environ:
+        return "jenkins"
+    return "manual"
+
 def pytest_addoption(parser):
     parser.addoption(
         "--browser",
@@ -20,11 +26,11 @@ def shared_page(request):
     browser = None
     try:
         if browser_name == "firefox":
-            browser = playwright.firefox.launch(headless=True)
+            browser = playwright.firefox.launch(headless=False)
         elif browser_name == "webkit":
-            browser = playwright.webkit.launch(headless=True)
+            browser = playwright.webkit.launch(headless=False)
         else:
-            browser = playwright.chromium.launch(headless=True)
+            browser = playwright.chromium.launch(headless=False)
 
         context = browser.new_context()
         page = context.new_page()
@@ -56,10 +62,15 @@ def pytest_runtest_makereport(item, call):
     error = str(result.longrepr) if result.failed else None
 
     login_duration = getattr(item, "login_duration", None)
-    duration = getattr(item, "duration", result.duration)
 
-    # Extract the filename (e.g., "test_login.py")
-    script_name = os.path.basename(item.fspath)
+    # pytest's call report already provides the test duration
+    duration = result.duration
+
+    script_name = os.path.basename(str(item.fspath))
+
+    run_type = detect_run_type()
+
+    print(f"Run Type detected: {run_type}")
 
     log_test_result(
         test_name=item.name,
@@ -67,5 +78,6 @@ def pytest_runtest_makereport(item, call):
         status=status,
         duration=duration,
         error_message=error,
-        login_duration=login_duration
+        login_duration=login_duration,
+        run_type=run_type,
     )
