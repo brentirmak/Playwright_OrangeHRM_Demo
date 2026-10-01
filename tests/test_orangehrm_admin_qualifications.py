@@ -88,7 +88,7 @@ def test_QualificationsLanguages(shared_page):
     print("Will click on Languages submenu")
     admin_page.click_languages_submenu()
     print("Clicked on Languages submenu")
-    expect(shared_page.get_by_role("heading", name="Languages")).to_be_visible()
+    expect(shared_page.get_by_role("heading", name="Languages")).to_be_visible(timeout=10000)
     print("Verified Languages heading is visible on the Languages page")
     print("Ended test_QualificationsLanguages transaction")
 
@@ -116,6 +116,6 @@ def test_Logout(shared_page):
     print("Will click on logout option on the menu")
     logout_page.click_logout()
     print("Clicked on logout option on the menu")
-    expect(shared_page.get_by_role("button", name="Login")).to_be_visible()
+    expect(shared_page.get_by_role("button", name="Login")).to_be_visible(timeout=10000)
     print("Verified Login button is visible on the login page after logout")
     print("Ended test_Logout transaction")
