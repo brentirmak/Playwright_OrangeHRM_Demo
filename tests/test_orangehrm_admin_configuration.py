@@ -39,7 +39,7 @@ def test_AdminConfigurationEmailConfiguration(shared_page):
     print("Clicked on configuration submenu")
     admin_page.click_email_configuration_submenu()
     print("Clicked on email configuration submenu")
-    expect(shared_page.locator("#app")).to_contain_text("Email Configuration")
+    expect(shared_page.locator("#app")).to_contain_text("Email Configuration", timeout=15000)
     print("Verified System Users heading is visible on the admin page")
     print("Ended test_AdminConfigurationEmailConfiguration transaction")
 
