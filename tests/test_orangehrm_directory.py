@@ -36,6 +36,33 @@ def test_AccessDirectorySection(shared_page):
     directory_page.click_directory_menu()
     print("Clicked on the Directory menu item")
     expect(shared_page.locator("//h5[contains(.,'Directory')]")).to_be_visible(timeout=10000)
+    print("Verified the Directory heading is visible on the Directory page")
+    print("Ended test_AccessDirectorySection transaction")
+
+def test_SearchDirectoryByJobTitle(shared_page):
+    print("\nWill perform a search for Software Engineer")
+    directory_page = DirectoryPage(shared_page)
+    try:
+        print("Clicking on the Job Title dropdown menu")
+        directory_page.click_job_title_dropdown()
+        print("Clicked on the Job Title dropdown - will select Software Engineer")
+        directory_page.click_software_engineer_selection()
+        print("Selected the Software Engineer option - will click on the Search button")
+        directory_page.click_search_button()
+        print("Clicked on the Search button - will verify that atleast 1 Record is found")
+        shared_page.wait_for_selector("//span[contains(.,'Record Found')] | //span[contains(.,'Records Found')]")
+        print("Atleast one record was found")
+    except:
+        print("2nd try with different job title - Clicking on the Job Title dropdown menu")
+        directory_page.click_job_title_dropdown()
+        print("2nd try with different job title - Clicked on the Job Title dropdown - will select Chief Financial Officer")
+        directory_page.click_chief_financial_officer_selection
+        print("2nd try with different job title - Selected the Chief Financial Officer option - will click on the Search button")
+        directory_page.click_search_button()
+        print("2nd try with different job title - Clicked on the Search button - will verify that atleast 1 Record is found")
+        shared_page.wait_for_selector("//span[contains(.,'Record Found')] | //span[contains(.,'Records Found')]")
+        print("Atleast one record was found")
+    print("Ended test_SearchDirectoryByJobTitle transaction")
 
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")
