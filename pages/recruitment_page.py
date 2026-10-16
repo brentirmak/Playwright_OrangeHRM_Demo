@@ -7,7 +7,7 @@ class RecruitmentPage:
         self.page = page
         self.recruitment_menu = page.locator(".oxd-main-menu").get_by_role("link", name="Recruitment")
 
-        #
+        ########################################################################################################################################
         # Candidates section/page
         #
         self.candidates_section_header = page.locator("//h5[@class='oxd-text oxd-text--h5 oxd-table-filter-title'][contains(.,'Candidates')]")
@@ -23,36 +23,23 @@ class RecruitmentPage:
         self.candidates_keywords_textbox = page.get_by_role("textbox", name="Enter comma seperated words...")
         self.candidates_reset_button = page.get_by_role("button", name="Reset")
 
+    
         ########################################################################################################################################
-
-        #
         # Vacancies section/page
         #
         self.vacancies_submenu = page.get_by_role("link", name="Vacancies")
-        self.job_title_dropdown_account_assistant_option = page.get_by_role("listbox").get_by_text("Account Assistant")
-        self.add_button = page.locator("//button[@type='button'][contains(.,'Add')]")
+        self.vacancies_job_title_dropdown_account_assistant_option = page.get_by_role("listbox").get_by_text("Account Assistant")
+        self.vacancies_add_button = page.locator("//button[@type='button'][contains(.,'Add')]")
         self.vacancies_header = page.locator("//h6[text()='Add Vacancy']")
-        
-        #
-        # Add Vacancy
-        #
-        self.vacancy_name = page.get_by_role("textbox").nth(1)
-        self.job_title_dropdown = page.locator("//i[contains(@class,'oxd-icon bi-caret-down-fill oxd-select-text--arrow')]")
-        self.job_title_software_engineer_option = page.get_by_role("option", name="Software Engineer")
-        self.vacancy_description = page.get_by_role("textbox", name="Type description here")
-        self.hiring_manager_field = page.get_by_role("textbox", name="Type for hints...")
-        self.hiring_manager_charles_carter_option = page.get_by_text("Charles Carter")
-        self.save_button = page.get_by_role("button", name="Save")
-
-        #
-        # Edit Vacancy
-        #
-        self.edit_vacancy_title = page.locator("//h6[contains(.,'Edit Vacancy')]")
-
-        #
-        # Delete Vacancy
-        #
-        self.vacancy_record_found = page.get_by_text("(1) Record Found")
+        self.vacancies_vacancy_name = page.get_by_role("textbox").nth(1)
+        self.vacancies_job_title_dropdown = page.locator("//i[contains(@class,'oxd-icon bi-caret-down-fill oxd-select-text--arrow')]")
+        self.vacancies_job_title_software_engineer_option = page.get_by_role("option", name="Software Engineer")
+        self.vacancies_vacancy_description = page.get_by_role("textbox", name="Type description here")
+        self.vacancies_hiring_manager_field = page.get_by_role("textbox", name="Type for hints...")
+        self.vacancies_hiring_manager_charles_carter_option = page.get_by_text("Charles Carter")
+        self.vacancies_save_button = page.get_by_role("button", name="Save")
+        self.vacancies_edit_vacancy_title = page.locator("//h6[contains(.,'Edit Vacancy')]")
+        self.vacancies_vacancy_record_found = page.get_by_text("(1) Record Found")
         self.vacancies_job_title_dropdown = page.locator(".oxd-icon.bi-caret-down-fill.oxd-select-text--arrow").first
         self.vacancies_software_engineer_job_title_option = page.get_by_role("option", name="Software Engineer")
         self.vacancies_hiring_manager_dropdown_menu =  page.locator("div:nth-child(3) > .oxd-input-group > div:nth-child(2) > .oxd-select-wrapper > .oxd-select-text > .oxd-select-text--after > .oxd-icon")
@@ -66,6 +53,9 @@ class RecruitmentPage:
     def click_recruitment_menu(self):
         self.recruitment_menu.click()
 
+    ########################################################################################################################################
+    # Candidates section/page methods
+    #
     def click_candidates_job_title_dropdown(self):
         self.candidates_job_title_dropdown.click()
 
@@ -102,48 +92,46 @@ class RecruitmentPage:
     def enter_candidates_keywords(self, keywords): 
         self.candidates_keywords_textbox.fill(keywords)
 
-    ##############################################################################################################
-    
+    ########################################################################################################################################
+    # Vacancies section/page methods
+    #
+
     def click_vacancies_submenu(self):
         self.vacancies_submenu.click()
 
-    def click_job_title_dropdown_account_assistant_option(self):
-        self.job_title_dropdown_account_assistant_option.click()
+    def click_vacancies_job_title_dropdown_account_assistant_option(self):
+        self.vacancies_job_title_dropdown_account_assistant_option.click()
 
-    def click_add_button(self):
-        self.add_button.click()
+    def click_vacancies_add_button(self):
+        self.vacancies_add_button.click()
     
-    def click_vacancy_name_field(self):
-        self.vacancy_name.click()
+    def click_vacancies_vacancy_name_field(self):
+        self.vacancies_vacancy_name.click()
 
-    def enter_vacancy_name(self):
-        self.vacancy_name.fill("Principle QA Test")
+    def enter_vacancies_vacancy_name(self):
+        self.vacancies_vacancy_name.fill("Principle QA Test")
 
-    def click_job_title_dropdown(self):
-        self.job_title_dropdown.click()
+    def click_vacancies_job_title_dropdown(self):
+        self.vacancies_job_title_dropdown.click()
 
-    def select_job_title_software_engineer_option(self):
-        self.job_title_software_engineer_option.click()
+    def select_vacancies_job_title_software_engineer_option(self):
+        self.vacancies_job_title_software_engineer_option.click()
 
-    def click_vacancy_description_field(self):
-        self.vacancy_description.click()
+    def click_vacancies_vacancy_description_field(self):
+        self.vacancies_vacancy_description.click()
 
-    def enter_vacancy_description(self):
-        self.vacancy_description.fill("Test position for automation purposes")
+    def enter_vacancies_vacancy_description(self):
+        self.vacancies_vacancy_description.fill("Test position for automation purposes")
 
-    def click_hiring_manager_field(self):
-        self.hiring_manager_field.click()
+    def click_vacancies_hiring_manager_field(self):
+        self.vacancies_hiring_manager_field.click()
 
-    def enter_hiring_manager(self):
-        self.hiring_manager_field.fill("C")
-        self.hiring_manager_charles_carter_option.click()
+    def enter_vacancies_hiring_manager(self):
+        self.vacancies_hiring_manager_field.fill("C")
+        self.vacancies_hiring_manager_charles_carter_option.click()
 
-    def click_save_button(self):
-        self.save_button.click()
-
-    # 
-    # Delete Vacancy
-    #
+    def click_vacancies_save_button(self):
+        self.vacancies_save_button.click()
 
     def click_vacancies_job_title_dropdown(self):
         self.vacancies_job_title_dropdown.click()
