@@ -108,8 +108,8 @@ class RecruitmentPage:
     def click_vacancies_vacancy_name_field(self):
         self.vacancies_vacancy_name.click()
 
-    def enter_vacancies_vacancy_name(self):
-        self.vacancies_vacancy_name.fill("Principle QA Test")
+    def enter_vacancies_vacancy_name(self, vacancy_name):
+        self.vacancies_vacancy_name.fill(vacancy_name)
 
     def click_vacancies_job_title_dropdown(self):
         self.vacancies_job_title_dropdown.click()
@@ -120,14 +120,14 @@ class RecruitmentPage:
     def click_vacancies_vacancy_description_field(self):
         self.vacancies_vacancy_description.click()
 
-    def enter_vacancies_vacancy_description(self):
-        self.vacancies_vacancy_description.fill("Test position for automation purposes")
+    def enter_vacancies_vacancy_description(self, description):
+        self.vacancies_vacancy_description.fill(description)
 
     def click_vacancies_hiring_manager_field(self):
         self.vacancies_hiring_manager_field.click()
 
-    def enter_vacancies_hiring_manager(self):
-        self.vacancies_hiring_manager_field.fill("C")
+    def enter_vacancies_hiring_manager(self, initial_character):
+        self.vacancies_hiring_manager_field.fill(initial_character)
         self.vacancies_hiring_manager_charles_carter_option.click()
 
     def click_vacancies_save_button(self):
