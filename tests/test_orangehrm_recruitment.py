@@ -111,7 +111,6 @@ def test_RecruitmentPageSearchCandidatesByTitle(shared_page):
     print("Verified Records Found is visible in the search results")
     print("Ended test_RecruitmentPageSearchCandidatesByTitle transaction")
 
-
 def test_RecruitmentPageSearchCandidatesByVacancy(shared_page):
     print("\nStarting test_RecruitmentPageSearchByVacancy transaction")
     recruitment_page = RecruitmentPage(shared_page)
@@ -134,65 +133,64 @@ def test_RecruitmentPageSearchCandidatesByVacancy(shared_page):
     print("Verified Records Found is visible in the search results")
     print("Ended test_RecruitmentPageSearchCandidatesByVacancy transaction")
 
-    
-'''
-def test_RecruitmentPageSearchByHiringManager(shared_page):
+def test_RecruitmentPageSearchCandidatesByHiringManager(shared_page):
     print("\nStarting test_RecruitmentPageSearchByHiringManager transaction")
     recruitment_page = RecruitmentPage(shared_page)
     print("Will click on Recruitment menu")
     recruitment_page.click_recruitment_menu()
     print("Clicked on Recruitment menu")
     print("Will click on Hiring Manager dropdown")
-    recruitment_page.click_hiring_manager_dropdown()
+    recruitment_page.click_candidates_hiring_manager_dropdown()
     print("Clicked on Hiring Manager dropdown")
     print("Will select first option from the dropdown")
-    recruitment_page.click_hiring_manager_dropdown_first_option()
+    recruitment_page.click_candidates_hiring_manager_dropdown_first_option()
     print("Selected first option from the dropdown")
     print("Will click on Search button")
-    recruitment_page.click_search_button()
+    recruitment_page.click_candidates_search_button()
     print("Clicked on Search button")
     expect(shared_page.locator("span", has_text=re.compile(r"Records? Found"))).to_be_visible(timeout=10000)
     print("Verified Records Found is visible in the search results")
-    print("Ended test_RecruitmentPageSearchByHiringManager transaction")
+    print("Ended test_RecruitmentPageSearchCandidatesByHiringManager transaction")
 
-def test_RecruitmentPageSearchByStatus(shared_page):
-    print("\nStarting test_RecruitmentPageSearchByStatus transaction")
+def test_RecruitmentPageSearchCandidatesByStatus(shared_page):
+    print("\nStarting test_RecruitmentPageSearchCandidatesByStatus transaction")
     recruitment_page = RecruitmentPage(shared_page)
     print("Will click on Recruitment menu")
     recruitment_page.click_recruitment_menu()
     print("Clicked on Recruitment menu")
     print("Will click on Status dropdown")
-    recruitment_page.click_status_dropdown()
+    recruitment_page.click_candidates_status_dropdown()
     print("Clicked on Status dropdown")
     print("Will select Application Initiated option from the dropdown")
-    recruitment_page.click_status_dropdown_application_initiated_option()
+    recruitment_page.click_candidates_status_dropdown_application_initiated_option()
     print("Selected Application Initiated option from the dropdown")
     print("Will click on Search button")
-    recruitment_page.click_search_button()
+    recruitment_page.click_candidates_search_button()
     print("Clicked on Search button")
     expect(shared_page.locator("span", has_text=re.compile(r"Records? Found"))).to_be_visible(timeout=10000)
     print("Verified Records Found is visible in the search results")
-    print("Ended test_RecruitmentPageSearchByStatus transaction")
+    print("Ended test_RecruitmentPageSearchCandidatesByStatus transaction")
 
-def test_RecruitmentPageSearchByKeywords(shared_page):
-    print("\nStarting test_RecruitmentPageSearchByKeywords transaction")
+def test_RecruitmentPageSearchCandidatesByKeywords(shared_page):
+    print("\nStarting test_RecruitmentPageSearchCandidatesByKeywords transaction")
     recruitment_page = RecruitmentPage(shared_page)
     print("Will click on Recruitment menu")
     recruitment_page.click_recruitment_menu()
     print("Clicked on Recruitment menu")
     print("Will click on Keywords textbox")
-    recruitment_page.click_keywords_textbox()
+    recruitment_page.click_candidates_keywords_textbox()
     print("Clicked on Keywords textbox")
     print("Will enter keywords in the textbox")
-    recruitment_page.enter_keywords("Test")
+    recruitment_page.enter_candidates_keywords("Test")
     print("Entered keywords in the textbox")
     print("Will click on Search button")
-    recruitment_page.click_search_button()
+    recruitment_page.click_candidates_search_button()
     print("Clicked on Search button")
     expect(shared_page.locator("span", has_text=re.compile(r"Records? Found"))).to_be_visible(timeout=10000)
     print("Verified Records Found is visible in the search results")
-    print("Ended test_RecruitmentPageSearchByKeywords transaction")
+    print("Ended test_RecruitmentPageSearchCandidatesByKeywords transaction")
 
+'''
 def test_RecruitmentPageVacanciesSearchByJobTitle(shared_page):
     print("\nStarting test_RecruitmentPageVacanciesSearchByJobTitle transaction")
     recruitment_page = RecruitmentPage(shared_page)
