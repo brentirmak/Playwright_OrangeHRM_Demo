@@ -139,7 +139,7 @@ def test_RecruitmentPageAddCandidate(shared_page):
     recruitment_page.click_candidates_add_candidate_save_button()
     expect(recruitment_page.candidates_new_record_saved).to_be_visible(timeout=15000)
     print("\nEnded test_RecruitmentPageAddCandidate transaction")
-'''
+
 def test_RecruitmentPageSearchCandidatesByTitle(shared_page):
     print("\nStarting test_RecruitmentPageSearchCandidatesByTitle transaction")
     recruitment_page = RecruitmentPage(shared_page)
@@ -259,8 +259,7 @@ def test_RecruitmentPageVacanciesSearchByJobTitle(shared_page):
     expect(shared_page.locator("span", has_text=re.compile(r"Records? Found"))).to_be_visible(timeout=10000)
     print("Verified Records Found is visible in the search results")
     print("Ended test_RecruitmentPageVacanciesSearchByJobTitle transaction")
-'''
-    
+
 def test_RecruitmentPageDeleteCandidate(shared_page):
     print("\nStarting test_RecruitmentPageDeleteCandidate transaction")
     recruitment_page = RecruitmentPage(shared_page)
