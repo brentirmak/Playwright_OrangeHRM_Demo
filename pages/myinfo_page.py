@@ -12,10 +12,16 @@ class MyInfoPage:
         self.report_to_submenu = page.get_by_role("link", name="Report-to")
         self.qualifications_submenu = page.get_by_role("link", name="Qualifications")
         self.memberships_submenu = page.get_by_role("link", name="Memberships")
+        
         # Personal Details
-        self.firstname_field = page.locator("//input[@name='firstName']")
-        self.lastname_field = page.locator("//input[@name='lastName']")
-        self.save_button = page.locator("(//button[contains(.,'Save')])[1]")
+        self.personal_details_firstname_field = page.locator("//input[@name='firstName']")
+        self.personal_details_middlename_field = page.get_by_role("textbox", name="Middle Name")
+        self.personal_details_lastname_field = page.locator("//input[@name='lastName']")
+        self.personal_details_employeeid_field = page.get_by_role("textbox").nth(4)
+        self.personal_details_otherid_field = page.get_by_role("textbox").nth(5)
+        self.personal_details_drivers_license_field = page.locator("div:nth-child(2) > div > .oxd-input-group > div:nth-child(2) > .oxd-input")
+        self.personal_details_save_button = page.locator("(//button[contains(.,'Save')])[1]")
+        
         # Contact Details
         self.contact_details_street1_field = page.get_by_role("textbox").nth(1)
         self.contact_details_street2_field = page.get_by_role("textbox").nth(2)
@@ -26,6 +32,7 @@ class MyInfoPage:
         self.contact_details_country_dropdown_US_value = page.get_by_role("option", name="United States", exact=True)
         self.contact_details_work_email_field = page.locator("div:nth-child(9) > .oxd-grid-3 > div > .oxd-input-group > div:nth-child(2) > .oxd-input").first
         self.contact_details_save_button = page.get_by_role("button", name="Save")
+
         self.successfully_updated_message = page.locator("//p[contains(.,'Successfully Updated')]")
     
     def click_myinfo_menu(self):
@@ -58,21 +65,51 @@ class MyInfoPage:
     def click_memberships_submenu(self):
         self.memberships_submenu.click()
 
-    def click_firstname_field(self):
-        self.firstname_field.click()
+    ######################################################################################################
+    # Personal Details methods
+    #
+    def click_personal_details_firstname_field(self):
+        self.personal_details_firstname_field.click()
 
-    def enter_firstname_value(self):
-        self.firstname_field.fill("John")
+    def enter_personal_details_firstname_value(self):
+        self.personal_details_firstname_field.fill("John")
 
-    def click_lastname_field(self):
-        self.lastname_field.click()
+    def click_personal_details_middlename_field(self):
+        self.personal_details_middlename_field.click()
+
+    def enter_personal_details_middlename_value(self):
+        self.personal_details_middlename_field.fill("Mike")
+
+    def click_personal_details_lastname_field(self):
+        self.personal_details_lastname_field.click()
     
-    def enter_lastname_value(self):
-        self.lastname_field.fill("Doe")
+    def enter_personal_details_lastname_value(self):
+        self.personal_details_lastname_field.fill("Doe")
 
-    def click_save_button(self):
-        self.save_button.click()
+    def click_personal_details_employeeid_field(self):
+        self.personal_details_employeeid_field.click()
 
+    def enter_personal_details_employeeid_value(self):
+        self.personal_details_employeeid_field.fill("55555")
+
+    def click_personal_details_otherid_field(self):
+        self.personal_details_otherid_field.click()
+
+    def enter_personal_details_otherid_value(self):
+        self.personal_details_otherid_field.fill("ABCXYZ")
+
+    def click_personal_details_drivers_license_field(self):
+        self.personal_details_drivers_license_field.click()
+
+    def enter_personal_details_drivers_license_value(self):
+        self.personal_details_drivers_license_field.fill("B12345678")
+
+    def click_personal_details_save_button(self):
+        self.personal_details_save_button.click()
+    
+    ######################################################################################################
+    # Contact Details methods
+    #
     def click_contact_details_street1_field(self):
         self.contact_details_street1_field.click()
 
@@ -114,3 +151,6 @@ class MyInfoPage:
             
     def enter_contact_details_work_email_value(self):
         self.contact_details_work_email_field.fill("test@test.com")
+
+    def click_contact_details_save_button(self):
+        self.contact_details_save_button.click()
