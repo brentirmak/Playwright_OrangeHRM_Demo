@@ -52,12 +52,23 @@ class RecruitmentPage:
         self.vacancies_vacancy_name = page.get_by_role("textbox").nth(1)
         self.vacancies_job_title_dropdown = page.locator("//i[contains(@class,'oxd-icon bi-caret-down-fill oxd-select-text--arrow')]")
         self.vacancies_job_title_software_engineer_option = page.get_by_role("option", name="Software Engineer")
+
+        self.vacancies_vacancy_dropdown = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div[1]/div[2]/form/div[1]/div/div[2]/div/div[2]/div/div[1]/div[2]/i")
+        self.vacancies_vacancy_dropdown_test_value = page.locator("xpath=//span[contains(.,'Principle QA Test')]")
+
         self.vacancies_vacancy_description = page.get_by_role("textbox", name="Type description here")
         self.vacancies_hiring_manager_field = page.get_by_role("textbox", name="Type for hints...")
         self.vacancies_hiring_manager_charles_carter_option = page.get_by_text("Charles Carter")
         self.vacancies_save_button = page.get_by_role("button", name="Save")
         self.vacancies_edit_vacancy_title = page.locator("//h6[contains(.,'Edit Vacancy')]")
         self.vacancies_vacancy_record_found = page.get_by_text("(1) Record Found")
+
+        self.vacancies_search_result_pencil_icon = page.locator("//i[@class='oxd-icon bi-pencil-fill']")
+
+        self.vacancies_edit_vacancy_header = page.locator("//h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Edit Vacancy')]")
+
+        self.vacancies_successfully_updated_message = page.locator("//p[contains(.,'Successfully Saved')]")
+
         self.vacancies_job_title_dropdown = page.locator(".oxd-icon.bi-caret-down-fill.oxd-select-text--arrow").first
         self.vacancies_software_engineer_job_title_option = page.get_by_role("option", name="Software Engineer")
         self.vacancies_hiring_manager_dropdown_menu =  page.locator("div:nth-child(3) > .oxd-input-group > div:nth-child(2) > .oxd-select-wrapper > .oxd-select-text > .oxd-select-text--after > .oxd-icon")
@@ -232,4 +243,13 @@ class RecruitmentPage:
 
     def click_vacancies_confirm_delete_button(self):
         self.vacancies_confirm_delete_button.click()
-    
+
+    def click_vacancies_vacancy_dropdown(self):
+        self.vacancies_vacancy_dropdown.click()
+
+    def select_vacancies_vacancy_dropdown_test_value(self):
+        self.vacancies_vacancy_dropdown_test_value.click()
+
+    def click_vacancies_search_result_pencil_icon(self):
+        self.vacancies_search_result_pencil_icon.click()
+            
