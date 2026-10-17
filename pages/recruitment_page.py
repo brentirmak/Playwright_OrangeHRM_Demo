@@ -126,14 +126,14 @@ class RecruitmentPage:
     def click_candidates_add_candidate_first_name_field(self):
         self.candidates_add_candidate_first_name_field.click()
 
-    def enter_candidates_add_candidate_first_name_field(self):
-        self.candidates_add_candidate_first_name_field.fill("Genta")
+    def enter_candidates_add_candidate_first_name_field(self, first_name):
+        self.candidates_add_candidate_first_name_field.fill(first_name)
 
     def click_candidates_add_candidate_last_name_field(self):
         self.candidates_add_candidate_last_name_field.click()
     
-    def enter_candidates_add_candidate_last_name_field(self):
-        self.candidates_add_candidate_last_name_field.fill("Boy")
+    def enter_candidates_add_candidate_last_name_field(self, last_name):
+        self.candidates_add_candidate_last_name_field.fill(last_name)
 
     def click_candidates_add_candidate_vacancy_dropdown_menu(self):
         self.candidates_add_candidate_vacancy_dropdown_menu.click()
@@ -144,8 +144,8 @@ class RecruitmentPage:
     def click_candidates_add_candidate_email_address_field(self):
         self.candidates_add_candidate_email_address_field.click()
 
-    def enter_candidates_add_candidate_email_address_field(self):
-        self.candidates_add_candidate_email_address_field.fill("test@test.com")
+    def enter_candidates_add_candidate_email_address_field(self, email_address):
+        self.candidates_add_candidate_email_address_field.fill(email_address)
 
     def click_candidates_add_candidate_save_button(self):
         self.candidates_add_candidate_save_button.click()
@@ -153,8 +153,8 @@ class RecruitmentPage:
     def click_candidates_search_candidate_name_field(self):
         self.candidates_search_candidate_name_field.click()
 
-    def enter_search_criteria_into_candidates_search_candidate_name_field(self):
-        self.candidates_search_candidate_name_field.fill("Genta")
+    def enter_search_criteria_into_candidates_search_candidate_name_field(self, first_name):
+        self.candidates_search_candidate_name_field.fill(first_name)
 
     def click_candidates_search_candiadate_name_value(self):
         self.candidates_search_candiadate_name_value.click()
