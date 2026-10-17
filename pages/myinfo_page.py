@@ -12,6 +12,11 @@ class MyInfoPage:
         self.report_to_submenu = page.get_by_role("link", name="Report-to")
         self.qualifications_submenu = page.get_by_role("link", name="Qualifications")
         self.memberships_submenu = page.get_by_role("link", name="Memberships")
+
+        self.firstname_field = page.locator("//input[@name='firstName']")
+        self.lastname_field = page.locator("//input[@name='lastName']")
+        self.save_button = page.locator("(//button[contains(.,'Save')])[1]")
+        self.successfully_updated_message = page.locator("//p[contains(.,'Successfully Updated')]")
     
     def click_myinfo_menu(self):
         self.myinfo_menu.click()
@@ -43,7 +48,21 @@ class MyInfoPage:
     def click_memberships_submenu(self):
         self.memberships_submenu.click()
 
+    def click_firstname_field(self):
+        self.firstname_field.click()
 
+    def enter_firstname_value(self):
+        self.firstname_field.fill("John")
+
+    def click_lastname_field(self):
+        self.lastname_field.click()
+    
+    def enter_lastname_value(self):
+        self.lastname_field.fill("Doe")
+
+    def click_save_button(self):
+        self.save_button.click()
+        
 
 
 
