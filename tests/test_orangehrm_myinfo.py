@@ -70,6 +70,26 @@ def test_AccessMyInfoContactDetailsSubmenu(shared_page):
     print("Verified that the Attachments header was displayed")
     print("\nEnded test_AccessMyInfoContactDetailsSubmenu transaction")
 
+def test_MyInfoUpdateContactDetails(shared_page):
+    print("\nStarting test_MyInfoUpdateContactDetails transaction")
+    myinfo_page = MyInfoPage(shared_page)
+    print("Will access the My Info section/page")
+    myinfo_page.click_myinfo_menu()
+    print("Clicked on the My Info menu item")
+    expect(shared_page.get_by_role("heading", name="Personal Details")).to_be_visible(timeout=10000)
+    print("Verified that the Personal Details header was displayed - will click on Contact Details link")
+    myinfo_page.click_contact_details_submenu()
+    print("Clicked on the Contact Details submenu item")
+    expect(shared_page.get_by_role("heading", name="Contact Details")).to_be_visible(timeout=10000)
+    print("Will change the Street1 value")
+    myinfo_page.click_contact_details_street1_field()
+    myinfo_page.enter_contact_details_street1_value()
+    print("Entered new Street1 value - will click on the Save button")
+    myinfo_page.click_save_button()
+    print("Clicked on the Save button - will verify successfully updated message")
+    expect(myinfo_page.successfully_updated_message).to_be_visible(timeout=10000)
+    print("\nEnded test_MyInfoUpdateContactDetails transaction")
+
 def test_AccessMyInfoEmergencyContactsSubmenu(shared_page):
     print("\nStarting test_AccessMyInfoEmergencyContactsSubmenu transaction")
     myinfo_page = MyInfoPage(shared_page)
