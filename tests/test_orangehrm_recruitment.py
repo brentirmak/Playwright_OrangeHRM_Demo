@@ -31,7 +31,7 @@ def test_LoginPage(shared_page):
     print("Ended test_LoginPage transaction")
 
 def test_RecruitmentPageVacancyCleanup(shared_page):
-    print("\nStarting test_RecruitmentPageDeleteVacancy transaction")
+    print("\nStarting test_RecruitmentPageVacancyCleanup transaction")
     recruitment_page = RecruitmentPage(shared_page)
     print("Will click on Recruitment menu")
     recruitment_page.click_recruitment_menu()
@@ -59,6 +59,34 @@ def test_RecruitmentPageVacancyCleanup(shared_page):
         expect(recruitment_page.vacancies_delete_successful_message).to_be_visible(timeout=15000)
     except:
         print("There was no record to delete - ending the test")
+    print("\nEnded test_RecruitmentPageVacancyCleanup transaction")
+
+def test_RecruitmentPageCandidateCleanup(shared_page):
+    print("\nStarting test_RecruitmentPageCandidateCleanup transaction")
+    recruitment_page = RecruitmentPage(shared_page)
+    print("Will click on Recruitment menu")
+    recruitment_page.click_recruitment_menu()
+    print("Clicked on the Recruitment menu - will now click on the Vacancies tab")
+    recruitment_page.click_candidates_submenu()
+    try:
+        print("Clicked on the Candidates tab - will now enter Candidate Name")
+        recruitment_page.enter_search_criteria_into_candidates_search_candidate_name_field()
+        time.sleep(1)
+        recruitment_page.click_candidates_search_candiadate_name_value()
+        print("Entered search criteria into Candiate Name field - will click on Search")
+        recruitment_page.click_candidates_search_button()
+        print("Clicked on the Search button - will verify that there's a result")
+        expect(recruitment_page.candidates_valid_search_result).to_be_visible(timeout=10000)
+        print("There was a valid search result - proceeding...")
+        recruitment_page.click_candidates_search_result()
+        print("Clicked on the search result - will click on the Delete Selected button")
+        recruitment_page.click_candidates_delete_candidate_button()
+        print("Clicked on the Delete button - will click on the confirmation message")
+        recruitment_page.click_candidates_confirm_delete_button()
+        expect(recruitment_page.candidates_delete_successful_message).to_be_visible(timeout=15000)
+    except:
+        print("There was no record to delete - ending the test")
+    print("\nEnded test_RecruitmentPageCandidateCleanup transaction")
 
 def test_RecruitmentPageCreateVacancy(shared_page):
     print("\nStarting test_RecruitmentPageCreateVacancy transaction")
@@ -82,11 +110,36 @@ def test_RecruitmentPageCreateVacancy(shared_page):
     recruitment_page.enter_vacancies_vacancy_description("Test position for automation purposes")
     print("Entered a description for the vacancy - will now select the hiring manager")
     recruitment_page.click_vacancies_hiring_manager_field()
-    recruitment_page.enter_vacancies_hiring_manager("C")
+    recruitment_page.enter_vacancies_hiring_manager("Ch")
     print("Entered hiring manager - will now click on the Save button")
     recruitment_page.click_vacancies_save_button()
     expect(recruitment_page.vacancies_edit_vacancy_title).to_be_visible(timeout=15000)
+    print("\nEnded test_RecruitmentPageCreateVacancy transaction")
 
+def test_RecruitmentPageAddCandidate(shared_page):
+    print("\nStarting test_RecruitmentPageAddCandidate transaction")
+    recruitment_page = RecruitmentPage(shared_page)
+    print("Will click on Recruitment menu")
+    recruitment_page.click_recruitment_menu()
+    print("Clicked on the Recruitment menu - will now click on the Candidates tab")
+    recruitment_page.click_candidates_tab()
+    print("Clicked on the Candidates tab - will click on Add button")
+    recruitment_page.click_candidates_add_button()
+    print("Clicked on the Add button - will check for 'Add Candidate' header")
+    print("Add Candidate header found - will now enter the First Name")
+    recruitment_page.click_candidates_add_candidate_first_name_field()
+    recruitment_page.enter_candidates_add_candidate_first_name_field()
+    print("Entered First Name - will now enter the Last Name")
+    recruitment_page.click_candidates_add_candidate_last_name_field()
+    recruitment_page.enter_candidates_add_candidate_last_name_field()
+    print("Entered Last Name - will now enter the Email Address")
+    recruitment_page.click_candidates_add_candidate_email_address_field()
+    recruitment_page.enter_candidates_add_candidate_email_address_field()
+    print("Entered the Email Address - will now click on the Save button")
+    recruitment_page.click_candidates_add_candidate_save_button()
+    expect(recruitment_page.candidates_new_record_saved).to_be_visible(timeout=15000)
+    print("\nEnded test_RecruitmentPageAddCandidate transaction")
+'''
 def test_RecruitmentPageSearchCandidatesByTitle(shared_page):
     print("\nStarting test_RecruitmentPageSearchCandidatesByTitle transaction")
     recruitment_page = RecruitmentPage(shared_page)
@@ -206,7 +259,32 @@ def test_RecruitmentPageVacanciesSearchByJobTitle(shared_page):
     expect(shared_page.locator("span", has_text=re.compile(r"Records? Found"))).to_be_visible(timeout=10000)
     print("Verified Records Found is visible in the search results")
     print("Ended test_RecruitmentPageVacanciesSearchByJobTitle transaction")
-
+'''
+    
+def test_RecruitmentPageDeleteCandidate(shared_page):
+    print("\nStarting test_RecruitmentPageDeleteCandidate transaction")
+    recruitment_page = RecruitmentPage(shared_page)
+    print("Will click on Recruitment menu")
+    recruitment_page.click_recruitment_menu()
+    print("Clicked on the Recruitment menu - will now click on the Candidates tab")
+    recruitment_page.click_candidates_tab()
+    print("Clicked on the Candidates tab - will now enter Candidate Name")
+    recruitment_page.enter_search_criteria_into_candidates_search_candidate_name_field()
+    time.sleep(1)
+    recruitment_page.click_candidates_search_candiadate_name_value()
+    print("Entered search criteria into Candiate Name field - will click on Search")
+    recruitment_page.click_candidates_search_button()
+    print("Clicked on the Search button - will verify that there's a result")
+    expect(recruitment_page.candidates_valid_search_result).to_be_visible(timeout=10000)
+    print("There was a valid search result - proceeding...")
+    recruitment_page.click_candidates_search_result()
+    print("Clicked on the search result - will click on the Delete Selected button")
+    recruitment_page.click_candidates_delete_candidate_button()
+    print("Clicked on the Delete button - will click on the confirmation message")
+    recruitment_page.click_candidates_confirm_delete_button()
+    expect(recruitment_page.candidates_delete_successful_message).to_be_visible(timeout=15000)
+    print("Ended test_RecruitmentPageDeleteCandidate transaction")
+    
 def test_RecruitmentPageDeleteVacancy(shared_page):
     print("\nStarting test_RecruitmentPageDeleteVacancy transaction")
     recruitment_page = RecruitmentPage(shared_page)
@@ -230,6 +308,7 @@ def test_RecruitmentPageDeleteVacancy(shared_page):
     print("Clicked on the Delete button - will click on the confirmation message")
     recruitment_page.click_vacancies_confirm_delete_button()
     expect(recruitment_page.vacancies_delete_successful_message).to_be_visible(timeout=15000)
+    print("\nEnded test_RecruitmentPageDeleteVacancy transaction")
 
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")
