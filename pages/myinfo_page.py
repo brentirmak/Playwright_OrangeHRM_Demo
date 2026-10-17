@@ -33,6 +33,24 @@ class MyInfoPage:
         self.contact_details_work_email_field = page.locator("div:nth-child(9) > .oxd-grid-3 > div > .oxd-input-group > div:nth-child(2) > .oxd-input").first
         self.contact_details_save_button = page.get_by_role("button", name="Save")
 
+        # Emergency Contacts
+        self.emergency_contacts_header = page.locator("xpath=//h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Assigned Emergency Contacts')]")
+        self.emergency_contacts_add_button = page.locator("(//button[@type='button'][contains(.,'Add')])[1]")
+        self.save_emergency_contact_header = page.locator("xpath=//h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Save Emergency Contact')]")
+        self.emergency_contact_name_field = page.get_by_role("textbox").nth(1)
+        self.emergency_contact_relationship_field = page.get_by_role("textbox").nth(2)
+        self.emergency_contact_home_phone_field = page.get_by_role("textbox").nth(3)
+        self.emergency_contact_mobile_phone_field = page.get_by_role("textbox").nth(4)
+        self.emergency_contact_work_phone_field = page.get_by_role("textbox").nth(5)
+        self.emergency_contact_save_button = page.get_by_role("button", name="Save")
+
+        self.emergency_contact_trash_icon = page.locator("//i[contains(@class,'oxd-icon bi-trash')]")
+        self.emergency_contact_record_found = page.locator("//span[contains(.,'(1) Record Found')]")
+        self.emergency_contact_delete_button = page.locator("//button[@type='button'][contains(.,'Yes, Delete')]")
+        
+
+        self.emergency_contact_successfully_deleted_message = page.locator("//p[contains(.,'Successfully Deleted')]")
+        self.emergency_contact_successfully_saved_message = page.locator("//p[contains(.,'Successfully Saved')]")
         self.successfully_updated_message = page.locator("//p[contains(.,'Successfully Updated')]")
     
     def click_myinfo_menu(self):
@@ -154,3 +172,49 @@ class MyInfoPage:
 
     def click_contact_details_save_button(self):
         self.contact_details_save_button.click()
+
+    ######################################################################################################
+    # Emergency Contact Details methods
+    #
+    def click_emergency_contacts_add_button(self):
+        self.emergency_contacts_add_button.click()
+
+    def click_emergency_contact_name_field(self):
+        self.emergency_contact_name_field.click()
+
+    def enter_emergency_contact_name_value(self):
+        self.emergency_contact_name_field.fill("John Smith")
+
+    def click_emergency_contact_relationship_field(self):
+        self.emergency_contact_relationship_field.click()
+    
+    def enter_emergency_contact_relationship_value(self):
+        self.emergency_contact_relationship_field.fill("Cousin")
+
+    def click_emergency_contact_home_phone_field(self):
+        self.emergency_contact_home_phone_field.click()
+    
+    def enter_emergency_contact_home_phone_value(self):
+        self.emergency_contact_home_phone_field.fill("111-222-3333")
+
+    def click_emergency_contact_mobile_phone_field(self):
+        self.emergency_contact_mobile_phone_field.click()
+        
+    def enter_emergency_contact_mobile_phone_value(self):
+        self.emergency_contact_mobile_phone_field.fill("777-666-5555")
+
+    def click_emergency_contact_work_phone_field(self):
+        self.emergency_contact_work_phone_field.click()
+        
+    def enter_emergency_contact_work_phone_value(self):
+        self.emergency_contact_work_phone_field.fill("999-888-7777")
+    
+    def click_emergency_contact_save_button(self):
+        self.emergency_contact_save_button.click()
+
+    def click_emergency_contact_trash_icon(self):
+        self.emergency_contact_trash_icon.click()
+
+    def click_emergency_contact_delete_button(self):
+        self.emergency_contact_delete_button.click()
+    
