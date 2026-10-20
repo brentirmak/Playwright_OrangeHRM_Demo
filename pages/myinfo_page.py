@@ -143,32 +143,32 @@ class MyInfoPage:
     def click_contact_details_street1_field(self):
         self.contact_details_street1_field.click()
 
-    def enter_contact_details_street1_value(self):
-        self.contact_details_street1_field.fill("123 Street Ave")
+    def enter_contact_details_street1_value(self,street1):
+        self.contact_details_street1_field.fill(street1)
 
     def click_contact_details_street2_field(self):
         self.contact_details_street2_field.click()
 
-    def enter_contact_details_street2_value(self):
-        self.contact_details_street2_field.fill("Apt 456")
+    def enter_contact_details_street2_value(self,street2):
+        self.contact_details_street2_field.fill(street2)
 
     def click_contact_details_city_field(self):
         self.contact_details_city_field.click()
 
-    def enter_contact_details_city_value(self):
-        self.contact_details_city_field.fill("San Jose")
+    def enter_contact_details_city_value(self,city):
+        self.contact_details_city_field.fill(city)
 
     def click_contact_details_state_field(self):
         self.contact_details_state_field.click()
 
-    def enter_contact_details_state_value(self):
-        self.contact_details_state_field.fill("CA")
+    def enter_contact_details_state_value(self,state):
+        self.contact_details_state_field.fill(state)
 
     def click_contact_details_zipcode_field(self):
         self.contact_details_zipcode_field.click()
 
-    def enter_contact_details_zipcode_value(self):
-        self.contact_details_zipcode_field.fill("95112")
+    def enter_contact_details_zipcode_value(self,zipcode):
+        self.contact_details_zipcode_field.fill(zipcode)
 
     def click_contact_details_country_dropdown_menu(self):
         self.contact_details_country_dropdown_menu.click()
