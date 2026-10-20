@@ -179,8 +179,8 @@ class MyInfoPage:
     def click_contact_details_work_email_field(self):
         self.contact_details_work_email_field.click()
             
-    def enter_contact_details_work_email_value(self):
-        self.contact_details_work_email_field.fill("test@test.com")
+    def enter_contact_details_work_email_value(self, work_email):
+        self.contact_details_work_email_field.fill(work_email)
 
     def click_contact_details_save_button(self):
         self.contact_details_save_button.click()
@@ -194,32 +194,32 @@ class MyInfoPage:
     def click_emergency_contact_name_field(self):
         self.emergency_contact_name_field.click()
 
-    def enter_emergency_contact_name_value(self):
-        self.emergency_contact_name_field.fill("John Smith")
+    def enter_emergency_contact_name_value(self, name):
+        self.emergency_contact_name_field.fill(name)
 
     def click_emergency_contact_relationship_field(self):
         self.emergency_contact_relationship_field.click()
     
-    def enter_emergency_contact_relationship_value(self):
-        self.emergency_contact_relationship_field.fill("Cousin")
+    def enter_emergency_contact_relationship_value(self, relationship):
+        self.emergency_contact_relationship_field.fill(relationship)
 
     def click_emergency_contact_home_phone_field(self):
         self.emergency_contact_home_phone_field.click()
     
-    def enter_emergency_contact_home_phone_value(self):
-        self.emergency_contact_home_phone_field.fill("111-222-3333")
+    def enter_emergency_contact_home_phone_value(self, home_phone):
+        self.emergency_contact_home_phone_field.fill(home_phone)
 
     def click_emergency_contact_mobile_phone_field(self):
         self.emergency_contact_mobile_phone_field.click()
         
-    def enter_emergency_contact_mobile_phone_value(self):
-        self.emergency_contact_mobile_phone_field.fill("777-666-5555")
+    def enter_emergency_contact_mobile_phone_value(self,mobile_phone):
+        self.emergency_contact_mobile_phone_field.fill(mobile_phone)
 
     def click_emergency_contact_work_phone_field(self):
         self.emergency_contact_work_phone_field.click()
         
-    def enter_emergency_contact_work_phone_value(self):
-        self.emergency_contact_work_phone_field.fill("999-888-7777")
+    def enter_emergency_contact_work_phone_value(self,work_phone):
+        self.emergency_contact_work_phone_field.fill(work_phone)
     
     def click_emergency_contact_save_button(self):
         self.emergency_contact_save_button.click()
@@ -239,8 +239,8 @@ class MyInfoPage:
     def click_dependents_name_field(self):
         self.dependents_name_field.click()
 
-    def enter_dependents_name_value(self):
-        self.dependents_name_field.fill("Mehmet")
+    def enter_dependents_name_value(self,name):
+        self.dependents_name_field.fill(name)
 
     def click_dependents_relationship_field(self):
         self.dependents_relationship_field.click()
@@ -251,8 +251,8 @@ class MyInfoPage:
     def click_dependents_date_of_birth_field(self):
         self.dependents_date_of_birth_field.click()
 
-    def enter_dependents_date_of_birth_value(self):
-        self.dependents_date_of_birth_field.fill("1980-11-11")
+    def enter_dependents_date_of_birth_value(self, dob):
+        self.dependents_date_of_birth_field.fill(dob)
 
     def click_dependents_save_button(self):
         self.dependents_save_button.click()
