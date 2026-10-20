@@ -297,26 +297,26 @@ class MyInfoPage:
     def click_immigration_number_field(self):
         self.immigration_number_field.click()
 
-    def enter_immigration_number_value(self):
-        self.immigration_number_field.fill("123456789")
+    def enter_immigration_number_value(self, immigration_number):
+        self.immigration_number_field.fill(immigration_number)
 
     def click_immigration_issued_date_field(self):
         self.immigration_issued_date_field.click()
 
-    def enter_immigration_issued_date_value(self):
-        self.immigration_issued_date_field.fill("2026-01-01")
+    def enter_immigration_issued_date_value(self,immigration_issued_date):
+        self.immigration_issued_date_field.fill(immigration_issued_date)
 
     def click_immigration_expiry_date_field(self):
         self.immigration_expiry_date_field.click()
 
-    def enter_immigration_expiry_date_value(self):
-        self.immigration_expiry_date_field.fill("2030-06-06")
+    def enter_immigration_expiry_date_value(self,expiry_date):
+        self.immigration_expiry_date_field.fill(expiry_date)
 
     def click_immigration_eligible_status_field(self):
         self.immigration_eligible_status_field.click()
 
-    def enter_immigration_eligible_status_value(self):
-        self.immigration_eligible_status_field.fill("Pending")
+    def enter_immigration_eligible_status_value(self,eligible_status):
+        self.immigration_eligible_status_field.fill(eligible_status)
 
     def click_immigration_issued_by_dropdown(self):
         self.immigration_issued_by_dropdown.click()
@@ -330,8 +330,8 @@ class MyInfoPage:
     def click_immigration_eligible_review_date_field(self):
         self.immigration_eligible_review_date_field.click()
 
-    def enter_immigration_eligible_review_date_value(self):
-        self.immigration_eligible_review_date_field.fill("2028-06-06")
+    def enter_immigration_eligible_review_date_value(self,eligible_review_date):
+        self.immigration_eligible_review_date_field.fill(eligible_review_date)
 
     def click_immigration_save_button(self):
         self.immigration_save_button.click()
