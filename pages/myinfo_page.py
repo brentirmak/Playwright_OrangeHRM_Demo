@@ -1,3 +1,6 @@
+
+import re
+
 class MyInfoPage:
 
     def __init__(self, page):
@@ -71,13 +74,12 @@ class MyInfoPage:
         self.immigration_issued_date_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[1]/form/div[2]/div/div[2]/div/div[2]/div/div/input")
         self.immigration_expiry_date_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[1]/form/div[2]/div/div[3]/div/div[2]/div/div/input")
         self.immigration_eligible_status_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[1]/form/div[2]/div/div[4]/div/div[2]/input")
-        #self.immigration_issued_by_dropdown = page.locator("xpath=//div[@class='oxd-select-text-input'][contains(.,'-- Select --')]")
         self.immigration_issued_by_dropdown = page.locator("xpath=//i[contains(@class,'oxd-icon bi-caret-down-fill oxd-select-text--arrow')]")
-        #self.immigration_issued_by_dropdown_value = page.locator("xpath=//div[@class='oxd-select-text-input'][contains(.,'United States')]")
         self.immigration_eligible_review_date_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[1]/form/div[2]/div/div[6]/div/div[2]/div/div/input")
         self.immigration_save_button = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[1]/form/div[3]/button[2]")
         self.immigration_record_successfully_saved = page.locator("xpath=//div[@class='oxd-toast-content oxd-toast-content--success'][contains(.,'SuccessSuccessfully Saved')]")
-
+        self.immigration_delete_selected_button = page.locator("xpath=//button[@type='button'][contains(.,'Delete Selected')]")
+        self.immigration_confirm_delete_button = page.locator("xpath=//button[@type='button'][contains(.,'Yes, Delete')]")
 
         self.successfully_updated_message = page.locator("xpath=//p[contains(.,'Successfully Updated')]")
         self.successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
@@ -333,4 +335,12 @@ class MyInfoPage:
 
     def click_immigration_save_button(self):
         self.immigration_save_button.click()
-    
+
+    def select_to_be_deleted_immigration_record(self, record_id):
+        self.page.get_by_role("row", name=re.compile(record_id)).locator("label").click()
+
+    def click_immigration_delete_selected_button(self):
+        self.immigration_delete_selected_button.click()
+
+    def click_immigration_confirm_delete_button(self):
+        self.immigration_confirm_delete_button.click()

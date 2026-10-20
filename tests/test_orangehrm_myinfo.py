@@ -333,6 +333,26 @@ def test_MyInfoAddImmigrationDocument(shared_page):
     myinfo_page.click_immigration_save_button()
     print("Clicked on the immigration save button - will verify Successful message")
     expect(myinfo_page.immigration_record_successfully_saved).to_be_visible(timeout=20000)
+    print("Verified that the record successfully saved message was displayed")
+    print("\nEnded test_AccessMyInfoImmigrationSubmenu transaction")
+
+
+def test_MyInfoDeleteImmigrationDocument(shared_page):
+    print("\nStarting test_MyInfoDeleteImmigrationDocument transaction")
+    myinfo_page = MyInfoPage(shared_page)
+    print("Will access the Immigration submenu under My Info section/page")
+    myinfo_page.click_immigration_submenu()
+    print("Clicked on the Immigration submenu item")
+    expect(shared_page.get_by_role("heading", name="Assigned Immigration Records")).to_be_visible(timeout=20000)
+    print("Verified that the Assigned Immigration Records header was displayed - will now delete the record that was previously created")
+    myinfo_page.select_to_be_deleted_immigration_record("123456789")
+    print("Clicked on the record that should be deleted - will click on the Delete Selected button")
+    myinfo_page.click_immigration_delete_selected_button()
+    print("Clicked on the Delete Selected button")
+    myinfo_page.click_immigration_confirm_delete_button()
+    print("Clicked on the Yes, Delete button - will verify via toast message")
+    expect(myinfo_page.successfully_deleted_message).to_be_visible(timeout=20000)
+    print("\nEnded test_MyInfoDeleteImmigrationDocument transaction")
 
 def test_AccessMyInfoJobSubmenu(shared_page):
     print("\nStarting test_AccessMyInfoJobSubmenu transaction")
