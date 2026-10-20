@@ -243,8 +243,8 @@ def test_AccessMyInfoDependentsSubmenu(shared_page):
     print("Verified that the Attachments header was displayed")
     print("\nEnded test_AccessMyInfoDependentsSubmenu transaction")
 
-def test_AccessMyInfoAddDependent(shared_page):
-    print("\nStarting test_AccessMyInfoAddDependent transaction")
+def test_MyInfoAddDependent(shared_page):
+    print("\nStarting test_MyInfoAddDependent transaction")
     myinfo_page = MyInfoPage(shared_page)
     print("Will access the Dependents submenu under My Info section/page")
     myinfo_page.click_dependents_submenu()
@@ -269,10 +269,10 @@ def test_AccessMyInfoAddDependent(shared_page):
     print("Clicked on the Save button")
     expect(myinfo_page.dependents_successfully_saved_message).to_be_visible(timeout=20000)
     print("Verified that the Dependent was successfully saved")
-    print("\nEnded test_AccessMyInfoAddDependent transaction")
+    print("\nEnded test_MyInfoAddDependent transaction")
 
-def test_AccessMyInfoDeleteDependent(shared_page):
-    print("\nStarting test_AccessMyInfoDeleteDependent transaction")
+def test_MyInfoDeleteDependent(shared_page):
+    print("\nStarting test_MyInfoDeleteDependent transaction")
     myinfo_page = MyInfoPage(shared_page)
     print("Will access the Dependents submenu under My Info section/page")
     myinfo_page.click_dependents_submenu()
@@ -285,7 +285,7 @@ def test_AccessMyInfoDeleteDependent(shared_page):
     print("Clicked on the Delete button - will confirm that the record has been deleted")
     expect(myinfo_page.successfully_deleted_message).to_be_visible(timeout=20000)
     print("Verified that the Dependent was successfully deleted")
-    print("\nEnded test_AccessMyInfoDeleteDependent transaction")
+    print("\nEnded test_MyInfoDeleteDependent transaction")
 
 def test_AccessMyInfoImmigrationSubmenu(shared_page):
     print("\nStarting test_AccessMyInfoImmigrationSubmenu transaction")
@@ -298,6 +298,41 @@ def test_AccessMyInfoImmigrationSubmenu(shared_page):
     expect(shared_page.get_by_role("heading", name="Attachments")).to_be_visible(timeout=20000)  
     print("Verified that the Attachments header was displayed")
     print("\nEnded test_AccessMyInfoImmigrationSubmenu transaction")
+
+def test_MyInfoAddImmigrationDocument(shared_page):
+    print("\nStarting test_AccessMyInfoImmigrationSubmenu transaction")
+    myinfo_page = MyInfoPage(shared_page)
+    print("Will access the Immigration submenu under My Info section/page")
+    myinfo_page.click_immigration_submenu()
+    print("Clicked on the Immigration submenu item")
+    expect(shared_page.get_by_role("heading", name="Assigned Immigration Records")).to_be_visible(timeout=20000)
+    print("Verified that the Assigned Immigration Records header was displayed - will now Add a new Immigration Record")
+    myinfo_page.click_immigration_add_record_button()
+    print("Clicked on the Add button - will verify that the Add Immigration sceeen is displayed")
+    expect(myinfo_page.add_immigration_header).to_be_visible(timeout=20000)
+    print("Add Immigration page is displayed - will select Passport radion button")
+    myinfo_page.click_immigration_document_type_passport_radio_button()
+    print("Clicked on the Passport radio button - will enter the Number")
+    myinfo_page.click_immigration_number_field()
+    myinfo_page.enter_immigration_number_value()
+    print("Entered the number - will now enter the Issued Date")
+    myinfo_page.click_immigration_issued_date_field()
+    myinfo_page.enter_immigration_issued_date_value()
+    print("Entered the immigration issued date value - will enter on the expiry date")
+    myinfo_page.click_immigration_expiry_date_field()
+    myinfo_page.enter_immigration_expiry_date_value()
+    print("Entered the expiry date value - will enter the Eligible status value")
+    myinfo_page.click_immigration_eligible_status_field()
+    myinfo_page.enter_immigration_eligible_status_value()
+    print("Entered the eligible status value - will select the Issued By value")
+    myinfo_page.click_immigration_issued_by_dropdown()
+    myinfo_page.select_immigration_issued_by_value("United States")
+    print("Selected the Immigration Issued By value - will select the Eligible review date")
+    myinfo_page.enter_immigration_eligible_review_date_value()
+    print("Entered the eligible review date value - will click on Save button")
+    myinfo_page.click_immigration_save_button()
+    print("Clicked on the immigration save button - will verify Successful message")
+    expect(myinfo_page.immigration_record_successfully_saved).to_be_visible(timeout=20000)
 
 def test_AccessMyInfoJobSubmenu(shared_page):
     print("\nStarting test_AccessMyInfoJobSubmenu transaction")

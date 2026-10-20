@@ -61,7 +61,24 @@ class MyInfoPage:
         self.dependents_record_found = page.locator("//span[contains(.,'(1) Record Found')]")
         self.dependents_trash_icon = page.locator("//i[contains(@class,'oxd-icon bi-trash')]")
         self.dependents_delete_button = page.locator("//button[@type='button'][contains(.,'Yes, Delete')]")
-        
+
+        # Immigration
+        self.immigration_add_record_button = page.locator("(//button[@type='button'][contains(.,'Add')])[1]")
+        self.add_immigration_header = page.locator("xpath=//h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Add Immigration')]")
+        self.immigration_document_type_passport_radio_button = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[1]/form/div[1]/div/div/div/div[2]/div[1]/div[2]/div/label/span")
+        self.immigration_document_type_visa_radio_button = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[1]/form/div[1]/div/div/div/div[2]/div[2]/div[2]/div/label/span")
+        self.immigration_number_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[1]/form/div[2]/div/div[1]/div/div[2]/input")
+        self.immigration_issued_date_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[1]/form/div[2]/div/div[2]/div/div[2]/div/div/input")
+        self.immigration_expiry_date_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[1]/form/div[2]/div/div[3]/div/div[2]/div/div/input")
+        self.immigration_eligible_status_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[1]/form/div[2]/div/div[4]/div/div[2]/input")
+        #self.immigration_issued_by_dropdown = page.locator("xpath=//div[@class='oxd-select-text-input'][contains(.,'-- Select --')]")
+        self.immigration_issued_by_dropdown = page.locator("xpath=//i[contains(@class,'oxd-icon bi-caret-down-fill oxd-select-text--arrow')]")
+        #self.immigration_issued_by_dropdown_value = page.locator("xpath=//div[@class='oxd-select-text-input'][contains(.,'United States')]")
+        self.immigration_eligible_review_date_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[1]/form/div[2]/div/div[6]/div/div[2]/div/div/input")
+        self.immigration_save_button = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[1]/form/div[3]/button[2]")
+        self.immigration_record_successfully_saved = page.locator("xpath=//div[@class='oxd-toast-content oxd-toast-content--success'][contains(.,'SuccessSuccessfully Saved')]")
+
+
         self.successfully_updated_message = page.locator("xpath=//p[contains(.,'Successfully Updated')]")
         self.successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
     
@@ -262,4 +279,58 @@ class MyInfoPage:
 
     def click_dependents_delete_button(self):
         self.dependents_delete_button.click()
-            
+
+    ######################################################################################################
+    # Immigration methods
+    #
+    def click_immigration_add_record_button(self):
+        self.immigration_add_record_button.click()
+
+    def click_immigration_document_type_passport_radio_button(self):
+        self.immigration_document_type_passport_radio_button.click()
+
+    def click_immigration_document_type_visa_radio_button(self):
+        self.immigration_document_type_visa_radio_button.click()
+
+    def click_immigration_number_field(self):
+        self.immigration_number_field.click()
+
+    def enter_immigration_number_value(self):
+        self.immigration_number_field.fill("123456789")
+
+    def click_immigration_issued_date_field(self):
+        self.immigration_issued_date_field.click()
+
+    def enter_immigration_issued_date_value(self):
+        self.immigration_issued_date_field.fill("2026-01-01")
+
+    def click_immigration_expiry_date_field(self):
+        self.immigration_expiry_date_field.click()
+
+    def enter_immigration_expiry_date_value(self):
+        self.immigration_expiry_date_field.fill("2030-06-06")
+
+    def click_immigration_eligible_status_field(self):
+        self.immigration_eligible_status_field.click()
+
+    def enter_immigration_eligible_status_value(self):
+        self.immigration_eligible_status_field.fill("Pending")
+
+    def click_immigration_issued_by_dropdown(self):
+        self.immigration_issued_by_dropdown.click()
+
+    def select_immigration_issued_by_value(self, country):
+        if country == "United States":
+            self.page.locator("//div[@role='listbox']//span[text()='United States']").click()
+        else:
+            print("Country isn't United States")
+
+    def click_immigration_eligible_review_date_field(self):
+        self.immigration_eligible_review_date_field.click()
+
+    def enter_immigration_eligible_review_date_value(self):
+        self.immigration_eligible_review_date_field.fill("2028-06-06")
+
+    def click_immigration_save_button(self):
+        self.immigration_save_button.click()
+    
