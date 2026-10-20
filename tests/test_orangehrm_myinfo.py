@@ -48,9 +48,31 @@ def test_MyInfoEmergencyContactCleanup(shared_page):
         print("Clicked on the trash icon - will now click on the Yes, Delete button")
         myinfo_page.click_emergency_contact_delete_button()
         expect(myinfo_page.emergency_contact_successfully_deleted_message).to_be_visible(timeout=10000)
+        print("Verified that the Emergency Contact was successfully deleted")
     except:
         print("There was no record to delete - ending the test")
     print("\nEnded test_MyInfoEmergencyContactCleanup transaction")
+
+def test_MyInfoDependentCleanup(shared_page):
+    print("\nStarting test_MyInfoDependentCleanup transaction")
+    myinfo_page = MyInfoPage(shared_page)
+    print("Will access the Dependents submenu under My Info section/page")
+    myinfo_page.click_dependents_submenu()
+    print("Clicked on the Dependents submenu item")
+    expect(shared_page.get_by_role("heading", name="Assigned Dependents")).to_be_visible(timeout=20000)
+    try:
+        print("We're on the Assigned Dependents page - will verify that there's 1 record found")
+        expect(myinfo_page.dependents_record_found).to_be_visible(timeout=10000)
+        print("A record was found for deletion - proceeding...")
+        myinfo_page.click_dependents_trash_icon()
+        print("Clicked on the trash icon for the to be deleted record")
+        myinfo_page.click_dependents_delete_button()
+        print("Clicked on the Delete button - will confirm that the record has been deleted")
+        expect(myinfo_page.successfully_deleted_message).to_be_visible(timeout=20000)
+        print("Verified that the Dependent was successfully deleted")
+    except:
+        print("There was no record to delete - ending the test")
+    print("\nEnded test_MyInfoDependentCleanup transaction")
 
 def test_AccessMyInfoSection(shared_page):
     print("\nStarting test_AccessMyInfoSection transaction")

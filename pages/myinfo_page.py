@@ -62,12 +62,6 @@ class MyInfoPage:
         self.dependents_trash_icon = page.locator("//i[contains(@class,'oxd-icon bi-trash')]")
         self.dependents_delete_button = page.locator("//button[@type='button'][contains(.,'Yes, Delete')]")
         
-        '''
-        expect(page.get_by_role("heading", name="Assigned Dependents")).to_be_visible()
-        expect(page.get_by_text("No Records Found").first).to_be_visible()
-        expect(page.get_by_role("heading", name="Add Dependent")).to_be_visible()
-        '''
-
         self.successfully_updated_message = page.locator("xpath=//p[contains(.,'Successfully Updated')]")
         self.successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
     
