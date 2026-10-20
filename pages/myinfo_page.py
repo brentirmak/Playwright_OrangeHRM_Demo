@@ -59,7 +59,8 @@ class MyInfoPage:
         self.dependents_save_button = page.get_by_role("button", name="Save")
         self.dependents_successfully_saved_message = page.locator("//p[contains(.,'Successfully Saved')]")
         self.dependents_record_found = page.locator("//span[contains(.,'(1) Record Found')]")
-        
+        self.dependents_trash_icon = page.locator("//i[contains(@class,'oxd-icon bi-trash')]")
+        self.dependents_delete_button = page.locator("//button[@type='button'][contains(.,'Yes, Delete')]")
         
         '''
         expect(page.get_by_role("heading", name="Assigned Dependents")).to_be_visible()
@@ -68,6 +69,7 @@ class MyInfoPage:
         '''
 
         self.successfully_updated_message = page.locator("xpath=//p[contains(.,'Successfully Updated')]")
+        self.successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
     
     def click_myinfo_menu(self):
         self.myinfo_menu.click()
@@ -261,3 +263,9 @@ class MyInfoPage:
     def click_dependents_save_button(self):
         self.dependents_save_button.click()
 
+    def click_dependents_trash_icon(self):
+        self.dependents_trash_icon.click()
+
+    def click_dependents_delete_button(self):
+        self.dependents_delete_button.click()
+            

@@ -243,6 +243,22 @@ def test_AccessMyInfoAddDependent(shared_page):
     print("Verified that the Dependent was successfully saved")
     print("\nEnded test_AccessMyInfoAddDependent transaction")
 
+def test_AccessMyInfoDeleteDependent(shared_page):
+    print("\nStarting test_AccessMyInfoDeleteDependent transaction")
+    myinfo_page = MyInfoPage(shared_page)
+    print("Will access the Dependents submenu under My Info section/page")
+    myinfo_page.click_dependents_submenu()
+    print("Clicked on the Dependents submenu item")
+    expect(shared_page.get_by_role("heading", name="Assigned Dependents")).to_be_visible(timeout=20000)
+    print("We're on the Assigned Dependents page - will delete record")
+    myinfo_page.click_dependents_trash_icon()
+    print("Clicked on the trash icon for the to be deleted record")
+    myinfo_page.click_dependents_delete_button()
+    print("Clicked on the Delete button - will confirm that the record has been deleted")
+    expect(myinfo_page.successfully_deleted_message).to_be_visible(timeout=20000)
+    print("Verified that the Dependent was successfully deleted")
+    print("\nEnded test_AccessMyInfoDeleteDependent transaction")
+
 def test_AccessMyInfoImmigrationSubmenu(shared_page):
     print("\nStarting test_AccessMyInfoImmigrationSubmenu transaction")
     myinfo_page = MyInfoPage(shared_page)
