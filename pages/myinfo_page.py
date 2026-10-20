@@ -101,38 +101,38 @@ class MyInfoPage:
     def click_personal_details_firstname_field(self):
         self.personal_details_firstname_field.click()
 
-    def enter_personal_details_firstname_value(self):
-        self.personal_details_firstname_field.fill("John")
+    def enter_personal_details_firstname_value(self, firstname):
+        self.personal_details_firstname_field.fill(firstname)
 
     def click_personal_details_middlename_field(self):
         self.personal_details_middlename_field.click()
 
-    def enter_personal_details_middlename_value(self):
-        self.personal_details_middlename_field.fill("Mike")
+    def enter_personal_details_middlename_value(self,middlename):
+        self.personal_details_middlename_field.fill(middlename)
 
     def click_personal_details_lastname_field(self):
         self.personal_details_lastname_field.click()
     
-    def enter_personal_details_lastname_value(self):
-        self.personal_details_lastname_field.fill("Doe")
+    def enter_personal_details_lastname_value(self,lastname):
+        self.personal_details_lastname_field.fill(lastname)
 
     def click_personal_details_employeeid_field(self):
         self.personal_details_employeeid_field.click()
 
-    def enter_personal_details_employeeid_value(self):
-        self.personal_details_employeeid_field.fill("55555")
+    def enter_personal_details_employeeid_value(self,employeeid):
+        self.personal_details_employeeid_field.fill(employeeid)
 
     def click_personal_details_otherid_field(self):
         self.personal_details_otherid_field.click()
 
-    def enter_personal_details_otherid_value(self):
-        self.personal_details_otherid_field.fill("ABCXYZ")
+    def enter_personal_details_otherid_value(self,otherid):
+        self.personal_details_otherid_field.fill(otherid)
 
     def click_personal_details_drivers_license_field(self):
         self.personal_details_drivers_license_field.click()
 
-    def enter_personal_details_drivers_license_value(self):
-        self.personal_details_drivers_license_field.fill("B12345678")
+    def enter_personal_details_drivers_license_value(self,license_num):
+        self.personal_details_drivers_license_field.fill(license_num)
 
     def click_personal_details_save_button(self):
         self.personal_details_save_button.click()
