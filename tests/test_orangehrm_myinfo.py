@@ -74,6 +74,27 @@ def test_MyInfoDependentCleanup(shared_page):
         print("There was no record to delete - ending the test")
     print("\nEnded test_MyInfoDependentCleanup transaction")
 
+def test_MyInfoImmigrationDocumentCleanup(shared_page):
+    print("\nStarting test_MyInfoImmigrationDocumentCleanup transaction")
+    myinfo_page = MyInfoPage(shared_page)
+    print("Will access the Immigration submenu under My Info section/page")
+    myinfo_page.click_immigration_submenu()
+    print("Clicked on the Immigration submenu item")
+    expect(shared_page.get_by_role("heading", name="Assigned Immigration Records")).to_be_visible(timeout=20000)
+    try:
+        print("Verified that the Assigned Immigration Records header was displayed - will now delete the record that was previously created")
+        myinfo_page.select_to_be_deleted_immigration_record("123456789")
+        print("Clicked on the record that should be deleted - will click on the Delete Selected button")
+        myinfo_page.click_immigration_delete_selected_button()
+        print("Clicked on the Delete Selected button")
+        myinfo_page.click_immigration_confirm_delete_button()
+        print("Clicked on the Yes, Delete button - will verify via toast message")
+        expect(myinfo_page.successfully_deleted_message).to_be_visible(timeout=20000)
+        print("Verified that the Immigration document was successfully deleted")
+    except:
+        print("There was no record to delete - ending the test")
+    print("\nEnded test_MyInfoImmigrationDocumentCleanup transaction")
+
 def test_AccessMyInfoSection(shared_page):
     print("\nStarting test_AccessMyInfoSection transaction")
     myinfo_page = MyInfoPage(shared_page)
