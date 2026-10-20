@@ -43,15 +43,31 @@ class MyInfoPage:
         self.emergency_contact_mobile_phone_field = page.get_by_role("textbox").nth(4)
         self.emergency_contact_work_phone_field = page.get_by_role("textbox").nth(5)
         self.emergency_contact_save_button = page.get_by_role("button", name="Save")
-
         self.emergency_contact_trash_icon = page.locator("//i[contains(@class,'oxd-icon bi-trash')]")
         self.emergency_contact_record_found = page.locator("//span[contains(.,'(1) Record Found')]")
         self.emergency_contact_delete_button = page.locator("//button[@type='button'][contains(.,'Yes, Delete')]")
-        
-
         self.emergency_contact_successfully_deleted_message = page.locator("//p[contains(.,'Successfully Deleted')]")
         self.emergency_contact_successfully_saved_message = page.locator("//p[contains(.,'Successfully Saved')]")
-        self.successfully_updated_message = page.locator("//p[contains(.,'Successfully Updated')]")
+
+        # Dependents
+        self.dependents_add_dependents_button = page.locator("(//button[@type='button'][contains(.,'Add')])[1]")
+        self.dependents_name_field = page.get_by_role("textbox").nth(1)
+        self.dependents_relationship_field = page.locator("//div[@class='oxd-select-text-input'][contains(.,'-- Select --')]")
+        self.dependents_relationship_child_option = page.get_by_role("option", name="Child")
+        self.dependents_date_of_birth_field = page.get_by_role("textbox", name="yyyy-mm-dd")
+        self.dependents_date_of_birth_field = page.locator("//input[contains(@placeholder,'yyyy-dd-mm')]")
+        self.dependents_save_button = page.get_by_role("button", name="Save")
+        self.dependents_successfully_saved_message = page.locator("//p[contains(.,'Successfully Saved')]")
+        self.dependents_record_found = page.locator("//span[contains(.,'(1) Record Found')]")
+        
+        
+        '''
+        expect(page.get_by_role("heading", name="Assigned Dependents")).to_be_visible()
+        expect(page.get_by_text("No Records Found").first).to_be_visible()
+        expect(page.get_by_role("heading", name="Add Dependent")).to_be_visible()
+        '''
+
+        self.successfully_updated_message = page.locator("xpath=//p[contains(.,'Successfully Updated')]")
     
     def click_myinfo_menu(self):
         self.myinfo_menu.click()
@@ -217,4 +233,31 @@ class MyInfoPage:
 
     def click_emergency_contact_delete_button(self):
         self.emergency_contact_delete_button.click()
-    
+
+    ######################################################################################################
+    # Dependents methods
+    #
+    def click_dependents_add_dependents_button(self):
+        self.dependents_add_dependents_button.click()
+
+    def click_dependents_name_field(self):
+        self.dependents_name_field.click()
+
+    def enter_dependents_name_value(self):
+        self.dependents_name_field.fill("Mehmet")
+
+    def click_dependents_relationship_field(self):
+        self.dependents_relationship_field.click()
+
+    def click_dependents_relationship_child_option(self):
+        self.dependents_relationship_child_option.click()
+
+    def click_dependents_date_of_birth_field(self):
+        self.dependents_date_of_birth_field.click()
+
+    def enter_dependents_date_of_birth_value(self):
+        self.dependents_date_of_birth_field.fill("1980-11-11")
+
+    def click_dependents_save_button(self):
+        self.dependents_save_button.click()
+
