@@ -57,7 +57,9 @@ class MyInfoPage:
         self.dependents_name_field = page.get_by_role("textbox").nth(1)
         self.dependents_relationship_field = page.locator("//div[@class='oxd-select-text-input'][contains(.,'-- Select --')]")
         self.dependents_relationship_child_option = page.get_by_role("option", name="Child")
-        self.dependents_date_of_birth_field = page.locator("//input[contains(@placeholder,'dd-mm-yyyy')]")
+        self.dependents_date_of_birth_field_opt1 = page.locator("//input[contains(@placeholder,'dd-mm-yyyy')]")
+        self.dependents_date_of_birth_field_opt2 = page.locator("//input[contains(@placeholder,'yyyy-dd-mm')]")
+        self.dependents_date_of_birth_clear_button = page.locator("xpath=//div[@class='oxd-date-input-link --clear'][contains(.,'Clear')]")
         self.dependents_save_button = page.get_by_role("button", name="Save")
         self.dependents_successfully_saved_message = page.locator("//p[contains(.,'Successfully Saved')]")
         self.dependents_record_found = page.locator("span", has_text=re.compile(r"\(\d+\) Records? Found"))
@@ -267,11 +269,25 @@ class MyInfoPage:
     def click_dependents_relationship_child_option(self):
         self.dependents_relationship_child_option.click()
 
-    def click_dependents_date_of_birth_field(self):
-        self.dependents_date_of_birth_field.click()
+    def click_dependents_date_of_birth_field(self, date_format):
+        if date_format == "dd-mm-yyyy":
+            print("Trying 1st method - dd-mm-yyyy")
+            self.dependents_date_of_birth_field_opt1.click()
+            print("1st method - dd-mm-yyyy has been clicked.")
+        else:
+            print("Trying 2nd method - yyyy-dd-mm")
+            self.dependents_date_of_birth_field_opt2.click()
+            print("2nd method - yyyy-dd-mm has been clicked.")
 
-    def enter_dependents_date_of_birth_value(self, dob):
-        self.dependents_date_of_birth_field.fill(dob)
+    def enter_dependents_date_of_birth_value1(self, dob):
+        print("Trying 1st method - dd-mm-yyyy")
+        self.dependents_date_of_birth_field_opt1.fill(dob)
+        print("1st method - dd-mm-yyyy has been entered.")
+
+    def enter_dependents_date_of_birth_value2(self, dob):
+        print("Trying 2nd method - yyyy-dd-mm")
+        self.dependents_date_of_birth_field_opt2.fill(dob)
+        print("2nd method - yyyy-dd-mm has been entered.")
 
     def click_dependents_save_button(self):
         self.dependents_save_button.click()
