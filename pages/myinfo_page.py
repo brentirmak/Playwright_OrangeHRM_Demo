@@ -46,9 +46,9 @@ class MyInfoPage:
         self.emergency_contact_mobile_phone_field = page.get_by_role("textbox").nth(4)
         self.emergency_contact_work_phone_field = page.get_by_role("textbox").nth(5)
         self.emergency_contact_save_button = page.get_by_role("button", name="Save")
-        self.emergency_contact_trash_icon = page.locator("//i[contains(@class,'oxd-icon bi-trash')]")
-        self.emergency_contact_record_found = page.locator("//span[contains(.,'(1) Record Found')]")
+        self.emergency_contact_trash_icons = page.locator("//i[contains(@class,'oxd-icon bi-trash')]")
         self.emergency_contact_delete_button = page.locator("//button[@type='button'][contains(.,'Yes, Delete')]")
+        self.emergency_contact_record_found = page.locator("span", has_text=re.compile(r"\(\d+\) Records? Found"))
         self.emergency_contact_successfully_deleted_message = page.locator("//p[contains(.,'Successfully Deleted')]")
         self.emergency_contact_successfully_saved_message = page.locator("//p[contains(.,'Successfully Saved')]")
 
@@ -61,8 +61,12 @@ class MyInfoPage:
         self.dependents_date_of_birth_field = page.locator("//input[contains(@placeholder,'yyyy-dd-mm')]")
         self.dependents_save_button = page.get_by_role("button", name="Save")
         self.dependents_successfully_saved_message = page.locator("//p[contains(.,'Successfully Saved')]")
-        self.dependents_record_found = page.locator("//span[contains(.,'(1) Record Found')]")
-        self.dependents_trash_icon = page.locator("//i[contains(@class,'oxd-icon bi-trash')]")
+
+        self.dependents_record_found = page.locator("span", has_text=re.compile(r"\(\d+\) Records? Found"))
+        # Example scoped locator if global search fails:
+        self.dependents_trash_icons = page.locator("//div[contains(@class, 'orangehrm-container')]//i[contains(@class,'oxd-icon bi-trash')]")
+        
+        #self.dependents_trash_icons = page.locator("//i[contains(@class,'oxd-icon bi-trash')]")
         self.dependents_delete_button = page.locator("//button[@type='button'][contains(.,'Yes, Delete')]")
 
         # Immigration
@@ -244,7 +248,7 @@ class MyInfoPage:
         self.emergency_contact_save_button.click()
 
     def click_emergency_contact_trash_icon(self):
-        self.emergency_contact_trash_icon.click()
+        self.emergency_contact_trash_icons.first.click()
 
     def click_emergency_contact_delete_button(self):
         self.emergency_contact_delete_button.click()
@@ -277,7 +281,7 @@ class MyInfoPage:
         self.dependents_save_button.click()
 
     def click_dependents_trash_icon(self):
-        self.dependents_trash_icon.click()
+        self.dependents_trash_icons.first.click()
 
     def click_dependents_delete_button(self):
         self.dependents_delete_button.click()

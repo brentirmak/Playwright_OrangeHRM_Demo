@@ -31,6 +31,7 @@ def test_LoginPage(shared_page):
     print("Ended test_LoginPage transaction")
 
 def test_MyInfoEmergencyContactCleanup(shared_page):
+    print("\nStarting test_MyInfoEmergencyContactCleanup transaction")
     myinfo_page = MyInfoPage(shared_page)
     print("Will access the My Info section/page")
     myinfo_page.click_myinfo_menu()
@@ -44,11 +45,15 @@ def test_MyInfoEmergencyContactCleanup(shared_page):
         print("Verified that the Assigned Emergency Contacts header is displayed - will verify that there's 1 record found")
         expect(myinfo_page.emergency_contact_record_found).to_be_visible(timeout=10000)
         print("1 Record found header was found - will proceed with deletion")
-        myinfo_page.click_emergency_contact_trash_icon()
-        print("Clicked on the trash icon - will now click on the Yes, Delete button")
-        myinfo_page.click_emergency_contact_delete_button()
-        expect(myinfo_page.emergency_contact_successfully_deleted_message).to_be_visible(timeout=10000)
-        print("Verified that the Emergency Contact was successfully deleted")
+
+        print("Record count: ", myinfo_page.emergency_contact_trash_icons.count())
+
+        while myinfo_page.emergency_contact_trash_icons.count() > 0:
+            print("Will click on the first available trash icon")
+            myinfo_page.click_emergency_contact_trash_icon()
+            print("Clicked on the first available trash icon - will click on Yes, Delete on the confirmation modal")
+            myinfo_page.click_emergency_contact_delete_button()
+            expect(myinfo_page.emergency_contact_record_found).to_be_visible(timeout=10000)
     except:
         print("There was no record to delete - ending the test")
     print("\nEnded test_MyInfoEmergencyContactCleanup transaction")
@@ -60,18 +65,26 @@ def test_MyInfoDependentCleanup(shared_page):
     myinfo_page.click_dependents_submenu()
     print("Clicked on the Dependents submenu item")
     expect(shared_page.get_by_role("heading", name="Assigned Dependents")).to_be_visible(timeout=20000)
+
+    print("Waiting for dependent records to load...")
+    
     try:
-        print("We're on the Assigned Dependents page - will verify that there's 1 record found")
-        expect(myinfo_page.dependents_record_found).to_be_visible(timeout=10000)
-        print("A record was found for deletion - proceeding...")
+        expect(myinfo_page.dependents_trash_icons.first).to_be_visible(timeout=10000)
+    except:
+        print("No records found or timeout waiting for dependents table.")
+        return
+
+    count = myinfo_page.dependents_trash_icons.count()
+    print("Record count: ", count)
+
+    while myinfo_page.dependents_trash_icons.count() > 0:
+        print("Will click on the first available trash icon")
         myinfo_page.click_dependents_trash_icon()
-        print("Clicked on the trash icon for the to be deleted record")
+        print("Clicked on the first available trash icon - will click on Yes, Delete on the confirmation modal")
         myinfo_page.click_dependents_delete_button()
-        print("Clicked on the Delete button - will confirm that the record has been deleted")
         expect(myinfo_page.successfully_deleted_message).to_be_visible(timeout=20000)
         print("Verified that the Dependent was successfully deleted")
-    except:
-        print("There was no record to delete - ending the test")
+
     print("\nEnded test_MyInfoDependentCleanup transaction")
 
 def test_MyInfoImmigrationDocumentCleanup(shared_page):
