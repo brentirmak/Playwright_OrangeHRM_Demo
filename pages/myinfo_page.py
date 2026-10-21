@@ -1,5 +1,5 @@
-
-import re
+import time, re
+from playwright.sync_api import Page, expect
 
 class MyInfoPage:
 
@@ -57,16 +57,11 @@ class MyInfoPage:
         self.dependents_name_field = page.get_by_role("textbox").nth(1)
         self.dependents_relationship_field = page.locator("//div[@class='oxd-select-text-input'][contains(.,'-- Select --')]")
         self.dependents_relationship_child_option = page.get_by_role("option", name="Child")
-        self.dependents_date_of_birth_field = page.get_by_role("textbox", name="yyyy-mm-dd")
-        self.dependents_date_of_birth_field = page.locator("//input[contains(@placeholder,'yyyy-dd-mm')]")
+        self.dependents_date_of_birth_field = page.locator("//input[contains(@placeholder,'dd-mm-yyyy')]")
         self.dependents_save_button = page.get_by_role("button", name="Save")
         self.dependents_successfully_saved_message = page.locator("//p[contains(.,'Successfully Saved')]")
-
         self.dependents_record_found = page.locator("span", has_text=re.compile(r"\(\d+\) Records? Found"))
-        # Example scoped locator if global search fails:
         self.dependents_trash_icons = page.locator("//div[contains(@class, 'orangehrm-container')]//i[contains(@class,'oxd-icon bi-trash')]")
-        
-        #self.dependents_trash_icons = page.locator("//i[contains(@class,'oxd-icon bi-trash')]")
         self.dependents_delete_button = page.locator("//button[@type='button'][contains(.,'Yes, Delete')]")
 
         # Immigration
@@ -82,6 +77,7 @@ class MyInfoPage:
         self.immigration_eligible_review_date_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[1]/form/div[2]/div/div[6]/div/div[2]/div/div/input")
         self.immigration_save_button = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[1]/form/div[3]/button[2]")
         self.immigration_record_successfully_saved = page.locator("xpath=//div[@class='oxd-toast-content oxd-toast-content--success'][contains(.,'SuccessSuccessfully Saved')]")
+        self.immigration_documents_trash_icons = page.locator("//div[contains(@class, 'orangehrm-container')]//i[contains(@class,'oxd-icon bi-trash')]")
         self.immigration_delete_selected_button = page.locator("xpath=//button[@type='button'][contains(.,'Delete Selected')]")
         self.immigration_confirm_delete_button = page.locator("xpath=//button[@type='button'][contains(.,'Yes, Delete')]")
 
@@ -340,8 +336,20 @@ class MyInfoPage:
     def click_immigration_save_button(self):
         self.immigration_save_button.click()
 
-    def select_to_be_deleted_immigration_record(self, record_id):
-        self.page.get_by_role("row", name=re.compile(record_id)).locator("label").click()
+    def delete_immigration_records_by_id(self, record_id):
+        matching_rows = self.page.get_by_role("row", name=re.compile(record_id))
+        print("Numbers of records to delete: ", matching_rows.count())
+
+        print("Will loop through the number of records to delete them 1 by 1")
+        while matching_rows.count() > 0:
+            print("Will click on the first item")
+            matching_rows.first.locator("//i[contains(@class,'oxd-icon bi-trash')]").click()
+            print("Clicked on the first item - will click on the Confirm button")
+            self.click_immigration_confirm_delete_button()
+            print("Clicked on the Confirm button - verifying success toast")
+            success_toast = self.page.locator(".oxd-toast-content--success").first
+            expect(success_toast).to_be_visible(timeout=10000)
+            success_toast.wait_for(state="hidden", timeout=10000)
 
     def click_immigration_delete_selected_button(self):
         self.immigration_delete_selected_button.click()

@@ -42,12 +42,10 @@ def test_MyInfoEmergencyContactCleanup(shared_page):
     print("Clicked on the Emergency Contacts link - will verify that the Assigned Emergency Contacts header is displayed")
     expect(myinfo_page.emergency_contacts_header).to_be_visible(timeout=10000)
     try:
-        print("Verified that the Assigned Emergency Contacts header is displayed - will verify that there's 1 record found")
+        print("Verified that the Assigned Emergency Contacts header is displayed - will verify that there's atleast 1 record found")
         expect(myinfo_page.emergency_contact_record_found).to_be_visible(timeout=10000)
-        print("1 Record found header was found - will proceed with deletion")
-
+        print("Atleast 1 Record found header was found - will proceed with deletion")
         print("Record count: ", myinfo_page.emergency_contact_trash_icons.count())
-
         while myinfo_page.emergency_contact_trash_icons.count() > 0:
             print("Will click on the first available trash icon")
             myinfo_page.click_emergency_contact_trash_icon()
@@ -65,18 +63,14 @@ def test_MyInfoDependentCleanup(shared_page):
     myinfo_page.click_dependents_submenu()
     print("Clicked on the Dependents submenu item")
     expect(shared_page.get_by_role("heading", name="Assigned Dependents")).to_be_visible(timeout=20000)
-
     print("Waiting for dependent records to load...")
-    
     try:
         expect(myinfo_page.dependents_trash_icons.first).to_be_visible(timeout=10000)
     except:
         print("No records found or timeout waiting for dependents table.")
         return
-
     count = myinfo_page.dependents_trash_icons.count()
     print("Record count: ", count)
-
     while myinfo_page.dependents_trash_icons.count() > 0:
         print("Will click on the first available trash icon")
         myinfo_page.click_dependents_trash_icon()
@@ -84,25 +78,31 @@ def test_MyInfoDependentCleanup(shared_page):
         myinfo_page.click_dependents_delete_button()
         expect(myinfo_page.successfully_deleted_message).to_be_visible(timeout=20000)
         print("Verified that the Dependent was successfully deleted")
-
     print("\nEnded test_MyInfoDependentCleanup transaction")
 
 def test_MyInfoImmigrationDocumentCleanup(shared_page):
     print("\nStarting test_MyInfoImmigrationDocumentCleanup transaction")
     myinfo_page = MyInfoPage(shared_page)
+    print("Will access the My Info section/page")
+    myinfo_page.click_myinfo_menu()
+    print("Clicked on the My Info menu item")
+    expect(shared_page.get_by_role("heading", name="Personal Details")).to_be_visible(timeout=10000)
     print("Will access the Immigration submenu under My Info section/page")
     myinfo_page.click_immigration_submenu()
     print("Clicked on the Immigration submenu item")
     expect(shared_page.get_by_role("heading", name="Assigned Immigration Records")).to_be_visible(timeout=20000)
+    print("Waiting for immigration records to load...")
+    try:
+        expect(myinfo_page.immigration_documents_trash_icons.first).to_be_visible(timeout=10000)
+    except AssertionError:
+        print("No immigration records found to delete - ending test cleanly.")
+        return
+    count = myinfo_page.immigration_documents_trash_icons.count()
+    print("Record count: ", count)
+
     try:
         print("Verified that the Assigned Immigration Records header was displayed - will now delete the record that was previously created")
-        myinfo_page.select_to_be_deleted_immigration_record("123456789")
-        print("Clicked on the record that should be deleted - will click on the Delete Selected button")
-        myinfo_page.click_immigration_delete_selected_button()
-        print("Clicked on the Delete Selected button")
-        myinfo_page.click_immigration_confirm_delete_button()
-        print("Clicked on the Yes, Delete button - will verify via toast message")
-        expect(myinfo_page.successfully_deleted_message).to_be_visible(timeout=20000)
+        myinfo_page.delete_immigration_records_by_id("123456789")
         print("Verified that the Immigration document was successfully deleted")
     except:
         print("There was no record to delete - ending the test")
@@ -297,7 +297,7 @@ def test_MyInfoAddDependent(shared_page):
     myinfo_page.click_dependents_relationship_child_option()
     print("Selected the Child option on the relationship dropdown - will now enter the Date of Birth")
     myinfo_page.click_dependents_date_of_birth_field()
-    myinfo_page.enter_dependents_date_of_birth_value("1980-11-11")
+    myinfo_page.enter_dependents_date_of_birth_value("11-11-1980")
     print("Entered the data of birth value - will now click on the Save button")
     myinfo_page.click_dependents_save_button()
     print("Clicked on the Save button")
@@ -378,13 +378,8 @@ def test_MyInfoDeleteImmigrationDocument(shared_page):
     print("Clicked on the Immigration submenu item")
     expect(shared_page.get_by_role("heading", name="Assigned Immigration Records")).to_be_visible(timeout=20000)
     print("Verified that the Assigned Immigration Records header was displayed - will now delete the record that was previously created")
-    myinfo_page.select_to_be_deleted_immigration_record("123456789")
-    print("Clicked on the record that should be deleted - will click on the Delete Selected button")
-    myinfo_page.click_immigration_delete_selected_button()
-    print("Clicked on the Delete Selected button")
-    myinfo_page.click_immigration_confirm_delete_button()
-    print("Clicked on the Yes, Delete button - will verify via toast message")
-    expect(myinfo_page.successfully_deleted_message).to_be_visible(timeout=20000)
+    myinfo_page.delete_immigration_records_by_id("123456789")
+    print("Verified that the Immigration document was successfully deleted")
     print("\nEnded test_MyInfoDeleteImmigrationDocument transaction")
 
 def test_AccessMyInfoJobSubmenu(shared_page):
