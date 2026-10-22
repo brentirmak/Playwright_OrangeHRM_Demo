@@ -122,9 +122,18 @@ class MyInfoPage:
         self.qualifications_add_skill_save_button = page.get_by_role("button", name="Save")
         self.qualifications_skill_successfully_saved_message = page.locator("//p[contains(.,'Successfully Saved')]")
 
-        #qualifications_skills_section = page.locator("xpath=//h6[text()='Skills']/ancestor::div[contains(@class,'orangehrm-card-container')]")
-        #qualifications_skills_section_delete_buttons = qualifications_skills_section.locator("button:has(i.bi-trash)")
-        
+        # Languages
+        self.qualifications_languages_add_button = page.locator("xpath=(//button[@type='button'][contains(.,'Add')])[4]")
+        self.qualifications_add_languages_header = page.locator("xpath=//h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Add Language')]")
+        self.qualifications_add_language_language_dropdown = page.get_by_text("-- Select --").first
+        self.qualifications_add_language_language_spanish_option = page.get_by_role("option", name="Spanish")
+        self.qualifications_add_language_fluency_dropdown = page.get_by_text("-- Select --").first
+        self.qualifications_add_language_fluency_writing_option = page.get_by_role("option", name="Writing")
+        self.qualifications_add_language_competency_dropdown = page.get_by_text("-- Select --").first
+        self.qualifications_add_language_competency_mother_tongue_option = page.get_by_role("option", name="Mother Tongue")
+        self.qualifications_add_language_save_button = page.get_by_role("button", name="Save")
+        self.qualifications_language_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
+
         self.successfully_updated_message = page.locator("xpath=//p[contains(.,'Successfully Updated')]")
         self.successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
     
@@ -545,3 +554,30 @@ class MyInfoPage:
         row = self.page.locator(f"xpath=//h6[text()='Skills']/following::div[@class='orangehrm-container'][1]//div[@role='row'][.//*[text()='{skill_name}']]")
         row.locator("button i.bi-trash").click()
         self.page.get_by_role("button", name="Yes, Delete").click()
+
+    ######################################################################################################
+    # Qualifications - Languages methods
+    #
+    def click_qualifications_languages_add_button(self):
+        self.qualifications_languages_add_button.click()
+
+    def click_qualifications_add_language_language_dropdown(self):
+        self.qualifications_add_language_language_dropdown.click()
+
+    def select_qualifications_add_language_spanish_option(self):
+        self.qualifications_add_language_language_spanish_option.click()
+
+    def click_qualifications_add_language_fluency_dropdown(self):
+        self.qualifications_add_language_fluency_dropdown.click()
+
+    def select_qualifications_add_language_fluency_writing_option(self):
+        self.qualifications_add_language_fluency_writing_option.click()
+
+    def click_qualifications_add_language_competency_dropdown(self):
+        self.qualifications_add_language_competency_dropdown.click()
+
+    def select_qualification_add_language_competency_mother_tongue_option(self):
+        self.qualifications_add_language_competency_mother_tongue_option.click()
+
+    def click_qualifications_add_language_save_button(self):
+        self.qualifications_add_language_save_button.click()
