@@ -85,11 +85,22 @@ class MyInfoPage:
 
         # Qualifications
         self.qualifications_work_experience_add_button = page.locator("xpath=(//button[@type='button'][contains(.,'Add')])[1]")
-        # //h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Add Work Experience')]
+        self.qualifications_work_experience_add_work_experience_header = page.locator("xpath=//h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Add Work Experience')]")
         self.qualifications_work_experience_company_field = page.get_by_role("textbox").nth(1)
         self.qualifications_work_experience_job_title_field = page.get_by_role("textbox").nth(2)
         self.qualifications_work_experience_save_button = page.get_by_role("button", name="Save")
         self.qualifications_work_experience_successfully_saved_message = page.locator("xpath=//p[@class='oxd-text oxd-text--p oxd-text--toast-message oxd-toast-content-text'][contains(.,'Successfully Saved')]")
+        self.qualifications_work_experience_record_found = page.locator("span", has_text=re.compile(r"\(\d+\) Records? Found"))
+        self.qualifications_work_experience_trash_icons = page.locator("//i[contains(@class,'oxd-icon bi-trash')]")
+        self.qualifications_work_experience_delete_selected_button = page.locator("xpath=//button[@type='button'][contains(.,'Delete Selected')]")
+        self.qualifications_work_experience_confirm_delete_button = page.locator("xpath=//button[@type='button'][contains(.,'Yes, Delete')]")
+        self.qualifications_work_experience_deleted_message = page.locator("//p[contains(.,'Successfully Deleted')]")
+        # Work Experience Records
+        # xpath=(//span[@class='oxd-text oxd-text--span'])[1]
+        # Education Records
+        # xpath=(//span[@class='oxd-text oxd-text--span'])[2]
+        # Skills Records
+        # xpath=(//span[@class='oxd-text oxd-text--span'])[3]
 
         self.successfully_updated_message = page.locator("xpath=//p[contains(.,'Successfully Updated')]")
         self.successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
@@ -404,4 +415,19 @@ class MyInfoPage:
     def click_qualifications_work_experience_save_button(self):
         self.qualifications_work_experience_save_button.click()
 
-    
+    def click_qualifications_work_experience_trash_icon(self):
+        self.qualifications_work_experience_trash_icons.first.click()
+
+    def click_qualifications_work_experience_confirm_delete_button(self):
+        self.qualifications_work_experience_confirm_delete_button.click()
+
+    def get_qualifications_work_experience_record_count(self):
+        record_count_locator = self.page.locator("xpath=(//span[@class='oxd-text oxd-text--span'])[1]")
+
+        record_count_text = record_count_locator.inner_text()
+        print(f"Record count text:{record_count_text}")
+
+        record_count = int(re.search(r"\((\d+)\)", record_count_text).group(1))
+        print(f"Record count (integer): {record_count}")
+
+        return record_count
