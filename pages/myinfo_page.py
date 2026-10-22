@@ -102,6 +102,21 @@ class MyInfoPage:
         # Skills Records
         # xpath=(//span[@class='oxd-text oxd-text--span'])[3]
 
+
+        self.qualifications_education_add_button = page.locator("xpath=(//button[@type='button'][contains(.,'Add')])[2]")
+        self.qualifications_add_education_header = page.locator("xpath=//h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Add Education')]")
+        self.qualifications_add_education_level_dropdown = page.get_by_text("-- Select --")
+        self.qualifications_add_education_level_bachleor_degree_option = page.get_by_role("listbox").get_by_text("Bachelor's Degree")
+        self.qualifications_add_education_institute_field = page.get_by_role("textbox").nth(1)
+        self.qualifications_add_education_major_field = page.get_by_role("textbox").nth(2)
+        self.qualifications_add_education_year_field = page.get_by_role("textbox").nth(3)
+        self.qualifications_add_education_gpa_field = page.get_by_role("textbox").nth(4)
+        self.qualifications_add_education_start_date_field = page.get_by_role("textbox", name="yyyy-dd-mm").first
+        self.qualifications_add_education_end_date_field = page.get_by_role("textbox", name="yyyy-dd-mm").nth(1)
+        self.qualifications_add_education_save_button = page.get_by_role("button", name="Save")
+        self.qualifications_education_successfully_saved_message = page.locator("//p[contains(.,'Successfully Saved')]")
+
+
         self.successfully_updated_message = page.locator("xpath=//p[contains(.,'Successfully Updated')]")
         self.successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
     
@@ -431,3 +446,53 @@ class MyInfoPage:
         print(f"Record count (integer): {record_count}")
 
         return record_count
+
+    def click_qualifications_education_add_button(self):
+        self.qualifications_education_add_button.click()
+
+    def click_qualifications_add_education_level_dropdown(self):
+        self.qualifications_add_education_level_dropdown.click()
+
+    def select_qualifications_add_education_level_bachleor_degree_option(self):
+        self.qualifications_add_education_level_bachleor_degree_option.click()
+
+    def click_qualifications_add_education_institute_field(self):
+        self.qualifications_add_education_institute_field.click()
+
+    def enter_qualifications_add_education_institute_value(self):
+        self.qualifications_add_education_institute_field.fill("Stanford University")
+
+    def click_qualifications_add_education_major_field(self):
+        self.qualifications_add_education_major_field.click()
+
+    def enter_qualifications_add_education_major_value(self):
+        self.qualifications_add_education_major_field.fill("Computer Engineering")
+
+    def click_qualifications_add_education_year_field(self):
+        self.qualifications_add_education_year_field.click()
+
+    def enter_qualifications_add_education_year_value(self):
+        self.qualifications_add_education_year_field.fill("2020")
+    
+    def click_qualifications_add_education_gpa_field(self):
+        self.qualifications_add_education_gpa_field.click()
+
+    def enter_qualifications_add_education_gpa_value(self):
+        self.qualifications_add_education_gpa_field.fill("3.8")
+
+    def click_qualifications_add_education_start_date_field(self):
+        self.qualifications_add_education_start_date_field.click()
+
+    def enter_qualifications_add_education_start_date_value(self):
+        self.qualifications_add_education_start_date_field.fill("2015-09-09")
+
+    def click_qualifications_add_education_end_date_field(self):
+        self.qualifications_add_education_end_date_field.click()
+
+    def enter_qualifications_add_education_end_date_value(self):
+        self.qualifications_add_education_end_date_field.fill("2020-05-05")
+
+    def click_qualifications_add_education_save_button(self):
+        self.qualifications_add_education_save_button.click()
+    
+    
