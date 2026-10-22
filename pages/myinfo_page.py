@@ -122,10 +122,8 @@ class MyInfoPage:
         self.qualifications_add_skill_save_button = page.get_by_role("button", name="Save")
         self.qualifications_skill_successfully_saved_message = page.locator("//p[contains(.,'Successfully Saved')]")
 
-        qualifications_skills_section = page.locator("xpath=//h6[text()='Skills']/ancestor::div[contains(@class,'orangehrm-card-container')]")
-        qualifications_skills_section_delete_buttons = qualifications_skills_section.locator("button:has(i.bi-trash)")
-
-
+        #qualifications_skills_section = page.locator("xpath=//h6[text()='Skills']/ancestor::div[contains(@class,'orangehrm-card-container')]")
+        #qualifications_skills_section_delete_buttons = qualifications_skills_section.locator("button:has(i.bi-trash)")
         
         self.successfully_updated_message = page.locator("xpath=//p[contains(.,'Successfully Updated')]")
         self.successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
@@ -428,14 +426,14 @@ class MyInfoPage:
     def click_qualifications_work_experience_company_field(self):
         self.qualifications_work_experience_company_field.click()
 
-    def enter_qualifications_work_experience_company_value(self):
-        self.qualifications_work_experience_company_field.fill("TigerFly")
+    def enter_qualifications_work_experience_company_value(self, company):
+        self.qualifications_work_experience_company_field.fill(company)
 
     def click_qualifications_work_experience_job_title_field(self):
         self.qualifications_work_experience_job_title_field.click()
 
-    def enter_qualifications_work_experience_job_title_value(self):
-        self.qualifications_work_experience_job_title_field.fill("CEO")
+    def enter_qualifications_work_experience_job_title_value(self, title):
+        self.qualifications_work_experience_job_title_field.fill(title)
 
     def click_qualifications_work_experience_save_button(self):
         self.qualifications_work_experience_save_button.click()
@@ -531,23 +529,19 @@ class MyInfoPage:
     def click_qualifications_add_skill_years_of_experience_field(self):
         self.qualifications_add_skill_years_of_experience_field.click()
 
-    def enter_qualifications_add_skill_years_of_experience_value(self):
-        self.qualifications_add_skill_years_of_experience_field.fill("5")
+    def enter_qualifications_add_skill_years_of_experience_value(self,yrs):
+        self.qualifications_add_skill_years_of_experience_field.fill(yrs)
 
     def click_qualifications_add_skill_comments_field(self):
         self.qualifications_add_skill_comments_field.click()
 
-    def enter_qualifications_add_skill_comments_value(self):
-        self.qualifications_add_skill_comments_field.fill("This is a test")
+    def enter_qualifications_add_skill_comments_value(self, comment):
+        self.qualifications_add_skill_comments_field.fill(comment)
 
     def click_qualifications_add_skill_save_button(self):
         self.qualifications_add_skill_save_button.click()
 
-    def delete_qualifications_by_skill_name(self):
-        skill_name = "Content Creation"
-
+    def delete_qualifications_by_skill_name(self, skill_name):
         row = self.page.locator(f"xpath=//h6[text()='Skills']/following::div[@class='orangehrm-container'][1]//div[@role='row'][.//*[text()='{skill_name}']]")
-
         row.locator("button i.bi-trash").click()
-
         self.page.get_by_role("button", name="Yes, Delete").click()
