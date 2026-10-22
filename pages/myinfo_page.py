@@ -83,7 +83,7 @@ class MyInfoPage:
         self.immigration_delete_selected_button = page.locator("xpath=//button[@type='button'][contains(.,'Delete Selected')]")
         self.immigration_confirm_delete_button = page.locator("xpath=//button[@type='button'][contains(.,'Yes, Delete')]")
 
-        # Qualifications
+        # Qualifications - Work Experience
         self.qualifications_work_experience_add_button = page.locator("xpath=(//button[@type='button'][contains(.,'Add')])[1]")
         self.qualifications_work_experience_add_work_experience_header = page.locator("xpath=//h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Add Work Experience')]")
         self.qualifications_work_experience_company_field = page.get_by_role("textbox").nth(1)
@@ -95,14 +95,8 @@ class MyInfoPage:
         self.qualifications_work_experience_delete_selected_button = page.locator("xpath=//button[@type='button'][contains(.,'Delete Selected')]")
         self.qualifications_work_experience_confirm_delete_button = page.locator("xpath=//button[@type='button'][contains(.,'Yes, Delete')]")
         self.qualifications_work_experience_deleted_message = page.locator("//p[contains(.,'Successfully Deleted')]")
-        # Work Experience Records
-        # xpath=(//span[@class='oxd-text oxd-text--span'])[1]
-        # Education Records
-        # xpath=(//span[@class='oxd-text oxd-text--span'])[2]
-        # Skills Records
-        # xpath=(//span[@class='oxd-text oxd-text--span'])[3]
-
-
+        
+        # Qualifications - Education
         self.qualifications_education_add_button = page.locator("xpath=(//button[@type='button'][contains(.,'Add')])[2]")
         self.qualifications_add_education_header = page.locator("xpath=//h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Add Education')]")
         self.qualifications_add_education_level_dropdown = page.get_by_text("-- Select --")
@@ -116,7 +110,23 @@ class MyInfoPage:
         self.qualifications_add_education_save_button = page.get_by_role("button", name="Save")
         self.qualifications_education_successfully_saved_message = page.locator("//p[contains(.,'Successfully Saved')]")
 
+        # Skills
+        self.qualifications_skills_add_button = page.locator("xpath=(//button[@type='button'][contains(.,'Add')])[3]")
+        self.qualifications_add_skills_header = page.locator("xpath=//h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Add Skill')]")
+        self.qualifications_add_skill_skill_dropdown = page.locator("xpath=//div[@class='oxd-select-text-input'][contains(.,'-- Select --')]")
+        self.qualifications_add_skill_skill_dropdown_content_creation_option = page.locator("xpath=//span[contains(.,'Content Creation')]")
+        self.qualifications_add_skill_skill_dropdown_jira_option = page.locator("xpath=//div[@role='option'][contains(.,'JIRA')]")
+        self.qualifications_add_skill_skill_dropdown_sql_option = page.locator("xpath=//div[@class='oxd-select-text-input'][contains(.,'SQL')]")
+        self.qualifications_add_skill_years_of_experience_field = page.get_by_role("textbox").nth(1)
+        self.qualifications_add_skill_comments_field = page.locator("textarea")        
+        self.qualifications_add_skill_save_button = page.get_by_role("button", name="Save")
+        self.qualifications_skill_successfully_saved_message = page.locator("//p[contains(.,'Successfully Saved')]")
 
+        qualifications_skills_section = page.locator("xpath=//h6[text()='Skills']/ancestor::div[contains(@class,'orangehrm-card-container')]")
+        qualifications_skills_section_delete_buttons = qualifications_skills_section.locator("button:has(i.bi-trash)")
+
+
+        
         self.successfully_updated_message = page.locator("xpath=//p[contains(.,'Successfully Updated')]")
         self.successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
     
@@ -409,7 +419,7 @@ class MyInfoPage:
 
 
     ######################################################################################################
-    # Qualifications methods
+    # Qualifications - Work Experience methods
     #
 
     def click_qualifications_work_experience_add_button(self):
@@ -446,6 +456,10 @@ class MyInfoPage:
         print(f"Record count (integer): {record_count}")
 
         return record_count
+
+    ######################################################################################################
+    # Qualifications - Education methods
+    #
 
     def click_qualifications_education_add_button(self):
         self.qualifications_education_add_button.click()
@@ -494,5 +508,46 @@ class MyInfoPage:
 
     def click_qualifications_add_education_save_button(self):
         self.qualifications_add_education_save_button.click()
-    
-    
+
+    ######################################################################################################
+    # Qualifications - Skills methods
+    #
+
+    def click_qualifications_skills_add_button(self):
+        self.qualifications_skills_add_button.click()
+
+    def click_qualifications_add_skill_skill_dropdown(self):
+        self.qualifications_add_skill_skill_dropdown.click()
+
+    def select_qualifications_add_skill_skill_dropdown_content_creation_option(self):
+        self.qualifications_add_skill_skill_dropdown_content_creation_option.click()
+
+    def select_qualifications_add_skill_skill_dropdown_jira_option(self):
+        self.qualifications_add_skill_skill_dropdown_jira_option.click()
+
+    def select_qualifications_add_skill_skill_dropdown_sql_option(self):
+        self.qualifications_add_skill_skill_dropdown_sql_option.click()
+
+    def click_qualifications_add_skill_years_of_experience_field(self):
+        self.qualifications_add_skill_years_of_experience_field.click()
+
+    def enter_qualifications_add_skill_years_of_experience_value(self):
+        self.qualifications_add_skill_years_of_experience_field.fill("5")
+
+    def click_qualifications_add_skill_comments_field(self):
+        self.qualifications_add_skill_comments_field.click()
+
+    def enter_qualifications_add_skill_comments_value(self):
+        self.qualifications_add_skill_comments_field.fill("This is a test")
+
+    def click_qualifications_add_skill_save_button(self):
+        self.qualifications_add_skill_save_button.click()
+
+    def delete_qualifications_by_skill_name(self):
+        skill_name = "Content Creation"
+
+        row = self.page.locator(f"xpath=//h6[text()='Skills']/following::div[@class='orangehrm-container'][1]//div[@role='row'][.//*[text()='{skill_name}']]")
+
+        row.locator("button i.bi-trash").click()
+
+        self.page.get_by_role("button", name="Yes, Delete").click()
