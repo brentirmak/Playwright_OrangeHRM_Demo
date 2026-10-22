@@ -506,6 +506,24 @@ def test_MyInfoAddQualificationsLanguage(shared_page):
     print("Verified that the Language successfully saved message was displayed")
     print("\nEnded test_MyInfoAddQualificationsLanguage transaction")
 
+def test_MyInfoDeleteQualificationsLanguage(shared_page):
+    print("\nStarting test_MyInfoDeleteQualificationsLanguage transaction")
+    myinfo_page = MyInfoPage(shared_page)
+    print("Will access the My Info section/page")
+    myinfo_page.click_myinfo_menu()
+    print("Clicked on the My Info menu item")
+    expect(shared_page.get_by_role("heading", name="Personal Details")).to_be_visible(timeout=20000)
+    print("Will access the Qualifications submenu under My Info section/page")
+    myinfo_page.click_qualifications_submenu()
+    print("Clicked on the Qualifications submenu item")
+    expect(shared_page.get_by_role("heading", name="Qualifications")).to_be_visible(timeout=20000)
+    print("Verified that the Qualifications header was displayed - will proceed with deletion of Languages records")
+    myinfo_page.delete_qualifications_by_language_name("Spanish")
+    print("Deleted qualification - will verify successfully_deleted_message was displayed")
+    expect(myinfo_page.successfully_deleted_message).to_be_visible(timeout=20000)
+    print("Verified that Skill successfully deleted message was displayed")
+    print("\nEnded test_MyInfoDeleteQualificationsLanguage transaction")
+
 #def test_MyInfoAddQualificationsEducation(shared_page):
 #    print("\nStarting test_MyInfoAddQualificationsEducation transaction")
 #    myinfo_page = MyInfoPage(shared_page)

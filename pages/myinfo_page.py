@@ -581,3 +581,8 @@ class MyInfoPage:
 
     def click_qualifications_add_language_save_button(self):
         self.qualifications_add_language_save_button.click()
+
+    def delete_qualifications_by_language_name(self, language_name):
+        row = self.page.locator(f"xpath=//h6[text()='Languages']/following::div[@class='orangehrm-container'][1]//div[@role='row'][.//*[text()='{language_name}']]")
+        row.locator("button i.bi-trash").click()
+        self.page.get_by_role("button", name="Yes, Delete").click()
