@@ -83,6 +83,14 @@ class MyInfoPage:
         self.immigration_delete_selected_button = page.locator("xpath=//button[@type='button'][contains(.,'Delete Selected')]")
         self.immigration_confirm_delete_button = page.locator("xpath=//button[@type='button'][contains(.,'Yes, Delete')]")
 
+        # Qualifications
+        self.qualifications_work_experience_add_button = page.locator("xpath=(//button[@type='button'][contains(.,'Add')])[1]")
+        # //h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Add Work Experience')]
+        self.qualifications_work_experience_company_field = page.get_by_role("textbox").nth(1)
+        self.qualifications_work_experience_job_title_field = page.get_by_role("textbox").nth(2)
+        self.qualifications_work_experience_save_button = page.get_by_role("button", name="Save")
+        self.qualifications_work_experience_successfully_saved_message = page.locator("xpath=//p[@class='oxd-text oxd-text--p oxd-text--toast-message oxd-toast-content-text'][contains(.,'Successfully Saved')]")
+
         self.successfully_updated_message = page.locator("xpath=//p[contains(.,'Successfully Updated')]")
         self.successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
     
@@ -372,3 +380,28 @@ class MyInfoPage:
 
     def click_immigration_confirm_delete_button(self):
         self.immigration_confirm_delete_button.click()
+
+
+    ######################################################################################################
+    # Qualifications methods
+    #
+
+    def click_qualifications_work_experience_add_button(self):
+        self.qualifications_work_experience_add_button.click()
+
+    def click_qualifications_work_experience_company_field(self):
+        self.qualifications_work_experience_company_field.click()
+
+    def enter_qualifications_work_experience_company_value(self):
+        self.qualifications_work_experience_company_field.fill("TigerFly")
+
+    def click_qualifications_work_experience_job_title_field(self):
+        self.qualifications_work_experience_job_title_field.click()
+
+    def enter_qualifications_work_experience_job_title_value(self):
+        self.qualifications_work_experience_job_title_field.fill("CEO")
+
+    def click_qualifications_work_experience_save_button(self):
+        self.qualifications_work_experience_save_button.click()
+
+    

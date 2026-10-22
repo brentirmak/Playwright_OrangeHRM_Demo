@@ -447,6 +447,42 @@ def test_AccessMyInfoQualificationsSubmenu(shared_page):
     print("Verified that the Attachments header was displayed")
     print("\nEnded test_AccessMyInfoQualificationsSubmenu transaction")
 
+def test_MyInfoAddQualificationsWorkExperience(shared_page):
+    print("\nStarting test_MyInfoAddQualificationsWorkExperience transaction")
+    myinfo_page = MyInfoPage(shared_page)
+    print("Will access the My Info section/page")
+    myinfo_page.click_myinfo_menu()
+    print("Clicked on the My Info menu item")
+    expect(shared_page.get_by_role("heading", name="Personal Details")).to_be_visible(timeout=20000)
+    print("Will access the Qualifications submenu under My Info section/page")
+    myinfo_page.click_qualifications_submenu()
+    print("Clicked on the Qualifications submenu item")
+    expect(shared_page.get_by_role("heading", name="Qualifications")).to_be_visible(timeout=20000)
+    print("Will click on the Add button under Work Experience")
+    myinfo_page.click_qualifications_work_experience_add_button()
+    print("Clicked on the Add button for Work Experience - will enter Company value")
+    myinfo_page.click_qualifications_work_experience_company_field()
+    myinfo_page.enter_qualifications_work_experience_company_value()
+    print("Entered the Company name - will now enter the Job Title")
+    myinfo_page.click_qualifications_work_experience_job_title_field()
+    myinfo_page.enter_qualifications_work_experience_job_title_value()
+    print("Entered the job title - will now click on the Save button")
+    myinfo_page.click_qualifications_work_experience_save_button()
+    print("Clicked on the Save button - will verify entry has been added")
+    expect(myinfo_page.qualifications_work_experience_successfully_saved_message).to_be_visible(timeout=20000)
+
+
+
+
+
+
+
+
+
+
+
+
+
 def test_AccessMyInfoMembershipsSubmenu(shared_page):
     print("\nStarting test_AccessMyInfoMembershipsSubmenu transaction")
     myinfo_page = MyInfoPage(shared_page)
