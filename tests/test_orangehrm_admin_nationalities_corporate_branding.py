@@ -6,6 +6,8 @@ from pages.login_page import LoginPage
 from pages.admin_page import AdminPage
 from pages.logout_page import LogoutPage
 
+import time
+
 def test_HomePage(shared_page):
     print("\nStarting test_HomePage transaction")
     print("Will go to home page")
@@ -171,6 +173,43 @@ def test_CorporateBrandingUpdatePrimaryGradientColor2(shared_page):
     expect(admin_page.corporate_branding_successfully_saved_message).to_be_visible(timeout=20000)
     print("The primary color was successfully updated")
     print("Ended test_CorporateBrandingUpdatePrimaryGradientColor2 transaction")
+    
+def test_CorporateBrandingAddNationality(shared_page):
+    print("\nStarting test_CorporateBrandingAddNationality transaction")
+    admin_page = AdminPage(shared_page)
+    print("Will click on Admin menu")
+    admin_page.click_admin_menu()
+    print("Clicked on Admin menu - will click on Nationalities submenu")
+    admin_page.click_nationalities_submenu()
+    print("Clicked on the Nationalities submenu - will now click on the Add button")
+    admin_page.click_nationalities_add_button()
+    print("Clicked on the Add button - will now enter the name")
+    admin_page.click_nationalities_add_nationality_field()
+    admin_page.enter_nationalities_add_nationality_value()
+    print("Entered the new nationality value - will click on the Save button")
+    admin_page.click_nationalities_save_button()
+    print("Clicked on the Save button - will verify that the toast message was displayed")
+    expect(admin_page.nationalities_successfully_saved_message).to_be_visible(timeout=20000)
+    print("The new Nationality was successfully added")    
+    print("Ended test_CorporateBrandingAddNationality transaction")
+
+def test_CorporateBrandingDeleteNationality(shared_page):
+    print("\nStarting test_CorporateBrandingDeleteNationality transaction")
+    admin_page = AdminPage(shared_page)
+    print("Will click on Admin menu")
+    admin_page.click_admin_menu()
+    print("Clicked on Admin menu - will click on Nationalities submenu")
+    admin_page.click_nationalities_submenu()
+    print("Clicked on the Nationalities submenu - will now click on the pagination to go to the very end")
+    admin_page.click_nationalities_pagination_button()
+    print("Clicked on the pagination button - will now select the record to be deleted")
+    print("Navigated to the page - will now delete the specific nationality record")
+    nationality_name = "US Citizen" 
+    admin_page.delete_nationality_by_name(nationality_name)
+    print("Clicked on the Delete confirmation button - will confirm the Successful Deletion toast message")
+    expect(admin_page.nationalities_successfully_deleted_message).to_be_visible(timeout=20000)
+    print("The new Nationality was successfully deleted")    
+    print("Ended test_CorporateBrandingDeleteNationality transaction")
 
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")

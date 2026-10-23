@@ -1,3 +1,4 @@
+from playwright.sync_api import Page, expect
 class AdminPage:
 
     def __init__(self, page):
@@ -60,6 +61,22 @@ class AdminPage:
         # Nationalities/Corporate Branding section
         #####################################################################################################################
         self.nationalities_submenu = page.get_by_role("link", name="Nationalities")
+
+        self.nationalities_add_button = page.locator("xpath=//button[@type='button'][contains(.,'Add')]")
+        self.nationalities_add_nationality_header = page.locator("xpath=//h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Add Nationality')]")
+        self.nationalities_add_nationality_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[2]/input")
+        self.nationalities_save_button = page.locator("xpath=//button[@type='submit'][contains(.,'Save')]")
+        self.nationalities_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
+
+        self.nationalities_pagination_link = page.locator("xpath=//button[@type='button'][contains(.,'4')]")
+        self.nationalities_US_citizen_checkbox = page.locator("xpath=//div[@class='oxd-table-row oxd-table-row--with-border'][contains(.,'US Citizen')]")
+
+
+        
+        self.nationalities_delete_selected_button = page.locator("xpath=//button[@type='button'][contains(.,'Delete Selected')]")
+        self.nationalities_delete_confirmation_button = page.locator("xpath=//button[@type='button'][contains(.,'Yes, Delete')]")
+        self.nationalities_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
+
         self.corporate_branding_submenu = page.get_by_role("link", name="Corporate Branding")
         self.corporate_branding_primary_color = page.locator("xpath=(//div[contains(@class,'oxd-color-input-preview')])[1]")
         self.corporate_branding_primary_color_field = page.get_by_role("alert").get_by_role("textbox")
@@ -284,6 +301,63 @@ class AdminPage:
         self.nationalities_submenu.click()
         self.page.wait_for_load_state("networkidle")
 
+    def click_nationalities_pagination_button(self):
+        self.nationalities_pagination_link.click()
+
+    def click_nationalities_add_button(self):
+        self.nationalities_add_button.click()
+
+    def click_nationalities_add_nationality_field(self):
+        self.nationalities_add_nationality_field.click()
+
+    def enter_nationalities_add_nationality_value(self):
+        self.nationalities_add_nationality_field.fill("US Citizen")
+
+    def click_nationalities_save_button(self):
+        self.nationalities_save_button.click()
+
+    def click_nationalities_US_Citizen_checkbox(self):
+        self.nationalities_US_citizen_checkbox.click()
+
+    def click_nationalities_delete_selected_button(self):
+        self.nationalities_delete_selected_button.click()
+
+    def click_nationalities_delete_confirmation_button(self):
+        self.nationalities_delete_confirmation_button.click()
+
+    def delete_nationality_by_name(self, nationality_name: str):
+        # 1. Locate the specific table card/row containing the target nationality name
+        row_locator = self.page.locator(".oxd-table-card", has_text=nationality_name)
+        expect(row_locator).to_be_visible(timeout=5000)
+        
+        # 2. Click the trash delete icon button within that specific row
+        delete_button = row_locator.locator("button.oxd-icon-button i.bi-trash")
+        delete_button.click()
+        
+        # 3. Handle the confirmation popup modal ("Are you sure?")
+        self.click_nationalities_delete_confirmation_button()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     def click_corporate_branding_submenu(self):
         self.corporate_branding_submenu.click()
         self.page.wait_for_load_state("networkidle")
@@ -323,9 +397,6 @@ class AdminPage:
 
     def enter_corporate_branding_primary_gradient_color2_value(self):
         self.corporate_branding_primary_gradient_color2_field.fill("#2d17f3")
-
-
-
 
     def click_corporate_branding_secondary_font_color(self):
         self.corporate_branding_secondary_font_color.click()
