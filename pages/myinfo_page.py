@@ -112,7 +112,7 @@ class MyInfoPage:
         self.qualifications_add_education_save_button = page.get_by_role("button", name="Save")
         self.qualifications_education_successfully_saved_message = page.locator("//p[contains(.,'Successfully Saved')]")
 
-        # Skills
+        # Qualifications - Skills
         self.qualifications_skills_add_button = page.locator("xpath=(//button[@type='button'][contains(.,'Add')])[3]")
         self.qualifications_add_skills_header = page.locator("xpath=//h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Add Skill')]")
         self.qualifications_add_skill_skill_dropdown = page.locator("xpath=//div[@class='oxd-select-text-input'][contains(.,'-- Select --')]")
@@ -125,7 +125,7 @@ class MyInfoPage:
         self.qualifications_skill_successfully_saved_message = page.locator("//p[contains(.,'Successfully Saved')]")
         self.qualifications_skill_delete_selected_button = page.locator("xpath=//button[@type='button'][contains(.,'Delete Selected')]")
 
-        # Languages
+        # Qualifications - Languages
         self.qualifications_languages_add_button = page.locator("xpath=(//button[@type='button'][contains(.,'Add')])[4]")
         self.qualifications_add_languages_header = page.locator("xpath=//h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Add Language')]")
         self.qualifications_add_language_language_dropdown = page.get_by_text("-- Select --").first
@@ -138,8 +138,18 @@ class MyInfoPage:
         self.qualifications_language_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
         self.qualifications_languages_delete_selected_button = page.locator("xpath=//button[@type='button'][contains(.,'Delete Selected')]")
 
-        # Licenses
+        # Qualifications - Licenses
+        self.qualifications_licenses_add_button = page.locator("xpath=(//button[@type='button'][contains(.,'Add')])[5]")
+        self.qualifications_add_licenses_header = page.locator("xpath=//h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Add License')]")
+        self.qualifications_add_license_type_dropdown = page.get_by_text("-- Select --").first
+        self.qualifications_add_license_type_ms_certified_engr = page.locator("xpath=//span[contains(.,'Microsoft Certified Systems Engineer (MCSE)')]")
+        self.qualifications_add_license_license_number_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[6]/div[1]/form/div[1]/div/div[2]/div/div[2]/input")
+        self.qualifications_add_license_issued_date_field = page.get_by_role("textbox", name="yyyy-dd-mm").first
+        self.qualifications_add_license_expiry_date_field = page.get_by_role("textbox", name="yyyy-dd-mm").nth(1)
+        self.qualifications_add_license_save_button = page.locator("xpath=//button[@type='submit'][contains(.,'Save')]")
+        self.qualifications_license_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
         self.qualifications_licenses_delete_selected_button = page.locator("xpath=//button[@type='button'][contains(.,'Delete Selected')]")
+        self.qualifications_license_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
 
         self.successfully_updated_message = page.locator("xpath=//p[contains(.,'Successfully Updated')]")
         self.successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
@@ -574,6 +584,7 @@ class MyInfoPage:
     ######################################################################################################
     # Qualifications - Languages methods
     #
+
     def click_qualifications_languages_add_button(self):
         self.qualifications_languages_add_button.click()
 
@@ -612,3 +623,38 @@ class MyInfoPage:
 
     def click_qualifications_licenses_delete_selected_button(self):
         self.qualifications_licenses_delete_selected_button.click()
+
+    def click_qualifications_license_add_button(self):
+        self.qualifications_licenses_add_button.click()
+
+    def click_qualifications_add_license_type_dropdown(self):
+        self.qualifications_add_license_type_dropdown.click()
+
+    def select_qualifications_add_license_type_ms_certified_engr(self):
+        self.qualifications_add_license_type_ms_certified_engr.click()
+
+    def click_qualifications_add_license_license_number_field(self):
+        self.qualifications_add_license_license_number_field.click()
+
+    def enter_qualifications_add_license_license_number_value(self):
+        self.qualifications_add_license_license_number_field.fill("123456789")
+
+    def click_qualifications_add_license_issued_date_field(self):
+        self.qualifications_add_license_issued_date_field.click()
+
+    def enter_qualifications_add_license_issued_date_value(self):
+        self.qualifications_add_license_issued_date_field.fill("2024-01-01")
+
+    def click_qualifications_add_license_expiry_date_field(self):
+        self.qualifications_add_license_expiry_date_field.click()
+    
+    def enter_qualifications_add_license_expiry_date_value(self):
+        self.qualifications_add_license_expiry_date_field.fill("2030-12-12")
+
+    def click_qualifications_add_license_save_button(self):
+        self.qualifications_add_license_save_button.click()
+    
+    def delete_qualifications_by_license_name(self, license_name):
+        row = self.page.locator(f"xpath=//h6[text()='License']/following::div[@class='orangehrm-container'][1]//div[@role='row'][.//*[text()='{license_name}']]")
+        row.locator("button i.bi-trash").click()
+        self.page.get_by_role("button", name="Yes, Delete").click()

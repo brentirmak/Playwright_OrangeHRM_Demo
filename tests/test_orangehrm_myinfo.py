@@ -18,7 +18,7 @@ def test_HomePage(shared_page):
     home_page = HomePage(shared_page)
     home_page.verify_branding_image_visible()
     print("Verified branding image is visible on the home page")
-    print("Ended test_HomePage transaction")
+    print("\nEnded test_HomePage transaction")
 
 def test_LoginPage(shared_page):
     print("\nStarting test_LoginPage transaction")
@@ -30,7 +30,7 @@ def test_LoginPage(shared_page):
     expect(shared_page.get_by_role("heading", name="Dashboard")).to_be_visible(timeout=20000)
     shared_page.wait_for_selector("//h6[contains(.,'Dashboard')]")
     print("Verified Dashboard heading is visible on the dashboard page")
-    print("Ended test_LoginPage transaction")
+    print("\nEnded test_LoginPage transaction")
 
 #######################################################################################################################
 # START OF BULK CLEANUP
@@ -104,7 +104,6 @@ def test_MyInfoImmigrationDocumentCleanup(shared_page):
     except AssertionError:
         print("No immigration records found to delete - ending test cleanly.")
         return
-
     print("Will click on the delete all checkbox to select all immigration records")
     myinfo_page.click_immigration_assigned_immigration_records_delete_all_checkbox()
     print("Clicked on the checkbox to select all immigration records - will click on the Delete Selected button")
@@ -125,7 +124,6 @@ def test_MyInfoImmigrationDocumentCleanup(shared_page):
     #except:
     #    print("There was no record to delete - ending the test")
     ##############################################################################################
-
     print("\nEnded test_MyInfoImmigrationDocumentCleanup transaction")
 
 ###################################################################################
@@ -213,7 +211,6 @@ def test_MyInfoQualifications_WorkExperienceCleanup(shared_page):
     except AssertionError:
         print("No Work Experience records found to delete - ending test cleanly.")
         return
-
     print("\nEnded test_MyInfoQualifications_WorkExperienceCleanup transaction")
 
 def test_MyInfoQualifications_SkillsCleanup(shared_page):
@@ -254,7 +251,6 @@ def test_MyInfoQualifications_SkillsCleanup(shared_page):
     except AssertionError:
         print("No Skills records found to delete - ending test cleanly.")
         return
-
     print("\nEnded test_MyInfoQualifications_SkillsCleanup transaction")
 
 def test_MyInfoQualifications_LanguageCleanup(shared_page):
@@ -295,7 +291,6 @@ def test_MyInfoQualifications_LanguageCleanup(shared_page):
     except AssertionError:
         print("No Language records found to delete - ending test cleanly.")
         return
-
     print("\nEnded test_MyInfoQualifications_LanguageCleanup transaction")
 
 def test_MyInfoQualifications_LicenseCleanup(shared_page):
@@ -336,7 +331,6 @@ def test_MyInfoQualifications_LicenseCleanup(shared_page):
     except AssertionError:
         print("No Language records found to delete - ending test cleanly.")
         return
-
     print("\nEnded test_MyInfoQualifications_LicenseCleanup transaction")
 
 #######################################################################################################################
@@ -770,9 +764,57 @@ def test_MyInfoAddQualificationsLanguage(shared_page):
     print("Verified that the Language successfully saved message was displayed")
     print("\nEnded test_MyInfoAddQualificationsLanguage transaction")
 
-# test_MyInfoAddQualificationsLicense to be developed here 
+def test_MyInfoAddQualificationsLicense(shared_page):
+    print("\nStarting test_MyInfoAddQualificationsLicense transaction")
+    myinfo_page = MyInfoPage(shared_page)
+    print("Will access the My Info section/page")
+    myinfo_page.click_myinfo_menu()
+    print("Clicked on the My Info menu item")
+    expect(shared_page.get_by_role("heading", name="Personal Details")).to_be_visible(timeout=20000)
+    print("Will access the Qualifications submenu under My Info section/page")
+    myinfo_page.click_qualifications_submenu()
+    print("Clicked on the Qualifications submenu item")
+    expect(shared_page.get_by_role("heading", name="Qualifications")).to_be_visible(timeout=20000)
+    print("Will click on the Add button under License")
+    myinfo_page.click_qualifications_license_add_button()
+    print("Clicked on the Add button - will verify that we're on the Add License page")
+    expect(myinfo_page.qualifications_add_licenses_header).to_be_visible(timeout=20000)
+    print("Clicked on the Add button for License - will enter License Type value")
+    myinfo_page.click_qualifications_add_license_type_dropdown()
+    myinfo_page.select_qualifications_add_license_type_ms_certified_engr()
+    print("Selected the license type - will now enter the license number")
+    myinfo_page.click_qualifications_add_license_license_number_field()
+    myinfo_page.enter_qualifications_add_license_license_number_value()
+    print("Entered the license number value - will now enter the Issued Date")
+    myinfo_page.click_qualifications_add_license_issued_date_field()
+    myinfo_page.enter_qualifications_add_license_issued_date_value()
+    print("Entered the Issued Date - will now enter the Expiry Date")
+    myinfo_page.click_qualifications_add_license_expiry_date_field()
+    myinfo_page.enter_qualifications_add_license_expiry_date_value()
+    print("Entered the Expiry Date - will now click on the Save button")
+    myinfo_page.click_qualifications_add_license_save_button()
+    print("Clicked on the Save buttoni - will verify the license was successfully saved")
+    expect(myinfo_page.qualifications_license_successfully_saved_message).to_be_visible(timeout=20000)
+    print("Verified that the License successfully saved message was displayed")
+    print("\nEnded test_MyInfoAddQualificationsLicense transaction")
 
-# test_MyInfoDeleteQualificationsLicense to be developed here
+def test_MyInfoDeleteQualificationsLicense(shared_page):
+    print("\nStarting test_MyInfoDeleteQualificationsLicense transaction")
+    myinfo_page = MyInfoPage(shared_page)
+    print("Will access the My Info section/page")
+    myinfo_page.click_myinfo_menu()
+    print("Clicked on the My Info menu item")
+    expect(shared_page.get_by_role("heading", name="Personal Details")).to_be_visible(timeout=20000)
+    print("Will access the Qualifications submenu under My Info section/page")
+    myinfo_page.click_qualifications_submenu()
+    print("Clicked on the Qualifications submenu item")
+    expect(shared_page.get_by_role("heading", name="Qualifications")).to_be_visible(timeout=20000)
+    print("Verified that the Qualifications header was displayed - will proceed with deletion of Licenses records")
+    myinfo_page.delete_qualifications_by_license_name("Microsoft Certified Systems Engineer (MCSE)")
+    print("Deleted qualification - will verify successfully_deleted_message was displayed")
+    expect(myinfo_page.successfully_deleted_message).to_be_visible(timeout=20000)
+    print("Verified that license successfully deleted message was displayed")
+    print("\nEnded test_MyInfoDeleteQualificationsLicense transaction")
 
 def test_MyInfoDeleteQualificationsLanguage(shared_page):
     print("\nStarting test_MyInfoDeleteQualificationsLanguage transaction")
@@ -788,7 +830,7 @@ def test_MyInfoDeleteQualificationsLanguage(shared_page):
     print("Verified that the Qualifications header was displayed - will proceed with deletion of Languages records")
     myinfo_page.delete_qualifications_by_language_name("Spanish")
     print("Deleted qualification - will verify successfully_deleted_message was displayed")
-    expect(myinfo_page.successfully_deleted_message).to_be_visible(timeout=20000)
+    expect(myinfo_page.qualifications_license_successfully_deleted_message).to_be_visible(timeout=20000)
     print("Verified that Skill successfully deleted message was displayed")
     print("\nEnded test_MyInfoDeleteQualificationsLanguage transaction")
 
@@ -864,7 +906,6 @@ def test_MyInfoDeleteQualificationsWorkExperience(shared_page):
     print("Clicked on the Qualifications submenu item")
     expect(shared_page.get_by_role("heading", name="Qualifications")).to_be_visible(timeout=20000)
     print("Verified that the Qualifications header is displayed - will verify that there's 1 record found")
-
     record_count = myinfo_page.get_qualifications_work_experience_record_count()
     if record_count > 0:
         print("At least 1 Record found header was found - will proceed with deletion")
