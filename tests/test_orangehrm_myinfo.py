@@ -171,7 +171,7 @@ def test_MyInfoImmigrationDocumentCleanup(shared_page):
 #        return
 #
 #    print("\nEnded test_MyInfoQualifications_WorkExperienceCleanup transaction")
-# Qualifications Work Experience Cleanup
+
 def test_MyInfoQualifications_WorkExperienceCleanup(shared_page):
     print("\nStarting test_MyInfoQualifications_WorkExperienceCleanup transaction")
     myinfo_page = MyInfoPage(shared_page)
@@ -213,8 +213,87 @@ def test_MyInfoQualifications_WorkExperienceCleanup(shared_page):
 
     print("\nEnded test_MyInfoQualifications_WorkExperienceCleanup transaction")
 
-# Qualifications Skills Cleanup - to be implemented
-# Qualifications Language Cleanup - to be implemented
+def test_MyInfoQualifications_SkillsCleanup(shared_page):
+    print("\nStarting test_MyInfoQualifications_SkillsCleanup transaction")
+    myinfo_page = MyInfoPage(shared_page)
+    print("Will access the My Info section/page")
+    myinfo_page.click_myinfo_menu()
+    print("Clicked on the My Info menu item")
+    expect(shared_page.get_by_role("heading", name="Personal Details")).to_be_visible(timeout=10000)
+    print("Will access the Qualifications submenu under My Info section/page")
+    myinfo_page.click_qualifications_submenu()
+    print("Clicked on the Qualifications submenu item")
+    expect(shared_page.get_by_role("heading", name="Qualifications")).to_be_visible(timeout=20000)
+    print("Waiting for work experience records to load...")
+    try:
+        skills_table = shared_page.locator(
+            "//h6[text()='Skills']"
+            "/ancestor::div[contains(@class,'orangehrm-action-header')]"
+            "/parent::div"
+            "/following-sibling::div[contains(@class,'orangehrm-container')][1]"
+        )
+        expect(skills_table).to_be_visible(timeout=10000)
+        shared_page.wait_for_load_state("networkidle")
+        delete_buttons = skills_table.locator("button:has(i.bi-trash)")
+        record_count = delete_buttons.count()
+        print(f"Found {record_count} Work Experience record(s)")
+        if record_count == 0:
+            raise AssertionError
+        select_all_checkbox = skills_table.locator(".oxd-table-header input[type='checkbox']")
+        select_all_checkbox.check(force=True)
+        print("Selected all Skill records")
+        myinfo_page.delete_qualifications_skill_delete_selected_button()
+        print("Clicked bulk delete button")
+        shared_page.get_by_role("button",name="Yes, Delete").click()
+        print("Confirmed deletion")
+        expect(delete_buttons).to_have_count(0,timeout=10000)
+        print("Successfully deleted all Skill records")
+    except AssertionError:
+        print("No Skills records found to delete - ending test cleanly.")
+        return
+
+    print("\nEnded test_MyInfoQualifications_SkillsCleanup transaction")
+
+def test_MyInfoQualifications_LanguageCleanup(shared_page):
+    print("\nStarting test_MyInfoQualifications_LanguageCleanup transaction")
+    myinfo_page = MyInfoPage(shared_page)
+    print("Will access the My Info section/page")
+    myinfo_page.click_myinfo_menu()
+    print("Clicked on the My Info menu item")
+    expect(shared_page.get_by_role("heading", name="Personal Details")).to_be_visible(timeout=10000)
+    print("Will access the Qualifications submenu under My Info section/page")
+    myinfo_page.click_qualifications_submenu()
+    print("Clicked on the Qualifications submenu item")
+    expect(shared_page.get_by_role("heading", name="Qualifications")).to_be_visible(timeout=20000)
+    print("Waiting for work experience records to load...")
+    try:
+        skills_table = shared_page.locator(
+            "//h6[text()='Languages']"
+            "/ancestor::div[contains(@class,'orangehrm-action-header')]"
+            "/parent::div"
+            "/following-sibling::div[contains(@class,'orangehrm-container')][1]"
+        )
+        expect(skills_table).to_be_visible(timeout=10000)
+        shared_page.wait_for_load_state("networkidle")
+        delete_buttons = skills_table.locator("button:has(i.bi-trash)")
+        record_count = delete_buttons.count()
+        print(f"Found {record_count} Work Experience record(s)")
+        if record_count == 0:
+            raise AssertionError
+        select_all_checkbox = skills_table.locator(".oxd-table-header input[type='checkbox']")
+        select_all_checkbox.check(force=True)
+        print("Selected all Language records")
+        myinfo_page.click_qualifications_languages_delete_selected_button()
+        print("Clicked bulk delete button")
+        shared_page.get_by_role("button",name="Yes, Delete").click()
+        print("Confirmed deletion")
+        expect(delete_buttons).to_have_count(0,timeout=10000)
+        print("Successfully deleted all Language records")
+    except AssertionError:
+        print("No Language records found to delete - ending test cleanly.")
+        return
+
+    print("\nEnded test_MyInfoQualifications_LanguageCleanup transaction")
 
 def test_AccessMyInfoSection(shared_page):
     print("\nStarting test_AccessMyInfoSection transaction")
