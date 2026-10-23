@@ -138,6 +138,9 @@ class MyInfoPage:
         self.qualifications_language_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
         self.qualifications_languages_delete_selected_button = page.locator("xpath=//button[@type='button'][contains(.,'Delete Selected')]")
 
+        # Licenses
+        self.qualifications_licenses_delete_selected_button = page.locator("xpath=//button[@type='button'][contains(.,'Delete Selected')]")
+
         self.successfully_updated_message = page.locator("xpath=//p[contains(.,'Successfully Updated')]")
         self.successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
     
@@ -602,3 +605,10 @@ class MyInfoPage:
         row = self.page.locator(f"xpath=//h6[text()='Languages']/following::div[@class='orangehrm-container'][1]//div[@role='row'][.//*[text()='{language_name}']]")
         row.locator("button i.bi-trash").click()
         self.page.get_by_role("button", name="Yes, Delete").click()
+
+    ######################################################################################################
+    # Qualifications - License Type methods
+    #
+
+    def click_qualifications_licenses_delete_selected_button(self):
+        self.qualifications_licenses_delete_selected_button.click()

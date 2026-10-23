@@ -32,6 +32,9 @@ def test_LoginPage(shared_page):
     print("Verified Dashboard heading is visible on the dashboard page")
     print("Ended test_LoginPage transaction")
 
+#######################################################################################################################
+# START OF BULK CLEANUP
+#
 def test_MyInfoEmergencyContactCleanup(shared_page):
     print("\nStarting test_MyInfoEmergencyContactCleanup transaction")
     myinfo_page = MyInfoPage(shared_page)
@@ -277,13 +280,13 @@ def test_MyInfoQualifications_LanguageCleanup(shared_page):
         shared_page.wait_for_load_state("networkidle")
         delete_buttons = skills_table.locator("button:has(i.bi-trash)")
         record_count = delete_buttons.count()
-        print(f"Found {record_count} Work Experience record(s)")
+        print(f"Found {record_count} Language record(s)")
         if record_count == 0:
             raise AssertionError
         select_all_checkbox = skills_table.locator(".oxd-table-header input[type='checkbox']")
         select_all_checkbox.check(force=True)
         print("Selected all Language records")
-        myinfo_page.click_qualifications_languages_delete_selected_button()
+        myinfo_page.click_qualifications_licenses_delete_selected_button()
         print("Clicked bulk delete button")
         shared_page.get_by_role("button",name="Yes, Delete").click()
         print("Confirmed deletion")
@@ -294,6 +297,51 @@ def test_MyInfoQualifications_LanguageCleanup(shared_page):
         return
 
     print("\nEnded test_MyInfoQualifications_LanguageCleanup transaction")
+
+def test_MyInfoQualifications_LicenseCleanup(shared_page):
+    print("\nStarting test_MyInfoQualifications_LicenseCleanup transaction")
+    myinfo_page = MyInfoPage(shared_page)
+    print("Will access the My Info section/page")
+    myinfo_page.click_myinfo_menu()
+    print("Clicked on the My Info menu item")
+    expect(shared_page.get_by_role("heading", name="Personal Details")).to_be_visible(timeout=10000)
+    print("Will access the Qualifications submenu under My Info section/page")
+    myinfo_page.click_qualifications_submenu()
+    print("Clicked on the Qualifications submenu item")
+    expect(shared_page.get_by_role("heading", name="Qualifications")).to_be_visible(timeout=20000)
+    print("Waiting for work experience records to load...")
+    try:
+        license_table = shared_page.locator(
+            "//h6[text()='License']"
+            "/ancestor::div[contains(@class,'orangehrm-action-header')]"
+            "/parent::div"
+            "/following-sibling::div[contains(@class,'orangehrm-container')][1]"
+        )
+        expect(license_table).to_be_visible(timeout=10000)
+        shared_page.wait_for_load_state("networkidle")
+        delete_buttons = license_table.locator("button:has(i.bi-trash)")
+        record_count = delete_buttons.count()
+        print(f"Found {record_count} License record(s)")
+        if record_count == 0:
+            raise AssertionError
+        select_all_checkbox = license_table.locator(".oxd-table-header input[type='checkbox']")
+        select_all_checkbox.check(force=True)
+        print("Selected all License records")
+        myinfo_page.click_qualifications_languages_delete_selected_button()
+        print("Clicked bulk delete button")
+        shared_page.get_by_role("button",name="Yes, Delete").click()
+        print("Confirmed deletion")
+        expect(delete_buttons).to_have_count(0,timeout=10000)
+        print("Successfully deleted all Language records")
+    except AssertionError:
+        print("No Language records found to delete - ending test cleanly.")
+        return
+
+    print("\nEnded test_MyInfoQualifications_LicenseCleanup transaction")
+
+#######################################################################################################################
+# END OF BULK CLEANUP
+#
 
 def test_AccessMyInfoSection(shared_page):
     print("\nStarting test_AccessMyInfoSection transaction")
@@ -661,6 +709,37 @@ def test_MyInfoAddQualificationsWorkExperience(shared_page):
     print("Verified that the Work Experience successfully saved was displayed")
     print("\nEnded test_MyInfoAddQualificationsWorkExperience transaction")
 
+def test_MyInfoAddQualificationsSkills(shared_page):
+    print("\nStarting test_MyInfoAddQualificationsSkills transaction")
+    myinfo_page = MyInfoPage(shared_page)
+    print("Will access the My Info section/page")
+    myinfo_page.click_myinfo_menu()
+    print("Clicked on the My Info menu item")
+    expect(shared_page.get_by_role("heading", name="Personal Details")).to_be_visible(timeout=20000)
+    print("Will access the Qualifications submenu under My Info section/page")
+    myinfo_page.click_qualifications_submenu()
+    print("Clicked on the Qualifications submenu item")
+    expect(shared_page.get_by_role("heading", name="Qualifications")).to_be_visible(timeout=20000)
+    print("Will click on the Add button under Skills")
+    myinfo_page.click_qualifications_skills_add_button()
+    print("Clicked on the Add button for Skills - will verify Add Education header")
+    expect(myinfo_page.qualifications_add_skills_header).to_be_visible(timeout=20000)
+    print("Verified that the Add Skills header was displayed - will select Skill")
+    myinfo_page.click_qualifications_add_skill_skill_dropdown()
+    myinfo_page.select_qualifications_add_skill_skill_dropdown_content_creation_option()
+    print("Selected the content creation option from the dropdown - will enter the years of experience")
+    myinfo_page.click_qualifications_add_skill_years_of_experience_field()
+    myinfo_page.enter_qualifications_add_skill_years_of_experience_value("5")
+    print("Entered the years of experience value - will enter comments")
+    myinfo_page.click_qualifications_add_skill_comments_field()
+    myinfo_page.enter_qualifications_add_skill_comments_value("This is a test")
+    print("Entered comments for the skill - will now click on the Save button")
+    myinfo_page.click_qualifications_add_skill_save_button()
+    print("Clicked on the Save button - will now verify that it was successfully added")
+    expect(myinfo_page.qualifications_skill_successfully_saved_message).to_be_visible(timeout=20000)
+    print("Verified that Skill successfully saved message was displayed")
+    print("\nEnded test_MyInfoAddQualificationsSkills transaction")
+
 def test_MyInfoAddQualificationsLanguage(shared_page):
     print("\nStarting test_MyInfoAddQualificationsLanguage transaction")
     myinfo_page = MyInfoPage(shared_page)
@@ -691,6 +770,10 @@ def test_MyInfoAddQualificationsLanguage(shared_page):
     print("Verified that the Language successfully saved message was displayed")
     print("\nEnded test_MyInfoAddQualificationsLanguage transaction")
 
+# test_MyInfoAddQualificationsLicense to be developed here 
+
+# test_MyInfoDeleteQualificationsLicense to be developed here
+
 def test_MyInfoDeleteQualificationsLanguage(shared_page):
     print("\nStarting test_MyInfoDeleteQualificationsLanguage transaction")
     myinfo_page = MyInfoPage(shared_page)
@@ -708,6 +791,24 @@ def test_MyInfoDeleteQualificationsLanguage(shared_page):
     expect(myinfo_page.successfully_deleted_message).to_be_visible(timeout=20000)
     print("Verified that Skill successfully deleted message was displayed")
     print("\nEnded test_MyInfoDeleteQualificationsLanguage transaction")
+
+def test_MyInfoDeleteQualificationsSkills(shared_page):
+    print("\nStarting test_MyInfoDeleteQualificationsSkills transaction")
+    myinfo_page = MyInfoPage(shared_page)
+    print("Will access the My Info section/page")
+    myinfo_page.click_myinfo_menu()
+    print("Clicked on the My Info menu item")
+    expect(shared_page.get_by_role("heading", name="Personal Details")).to_be_visible(timeout=20000)
+    print("Will access the Qualifications submenu under My Info section/page")
+    myinfo_page.click_qualifications_submenu()
+    print("Clicked on the Qualifications submenu item")
+    expect(shared_page.get_by_role("heading", name="Qualifications")).to_be_visible(timeout=20000)
+    print("Verified that the Qualifications header was displayed - will proceed with deletion of Skills records")
+    myinfo_page.delete_qualifications_by_skill_name("Content Creation")
+    print("Deleted qualification - will verify successfully_deleted_message was displayed")
+    expect(myinfo_page.successfully_deleted_message).to_be_visible(timeout=20000)
+    print("Verified that Skill successfully deleted message was displayed")
+    print("\nEnded test_MyInfoDeleteQualificationsSkills transaction")
 
 #def test_MyInfoAddQualificationsEducation(shared_page):
 #    print("\nStarting test_MyInfoAddQualificationsEducation transaction")
@@ -793,55 +894,6 @@ def test_AccessMyInfoMembershipsSubmenu(shared_page):
     expect(shared_page.get_by_role("heading", name="Attachments")).to_be_visible(timeout=20000)
     print("Verified that the Attachments header was displayed")
     print("\nEnded test_AccessMyInfoMembershipsSubmenu transaction")
-
-def test_MyInfoAddQualificationsSkills(shared_page):
-    print("\nStarting test_MyInfoAddQualificationsSkills transaction")
-    myinfo_page = MyInfoPage(shared_page)
-    print("Will access the My Info section/page")
-    myinfo_page.click_myinfo_menu()
-    print("Clicked on the My Info menu item")
-    expect(shared_page.get_by_role("heading", name="Personal Details")).to_be_visible(timeout=20000)
-    print("Will access the Qualifications submenu under My Info section/page")
-    myinfo_page.click_qualifications_submenu()
-    print("Clicked on the Qualifications submenu item")
-    expect(shared_page.get_by_role("heading", name="Qualifications")).to_be_visible(timeout=20000)
-    print("Will click on the Add button under Skills")
-    myinfo_page.click_qualifications_skills_add_button()
-    print("Clicked on the Add button for Skills - will verify Add Education header")
-    expect(myinfo_page.qualifications_add_skills_header).to_be_visible(timeout=20000)
-    print("Verified that the Add Skills header was displayed - will select Skill")
-    myinfo_page.click_qualifications_add_skill_skill_dropdown()
-    myinfo_page.select_qualifications_add_skill_skill_dropdown_content_creation_option()
-    print("Selected the content creation option from the dropdown - will enter the years of experience")
-    myinfo_page.click_qualifications_add_skill_years_of_experience_field()
-    myinfo_page.enter_qualifications_add_skill_years_of_experience_value("5")
-    print("Entered the years of experience value - will enter comments")
-    myinfo_page.click_qualifications_add_skill_comments_field()
-    myinfo_page.enter_qualifications_add_skill_comments_value("This is a test")
-    print("Entered comments for the skill - will now click on the Save button")
-    myinfo_page.click_qualifications_add_skill_save_button()
-    print("Clicked on the Save button - will now verify that it was successfully added")
-    expect(myinfo_page.qualifications_skill_successfully_saved_message).to_be_visible(timeout=20000)
-    print("Verified that Skill successfully saved message was displayed")
-    print("\nEnded test_MyInfoAddQualificationsSkills transaction")
-
-def test_MyInfoDeleteQualificationsSkills(shared_page):
-    print("\nStarting test_MyInfoDeleteQualificationsSkills transaction")
-    myinfo_page = MyInfoPage(shared_page)
-    print("Will access the My Info section/page")
-    myinfo_page.click_myinfo_menu()
-    print("Clicked on the My Info menu item")
-    expect(shared_page.get_by_role("heading", name="Personal Details")).to_be_visible(timeout=20000)
-    print("Will access the Qualifications submenu under My Info section/page")
-    myinfo_page.click_qualifications_submenu()
-    print("Clicked on the Qualifications submenu item")
-    expect(shared_page.get_by_role("heading", name="Qualifications")).to_be_visible(timeout=20000)
-    print("Verified that the Qualifications header was displayed - will proceed with deletion of Skills records")
-    myinfo_page.delete_qualifications_by_skill_name("Content Creation")
-    print("Deleted qualification - will verify successfully_deleted_message was displayed")
-    expect(myinfo_page.successfully_deleted_message).to_be_visible(timeout=20000)
-    print("Verified that Skill successfully deleted message was displayed")
-    print("\nEnded test_MyInfoDeleteQualificationsSkills transaction")
 
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")
