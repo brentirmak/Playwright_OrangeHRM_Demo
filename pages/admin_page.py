@@ -63,6 +63,8 @@ class AdminPage:
         self.corporate_branding_submenu = page.get_by_role("link", name="Corporate Branding")
         self.corporate_branding_primary_color = page.locator("xpath=(//div[contains(@class,'oxd-color-input-preview')])[1]")
         self.corporate_branding_primary_color_field = page.get_by_role("alert").get_by_role("textbox")
+        self.corporate_branding_secondary_color = page.locator("xpath=(//div[contains(@class,'oxd-color-input-preview')])[2]")
+        self.corporate_branding_secondary_color_field = page.get_by_role("alert").get_by_role("textbox")
         self.corporate_branding_publish_button = page.locator("xpath=//button[@type='submit'][contains(.,'Publish')]")
         self.corporate_branding_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
 
@@ -286,6 +288,15 @@ class AdminPage:
 
     def enter_corporate_branding_primary_color_value(self):
         self.corporate_branding_primary_color_field.fill("#15f4e9")
+
+    def click_corporate_branding_secondary_color(self):
+        self.corporate_branding_secondary_color.click()
+    
+    def click_corporate_branding_secondary_color_field(self):
+        self.corporate_branding_secondary_color_field.click()
+    
+    def enter_corporate_branding_secondary_color_value(self):
+        self.corporate_branding_secondary_color_field.fill("#d91442")
 
     def click_corporate_branding_publish_button(self):
         self.corporate_branding_publish_button.click()
