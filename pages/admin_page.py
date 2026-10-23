@@ -61,6 +61,10 @@ class AdminPage:
         #####################################################################################################################
         self.nationalities_submenu = page.get_by_role("link", name="Nationalities")
         self.corporate_branding_submenu = page.get_by_role("link", name="Corporate Branding")
+        self.corporate_branding_primary_color = page.locator("xpath=(//div[contains(@class,'oxd-color-input-preview')])[1]")
+        self.corporate_branding_primary_color_field = page.get_by_role("alert").get_by_role("textbox")
+        self.corporate_branding_publish_button = page.locator("xpath=//button[@type='submit'][contains(.,'Publish')]")
+        self.corporate_branding_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
 
         #####################################################################################################################
         # Configuration section
@@ -273,6 +277,18 @@ class AdminPage:
     def click_corporate_branding_submenu(self):
         self.corporate_branding_submenu.click()
         self.page.wait_for_load_state("networkidle")
+
+    def click_corporate_branding_primary_color(self):
+        self.corporate_branding_primary_color.click()
+
+    def click_corporate_branding_primary_color_field(self):
+        self.corporate_branding_primary_color_field.click()
+
+    def enter_corporate_branding_primary_color_value(self):
+        self.corporate_branding_primary_color_field.fill("#15f4e9")
+
+    def click_corporate_branding_publish_button(self):
+        self.corporate_branding_publish_button.click()
 
     #####################################################################################################################
     # Configuration section methods

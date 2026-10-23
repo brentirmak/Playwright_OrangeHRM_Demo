@@ -28,8 +28,8 @@ def test_LoginPage(shared_page):
     print("Verified Dashboard heading is visible on the dashboard page")
     print("Ended test_LoginPage transaction")
 
-def test_NationalitiesCorporateBranding(shared_page):
-    print("\nStarting test_NationalitiesCorporateBranding transaction")
+def test_AccessNationalitiesCorporateBranding(shared_page):
+    print("\nStarting test_AccessNationalitiesCorporateBranding transaction")
     admin_page = AdminPage(shared_page)
     print("Will click on Admin menu")
     admin_page.click_admin_menu()
@@ -44,7 +44,29 @@ def test_NationalitiesCorporateBranding(shared_page):
     print("Clicked on Corporate Branding submenu")
     expect(shared_page.get_by_role("heading", name="Corporate Branding")).to_be_visible(timeout=10000)
     print("Verified Corporate Branding heading is visible on the Corporate Branding page")
-    print("Ended test_NationalitiesCorporateBranding transaction")
+    print("Ended test_AccessNationalitiesCorporateBranding transaction")
+
+def test_CorporateBrandingUpdatePrimaryColor(shared_page):
+    print("\nStarting test_CorporateBrandingUpdatePrimaryColor transaction")
+    print("\nStarting test_AccessNationalitiesCorporateBranding transaction")
+    admin_page = AdminPage(shared_page)
+    print("Will click on Admin menu")
+    admin_page.click_admin_menu()
+    print("Clicked on Admin menu - will now click on Corporate Branding submenu")
+    admin_page.click_corporate_branding_submenu()
+    print("Clicked on Corporate Branding submenu")
+    expect(shared_page.get_by_role("heading", name="Corporate Branding")).to_be_visible(timeout=10000)
+    print("Will now change the Primary Color")
+    admin_page.click_corporate_branding_primary_color()
+    print("Clicked on primary color icon - will now enter a new HEX value")
+    admin_page.click_corporate_branding_primary_color_field()
+    admin_page.enter_corporate_branding_primary_color_value()
+    print("Entered a new HEX value for the primary color - will click on the Publish button")
+    admin_page.click_corporate_branding_publish_button()
+    print("Clicked on the Publish button - will verify that the toast message was displayed")
+    expect(admin_page.corporate_branding_successfully_saved_message).to_be_visible(timeout=20000)
+    print("The primary color was successfully updated")
+    print("Ended test_CorporateBrandingUpdatePrimaryColor transaction")
 
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")
