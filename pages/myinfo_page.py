@@ -80,8 +80,11 @@ class MyInfoPage:
         self.immigration_save_button = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[1]/form/div[3]/button[2]")
         self.immigration_record_successfully_saved = page.locator("xpath=//div[@class='oxd-toast-content oxd-toast-content--success'][contains(.,'SuccessSuccessfully Saved')]")
         self.immigration_documents_trash_icons = page.locator("//div[contains(@class, 'orangehrm-container')]//i[contains(@class,'oxd-icon bi-trash')]")
+        
+        self.immigration_assigned_immigration_records_delete_all_checkbox = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[3]/div/div[1]/div/div[1]/div/label/span/i")
         self.immigration_delete_selected_button = page.locator("xpath=//button[@type='button'][contains(.,'Delete Selected')]")
         self.immigration_confirm_delete_button = page.locator("xpath=//button[@type='button'][contains(.,'Yes, Delete')]")
+        self.immigration_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
 
         # Qualifications - Work Experience
         self.qualifications_work_experience_add_button = page.locator("xpath=(//button[@type='button'][contains(.,'Add')])[1]")
@@ -91,6 +94,9 @@ class MyInfoPage:
         self.qualifications_work_experience_save_button = page.get_by_role("button", name="Save")
         self.qualifications_work_experience_successfully_saved_message = page.locator("xpath=//p[@class='oxd-text oxd-text--p oxd-text--toast-message oxd-toast-content-text'][contains(.,'Successfully Saved')]")
         self.qualifications_work_experience_record_found = page.locator("span", has_text=re.compile(r"\(\d+\) Records? Found"))
+
+        
+
         self.qualifications_work_experience_trash_icons = page.locator("//i[contains(@class,'oxd-icon bi-trash')]")
         self.qualifications_work_experience_delete_selected_button = page.locator("xpath=//button[@type='button'][contains(.,'Delete Selected')]")
         self.qualifications_work_experience_confirm_delete_button = page.locator("xpath=//button[@type='button'][contains(.,'Yes, Delete')]")
@@ -403,6 +409,9 @@ class MyInfoPage:
     def click_immigration_save_button(self):
         self.immigration_save_button.click()
 
+    def click_immigration_assigned_immigration_records_delete_all_checkbox(self):
+        self.immigration_assigned_immigration_records_delete_all_checkbox.click()
+
     def delete_immigration_records_by_id(self, record_id):
         matching_rows = self.page.get_by_role("row", name=re.compile(record_id))
         print("Numbers of records to delete: ", matching_rows.count())
@@ -449,6 +458,9 @@ class MyInfoPage:
 
     def click_qualifications_work_experience_trash_icon(self):
         self.qualifications_work_experience_trash_icons.first.click()
+
+    def click_qualifications_work_experience_delete_selected_button(self):
+        self.qualifications_work_experience_delete_selected_button.click()
 
     def click_qualifications_work_experience_confirm_delete_button(self):
         self.qualifications_work_experience_confirm_delete_button.click()

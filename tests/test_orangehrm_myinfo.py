@@ -96,19 +96,125 @@ def test_MyInfoImmigrationDocumentCleanup(shared_page):
     print("Waiting for immigration records to load...")
     try:
         expect(myinfo_page.immigration_documents_trash_icons.first).to_be_visible(timeout=10000)
+        count = myinfo_page.immigration_documents_trash_icons.count()
+        print("Immigration Record count: ", count)
     except AssertionError:
         print("No immigration records found to delete - ending test cleanly.")
         return
-    count = myinfo_page.immigration_documents_trash_icons.count()
-    print("Record count: ", count)
 
-    try:
-        print("Verified that the Assigned Immigration Records header was displayed - will now delete the record that was previously created")
-        myinfo_page.delete_immigration_records_by_id("123456789")
-        print("Verified that the Immigration document was successfully deleted")
-    except:
-        print("There was no record to delete - ending the test")
+    print("Will click on the delete all checkbox to select all immigration records")
+    myinfo_page.click_immigration_assigned_immigration_records_delete_all_checkbox()
+    print("Clicked on the checkbox to select all immigration records - will click on the Delete Selected button")
+    myinfo_page.click_immigration_delete_selected_button()
+    print("Clicked on the Delete Selected button - will now click on the Yes, Delete button on the confirmation window")
+    myinfo_page.click_immigration_confirm_delete_button()
+    print("Clicked on the Yes, Delete button - will confirm that the confirmation toast message is displayed")
+    expect(myinfo_page.immigration_successfully_deleted_message).to_be_visible(timeout=20000)
+    print("Verified that all records have been deleted")
+
+    ##############################################################################################
+    # Single record deletion
+    ##############################################################################################
+    #try:
+    #    print("Verified that the Assigned Immigration Records header was displayed - will now delete the record that was previously created")
+    #    myinfo_page.delete_immigration_records_by_id("123456789")
+    #    print("Verified that the Immigration document was successfully deleted")
+    #except:
+    #    print("There was no record to delete - ending the test")
+    ##############################################################################################
+
     print("\nEnded test_MyInfoImmigrationDocumentCleanup transaction")
+
+###################################################################################
+# Qualifications Work Experience Cleanup - one record at a time
+#
+#def test_MyInfoQualifications_WorkExperienceCleanup(shared_page):
+#    print("\nStarting test_MyInfoQualifications_WorkExperienceCleanup transaction")
+#    myinfo_page = MyInfoPage(shared_page)
+#    print("Will access the My Info section/page")
+#    myinfo_page.click_myinfo_menu()
+#    print("Clicked on the My Info menu item")
+#    expect(shared_page.get_by_role("heading", name="Personal Details")).to_be_visible(timeout=10000)
+#    print("Will access the Qualifications submenu under My Info section/page")
+#    myinfo_page.click_qualifications_submenu()
+#    print("Clicked on the Qualifications submenu item")
+#    expect(shared_page.get_by_role("heading", name="Qualifications")).to_be_visible(timeout=20000)
+#    print("Waiting for work experience records to load...")
+#    try:
+#        work_experience_table = shared_page.locator(
+#            "//h6[text()='Work Experience']"
+#            "/ancestor::div[contains(@class,'orangehrm-action-header')]"
+#            "/parent::div"
+#            "/following-sibling::div[contains(@class,'orangehrm-container')][1]"
+#        )
+#        expect(work_experience_table).to_be_visible(timeout=10000)
+#        shared_page.wait_for_load_state("networkidle")
+#        delete_buttons = work_experience_table.locator("button:has(i.bi-trash)")
+#        record_count = delete_buttons.count()
+#        print(f"Found {record_count} Work Experience record(s)")
+#
+#        if record_count == 0:
+#            raise AssertionError
+#
+#        while delete_buttons.count() > 0:
+#            remaining_records = delete_buttons.count()
+#            print(f"Deleting Work Experience record ({remaining_records} remaining)")
+#            delete_buttons.first.click()
+#            shared_page.get_by_role("button",name="Yes, Delete").click()
+#            shared_page.wait_for_load_state("networkidle")
+#            time.sleep(5)
+#            print(f"Remaining Work Experience records: {delete_buttons.count()}")
+#
+#        print("Successfully deleted all Work Experience records")
+#    except AssertionError:
+#        print("No Work Experience records found to delete - ending test cleanly.")
+#        return
+#
+#    print("\nEnded test_MyInfoQualifications_WorkExperienceCleanup transaction")
+# Qualifications Work Experience Cleanup
+def test_MyInfoQualifications_WorkExperienceCleanup(shared_page):
+    print("\nStarting test_MyInfoQualifications_WorkExperienceCleanup transaction")
+    myinfo_page = MyInfoPage(shared_page)
+    print("Will access the My Info section/page")
+    myinfo_page.click_myinfo_menu()
+    print("Clicked on the My Info menu item")
+    expect(shared_page.get_by_role("heading", name="Personal Details")).to_be_visible(timeout=10000)
+    print("Will access the Qualifications submenu under My Info section/page")
+    myinfo_page.click_qualifications_submenu()
+    print("Clicked on the Qualifications submenu item")
+    expect(shared_page.get_by_role("heading", name="Qualifications")).to_be_visible(timeout=20000)
+    print("Waiting for work experience records to load...")
+    try:
+        work_experience_table = shared_page.locator(
+            "//h6[text()='Work Experience']"
+            "/ancestor::div[contains(@class,'orangehrm-action-header')]"
+            "/parent::div"
+            "/following-sibling::div[contains(@class,'orangehrm-container')][1]"
+        )
+        expect(work_experience_table).to_be_visible(timeout=10000)
+        shared_page.wait_for_load_state("networkidle")
+        delete_buttons = work_experience_table.locator("button:has(i.bi-trash)")
+        record_count = delete_buttons.count()
+        print(f"Found {record_count} Work Experience record(s)")
+        if record_count == 0:
+            raise AssertionError
+        select_all_checkbox = work_experience_table.locator(".oxd-table-header input[type='checkbox']")
+        select_all_checkbox.check(force=True)
+        print("Selected all Work Experience records")
+        myinfo_page.click_qualifications_work_experience_delete_selected_button()
+        print("Clicked bulk delete button")
+        shared_page.get_by_role("button",name="Yes, Delete").click()
+        print("Confirmed deletion")
+        expect(delete_buttons).to_have_count(0,timeout=10000)
+        print("Successfully deleted all Work Experience records")
+    except AssertionError:
+        print("No Work Experience records found to delete - ending test cleanly.")
+        return
+
+    print("\nEnded test_MyInfoQualifications_WorkExperienceCleanup transaction")
+
+# Qualifications Skills Cleanup - to be implemented
+# Qualifications Language Cleanup - to be implemented
 
 def test_AccessMyInfoSection(shared_page):
     print("\nStarting test_AccessMyInfoSection transaction")
