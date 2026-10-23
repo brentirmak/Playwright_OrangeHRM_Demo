@@ -63,15 +63,16 @@ class AdminPage:
         self.corporate_branding_submenu = page.get_by_role("link", name="Corporate Branding")
         self.corporate_branding_primary_color = page.locator("xpath=(//div[contains(@class,'oxd-color-input-preview')])[1]")
         self.corporate_branding_primary_color_field = page.get_by_role("alert").get_by_role("textbox")
-
-        self.corporate_branding_primary_font_color = page.locator("xpath=(//div[contains(@class,'oxd-color-input-preview')])[3]")
-        self.corporate_branding_primary_font_color_field = page.get_by_role("alert").get_by_role("textbox")
-
-        self.corporate_branding_secondary_font_color = page.locator("xpath=(//div[contains(@class,'oxd-color-input-preview')])[4]")
-        self.corporate_branding_secondary_font_color_field = page.get_by_role("alert").get_by_role("textbox")
-
         self.corporate_branding_secondary_color = page.locator("xpath=(//div[contains(@class,'oxd-color-input-preview')])[2]")
         self.corporate_branding_secondary_color_field = page.get_by_role("alert").get_by_role("textbox")
+        self.corporate_branding_primary_font_color = page.locator("xpath=(//div[contains(@class,'oxd-color-input-preview')])[3]")
+        self.corporate_branding_primary_font_color_field = page.get_by_role("alert").get_by_role("textbox")
+        self.corporate_branding_secondary_font_color = page.locator("xpath=(//div[contains(@class,'oxd-color-input-preview')])[4]")
+        self.corporate_branding_secondary_font_color_field = page.get_by_role("alert").get_by_role("textbox")
+        self.corporate_branding_primary_gradient_color1 = page.locator("xpath=(//div[contains(@class,'oxd-color-input-preview')])[5]")
+        self.corporate_branding_primary_gradient_color1_field = page.get_by_role("alert").get_by_role("textbox")
+        self.corporate_branding_primary_gradient_color2 = page.locator("xpath=(//div[contains(@class,'oxd-color-input-preview')])[6]")
+        self.corporate_branding_primary_gradient_color2_field = page.get_by_role("alert").get_by_role("textbox")
         self.corporate_branding_publish_button = page.locator("xpath=//button[@type='submit'][contains(.,'Publish')]")
         self.corporate_branding_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
 
@@ -304,6 +305,27 @@ class AdminPage:
 
     def enter_corporate_branding_primary_font_color_value(self):
         self.corporate_branding_primary_font_color_field.fill("#060000")
+
+    def click_corporate_branding_primary_gradient_color1(self):
+        self.corporate_branding_primary_gradient_color1.click()
+
+    def click_corporate_branding_primary_gradient_color1_field(self):
+        self.corporate_branding_primary_gradient_color1_field.click()
+
+    def enter_corporate_branding_primary_gradient_color1_value(self):
+        self.corporate_branding_primary_gradient_color1_field.fill("#60ff0b")
+
+    def click_corporate_branding_primary_gradient_color2(self):
+        self.corporate_branding_primary_gradient_color2.click()
+
+    def click_corporate_branding_primary_gradient_color2_field(self):
+        self.corporate_branding_primary_gradient_color2_field.click()
+
+    def enter_corporate_branding_primary_gradient_color2_value(self):
+        self.corporate_branding_primary_gradient_color2_field.fill("#2d17f3")
+
+
+
 
     def click_corporate_branding_secondary_font_color(self):
         self.corporate_branding_secondary_font_color.click()
