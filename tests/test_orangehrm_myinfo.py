@@ -1,11 +1,12 @@
+# 10/23/26
+# 38 subtransactions
+#
 from playwright.sync_api import Page, expect
-
 from conftest import shared_page
 from pages.home_page import HomePage
 from pages.login_page import LoginPage
 from pages.myinfo_page import MyInfoPage
 from pages.logout_page import LogoutPage
-
 import time
 import re
 import pytest
