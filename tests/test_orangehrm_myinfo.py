@@ -1,5 +1,5 @@
-# 10/23/26
-# 38 subtransactions
+# 10/24/26
+# 42 subtransactions
 #
 from playwright.sync_api import Page, expect
 from conftest import shared_page
@@ -37,6 +37,52 @@ def test_LoginPage(shared_page):
 #######################################################################################################################
 # START OF BULK CLEANUP
 #
+
+def test_MyInfoMembershipCleanup(shared_page):
+    print("\nStarting test_MyInfoMembershipCleanup transaction")
+    myinfo_page = MyInfoPage(shared_page)
+    print("Will access the My Info section/page")
+    myinfo_page.click_myinfo_menu()
+    print("Clicked on the My Info menu item")
+    expect(shared_page.get_by_role("heading", name="Personal Details")).to_be_visible(timeout=20000)
+    print("Will access the Memberships submenu under My Info section/page")
+    myinfo_page.click_memberships_submenu()
+    print("Clicked on the Memberships submenu item - will verify the Assigned Memberships header")
+    expect(myinfo_page.memberships_assigned_memberships_header).to_be_visible(timeout=20000)
+    print("Waiting for immigration records to load...")
+    try:
+        expect(myinfo_page.memberships_trash_icons.first).to_be_visible(timeout=10000)
+        count = myinfo_page.memberships_trash_icons.count()
+        print("Membership Record count: ", count)
+        try:
+            print("Will click on the delete all checkbox to select all membership records")
+            myinfo_page.click_memberships_records_delete_all_checkbox()
+            print("Clicked on the checkbox to select all membership records - will click on the Delete Selected button")
+            myinfo_page.click_memberships_delete_selected_button()
+            print("Clicked on the Delete Selected button - will now click on the Yes, Delete button on the confirmation window")
+            myinfo_page.click_memberships_confirm_delete_button()
+            print("Clicked on the Yes, Delete button - will confirm that the confirmation toast message is displayed")
+            expect(myinfo_page.memberships_successfully_deleted_message).to_be_visible(timeout=20000)
+            print("Verified that all membership records have been deleted")
+        except:
+            print("There's a record - but it's not an membership record - it's probably an attachment")
+    except:
+        print("No membership record found to delete - ending test cleanly.")
+    try:
+        expect(myinfo_page.memberships_trash_icons.first).to_be_visible(timeout=10000)
+        count = myinfo_page.memberships_trash_icons.count()
+        print("Membership Attachment count: ", count)
+        myinfo_page.click_memberships_attachments_delete_all_checkbox()
+        print("Clicked on the checkbox to select all immigration attachments - will click on the Delete Selected button")
+        myinfo_page.click_memberships_delete_selected_button()
+        print("Clicked on the Delete Selected button - will now click on the Yes, Delete button on the confirmation window")
+        myinfo_page.click_memberships_confirm_delete_button()
+        print("Clicked on the Yes, Delete button - will confirm that the confirmation toast message is displayed")
+        expect(myinfo_page.memberships_successfully_deleted_message).to_be_visible(timeout=20000)
+    except:
+        print("No membership attachments found to delete - ending test cleanly.")
+    print("\nEnded test_MyInfoMembershipCleanup transaction")
+
 def test_MyInfoEmergencyContactCleanup(shared_page):
     print("\nStarting test_MyInfoEmergencyContactCleanup transaction")
     myinfo_page = MyInfoPage(shared_page)
@@ -1001,10 +1047,8 @@ def test_MyInfoAddMembership(shared_page):
     myinfo_page.click_memberships_add_membership_subscription_amount_field()
     myinfo_page.enter_memberships_add_membership_subscription_amount_value()
     print("Entered the subsciption amount - will now select the Currency")
-
     myinfo_page.click_memberships_add_membership_subscription_currency_dropdown()
     myinfo_page.select_memberships_add_membership_currency_dropdown_usd_value()
-    
     print("Selected the USD value for the Currency - will now click on the Save button")
     myinfo_page.click_memberships_add_membership_save_button()
     print("Clicked on the Save button")
