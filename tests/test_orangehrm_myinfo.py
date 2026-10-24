@@ -34,7 +34,6 @@ def test_LoginPage(shared_page):
     print("Verified Dashboard heading is visible on the dashboard page")
     print("\nEnded test_LoginPage transaction")
 
-
 #######################################################################################################################
 # START OF BULK CLEANUP
 #
@@ -976,6 +975,62 @@ def test_AccessMyInfoMembershipsSubmenu(shared_page):
     expect(shared_page.get_by_role("heading", name="Attachments")).to_be_visible(timeout=20000)
     print("Verified that the Attachments header was displayed")
     print("\nEnded test_AccessMyInfoMembershipsSubmenu transaction")
+    
+def test_MyInfoAddMembership(shared_page):
+    print("\nStarting test_MyInfoAddMembership transaction")
+    myinfo_page = MyInfoPage(shared_page)
+    print("Will access the My Info section/page")
+    myinfo_page.click_myinfo_menu()
+    print("Clicked on the My Info menu item")
+    expect(shared_page.get_by_role("heading", name="Personal Details")).to_be_visible(timeout=20000)
+    print("Will access the Memberships submenu under My Info section/page")
+    myinfo_page.click_memberships_submenu()
+    print("Clicked on the Memberships submenu item - will verify the Assigned Memberships header")
+    expect(myinfo_page.memberships_assigned_memberships_header).to_be_visible(timeout=20000)
+    print("Assigned Memberships header was displayed - will click on the Add button")
+    myinfo_page.click_memberships_add_membership_button()
+    print("Clicked on the Add button - will verify that we're on the Add Membership page")
+    expect(myinfo_page.memberships_add_membership_header).to_be_visible(timeout=20000)
+    print("Verified that we're on the Add Membership page - will select the Membership")
+    myinfo_page.click_memberships_add_membership_dropdown()
+    myinfo_page.select_memberships_add_membership_dropdown_acca_value()
+    print("Selected the membership - will select the subscription paid by value")
+    myinfo_page.click_memberships_add_membership_subscription_paid_by_dropdown()
+    myinfo_page.select_memberships_add_membership_subscription_paid_by_dropdown_company_value()
+    print("Selected the subscription paid by value - will enter the subscription amount")
+    myinfo_page.click_memberships_add_membership_subscription_amount_field()
+    myinfo_page.enter_memberships_add_membership_subscription_amount_value()
+    print("Entered the subsciption amount - will now select the Currency")
+
+    myinfo_page.click_memberships_add_membership_subscription_currency_dropdown()
+    myinfo_page.select_memberships_add_membership_currency_dropdown_usd_value()
+    
+    print("Selected the USD value for the Currency - will now click on the Save button")
+    myinfo_page.click_memberships_add_membership_save_button()
+    print("Clicked on the Save button")
+    expect(myinfo_page.memberships_successfully_added_message).to_be_visible(timeout=20000)
+    print("Verified that the Membership was successfully added")
+    print("\nEnded test_MyInfoAddMembership transaction")
+
+def test_MyInfoDeleteMembership(shared_page):
+    print("\nStarting test_MyInfoDeleteMembership transaction")
+    myinfo_page = MyInfoPage(shared_page)
+    print("Will access the My Info section/page")
+    myinfo_page.click_myinfo_menu()
+    print("Clicked on the My Info menu item")
+    expect(shared_page.get_by_role("heading", name="Personal Details")).to_be_visible(timeout=20000)
+    print("Will access the Memberships submenu under My Info section/page")
+    myinfo_page.click_memberships_submenu()
+    print("Clicked on the Memberships submenu item - will verify the Assigned Memberships header")
+    expect(myinfo_page.memberships_assigned_memberships_header).to_be_visible(timeout=20000)
+    print("Assigned Memberships header was displayed - will proceed with deletion of Membership record")
+    myinfo_page.delete_membership_by_name("ACCA")
+    print("Deleted qualification - will verify successfully_deleted_message was displayed")
+    expect(myinfo_page.successfully_deleted_message).to_be_visible(timeout=20000)
+    print("Verified that Membership successfully deleted message was displayed")
+    expect(myinfo_page.memberships_successfully_deleted_message).to_be_visible(timeout=20000)
+    print("Verified that the Membership was successfully deleted")
+    print("\nEnded test_MyInfoDeleteMembership transaction")
 
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")

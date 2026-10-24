@@ -160,6 +160,29 @@ class MyInfoPage:
         self.qualifications_licenses_delete_selected_button = page.locator("xpath=//button[@type='button'][contains(.,'Delete Selected')]")
         self.qualifications_license_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
 
+        # Memberships
+        self.memberships_assigned_memberships_header = page.locator("xpath=//h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Assigned Memberships')]")
+        self.memberships_add_membership_button = page.locator("xpath=(//button[@type='button'][contains(.,'Add')])[1]")
+        self.memberships_add_membership_header = page.locator("xpath=//h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Add Membership')]")
+        self.memberships_add_membership_dropdown = page.locator("xpath=(//i[contains(@class,'oxd-icon bi-caret-down-fill oxd-select-text--arrow')])[1]")
+        self.memberships_add_membership_dropdown_acca_value = page.locator("xpath=//span[contains(.,'ACCA')]")
+        self.memberships_add_membership_subscription_paid_by_dropdown = page.locator("xpath=(//i[contains(@class,'oxd-icon bi-caret-down-fill oxd-select-text--arrow')])[2]")
+        self.memberships_add_membership_subscription_paid_by_dropdown_company_value = page.locator("xpath=//span[contains(.,'Company')]")
+        self.memberships_add_membership_subscription_amount_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[1]/form/div[1]/div/div[3]/div/div[2]/input")
+        
+        self.memberships_add_membership_subscription_currency_dropdown = page.locator("xpath=(//i[contains(@class,'oxd-icon bi-caret-down-fill oxd-select-text--arrow')])[3]")
+        self.memberships_add_membership_subscription_currency_dropdown_usd_value = page.locator("xpath=//span[contains(.,'United States Dollar')]")
+        
+    
+        
+        
+        self.memberships_add_membership_save_button = page.locator("xpath=//button[@type='submit'][contains(.,'Save')]")
+        self.memberships_successfully_added_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
+        self.memberships_add_attachment_button = page.locator("xpath=(//button[@type='button'][contains(.,'Add')])[2]")
+
+        self.memberships_delete_selected_button = page.locator("xpath=//button[@type='button'][contains(.,'Delete Selected')]")
+        self.memberships_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]") 
+
         self.successfully_updated_message = page.locator("xpath=//p[contains(.,'Successfully Updated')]")
         self.successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
     
@@ -692,3 +715,45 @@ class MyInfoPage:
         row = self.page.locator(f"xpath=//h6[text()='License']/following::div[@class='orangehrm-container'][1]//div[@role='row'][.//*[text()='{license_name}']]")
         row.locator("button i.bi-trash").click()
         self.page.get_by_role("button", name="Yes, Delete").click()
+
+    ########################################################################################################
+    # Memberships methods
+    #
+    def click_memberships_add_membership_button(self):
+        self.memberships_add_membership_button.click()
+
+    def click_memberships_add_membership_dropdown(self):
+        self.memberships_add_membership_dropdown.click()
+
+    def select_memberships_add_membership_dropdown_acca_value(self):
+        self.memberships_add_membership_dropdown_acca_value.click()
+
+    def click_memberships_add_membership_subscription_paid_by_dropdown(self):
+        self.memberships_add_membership_subscription_paid_by_dropdown.click()
+
+    def select_memberships_add_membership_subscription_paid_by_dropdown_company_value(self):
+        self.memberships_add_membership_subscription_paid_by_dropdown_company_value.click()
+
+    def click_memberships_add_membership_subscription_amount_field(self):
+        self.memberships_add_membership_subscription_amount_field.click()
+
+    def enter_memberships_add_membership_subscription_amount_value(self):
+        self.memberships_add_membership_subscription_amount_field.fill("500")
+
+    def click_memberships_add_membership_subscription_currency_dropdown(self):
+        self.memberships_add_membership_subscription_currency_dropdown.click()
+
+    def select_memberships_add_membership_currency_dropdown_usd_value(self):
+        self.memberships_add_membership_subscription_currency_dropdown_usd_value.click()
+
+    def click_memberships_add_membership_save_button(self):
+        self.memberships_add_membership_save_button.click()
+
+    def delete_membership_by_name(self, name):
+        row = self.page.locator(f"xpath=//h6[text()='Assigned Memberships']/following::div[@class='orangehrm-container'][1]//div[@role='row'][.//*[text()='{name}']]")
+        row.locator("button i.bi-trash").click()
+        self.page.get_by_role("button", name="Yes, Delete").click()
+
+    def delete_membership_delete_selected_button(self):
+        self.memberships_delete_selected_button.click()
+        
