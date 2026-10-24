@@ -1,3 +1,6 @@
+# 10/24/26
+# 13 subtransactions
+#
 from playwright.sync_api import Page, expect
 
 from conftest import shared_page
@@ -136,6 +139,53 @@ def test_QualificationsEducation(shared_page):
     expect(shared_page.get_by_role("heading", name="Education")).to_be_visible(timeout=10000)
     print("Verified Education heading is visible on the Education page")
     print("Ended test_QualificationsEducation transaction")
+
+def test_QualificationsEducationAddEducation(shared_page):
+    print("\nStarting test_QualificationsEducationAddEducation transaction")
+    admin_page = AdminPage(shared_page)
+    print("Will click on Admin menu")
+    admin_page.click_admin_menu()
+    print("Clicked on Admin menu")
+    print("Will click on Qualifications submenu")
+    admin_page.click_qualifications_submenu()
+    print("Clicked on Qualifications submenu")
+    print("Will click on Education submenu")
+    admin_page.click_education_submenu()
+    print("Clicked on Education submenu")
+    expect(shared_page.get_by_role("heading", name="Education")).to_be_visible(timeout=10000)
+    print("Verified Education heading is visible on the Education page - will click on the Add button")
+    admin_page.click_qualifications_education_add_button()
+    print("Clicked on the Add button - will verify that we're on the Add Education page")
+    expect(admin_page.qualifications_add_education_header).to_be_visible(timeout=20000)
+    print("Verified that we are on the Add Education page - will enter the Level")
+    admin_page.click_qualifications_add_education_level_field()
+    admin_page.enter_qualifications_add_education_level_value("Doctor of Philosophy")
+    print("Entered the Education Level Name - will now click on the Save button")
+    admin_page.click_qualifications_add_education_save_button()
+    print("Clicked on the Save button - will verify that the record was created")
+    expect(admin_page.qualifications_education_successfully_added_message).to_be_visible(timeout=20000)
+    print("New record has been created")
+    print("\nEnded test_QualificationsEducationAddEducation transaction")
+
+def test_QualificationsEducationDeleteEducation(shared_page):
+    print("\nStarting test_QualificationsEducationDeleteEducation transaction")
+    admin_page = AdminPage(shared_page)
+    print("Will click on Admin menu")
+    admin_page.click_admin_menu()
+    print("Clicked on Admin menu")
+    print("Will click on Qualifications submenu")
+    admin_page.click_qualifications_submenu()
+    print("Clicked on Qualifications submenu")
+    print("Will click on Education submenu")
+    admin_page.click_education_submenu()
+    print("Clicked on Education submenu")
+    expect(shared_page.get_by_role("heading", name="Education")).to_be_visible(timeout=10000)
+    print("Verified that the Education header was displayed - will proceed with deletion of Education record")
+    admin_page.delete_qualifications_by_education_level("Doctor of Philosophy")
+    print("Deleted qualification - will verify successfully_deleted_message was displayed")
+    expect(admin_page.qualifications_education_successfully_deleted_message).to_be_visible(timeout=20000)
+    print("Verified that Education successfully deleted message was displayed")
+    print("\nEnded test_QualificationsEducationDeleteEducation transaction")
 
 def test_QualificationsLicenses(shared_page):
     print("\nStarting test_QualificationsLicenses transaction")

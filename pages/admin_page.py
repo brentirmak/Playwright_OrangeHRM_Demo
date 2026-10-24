@@ -57,6 +57,7 @@ class AdminPage:
         self.languages_submenu = page.get_by_role("menuitem", name="Languages")
         self.memberships_submenu = page.get_by_role("menuitem", name="Memberships")
 
+        # Skills
         self.qualifications_skills_add_button = page.locator("xpath=//button[@type='button'][contains(.,'Add')]")
         self.qualifications_add_skill_header = page.locator("xpath=//h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Add Skill')]")
         self.qualifications_add_skill_name_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[2]/input")
@@ -65,6 +66,14 @@ class AdminPage:
         self.qualifications_successfully_added_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
         self.qualifications_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
 
+        # Education
+        self.qualifications_education_add_button = page.locator("xpath=//button[@type='button'][contains(.,'Add')]")
+        self.qualifications_add_education_header = page.locator("xpath=//h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Add Education')]")
+        self.qualifications_add_education_level_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[2]/input")
+        self.qualifications_add_education_save_button = page.locator("xpath=//button[@type='submit'][contains(.,'Save')]")
+        self.qualifications_education_successfully_added_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
+        self.qualifications_education_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
+        
 
         #####################################################################################################################
         # Nationalities/Corporate Branding section
@@ -302,10 +311,26 @@ class AdminPage:
         row.locator("button i.bi-trash").click()
         self.page.get_by_role("button", name="Yes, Delete").click()
 
+    # Education
+    def click_qualifications_education_add_button(self):
+        self.qualifications_education_add_button.click()
+
+    def click_qualifications_add_education_level_field(self):
+        self.qualifications_add_education_level_field.click()
+
+    def enter_qualifications_add_education_level_value(self, education_level):
+        self.qualifications_add_education_level_field.fill(education_level)
+
+    def click_qualifications_add_education_save_button(self):
+        self.qualifications_add_education_save_button.click()
+
+    def delete_qualifications_by_education_level(self, education_level):
+        row = self.page.locator(f"xpath=//h6[text()='Education']/following::div[@class='orangehrm-container'][1]//div[@role='row'][.//*[text()='{education_level}']]")
+        row.locator("button i.bi-trash").click()
+        self.page.get_by_role("button", name="Yes, Delete").click()
 
 
-
-
+    
 
 
 
