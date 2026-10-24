@@ -57,6 +57,15 @@ class AdminPage:
         self.languages_submenu = page.get_by_role("menuitem", name="Languages")
         self.memberships_submenu = page.get_by_role("menuitem", name="Memberships")
 
+        self.qualifications_skills_add_button = page.locator("xpath=//button[@type='button'][contains(.,'Add')]")
+        self.qualifications_add_skill_header = page.locator("xpath=//h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Add Skill')]")
+        self.qualifications_add_skill_name_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[2]/input")
+        self.qualifications_add_skill_description_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[2]/div/div[2]/textarea")
+        self.qualifications_add_skill_save_button = page.locator("xpath=//button[contains(.,'Save')]")
+        self.qualifications_successfully_added_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
+        self.qualifications_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
+
+
         #####################################################################################################################
         # Nationalities/Corporate Branding section
         #####################################################################################################################
@@ -268,6 +277,48 @@ class AdminPage:
     def click_qualifications_submenu(self):
         self.qualifications_submenu.click()
         self.page.wait_for_load_state("networkidle")
+
+    # Skills
+    def click_qualifications_skills_add_button(self):
+        self.qualifications_skills_add_button.click()
+
+    def click_qualifications_add_skill_name_field(self):
+        self.qualifications_add_skill_name_field.click()
+
+    def enter_qualifications_add_skill_name_value(self, skill_name):
+        self.qualifications_add_skill_name_field.fill(skill_name)
+
+    def click_qualifications_add_skill_description_field(self):
+        self.qualifications_add_skill_description_field.click()
+
+    def enter_qualifications_add_skill_description_value(self, skill_description):
+        self.qualifications_add_skill_description_field.fill(skill_description)
+
+    def click_qualifications_add_skill_save_button(self):
+        self.qualifications_add_skill_save_button.click()
+
+    def delete_qualifications_by_skill_name(self, skill_name):
+        row = self.page.locator(f"xpath=//h6[text()='Skills']/following::div[@class='orangehrm-container'][1]//div[@role='row'][.//*[text()='{skill_name}']]")
+        row.locator("button i.bi-trash").click()
+        self.page.get_by_role("button", name="Yes, Delete").click()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     def click_skills_submenu(self):
         self.skills_submenu.click()
