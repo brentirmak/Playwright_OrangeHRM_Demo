@@ -28,6 +28,33 @@ def test_LoginPage(shared_page):
     print("Verified Dashboard heading is visible on the dashboard page")
     print("Ended test_LoginPage transaction")
 
+############################################################################################
+# Cleanup code
+#
+def test_QualificationsSkillsCleanup(shared_page):
+    print("\nStarting test_QualificationsSkillsCleanup transaction")
+    admin_page = AdminPage(shared_page)
+    print("Will click on Admin menu")
+    admin_page.click_admin_menu()
+    print("Clicked on Admin menu")
+    print("Will click on Qualifications submenu")
+    admin_page.click_qualifications_submenu()
+    print("Clicked on Qualifications submenu")
+    print("Will click on Skills submenu")
+    admin_page.click_skills_submenu()
+    print("Clicked on Skills submenu")
+    expect(shared_page.get_by_role("heading", name="Skills")).to_be_visible(timeout=10000)
+    print("Verified that the Qualifications header was displayed - will proceed with deletion of Skills records")
+    try:
+        admin_page.delete_qualifications_by_skill_name("Playwright")
+        print("Deleted qualification - will verify successfully_deleted_message was displayed")
+        expect(admin_page.qualifications_successfully_deleted_message).to_be_visible(timeout=20000)
+        print("Verified that Skill successfully deleted message was displayed")
+    except:
+        print("There was no record to delete/cleanup - OK to proceed")
+    print("\nEnded test_QualificationsSkillsCleanup transaction")
+
+############################################################################################
 def test_QualificationsSkills(shared_page):
     print("\nStarting test_QualificationsSkills transaction")
     admin_page = AdminPage(shared_page)
