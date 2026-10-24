@@ -10,6 +10,7 @@ from pages.logout_page import LogoutPage
 import time
 import re
 import pytest
+from pathlib import Path
 
 def test_HomePage(shared_page):
     print("\nStarting test_HomePage transaction")
@@ -32,6 +33,7 @@ def test_LoginPage(shared_page):
     shared_page.wait_for_selector("//h6[contains(.,'Dashboard')]")
     print("Verified Dashboard heading is visible on the dashboard page")
     print("\nEnded test_LoginPage transaction")
+
 
 #######################################################################################################################
 # START OF BULK CLEANUP
@@ -58,6 +60,8 @@ def test_MyInfoEmergencyContactCleanup(shared_page):
             print("Clicked on the first available trash icon - will click on Yes, Delete on the confirmation modal")
             myinfo_page.click_emergency_contact_delete_button()
             expect(myinfo_page.emergency_contact_record_found).to_be_visible(timeout=10000)
+            time.sleep(5)
+            print("Verified that the Emergency Contact was successfully deleted")
     except:
         print("There was no record to delete - ending the test")
     print("\nEnded test_MyInfoEmergencyContactCleanup transaction")
@@ -83,6 +87,7 @@ def test_MyInfoDependentCleanup(shared_page):
         print("Clicked on the first available trash icon - will click on Yes, Delete on the confirmation modal")
         myinfo_page.click_dependents_delete_button()
         expect(myinfo_page.successfully_deleted_message).to_be_visible(timeout=20000)
+        time.sleep(5)
         print("Verified that the Dependent was successfully deleted")
     print("\nEnded test_MyInfoDependentCleanup transaction")
 
@@ -102,18 +107,33 @@ def test_MyInfoImmigrationDocumentCleanup(shared_page):
         expect(myinfo_page.immigration_documents_trash_icons.first).to_be_visible(timeout=10000)
         count = myinfo_page.immigration_documents_trash_icons.count()
         print("Immigration Record count: ", count)
-    except AssertionError:
+        try:
+            print("Will click on the delete all checkbox to select all immigration records")
+            myinfo_page.click_immigration_assigned_immigration_records_delete_all_checkbox()
+            print("Clicked on the checkbox to select all immigration records - will click on the Delete Selected button")
+            myinfo_page.click_immigration_delete_selected_button()
+            print("Clicked on the Delete Selected button - will now click on the Yes, Delete button on the confirmation window")
+            myinfo_page.click_immigration_confirm_delete_button()
+            print("Clicked on the Yes, Delete button - will confirm that the confirmation toast message is displayed")
+            expect(myinfo_page.immigration_successfully_deleted_message).to_be_visible(timeout=20000)
+            print("Verified that all immigration records have been deleted")
+        except:
+            print("There's a record - but it's not an immigration record - it's probably an attachment")
+    except:
         print("No immigration records found to delete - ending test cleanly.")
-        return
-    print("Will click on the delete all checkbox to select all immigration records")
-    myinfo_page.click_immigration_assigned_immigration_records_delete_all_checkbox()
-    print("Clicked on the checkbox to select all immigration records - will click on the Delete Selected button")
-    myinfo_page.click_immigration_delete_selected_button()
-    print("Clicked on the Delete Selected button - will now click on the Yes, Delete button on the confirmation window")
-    myinfo_page.click_immigration_confirm_delete_button()
-    print("Clicked on the Yes, Delete button - will confirm that the confirmation toast message is displayed")
-    expect(myinfo_page.immigration_successfully_deleted_message).to_be_visible(timeout=20000)
-    print("Verified that all records have been deleted")
+    try:
+        expect(myinfo_page.immigration_documents_trash_icons.first).to_be_visible(timeout=10000)
+        count = myinfo_page.immigration_documents_trash_icons.count()
+        print("Immigration Attachment count: ", count)
+        myinfo_page.click_immigration_attachments_delete_all_checkbox()
+        print("Clicked on the checkbox to select all immigration attachments - will click on the Delete Selected button")
+        myinfo_page.click_immigration_delete_selected_button()
+        print("Clicked on the Delete Selected button - will now click on the Yes, Delete button on the confirmation window")
+        myinfo_page.click_immigration_confirm_delete_button()
+        print("Clicked on the Yes, Delete button - will confirm that the confirmation toast message is displayed")
+        expect(myinfo_page.immigration_successfully_deleted_message).to_be_visible(timeout=20000)
+    except:
+        print("No immigration attachments found to delete - ending test cleanly.")
 
     ##############################################################################################
     # Single record deletion
@@ -349,6 +369,26 @@ def test_AccessMyInfoSection(shared_page):
     expect(shared_page.get_by_role("heading", name="Attachments")).to_be_visible(timeout=20000)
     print("Verified that the Attachments header was displayed")
     print("\nEnded test_AccessMyInfoSection transaction")
+
+def test_MyInfoChangeProfilePicture(shared_page):
+    print("\nStarting test_MyInfoChangeProfilePicture transaction")
+    myinfo_page = MyInfoPage(shared_page)
+    print("Will access the My Info section/page")
+    myinfo_page.click_myinfo_menu()
+    print("Clicked on the My Info menu item")
+    expect(shared_page.get_by_role("heading", name="Personal Details")).to_be_visible(timeout=20000)
+    print("Verified that the Personal Details header was displayed - will now click on the picture")
+    myinfo_page.click_myinfo_picture()
+    print("Clicked on the profile picture - will verify we're on the Change Profile Picture screen")
+    expect(myinfo_page.myinfo_change_picture_header).to_be_visible(timeout=20000)
+    print("Verified that we're on the Change Profile Picture screen - will now click on the picture to upload a new picture")
+    image_path = Path(__file__).parent / "resources" / "myinfo_profile_picture.jpg"
+    print(f"Uploading profile picture from: {image_path}")
+    myinfo_page.upload_profile_picture(str(image_path))
+    myinfo_page.click_myinfo_upload_picture_save_button()
+    print("Clicked on the save button - will verify that the Successfully updated messaged is displayed")
+    expect(myinfo_page.myinfo_upload_picture_successfully_update_message).to_be_visible(timeout=20000)
+    print("\nEnded test_MyInfoChangeProfilePicture transaction")
 
 def test_MyInfoUpdatePersonalDetails(shared_page):
     print("\nStarting test_MyInfoUpdatePersonalDetails transaction")

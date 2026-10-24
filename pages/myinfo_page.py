@@ -1,5 +1,7 @@
 import time, re
 from playwright.sync_api import Page, expect
+from pathlib import Path
+import os
 
 class MyInfoPage:
 
@@ -15,6 +17,12 @@ class MyInfoPage:
         self.report_to_submenu = page.get_by_role("link", name="Report-to")
         self.qualifications_submenu = page.get_by_role("link", name="Qualifications")
         self.memberships_submenu = page.get_by_role("link", name="Memberships")
+
+        # Picture
+        self.myinfo_picture = page.locator("xpath=//img[contains(@class,'employee-image')]")
+        self.myinfo_change_picture_header = page.locator("xpath=//h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Change Profile Picture')]")
+        self.myinfo_upload_picture_save_button = page.locator("xpath=//button[@type='submit'][contains(.,'Save')]")
+        self.myinfo_upload_picture_successfully_update_message = page.locator("xpath=//p[contains(.,'Successfully Updated')]")
         
         # Personal Details
         self.personal_details_firstname_field = page.locator("//input[@name='firstName']")
@@ -81,6 +89,7 @@ class MyInfoPage:
         self.immigration_record_successfully_saved = page.locator("xpath=//div[@class='oxd-toast-content oxd-toast-content--success'][contains(.,'SuccessSuccessfully Saved')]")
         self.immigration_documents_trash_icons = page.locator("//div[contains(@class, 'orangehrm-container')]//i[contains(@class,'oxd-icon bi-trash')]")
         self.immigration_assigned_immigration_records_delete_all_checkbox = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[3]/div/div[1]/div/div[1]/div/label/span/i")
+        self.immigration_attachments_delete_all_checkbox = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[5]/div[3]/div/div[1]/div/div[1]/div/label/span/i")
         self.immigration_delete_selected_button = page.locator("xpath=//button[@type='button'][contains(.,'Delete Selected')]")
         self.immigration_confirm_delete_button = page.locator("xpath=//button[@type='button'][contains(.,'Yes, Delete')]")
         self.immigration_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
@@ -184,6 +193,28 @@ class MyInfoPage:
     def click_memberships_submenu(self):
         self.memberships_submenu.click()
 
+    ######################################################################################################
+    # My Picture methods
+    #
+    def click_myinfo_picture(self):
+        self.myinfo_picture.click()
+
+    def click_myinfo_upload_picture_icon(self):
+        self.myinfo_picture.click()
+
+    def click_myinfo_upload_picture_save_button(self):
+        self.myinfo_upload_picture_save_button.click()
+
+    def upload_profile_picture(self, file_path: str):
+        # Ensure the file path is absolute or correctly resolved
+        absolute_path = str(Path(file_path).resolve())
+        
+        # OrangeHRM uses a hidden file input element for uploads. 
+        # Playwright can set files on it directly, even if it's hidden.
+        file_input = self.page.locator("input[type='file']")
+        
+        # Set the file path into the input element
+        file_input.set_input_files(absolute_path)
     ######################################################################################################
     # Personal Details methods
     #
@@ -423,6 +454,9 @@ class MyInfoPage:
     def click_immigration_assigned_immigration_records_delete_all_checkbox(self):
         self.immigration_assigned_immigration_records_delete_all_checkbox.click()
 
+    def click_immigration_attachments_delete_all_checkbox(self):
+        self.immigration_attachments_delete_all_checkbox.click()
+
     def delete_immigration_records_by_id(self, record_id):
         matching_rows = self.page.get_by_role("row", name=re.compile(record_id))
         print("Numbers of records to delete: ", matching_rows.count())
@@ -439,10 +473,10 @@ class MyInfoPage:
             success_toast.wait_for(state="hidden", timeout=10000)
 
     def click_immigration_delete_selected_button(self):
-        self.immigration_delete_selected_button.click()
+        self.immigration_delete_selected_button.click(timeout=5000)
 
     def click_immigration_confirm_delete_button(self):
-        self.immigration_confirm_delete_button.click()
+        self.immigration_confirm_delete_button.click(timeout=5000)
 
 
     ######################################################################################################
