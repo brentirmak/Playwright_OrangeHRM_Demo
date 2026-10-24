@@ -61,18 +61,13 @@ class AdminPage:
         # Nationalities/Corporate Branding section
         #####################################################################################################################
         self.nationalities_submenu = page.get_by_role("link", name="Nationalities")
-
         self.nationalities_add_button = page.locator("xpath=//button[@type='button'][contains(.,'Add')]")
         self.nationalities_add_nationality_header = page.locator("xpath=//h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Add Nationality')]")
         self.nationalities_add_nationality_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[2]/input")
         self.nationalities_save_button = page.locator("xpath=//button[@type='submit'][contains(.,'Save')]")
         self.nationalities_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
-
         self.nationalities_pagination_link = page.locator("xpath=//button[@type='button'][contains(.,'4')]")
         self.nationalities_US_citizen_checkbox = page.locator("xpath=//div[@class='oxd-table-row oxd-table-row--with-border'][contains(.,'US Citizen')]")
-
-
-        
         self.nationalities_delete_selected_button = page.locator("xpath=//button[@type='button'][contains(.,'Delete Selected')]")
         self.nationalities_delete_confirmation_button = page.locator("xpath=//button[@type='button'][contains(.,'Yes, Delete')]")
         self.nationalities_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
