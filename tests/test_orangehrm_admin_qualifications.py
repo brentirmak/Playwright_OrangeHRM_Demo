@@ -1,5 +1,5 @@
 # 10/24/26
-# 13 subtransactions
+# 17 subtransactions
 #
 from playwright.sync_api import Page, expect
 
@@ -79,6 +79,29 @@ def test_QualificationsEducationCleanup(shared_page):
     except:
         print("There was no record to delete/cleanup - OK to proceed")
     print("\nEnded test_QualificationsEducationCleanup transaction")
+
+def test_QualificationsLicensesCleanup(shared_page):
+    print("\nStarting test_QualificationsLicensesCleanup transaction")
+    admin_page = AdminPage(shared_page)
+    print("Will click on Admin menu")
+    admin_page.click_admin_menu()
+    print("Clicked on Admin menu")
+    print("Will click on Qualifications submenu")
+    admin_page.click_qualifications_submenu()
+    print("Clicked on Qualifications submenu")
+    print("Will click on Licenses submenu")
+    admin_page.click_licenses_submenu()
+    print("Clicked on Licenses submenu")
+    expect(shared_page.get_by_role("heading", name="Licenses")).to_be_visible(timeout=10000)
+    print("Verified that the Licenses header was displayed - will proceed with deletion of Licenses records")
+    try:
+        admin_page.delete_qualifications_by_license_name("VMware Certified Professional (VCP)")
+        print("Deleted qualification - will verify successfully_deleted_message was displayed")
+        expect(admin_page.qualifications_license_successfully_deleted_message).to_be_visible(timeout=20000)
+        print("Verified that Education successfully deleted message was displayed")
+    except:
+        print("There was no record to delete/cleanup - OK to proceed")
+    print("\nEnded test_QualificationsLicensesCleanup transaction")
 
 ############################################################################################
 # END: Cleanup code
