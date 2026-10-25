@@ -73,8 +73,15 @@ class AdminPage:
         self.qualifications_add_education_save_button = page.locator("xpath=//button[@type='submit'][contains(.,'Save')]")
         self.qualifications_education_successfully_added_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
         self.qualifications_education_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
-        
 
+        # Licenses
+        self.qualifications_licenses_add_button = page.locator("xpath=//button[@type='button'][contains(.,'Add')]")
+        self.qualifications_add_license_header = page.locator("xpath=//h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Add License')]")
+        self.qualifications_add_license_name_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[2]/input")
+        self.qualifications_add_license_save_button = page.locator("xpath=//button[@type='submit'][contains(.,'Save')]")
+        self.qualifications_license_successfully_added_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
+        self.qualifications_license_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
+                                                                            
         #####################################################################################################################
         # Nationalities/Corporate Branding section
         #####################################################################################################################
@@ -329,8 +336,23 @@ class AdminPage:
         row.locator("button i.bi-trash").click()
         self.page.get_by_role("button", name="Yes, Delete").click()
 
+    # Licenses
+    def click_qualifications_licenses_add_button(self):
+        self.qualifications_licenses_add_button.click()
 
-    
+    def click_qualifications_add_license_name_field(self):
+        self.qualifications_add_license_name_field.click()
+
+    def enter_qualifications_add_license_name_value(self, license_name):
+        self.qualifications_add_license_name_field.fill(license_name)
+
+    def click_qualifications_add_license_save_button(self):
+        self.qualifications_add_license_save_button.click()
+
+    def delete_qualifications_by_license_name(self, license_name):
+        row = self.page.locator(f"xpath=//h6[text()='Licenses']/following::div[@class='orangehrm-container'][1]//div[@role='row'][.//*[text()='{license_name}']]")
+        row.locator("button i.bi-trash").click()
+        self.page.get_by_role("button", name="Yes, Delete").click()
 
 
 
@@ -407,27 +429,6 @@ class AdminPage:
         
         # 3. Handle the confirmation popup modal ("Are you sure?")
         self.click_nationalities_delete_confirmation_button()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     def click_corporate_branding_submenu(self):
         self.corporate_branding_submenu.click()
