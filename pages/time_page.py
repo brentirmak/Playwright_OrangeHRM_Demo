@@ -20,21 +20,29 @@ class TimePage:
 
         #####################################################################################################################
         #
-        # Attendence Punch In/Punch Out page
+        # Attendance My Records page
+        self.time_attendance_my_records_delete_all_checkbox = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div[2]/div[3]/div/div[1]/div/div[1]/div/label/span/i")
+        self.time_attendance_my_records_trash_icons = page.locator("//div[contains(@class, 'orangehrm-container')]//i[contains(@class,'oxd-icon bi-trash')]")
+        self.time_attendance_my_records_delete_selected_button = page.locator("xpath=//button[@type='button'][contains(.,'Delete Selected')]")
+        self.time_attendance_my_records_confirm_delete_button = page.locator("xpath=//button[@type='button'][contains(.,'Yes, Delete')]")
+        self.time_attendance_my_records_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
+        #####################################################################################################################
+        #
+        # Attendance Punch In/Punch Out page
         
-        self.time_attendence_punchinpunchout_punchin_label = page.locator("xpath=//h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Punch In')]")
-        self.time_attendence_punchinpunchout_punchin_date_field = page.locator("xpath=//input[contains(@placeholder,'yyyy-dd-mm')]")
-        self.time_attendence_punchinpunchout_punchin_time_field = page.locator("xpath=//input[@placeholder='hh:mm']")
-        self.time_attendence_punchinpunchout_in_button = page.locator("xpath=//button[@type='submit'][contains(.,'In')]")
+        self.time_attendance_punchinpunchout_punchin_label = page.locator("xpath=//h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Punch In')]")
+        self.time_attendance_punchinpunchout_punchin_date_field = page.locator("xpath=//input[contains(@placeholder,'yyyy-dd-mm')]")
+        self.time_attendance_punchinpunchout_punchin_time_field = page.locator("xpath=//input[@placeholder='hh:mm']")
+        self.time_attendance_punchinpunchout_in_button = page.locator("xpath=//button[@type='submit'][contains(.,'In')]")
         
-        self.time_attendence_punchinpunchout_punchout_label = page.locator("xpath=//h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Punch Out')]")
-        self.time_attendence_punchinpunchout_punchout_date_field = page.locator("xpath=//input[contains(@placeholder,'yyyy-dd-mm')]")
-        self.time_attendence_punchinpunchout_punchout_time_field = page.locator("xpath=//input[@placeholder='hh:mm']")
-        self.time_attendence_punchinpunchout_out_button = page.locator("xpath=//button[@type='submit'][contains(.,'Out')]")
+        self.time_attendance_punchinpunchout_punchout_label = page.locator("xpath=//h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Punch Out')]")
+        self.time_attendance_punchinpunchout_punchout_date_field = page.locator("xpath=//input[contains(@placeholder,'yyyy-dd-mm')]")
+        self.time_attendance_punchinpunchout_punchout_time_field = page.locator("xpath=//input[@placeholder='hh:mm']")
+        self.time_attendance_punchinpunchout_out_button = page.locator("xpath=//button[@type='submit'][contains(.,'Out')]")
 
-        self.time_attendence_punchinpunchedout_punched_in_time_label = page.locator("xpath=//label[contains(.,'Punched in time')]")
-        self.time_attendence_punchout_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
-        self.time_attendence_punchin_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
+        self.time_attendance_punchinpunchedout_punched_in_time_label = page.locator("xpath=//label[contains(.,'Punched in time')]")
+        self.time_attendance_punchout_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
+        self.time_attendance_punchin_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
 
     def click_time_menu(self):
         self.time_menu.click()
@@ -81,36 +89,51 @@ class TimePage:
     def click_projects_submenu(self):
         self.projects_submenu.click()
 
+
     #####################################################################################################################
     #
-    # Attendence Punch In/Punch Out functions
+    # Attendance - My attendance functions
 
-    def click_time_attendence_punchinpunchout_punchin_date_field(self):
-        self.time_attendence_punchinpunchout_punchin_date_field.click()
+    def click_my_attendance_records_delete_all_checkbox(self):
+        self.time_attendance_my_records_delete_all_checkbox.click()
 
-    def enter_time_attendence_punchinpunchout_punchin_date_field_value(self, punchin_date):
-        self.time_attendence_punchinpunchout_punchin_date_field.fill(punchin_date)
+    def click_my_attendance_records_delete_selected_button(self):
+        self.time_attendance_my_records_delete_selected_button.click(timeout=5000)
 
-    def click_time_attendence_punchinpunchout_punchin_time_field(self):
-        self.time_attendence_punchinpunchout_punchin_time_field.click()
+    def click_my_attendance_records_confirm_delete_button(self):
+        self.time_attendance_my_records_confirm_delete_button.click(timeout=5000)
 
-    def enter_time_attendence_punchinpunchout_punchin_time_field_value(self, punchin_time):
-        self.time_attendence_punchinpunchout_punchin_time_field.fill(punchin_time)
 
-    def click_time_attendence_punchinpunchout_punchin_button(self):
-        self.time_attendence_punchinpunchout_in_button.click()
+    #####################################################################################################################
+    #
+    # Attendance Punch In/Punch Out functions
 
-    def click_time_attendence_punchinpunchout_punchout_date_field(self):
-        self.time_attendence_punchinpunchout_punchout_date_field.click()
+    def click_time_attendance_punchinpunchout_punchin_date_field(self):
+        self.time_attendance_punchinpunchout_punchin_date_field.click()
 
-    def enter_time_attendence_punchinpunchout_punchout_date_field_value(self, punchout_date):
-        self.time_attendence_punchinpunchout_punchout_date_field.fill(punchout_date)
+    def enter_time_attendance_punchinpunchout_punchin_date_field_value(self, punchin_date):
+        self.time_attendance_punchinpunchout_punchin_date_field.fill(punchin_date)
 
-    def click_time_attendence_punchinpunchout_punchout_time_field(self):
-        self.time_attendence_punchinpunchout_punchout_time_field.click()
+    def click_time_attendance_punchinpunchout_punchin_time_field(self):
+        self.time_attendance_punchinpunchout_punchin_time_field.click()
 
-    def enter_time_attendence_punchinpunchout_punchout_time_field(self, punchout_time):
-        self.time_attendence_punchinpunchout_punchout_time_field.fill(punchout_time)
+    def enter_time_attendance_punchinpunchout_punchin_time_field_value(self, punchin_time):
+        self.time_attendance_punchinpunchout_punchin_time_field.fill(punchin_time)
 
-    def click_time_attendence_punchinpunchout_punchout_button(self):
-        self.time_attendence_punchinpunchout_out_button.click()
+    def click_time_attendance_punchinpunchout_punchin_button(self):
+        self.time_attendance_punchinpunchout_in_button.click()
+
+    def click_time_attendance_punchinpunchout_punchout_date_field(self):
+        self.time_attendance_punchinpunchout_punchout_date_field.click()
+
+    def enter_time_attendance_punchinpunchout_punchout_date_field_value(self, punchout_date):
+        self.time_attendance_punchinpunchout_punchout_date_field.fill(punchout_date)
+
+    def click_time_attendance_punchinpunchout_punchout_time_field(self):
+        self.time_attendance_punchinpunchout_punchout_time_field.click()
+
+    def enter_time_attendance_punchinpunchout_punchout_time_field_value(self, punchout_time):
+        self.time_attendance_punchinpunchout_punchout_time_field.fill(punchout_time)
+
+    def click_time_attendance_punchinpunchout_punchout_button(self):
+        self.time_attendance_punchinpunchout_out_button.click()

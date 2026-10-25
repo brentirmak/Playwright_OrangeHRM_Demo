@@ -55,6 +55,38 @@ def test_AccessAttendanceMyRecordsPage(shared_page):
     print("Verified that the My Attendance Records header was displayed")
     print("\nEnded test_AccessAttendanceMyRecordsPage transaction")
 
+def test_AttendanceMyRecordsCleanup(shared_page):
+    print("\nStarting test_AttendanceMyRecordsCleanup transaction")
+    time_page = TimePage(shared_page)
+    print("Will access the Time section/page")
+    time_page.click_time_menu()
+    print("Clicked on the Time menu item - will click on the Attendance submenu")
+    time_page.click_attendance_submenu()
+    print("Clicked on the Attendance submenu")
+    time_page.click_my_records_submenu()
+    print("Clicked on the My Records submenu")
+    expect(shared_page.get_by_role("heading", name="My Attendance Records")).to_be_visible(timeout=10000)
+    print("Verified that we're on the My Attendance Records page - will now perform the cleanup")
+
+    try:
+        expect(time_page.time_attendance_my_records_trash_icons.first).to_be_visible(timeout=10000)
+        count = time_page.time_attendance_my_records_trash_icons.count()
+        print("My Attendance Record count: ", count)
+        print("Will click on the delete all checkbox to select all membership records")
+        time_page.click_my_attendance_records_delete_all_checkbox()
+        print("Clicked on the checkbox to select all membership records - will click on the Delete Selected button")
+        time_page.click_my_attendance_records_delete_selected_button()
+        print("Clicked on the Delete Selected button - will now click on the Yes, Delete button on the confirmation window")
+        time_page.click_my_attendance_records_confirm_delete_button()
+        print("Clicked on the Yes, Delete button - will confirm that the confirmation toast message is displayed")
+        expect(time_page.time_attendance_my_records_successfully_deleted_message).to_be_visible(timeout=20000)
+        print("Verified that all attendance records have been deleted")
+    except:
+        print("No attendance record found to delete - ending test cleanly.")
+
+    print("Verified that the My Attendance Records header was displayed")
+    print("\nEnded test_AttendanceMyRecordsCleanup transaction")
+
 def test_AccessAttendancePunchInOutPage(shared_page):
     print("\nStarting test_AccessAttendancePunchInOutPage transaction")
     time_page = TimePage(shared_page)
@@ -70,18 +102,13 @@ def test_AccessAttendancePunchInOutPage(shared_page):
     except:
         expect(shared_page.get_by_role("heading", name="Punch Out")).to_be_visible(timeout=10000)
         print("Verified that the Punch Out header was displayed --- need to click out to Punch Out/reset")
-        expect(time_page.time_attendence_punchinpunchedout_punched_in_time_label).to_be_visible(timeout=10000)
+        expect(time_page.time_attendance_punchinpunchedout_punched_in_time_label).to_be_visible(timeout=10000)
         print("Verified that the Punched in time lavel is displayed - will click on punch out")
-        time_page.click_time_attendence_punchinpunchout_punchout_button()
+        time_page.click_time_attendance_punchinpunchout_punchout_button()
         print("Clicked on the Out button - will verify that it has been clicked")
-        expect(time_page.time_attendence_punchout_successfully_saved_message).to_be_visible(timeout=10000)
+        expect(time_page.time_attendance_punchout_successfully_saved_message).to_be_visible(timeout=10000)
         print("Verified that the Punch Out was successfully completed")
     print("\nEnded test_AccessAttendancePunchInOutPage transaction")
-
-
-
-
-
 
 def test_AttendancePunchIn(shared_page):
     print("\nStarting test_AttendancePunchIn transaction")
@@ -97,27 +124,45 @@ def test_AttendancePunchIn(shared_page):
     punch_in_date = datetime.now().strftime("%Y-%d-%m")
     print("Current punch in date: ", punch_in_date)
 
-    punch_in_time = (datetime.now() - timedelta(minutes=5)).strftime("%I:%M %p")
+    punch_in_time = (datetime.now() - timedelta(minutes=15)).strftime("%I:%M %p")
     print("Current punch in time: ", punch_in_time)
 
-    time_page.enter_time_attendence_punchinpunchout_punchin_date_field_value(punch_in_date)
+    time_page.enter_time_attendance_punchinpunchout_punchin_date_field_value(punch_in_date)
     print("Entered the Punch In date - will now enter the Punch In time")
-    time_page.enter_time_attendence_punchinpunchout_punchin_time_field_value(punch_in_time)
+    time_page.enter_time_attendance_punchinpunchout_punchin_time_field_value(punch_in_time)
     print("Entered the Punch In time - will click on the In button")
-    time_page.click_time_attendence_punchinpunchout_punchin_button()
+    time_page.click_time_attendance_punchinpunchout_punchin_button()
     print("Clicked ont he Punch In button - will verify that the toast message was displayed")
-    expect(time_page.time_attendence_punchin_successfully_saved_message).to_be_visible(timeout=10000)
-    print("Punch was successfully saved messaged was displayed")
+    expect(time_page.time_attendance_punchin_successfully_saved_message).to_be_visible(timeout=10000)
+    print("Punch in was successfully saved messaged was displayed")
     print("\nEnded test_AttendancePunchIn transaction")
 
+def test_AttendancePunchOut(shared_page):
+    print("\nStarting test_AttendancePunchOut transaction")
+    time_page = TimePage(shared_page)
+    print("Will click on the Attendance submenu")
+    time_page.click_attendance_submenu()
+    print("Clicked on the Attendance submenu")
+    time_page.click_punchin_punchout_submenu()
+    print("Clicked on PunchIn/Punchout submenu")
+    expect(shared_page.get_by_role("heading", name="Punch Out")).to_be_visible(timeout=10000)
+    print("Verified that the Punch Out header was displayed - will enter Date")
 
+    punch_out_date = datetime.now().strftime("%Y-%d-%m")
+    print("Current punch out date: ", punch_out_date)
 
+    punch_out_time = (datetime.now() - timedelta(minutes=5)).strftime("%I:%M %p")
+    print("Current punch out time: ", punch_out_time)
 
-
-
-
-
-
+    time_page.enter_time_attendance_punchinpunchout_punchout_date_field_value(punch_out_date)
+    print("Entered the Punch Out date - will now enter the Punch Out time")
+    time_page.enter_time_attendance_punchinpunchout_punchout_time_field_value(punch_out_time)
+    print("Entered the Punch Out time - will click on the Out button")
+    time_page.click_time_attendance_punchinpunchout_punchout_button()
+    print("Clicked ont he Punch In button - will verify that the toast message was displayed")
+    expect(time_page.time_attendance_punchout_successfully_saved_message).to_be_visible(timeout=10000)
+    print("Punch out was successfully saved messaged was displayed")
+    print("\nEnded test_AttendancePunchOut transaction")
 
 def test_AccessAttendanceEmployeeRecordsPage(shared_page):
     print("\nStarting test_AccessAttendanceEmployeeRecordsPage transaction")

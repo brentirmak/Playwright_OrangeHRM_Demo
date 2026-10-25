@@ -49,7 +49,7 @@ def test_MyInfoMembershipCleanup(shared_page):
     myinfo_page.click_memberships_submenu()
     print("Clicked on the Memberships submenu item - will verify the Assigned Memberships header")
     expect(myinfo_page.memberships_assigned_memberships_header).to_be_visible(timeout=20000)
-    print("Waiting for immigration records to load...")
+    print("Waiting for membership records to load...")
     try:
         expect(myinfo_page.memberships_trash_icons.first).to_be_visible(timeout=10000)
         count = myinfo_page.memberships_trash_icons.count()
