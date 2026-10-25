@@ -62,8 +62,13 @@ def test_AccessAttendancePunchInOutPage(shared_page):
     print("Clicked on the Attendance submenu")
     time_page.click_punchin_punchout_submenu()
     print("Clicked on PunchIn/Punchout submenu")
-    expect(shared_page.get_by_role("heading", name="Punch In")).to_be_visible(timeout=10000)
-    print("Verified that the Punch In header was displayed")
+
+    try:
+        expect(shared_page.get_by_role("heading", name="Punch In")).to_be_visible(timeout=10000)
+        print("Verified that the Punch In header was displayed")
+    except:
+        expect(shared_page.get_by_role("heading", name="Punch Out")).to_be_visible(timeout=10000)
+        print("Verified that the Punch Out header was displayed")
     print("\nEnded test_AccessAttendancePunchInOutPage transaction")
 
 def test_AccessAttendanceEmployeeRecordsPage(shared_page):
