@@ -18,6 +18,24 @@ class TimePage:
         self.customers_submenu = page.get_by_role("menuitem", name="Customers")
         self.projects_submenu = page.get_by_role("menuitem", name="Projects")
 
+        #####################################################################################################################
+        #
+        # Attendence Punch In/Punch Out page
+        
+        self.time_attendence_punchinpunchout_punchin_label = page.locator("xpath=//h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Punch In')]")
+        self.time_attendence_punchinpunchout_punchin_date_field = page.locator("xpath=//input[contains(@placeholder,'yyyy-dd-mm')]")
+        self.time_attendence_punchinpunchout_punchin_time_field = page.locator("xpath=//input[@placeholder='hh:mm']")
+        self.time_attendence_punchinpunchout_in_button = page.locator("xpath=//button[@type='submit'][contains(.,'In')]")
+        
+        self.time_attendence_punchinpunchout_punchout_label = page.locator("xpath=//h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Punch Out')]")
+        self.time_attendence_punchinpunchout_punchout_date_field = page.locator("xpath=//input[contains(@placeholder,'yyyy-dd-mm')]")
+        self.time_attendence_punchinpunchout_punchout_time_field = page.locator("xpath=//input[@placeholder='hh:mm']")
+        self.time_attendence_punchinpunchout_out_button = page.locator("xpath=//button[@type='submit'][contains(.,'Out')]")
+
+        self.time_attendence_punchinpunchedout_punched_in_time_label = page.locator("xpath=//label[contains(.,'Punched in time')]")
+        self.time_attendence_punchout_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
+        self.time_attendence_punchin_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
+
     def click_time_menu(self):
         self.time_menu.click()
 
@@ -62,4 +80,37 @@ class TimePage:
 
     def click_projects_submenu(self):
         self.projects_submenu.click()
-    
+
+    #####################################################################################################################
+    #
+    # Attendence Punch In/Punch Out functions
+
+    def click_time_attendence_punchinpunchout_punchin_date_field(self):
+        self.time_attendence_punchinpunchout_punchin_date_field.click()
+
+    def enter_time_attendence_punchinpunchout_punchin_date_field_value(self, punchin_date):
+        self.time_attendence_punchinpunchout_punchin_date_field.fill(punchin_date)
+
+    def click_time_attendence_punchinpunchout_punchin_time_field(self):
+        self.time_attendence_punchinpunchout_punchin_time_field.click()
+
+    def enter_time_attendence_punchinpunchout_punchin_time_field_value(self, punchin_time):
+        self.time_attendence_punchinpunchout_punchin_time_field.fill(punchin_time)
+
+    def click_time_attendence_punchinpunchout_punchin_button(self):
+        self.time_attendence_punchinpunchout_in_button.click()
+
+    def click_time_attendence_punchinpunchout_punchout_date_field(self):
+        self.time_attendence_punchinpunchout_punchout_date_field.click()
+
+    def enter_time_attendence_punchinpunchout_punchout_date_field_value(self, punchout_date):
+        self.time_attendence_punchinpunchout_punchout_date_field.fill(punchout_date)
+
+    def click_time_attendence_punchinpunchout_punchout_time_field(self):
+        self.time_attendence_punchinpunchout_punchout_time_field.click()
+
+    def enter_time_attendence_punchinpunchout_punchout_time_field(self, punchout_time):
+        self.time_attendence_punchinpunchout_punchout_time_field.fill(punchout_time)
+
+    def click_time_attendence_punchinpunchout_punchout_button(self):
+        self.time_attendence_punchinpunchout_out_button.click()

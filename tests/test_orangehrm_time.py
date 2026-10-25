@@ -1,5 +1,6 @@
-from playwright.sync_api import Page, expect
+from datetime import datetime, timedelta
 
+from playwright.sync_api import Page, expect
 from conftest import shared_page
 from pages.home_page import HomePage
 from pages.login_page import LoginPage
@@ -68,8 +69,55 @@ def test_AccessAttendancePunchInOutPage(shared_page):
         print("Verified that the Punch In header was displayed")
     except:
         expect(shared_page.get_by_role("heading", name="Punch Out")).to_be_visible(timeout=10000)
-        print("Verified that the Punch Out header was displayed")
+        print("Verified that the Punch Out header was displayed --- need to click out to Punch Out/reset")
+        expect(time_page.time_attendence_punchinpunchedout_punched_in_time_label).to_be_visible(timeout=10000)
+        print("Verified that the Punched in time lavel is displayed - will click on punch out")
+        time_page.click_time_attendence_punchinpunchout_punchout_button()
+        print("Clicked on the Out button - will verify that it has been clicked")
+        expect(time_page.time_attendence_punchout_successfully_saved_message).to_be_visible(timeout=10000)
+        print("Verified that the Punch Out was successfully completed")
     print("\nEnded test_AccessAttendancePunchInOutPage transaction")
+
+
+
+
+
+
+def test_AttendancePunchIn(shared_page):
+    print("\nStarting test_AttendancePunchIn transaction")
+    time_page = TimePage(shared_page)
+    print("Will click on the Attendance submenu")
+    time_page.click_attendance_submenu()
+    print("Clicked on the Attendance submenu")
+    time_page.click_punchin_punchout_submenu()
+    print("Clicked on PunchIn/Punchout submenu")
+    expect(shared_page.get_by_role("heading", name="Punch In")).to_be_visible(timeout=10000)
+    print("Verified that the Punch In header was displayed - will enter Date")
+
+    punch_in_date = datetime.now().strftime("%Y-%d-%m")
+    print("Current punch in date: ", punch_in_date)
+
+    punch_in_time = (datetime.now() - timedelta(minutes=5)).strftime("%I:%M %p")
+    print("Current punch in time: ", punch_in_time)
+
+    time_page.enter_time_attendence_punchinpunchout_punchin_date_field_value(punch_in_date)
+    print("Entered the Punch In date - will now enter the Punch In time")
+    time_page.enter_time_attendence_punchinpunchout_punchin_time_field_value(punch_in_time)
+    print("Entered the Punch In time - will click on the In button")
+    time_page.click_time_attendence_punchinpunchout_punchin_button()
+    print("Clicked ont he Punch In button - will verify that the toast message was displayed")
+    expect(time_page.time_attendence_punchin_successfully_saved_message).to_be_visible(timeout=10000)
+    print("Punch was successfully saved messaged was displayed")
+    print("\nEnded test_AttendancePunchIn transaction")
+
+
+
+
+
+
+
+
+
 
 def test_AccessAttendanceEmployeeRecordsPage(shared_page):
     print("\nStarting test_AccessAttendanceEmployeeRecordsPage transaction")
