@@ -50,7 +50,8 @@ class AdminPage:
         #####################################################################################################################
         # Qualifications section identifiers
         #####################################################################################################################
-        self.qualifications_submenu = page.get_by_text("Qualifications")
+        #self.qualifications_submenu = page.get_by_text("Qualifications")
+        self.qualifications_submenu = page.locator("xpath=//span[@class='oxd-topbar-body-nav-tab-item'][contains(.,'Qualifications')]")
         self.skills_submenu = page.get_by_role("menuitem", name="Skills")
         self.education_submenu = page.get_by_role("menuitem", name="Education")
         self.licenses_submenu = page.get_by_role("menuitem", name="Licenses")
