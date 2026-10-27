@@ -83,6 +83,8 @@ class RecruitmentPage:
         self.vacancies_search_vacancy_job_title_principle_qa_test_option = page.locator("xpath=//span[contains(.,'Principle QA Test')]")
         self.vacancies_search_vacancy_hiring_manager_dropdown = page.locator("xpath=(//div[@class='oxd-select-text-input'][contains(.,'-- Select --')])[3]")
         self.vacancies_search_vacancy_charles_carter_option = page.locator("xpath=//span[contains(.,'Charles Carter')]")
+        self.vacancies_search_vacancy_status_dropdown = page.locator("xpath=(//div[@class='oxd-select-text-input'][contains(.,'-- Select --')])[4]")
+        self.vacancies_search_vacancy_active_option = page.locator("xpath=//div[@role='option'][contains(.,'Active')]")
 
 
         self.vacancies_search_vacancy_search_button = page.locator("xpath=//button[contains(.,'Search')]")
@@ -263,6 +265,13 @@ class RecruitmentPage:
     def select_vacancies_search_vacancy_charles_carter_dropdown_option(self,hiring_manager):
         if hiring_manager == "Charles Carter":
             self.vacancies_search_vacancy_charles_carter_option.click()
+
+    def click_vacancies_search_vacancy_status_dropdown(self):
+        self.vacancies_search_vacancy_status_dropdown.click()
+
+    def select_vacancies_search_vacancy_active_dropdon_option(self, status):
+        if status == "Active":
+            self.vacancies_search_vacancy_active_option.click()
 
     def click_vacancies_search_vacancy_search_button(self):
         self.vacancies_search_vacancy_search_button.click()

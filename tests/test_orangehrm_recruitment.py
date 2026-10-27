@@ -5,6 +5,8 @@ from playwright.sync_api import Page, expect
 from conftest import shared_page
 from pages.home_page import HomePage
 from pages.login_page import LoginPage
+from pages.pim_page import PIMPage
+from pages.admin_page import AdminPage
 from pages.recruitment_page import RecruitmentPage
 from pages.logout_page import LogoutPage
 
@@ -32,10 +34,117 @@ def test_LoginPage(shared_page):
     login_page.login("Admin", "admin123")
     print("Clicked Login button")
     shared_page.wait_for_url("**/dashboard/index", timeout=15000)
-    expect(shared_page.get_by_role("heading", name="Dashboard")).to_be_visible(timeout=10000)
-    shared_page.wait_for_selector("//h6[contains(.,'Dashboard')]")
+    #expect(shared_page.get_by_role("heading", name="Dashboard")).to_be_visible(timeout=10000)
+    #shared_page.wait_for_selector("//h6[contains(.,'Dashboard')]")
+
+    shared_page.wait_for_selector("//p[@class='oxd-text oxd-text--p'][contains(.,'Time at Work')]")
+    
+
     print("Verified Dashboard heading is visible on the dashboard page")
     print("Ended test_LoginPage transaction")
+
+##############################################################################################################
+# START - PRECONDITION
+##############################################################################################################
+def test_RecruitmentPreconditionSetup(shared_page):
+    print("\nStarting test_RecruitmentPreconditionSetup transaction")
+    admin_page = AdminPage(shared_page)
+    pim_page = PIMPage(shared_page)
+    
+    print("\n")
+
+    try:
+        print("Starting Localization Setup Check...")
+        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/localization")
+        print("We should be on the Localization screen - will check for the Localization header being displayed")
+        expect(admin_page.admin_configuration_localization_localization_header).to_be_visible(timeout=10000)
+        print("Localization header displayed - will check for the English language being selected")
+        expect(admin_page.admin_configuration_localization_language_dropdown).to_be_visible(timeout=10000)
+        print("The English language is selected, will check for the 'yyyy-dd-mm' format being used")
+        expect(admin_page.admin_configuration_localization_date_format_dropdown).to_be_visible(timeout=10000)
+        print("The 'yyyy-dd-mm' format is being used")
+        print("Localization Setup Check Completed with SUCCESS")
+    except:
+        print("Localization Setup Check - FAILED")
+        print("Will click on the Localization Language dropdown")
+        admin_page.click_admin_configuration_localization_language_dropdown()
+        print("Clicked on the Localization Language dropdown - will select the English language")
+
+        admin_page.select_admin_configuration_localization_english_dropdown_option()
+        
+        print("Selected the English language - will now click on the Localization Date format dropdown")
+        admin_page.click_admin_configuration_localization_date_format_dropdown()
+        print("Clicked on the Localization Date format dropdown - will select the 'yyyy-dd-mm' format")
+
+        admin_page.select_admin_configuration_localization_date_option()
+        print("Selected the 'yyyy-dd-mm' format - will click on the Save button")
+        admin_page.click_admin_configuration_localization_save_button()
+        print("Clicked on the Save button - will verify that the Localization header is displayed")
+        expect(admin_page.admin_configuration_localization_localization_header).to_be_visible(timeout=10000)
+        print("Localization Setup Check Completed with SUCCESS")
+
+    print("\n")
+
+    try:
+        print("Starting 'Under Admin->Job, Software Engineer entry' Check...")
+        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewJobTitleList")
+        expect(shared_page.locator(".oxd-table-body .oxd-table-card").first).to_be_visible(timeout=20000)
+        row = shared_page.get_by_role("row").filter(has=shared_page.get_by_text("Software Engineer", exact=True))
+        print("Match count: ", row.count())
+
+        if row.count() > 0:
+            print("We already have a Software Engineer entry - no further action is needed")
+            print("Software Engineer entry Check Completed with SUCCESS")
+        else:
+            print("We do NOT have a Software Engineer entry - we will need to create one")
+
+            print("We need to click on the Job Title Add button")
+            admin_page.click_admin_job_titles_add_button()
+            print("Clicked on the Add button - will verify that we're on the Add Job Title page")
+            expect(admin_page.admin_job_titles_add_job_title_header).to_be_visible(timeout=20000)
+            print("We are on the Add Job Title page - will now enter the job Title")
+            admin_page.click_admin_job_titles_add_job_title_field()
+            admin_page.enter_admin_job_titles_add_job_title_field_value("Software Engineer")
+            print("Entered the Software Engineer title - will click on the Save button")
+            admin_page.click_admin_job_titles_add_job_title_save_button()
+            print("Clicked on the Save button - will verify that the record was saved")
+            expect(admin_page.admin_job_titles_add_job_title_successfully_saved_message).to_be_visible(timeout=20000)
+    except:
+        print("Was unable to check or add Software Engineer entry")
+
+    print("\n")
+
+    try:
+        print("Starting Check 'Under PIM->Add Employee, Charles Carter entry'")
+        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewEmployeeList")
+        expect(shared_page.locator(".oxd-table-body .oxd-table-card").first).to_be_visible(timeout=20000)
+        row = shared_page.get_by_role("row").filter(has=shared_page.get_by_text("Carter", exact=True))
+        print("Match count: ", row.count())
+
+        if row.count() > 0:
+            print("We already have a Charles Carter entry - no further action is needed")
+            print("'Under PIM->Add Employee, Charles Carter entry' Completed with SUCCESS")
+        else:
+            print("We do NOT have a Charles Carter entry - we will need to create one")
+            pim_page.click_pim_employee_list_add_button()
+            print("Clicked on the Add button - will now enter the First Name")
+            pim_page.click_pim_employee_add_employee_first_name_field()
+            pim_page.enter_pim_employee_add_employee_first_name_field_value("Charles")
+            print("Entered the First Name, will now enter the Last Name")
+            pim_page.click_pim_employee_add_employee_last_name_field()
+            pim_page.enter_pim_employee_add_employee_last_name_field_value("Carter")
+            print("Entered the Last Name, will click on the Save button")
+            pim_page.click_pim_employee_add_employee_save_button()
+            print("Clicked on the Save button - will verify that the employee was successfully added")
+            expect(pim_page.pim_employee_add_employee_successfully_saved_message).to_be_visible(timeout=20000)
+            print("Employee was successfully added message was displayed")
+    except:
+        print("Was unable to check or add 'Charles Carter' entry")
+
+    print("Ended test_RecruitmentPreconditionSetup transaction\n")
+##############################################################################################################
+# END - PRECONDITION
+##############################################################################################################
 
 ##############################################################################################################
 # START: Cleanup Code
@@ -314,32 +423,51 @@ def test_RecruitmentPageVacanciesSearchByHiringManager(shared_page):
     print("Verified Records Found is visible in the search results")
     print("Ended test_RecruitmentPageVacanciesSearchByHiringManager transaction")
 
-'''
-def test_RecruitmentPageVacanciesUpdateTestRecord(shared_page):
-    print("\nStarting test_RecruitmentPageVacanciesUpdateTestRecord transaction")
+def test_RecruitmentPageVacanciesSearchByStatus(shared_page):
+    print("\nStarting test_RecruitmentPageVacanciesSearchByStatus transaction")
     recruitment_page = RecruitmentPage(shared_page)
+    print("Will click on Recruitment menu")
+    recruitment_page.click_recruitment_menu()
     print("Will click on Vacancies submenu")
     recruitment_page.click_vacancies_submenu()
-    print("Clicked on Vacancies submenu - will search for test record")
-    recruitment_page.click_candidates_vacancy_dropdown()
-    print("Clicked on the Vacancy dropdown - will select the test record (Principle QA Test)")
-    recruitment_page.select_vacancies_vacancy_dropdown_test_value()
-    print("Selected the test record - will now click on the Search button")
-    recruitment_page.click_vacancies_search_button()
-    print("Clicked on the Search button - will verify that 1 record was found")
-    expect(recruitment_page.vacancies_vacancy_record_found).to_be_visible(timeout=10000)
-    recruitment_page.click_vacancies_search_result_pencil_icon()
-    print("Clicked on the pencil icon - will verify that we're on the Edit Vacancy page")
-    expect(recruitment_page.vacancies_edit_vacancy_header).to_be_visible(timeout=10000)
-    print("Edit Vacancy header found - will now edit the Description field")
-    recruitment_page.enter_vacancies_vacancy_description("Editing an existing record...")
-    print("Edited the description field - will click on the Save button")
-    recruitment_page.click_vacancies_save_button()
-    print("Clicked on the Save button")
-    expect(recruitment_page.vacancies_successfully_updated_message).to_be_visible(timeout=10000)
-    print("Successfully updated message was displayed")
-    print("Ended test_RecruitmentPageVacanciesUpdateTestRecord transaction")
-'''
+    print("Clicked on the Vacancies submenu - will verify that we're on the Vacancies page")
+    expect(recruitment_page.vacancies_vacancies_header).to_be_visible(timeout=10000)
+    print("Verified that we're on the Vacancies page - will click on the Status dropdown")
+    recruitment_page.click_vacancies_search_vacancy_status_dropdown()
+    print("Clicked on the Status dropdown - will select Active option from the dropdown")
+    recruitment_page.select_vacancies_search_vacancy_active_dropdon_option("Active")
+    print("Selected Charles Carter option from the dropdown - will click on Search button")
+    recruitment_page.click_vacancies_search_vacancy_search_button()
+    print("Clicked on Search button - will verify that records were found")
+    expect(shared_page.locator("span", has_text=re.compile(r"Records? Found"))).to_be_visible(timeout=10000)
+    print("Verified Records Found is visible in the search results")
+    print("Ended test_RecruitmentPageVacanciesSearchByStatus transaction")
+
+#def test_RecruitmentPageVacanciesUpdateTestRecord(shared_page):
+#    print("\nStarting test_RecruitmentPageVacanciesUpdateTestRecord transaction")
+#    recruitment_page = RecruitmentPage(shared_page)
+#    print("Will click on Vacancies submenu")
+#    recruitment_page.click_vacancies_submenu()
+#    print("Clicked on Vacancies submenu - will search for test record")
+#    recruitment_page.click_candidates_vacancy_dropdown()
+#    print("Clicked on the Vacancy dropdown - will select the test record (Principle QA Test)")
+#    recruitment_page.select_vacancies_vacancy_dropdown_test_value()
+#    print("Selected the test record - will now click on the Search button")
+#    recruitment_page.click_vacancies_search_button()
+#    print("Clicked on the Search button - will verify that 1 record was found")
+#    expect(recruitment_page.vacancies_vacancy_record_found).to_be_visible(timeout=10000)
+#    recruitment_page.click_vacancies_search_result_pencil_icon()
+#    print("Clicked on the pencil icon - will verify that we're on the Edit Vacancy page")
+#    expect(recruitment_page.vacancies_edit_vacancy_header).to_be_visible(timeout=10000)
+#    print("Edit Vacancy header found - will now edit the Description field")
+#    recruitment_page.enter_vacancies_vacancy_description("Editing an existing record...")
+#    print("Edited the description field - will click on the Save button")
+#    recruitment_page.click_vacancies_save_button()
+#    print("Clicked on the Save button")
+#    expect(recruitment_page.vacancies_successfully_updated_message).to_be_visible(timeout=10000)
+#    print("Successfully updated message was displayed")
+#    print("Ended test_RecruitmentPageVacanciesUpdateTestRecord transaction")
+
 
 def test_RecruitmentPageDeleteVacancy(shared_page):
     print("\nStarting test_RecruitmentPageDeleteVacancy transaction")

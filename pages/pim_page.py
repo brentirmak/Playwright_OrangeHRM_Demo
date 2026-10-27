@@ -37,6 +37,14 @@ class PIMPage:
         self.pim_to_be_deleted_report_delete_button = page.get_by_role("button").filter(has_text=re.compile(r"^$")).nth(3)
         self.pim_delete_report_confirm_button = page.get_by_role("button", name=" Yes, Delete")
 
+        # Employee List / Add Employee
+        self.pim_employee_list_add_button = page.locator("xpath=//button[@type='button'][contains(.,'Add')]")
+        self.pim_employee_add_employee_first_name_field = page.locator("xpath=//input[@placeholder='First Name']")
+        self.pim_employee_add_employee_last_name_field = page.locator("xpath=//input[@placeholder='Last Name']")
+        self.pim_employee_add_employee_save_button = page.locator("xpath=//button[contains(.,'Save')]")
+        self.pim_employee_add_employee_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
+
+
     def get_employee_option_by_name(self, name: str):
         """Returns the first option matching the given employee name."""
         return self.page.get_by_role("option", name=name).first
@@ -113,6 +121,26 @@ class PIMPage:
 
     def click_pim_test_report_icon(self):
         self.pim_test_report_icon.click()
+
+    # Add Employee methods
+    def click_pim_employee_list_add_button(self):
+        self.pim_employee_list_add_button.click()
+
+    def click_pim_employee_add_employee_first_name_field(self):
+        self.pim_employee_add_employee_first_name_field.click()
+
+    def enter_pim_employee_add_employee_first_name_field_value(self, first_name):
+        self.pim_employee_add_employee_first_name_field.fill(first_name)
+
+    def click_pim_employee_add_employee_last_name_field(self):
+        self.pim_employee_add_employee_last_name_field.click()
+
+    def enter_pim_employee_add_employee_last_name_field_value(self, last_name):
+        self.pim_employee_add_employee_last_name_field.fill(last_name)
+
+    def click_pim_employee_add_employee_save_button(self):
+        self.pim_employee_add_employee_save_button.click()
+
 
     #################################################################################################################
     # Add Report sub-menu methods

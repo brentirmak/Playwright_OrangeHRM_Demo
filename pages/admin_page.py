@@ -1,4 +1,5 @@
 from playwright.sync_api import Page, expect
+import re
 class AdminPage:
 
     def __init__(self, page):
@@ -38,6 +39,13 @@ class AdminPage:
         self.employment_status_submenu = page.get_by_role("menuitem", name="Employment Status")
         self.job_categories_submenu = page.get_by_role("menuitem", name="Job Categories")
         self.work_shifts_submenu = page.get_by_role("menuitem", name="Work Shifts")
+
+        self.admin_job_titles_header = page.locator("xpath=//h6[contains(.,'Job Titles')]")
+        self.admin_job_titles_add_button = page.locator("xpath=//button[@type='button'][contains(.,'Add')]")
+        self.admin_job_titles_add_job_title_header = page.locator("xpath=//h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Add Job Title')]")
+        self.admin_job_titles_add_job_title_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[2]/input")
+        self.admin_job_titles_add_job_title_save_button = page.locator("xpath=//button[contains(.,'Save')]")
+        self.admin_job_titles_add_job_title_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
 
         #####################################################################################################################
         # Organization section identifiers
@@ -127,6 +135,14 @@ class AdminPage:
         self.register_oauth_client_submenu = page.get_by_role("menuitem", name="Register OAuth Client")
         self.ldap_configuration_submenu = page.get_by_role("menuitem", name="LDAP Configuration")
 
+        # Configuration - Localization
+        self.admin_configuration_localization_localization_header = page.locator("xpath=//h6[contains(.,'Localization')]")
+        self.admin_configuration_localization_language_dropdown = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div/div/div[2]/div/div[1]/div[2]/i")
+        self.admin_configuration_localization_english_option = page.locator("xpath=//div[@role='option'][contains(.,'English (United States)')]")
+        self.admin_configuration_localization_date_format_dropdown = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[2]/div/div/div/div[2]/div/div[1]/div[2]/i")
+        self.admin_configuration_localization_date_option = page.locator("xpath=//span[contains(.,'yyyy-mm-dd')]")
+    
+        self.admin_configuration_localization_save_button = page.locator("xpath=//button[@type='submit']")
     #####################################################################################################################
     # Admin page/section methods
     #####################################################################################################################
@@ -266,6 +282,19 @@ class AdminPage:
     def click_work_shifts_submenu(self):
         self.work_shifts_submenu.click()
         self.page.wait_for_load_state("networkidle")
+
+    def click_admin_job_titles_add_button(self):
+        self.admin_job_titles_add_button.click()
+
+    def click_admin_job_titles_add_job_title_field(self):
+        self.admin_job_titles_add_job_title_field.click()
+
+    def enter_admin_job_titles_add_job_title_field_value(self,job_title):
+        self.admin_job_titles_add_job_title_field.fill(job_title)
+
+    def click_admin_job_titles_add_job_title_save_button(self):
+        self.admin_job_titles_add_job_title_save_button.click()
+    
     ################################################
 
 
@@ -354,19 +383,6 @@ class AdminPage:
         row = self.page.locator(f"xpath=//h6[text()='Licenses']/following::div[@class='orangehrm-container'][1]//div[@role='row'][.//*[text()='{license_name}']]")
         row.locator("button i.bi-trash").click()
         self.page.get_by_role("button", name="Yes, Delete").click()
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     def click_skills_submenu(self):
         self.skills_submenu.click()
@@ -531,3 +547,21 @@ class AdminPage:
         self.ldap_configuration_submenu.click()
         self.page.wait_for_load_state("networkidle")    
 
+    #
+    # Admin/Confguration - Localization Methods
+    #
+
+    def click_admin_configuration_localization_language_dropdown(self):
+        self.admin_configuration_localization_language_dropdown.click()
+
+    def select_admin_configuration_localization_english_dropdown_option(self):
+        self.admin_configuration_localization_english_option.click()
+
+    def click_admin_configuration_localization_date_format_dropdown(self):
+        self.admin_configuration_localization_date_format_dropdown.click()
+
+    def select_admin_configuration_localization_date_option(self):
+        self.admin_configuration_localization_date_option.click()
+
+    def click_admin_configuration_localization_save_button(self):
+        self.admin_configuration_localization_save_button.click()
