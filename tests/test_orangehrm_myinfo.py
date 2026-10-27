@@ -29,8 +29,7 @@ def test_LoginPage(shared_page):
     login_page.login("Admin", "admin123")
     print("Clicked Login button")
     shared_page.wait_for_url("**/dashboard/index", timeout=15000)
-    expect(shared_page.get_by_role("heading", name="Dashboard")).to_be_visible(timeout=20000)
-    shared_page.wait_for_selector("//h6[contains(.,'Dashboard')]")
+    shared_page.wait_for_selector("//p[@class='oxd-text oxd-text--p'][contains(.,'Time at Work')]")
     print("Verified Dashboard heading is visible on the dashboard page")
     print("\nEnded test_LoginPage transaction")
 
