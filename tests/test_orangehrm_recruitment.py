@@ -261,7 +261,9 @@ def test_RecruitmentPageVacanciesSearchByJobTitle(shared_page):
     recruitment_page.click_recruitment_menu()
     print("Will click on Vacancies submenu")
     recruitment_page.click_vacancies_submenu()
-    print("Clicked on Vacancies submenu - will click on Job Title dropdown")
+    print("Clicked on the Vacancies submenu - will verify that we're on the Vacancies page")
+    expect(recruitment_page.vacancies_vacancies_header).to_be_visible(timeout=10000)
+    print("Verified that we're on the Vacancies page - will click on Job Title dropdown")
     recruitment_page.click_vacancies_search_vacancy_job_title_dropdown()
     print("Clicked on Job Title dropdown - will select Software Engineer option from the dropdown")
     recruitment_page.select_vacancies_search_vacancy_job_title_dropdown_option("Software Engineer")
@@ -271,6 +273,46 @@ def test_RecruitmentPageVacanciesSearchByJobTitle(shared_page):
     expect(shared_page.locator("span", has_text=re.compile(r"Records? Found"))).to_be_visible(timeout=10000)
     print("Verified Records Found is visible in the search results")
     print("Ended test_RecruitmentPageVacanciesSearchByJobTitle transaction")
+
+def test_RecruitmentPageVacanciesSearchByVacancy(shared_page):
+    print("\nStarting test_RecruitmentPageVacanciesSearchByVacancy transaction")
+    recruitment_page = RecruitmentPage(shared_page)
+    print("Will click on Recruitment menu")
+    recruitment_page.click_recruitment_menu()
+    print("Will click on Vacancies submenu")
+    recruitment_page.click_vacancies_submenu()
+    print("Clicked on the Vacancies submenu - will verify that we're on the Vacancies page")
+    expect(recruitment_page.vacancies_vacancies_header).to_be_visible(timeout=10000)
+    print("Verified that we're on the Vacancies page - will click on the Vacancy dropdown")
+    recruitment_page.click_vacancies_search_vacancy_vacancy_dropdown()
+    print("Clicked on the Vacancy dropdown - will select Principle QA Test option from the dropdown")
+    recruitment_page.select_vacancies_search_vacancy_job_title_principle_qa_test_dropdown_option("Principle QA Test")
+    print("Selected Principle QA Test option from the dropdown - will click on Search button")
+    recruitment_page.click_vacancies_search_vacancy_search_button()
+    print("Clicked on Search button - will verify that records were found")
+    expect(shared_page.locator("span", has_text=re.compile(r"Records? Found"))).to_be_visible(timeout=10000)
+    print("Verified Records Found is visible in the search results")
+    print("Ended test_RecruitmentPageVacanciesSearchByVacancy transaction")
+
+def test_RecruitmentPageVacanciesSearchByHiringManager(shared_page):
+    print("\nStarting test_RecruitmentPageVacanciesSearchByHiringManager transaction")
+    recruitment_page = RecruitmentPage(shared_page)
+    print("Will click on Recruitment menu")
+    recruitment_page.click_recruitment_menu()
+    print("Will click on Vacancies submenu")
+    recruitment_page.click_vacancies_submenu()
+    print("Clicked on the Vacancies submenu - will verify that we're on the Vacancies page")
+    expect(recruitment_page.vacancies_vacancies_header).to_be_visible(timeout=10000)
+    print("Verified that we're on the Vacancies page - will click on the Hiring Manager dropdown")
+    recruitment_page.click_vacancies_search_vacancy_hiring_manager_dropdown()
+    print("Clicked on the Hiring Manager dropdown - will select Charles Carter option from the dropdown")
+    recruitment_page.select_vacancies_search_vacancy_charles_carter_dropdown_option("Charles Carter")
+    print("Selected Charles Carter option from the dropdown - will click on Search button")
+    recruitment_page.click_vacancies_search_vacancy_search_button()
+    print("Clicked on Search button - will verify that records were found")
+    expect(shared_page.locator("span", has_text=re.compile(r"Records? Found"))).to_be_visible(timeout=10000)
+    print("Verified Records Found is visible in the search results")
+    print("Ended test_RecruitmentPageVacanciesSearchByHiringManager transaction")
 
 '''
 def test_RecruitmentPageVacanciesUpdateTestRecord(shared_page):
@@ -298,6 +340,7 @@ def test_RecruitmentPageVacanciesUpdateTestRecord(shared_page):
     print("Successfully updated message was displayed")
     print("Ended test_RecruitmentPageVacanciesUpdateTestRecord transaction")
 '''
+
 def test_RecruitmentPageDeleteVacancy(shared_page):
     print("\nStarting test_RecruitmentPageDeleteVacancy transaction")
     recruitment_page = RecruitmentPage(shared_page)

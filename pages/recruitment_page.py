@@ -79,6 +79,10 @@ class RecruitmentPage:
         # Search Vacancy
         self.vacancies_search_vacancy_job_title_dropdown = page.locator("xpath=(//div[@class='oxd-select-text-input'][contains(.,'-- Select --')])[1]")
         self.vacancies_search_vacancy_job_title_software_engineer_option = page.locator("xpath=//div[@role='option'][contains(.,'Software Engineer')]")
+        self.vacancies_search_vacancy_vacancy_dropdown = page.locator("xpath=(//div[@class='oxd-select-text-input'][contains(.,'-- Select --')])[2]")
+        self.vacancies_search_vacancy_job_title_principle_qa_test_option = page.locator("xpath=//span[contains(.,'Principle QA Test')]")
+        self.vacancies_search_vacancy_hiring_manager_dropdown = page.locator("xpath=(//div[@class='oxd-select-text-input'][contains(.,'-- Select --')])[3]")
+        self.vacancies_search_vacancy_charles_carter_option = page.locator("xpath=//span[contains(.,'Charles Carter')]")
 
 
         self.vacancies_search_vacancy_search_button = page.locator("xpath=//button[contains(.,'Search')]")
@@ -245,6 +249,20 @@ class RecruitmentPage:
     def select_vacancies_search_vacancy_job_title_dropdown_option(self,job_title):
         if job_title == "Software Engineer":
             self.vacancies_search_vacancy_job_title_software_engineer_option.click()
+
+    def click_vacancies_search_vacancy_vacancy_dropdown(self):
+        self.vacancies_search_vacancy_vacancy_dropdown.click()
+
+    def select_vacancies_search_vacancy_job_title_principle_qa_test_dropdown_option(self, vacancy_name):
+        if vacancy_name == "Principle QA Test":
+             self.vacancies_search_vacancy_job_title_principle_qa_test_option.click()
+
+    def click_vacancies_search_vacancy_hiring_manager_dropdown(self):
+        self.vacancies_search_vacancy_hiring_manager_dropdown.click()
+
+    def select_vacancies_search_vacancy_charles_carter_dropdown_option(self,hiring_manager):
+        if hiring_manager == "Charles Carter":
+            self.vacancies_search_vacancy_charles_carter_option.click()
 
     def click_vacancies_search_vacancy_search_button(self):
         self.vacancies_search_vacancy_search_button.click()
