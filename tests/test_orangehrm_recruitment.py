@@ -89,6 +89,9 @@ def test_RecruitmentPageVacancyCleanup(shared_page):
 # END: Cleanup Code
 #
 
+##############################################################################################################
+# START: Candidates Tab
+#
 def test_RecruitmentPageCreateVacancy(shared_page):
     print("\nStarting test_RecruitmentPageCreateVacancy transaction")
     recruitment_page = RecruitmentPage(shared_page)
@@ -243,26 +246,33 @@ def test_RecruitmentPageSearchCandidatesByKeywords(shared_page):
     print("Verified Records Found is visible in the search results")
     print("Ended test_RecruitmentPageSearchCandidatesByKeywords transaction")
 
-'''
+##############################################################################################################
+# END: Candidates Tab
+#
+
+##############################################################################################################
+# START: Vacancies Tab
+#
+
 def test_RecruitmentPageVacanciesSearchByJobTitle(shared_page):
     print("\nStarting test_RecruitmentPageVacanciesSearchByJobTitle transaction")
     recruitment_page = RecruitmentPage(shared_page)
+    print("Will click on Recruitment menu")
+    recruitment_page.click_recruitment_menu()
     print("Will click on Vacancies submenu")
     recruitment_page.click_vacancies_submenu()
-    print("Clicked on Vacancies submenu")
-    print("Will click on Job Title dropdown")
-    recruitment_page.click_vacancies_job_title_dropdown()
-    print("Clicked on Job Title dropdown")
-    print("Will select Account Assistant option from the dropdown")
-    recruitment_page.click_vacancies_job_title_dropdown_account_assistant_option()
-    print("Selected Account Assistant option from the dropdown")
-    print("Will click on Search button")
-    recruitment_page.click_vacancies_search_button()
-    print("Clicked on Search button")
+    print("Clicked on Vacancies submenu - will click on Job Title dropdown")
+    recruitment_page.click_vacancies_search_vacancy_job_title_dropdown()
+    print("Clicked on Job Title dropdown - will select Software Engineer option from the dropdown")
+    recruitment_page.select_vacancies_search_vacancy_job_title_dropdown_option("Software Engineer")
+    print("Selected Software Engineer option from the dropdown - will click on Search button")
+    recruitment_page.click_vacancies_search_vacancy_search_button()
+    print("Clicked on Search button - will verify that records were found")
     expect(shared_page.locator("span", has_text=re.compile(r"Records? Found"))).to_be_visible(timeout=10000)
     print("Verified Records Found is visible in the search results")
     print("Ended test_RecruitmentPageVacanciesSearchByJobTitle transaction")
 
+'''
 def test_RecruitmentPageVacanciesUpdateTestRecord(shared_page):
     print("\nStarting test_RecruitmentPageVacanciesUpdateTestRecord transaction")
     recruitment_page = RecruitmentPage(shared_page)
@@ -287,7 +297,7 @@ def test_RecruitmentPageVacanciesUpdateTestRecord(shared_page):
     expect(recruitment_page.vacancies_successfully_updated_message).to_be_visible(timeout=10000)
     print("Successfully updated message was displayed")
     print("Ended test_RecruitmentPageVacanciesUpdateTestRecord transaction")
-
+'''
 def test_RecruitmentPageDeleteVacancy(shared_page):
     print("\nStarting test_RecruitmentPageDeleteVacancy transaction")
     recruitment_page = RecruitmentPage(shared_page)
@@ -339,7 +349,7 @@ def test_RecruitmentPageDeleteCandidate(shared_page):
     expect(recruitment_page.candidates_delete_candidate_successfully_deleted_message).to_be_visible(timeout=15000)
     print("Verified that the candidate was successfully deleted message was displayed")
     print("Ended test_RecruitmentPageDeleteCandidate transaction")
-'''
+
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")
     logout_page = LogoutPage(shared_page)

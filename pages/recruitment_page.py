@@ -40,23 +40,15 @@ class RecruitmentPage:
         self.candidates_search_candidate_principle_qa_test_option = page.locator("xpath=//span[contains(.,'Principle QA Test')]")
         self.candidates_search_candidate_hiring_manager_dropdown = page.locator("xpath=(//div[@class='oxd-select-text-input'][contains(.,'-- Select --')])[3]")
         self.candidates_search_candidate_charles_carter_option = page.locator("xpath=//div[@role='option'][contains(.,'Charles Carter')]")
-
-
-        
         self.candidates_search_candidate_status_dropdown = page.locator("xpath=(//div[@class='oxd-select-text-input'][contains(.,'-- Select --')])[4]")
         self.candidates_search_candidate_status_application_initiated_option = page.locator("xpath=//span[contains(.,'Application Initiated')]")
-        
         self.candidates_search_candidate_candidate_name_field = page.locator("xpath=//input[contains(@placeholder,'Type for hints...')]")
         self.candidates_search_candidate_candidate_name_field_value = page.locator("xpath=//span[contains(.,'Mike  Jones')]")
-
         self.candidates_search_candidate_keywords_field = page.locator("xpath=//input[contains(@placeholder,'Enter comma seperated words...')]")
-
-
 
         self.candidates_search_candidate_search_button = page.locator("xpath=//button[contains(.,'Search')]")
         self.candidates_search_candidate_record_found_header = page.locator("xpath=//span[contains(.,'(1) Record Found')]")
         self.candidates_search_candidate_no_record_found_header = page.locator("xpath=//span[@class='oxd-text oxd-text--span'][contains(.,'No Records Found')]")
-
 
         ########################################################################################################################################
         # Vacancies section/page
@@ -87,6 +79,8 @@ class RecruitmentPage:
         # Search Vacancy
         self.vacancies_search_vacancy_job_title_dropdown = page.locator("xpath=(//div[@class='oxd-select-text-input'][contains(.,'-- Select --')])[1]")
         self.vacancies_search_vacancy_job_title_software_engineer_option = page.locator("xpath=//div[@role='option'][contains(.,'Software Engineer')]")
+
+
         self.vacancies_search_vacancy_search_button = page.locator("xpath=//button[contains(.,'Search')]")
         self.vacancies_search_vacancy_record_found_header = page.locator("xpath=//span[contains(.,'(1) Record Found')]")
     ########################################################################################################################################
@@ -160,13 +154,6 @@ class RecruitmentPage:
     def select_candidates_search_vacancy_hiring_manager_dropdown_option(self,hiring_manager):
         if hiring_manager == "Charles Carter":
             self.candidates_search_candidate_charles_carter_option.click()
-
-    #def click_candidates_search_vacancy_status_dropdown(self):
-    #    self.candidates_search_candidate_status_dropdown.click()
-    
-    #def select_candidates_search_vacancy_vacancy_dropdown_option(self,status):
-    #    if status == "Active":
-    #        self.candidates_search_vacancy_status_active_option.click()
 
     def click_candidates_search_candidate_status_dropdown(self):
         self.candidates_search_candidate_status_dropdown.click()
@@ -262,7 +249,7 @@ class RecruitmentPage:
     def click_vacancies_search_vacancy_search_button(self):
         self.vacancies_search_vacancy_search_button.click()
 
-                    
+
     #
     # Delete Vacancies methods
     #
