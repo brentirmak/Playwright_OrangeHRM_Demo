@@ -27,6 +27,42 @@ def test_LoginPage(shared_page):
     print("Verified Dashboard heading is visible on the dashboard page")
     print("Ended test_LoginPage transaction")
 
+
+#######################################################################################################
+# CLEANUP
+#
+
+def test_AdminSectionJobTitlesCleanup(shared_page):
+    print("\nStarting test_AdminSectionJobTitlesCleanup transaction")
+    admin_page = AdminPage(shared_page)
+    print("Will click on admin option on the menu")
+    admin_page.click_admin_menu()
+    print("Will click on Job submenu under Admin menu")
+    admin_page.click_job_submenu()
+    print("Clicked on Job submenu under Admin menu")
+    print("Will click on Job Titles submenu under Job submenu")
+    admin_page.click_job_titles_submenu()
+    print("Clicked on Job Titles submenu under Job submenu")
+    expect(shared_page.get_by_role("columnheader", name="Job Description")).to_be_visible(timeout=10000)
+    expect(admin_page.admin_job_titles_header).to_be_visible(timeout=20000)
+    try:
+        print("Verified that we're on the Job Titles page - will proceed with the test record deletion")
+        admin_page.click_admin_job_titles_click_checkbox_by_jobtitle("CloudOps Engineer")
+        print("Clicked on the checkbox associated with CloudOps Engineer")
+        admin_page.click_admin_job_titles_delete_job_title_delete_selected_button()
+        print("Clicked on the Delete Selected button - will now click on the Yes, Delete button on the confirmation window")
+        admin_page.click_admin_job_titles_delete_job_title_delete_confirmation_button()
+        print("Clicked on the Yes, Delete button, will confirm that the record has been deleted")
+        expect(admin_page.admin_job_titles_delete_job_title_delete_confirmation_message).to_be_visible(timeout=10000)
+        print("Verified CloudOps Engineer job title has been deleted")
+    except:
+        print("There was no record to delete/cleanup - will proceed with remaining tests execution")
+    print("Ended test_AdminSectionJobTitlesCleanup transaction")
+
+#######################################################################################################
+#
+#
+
 def test_AccessAdminSection(shared_page):
     print("\nStarting test_AccessAdminSection transaction")
     admin_page = AdminPage(shared_page)
