@@ -40,7 +40,7 @@ class AdminPage:
         self.job_categories_submenu = page.get_by_role("menuitem", name="Job Categories")
         self.work_shifts_submenu = page.get_by_role("menuitem", name="Work Shifts")
 
-        # Add job identifiers
+        # Add Job Title identifiers
         self.admin_job_titles_header = page.locator("xpath=//h6[contains(.,'Job Titles')]")
         self.admin_job_titles_add_button = page.locator("xpath=//button[@type='button'][contains(.,'Add')]")
         self.admin_job_titles_add_job_title_header = page.locator("xpath=//h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Add Job Title')]")
@@ -48,11 +48,25 @@ class AdminPage:
         self.admin_job_titles_add_job_title_save_button = page.locator("xpath=//button[contains(.,'Save')]")
         self.admin_job_titles_add_job_title_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
 
-        # Delete job identifiers
+        # Delete Job Title identifiers
         self.admin_job_titles_delete_job_title_delete_selected_button = page.locator("xpath=//button[contains(.,'Delete Selected')]")
         self.admin_job_titles_delete_job_title_delete_confirmation_button = page.locator("xpath=//button[contains(.,'Yes, Delete')]")
         self.admin_job_titles_delete_job_title_delete_confirmation_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
-    
+
+        # Add Pay Grades Identifiers
+        self.admin_job_pay_grades_header = page.locator("xpath=//h6[contains(.,'Pay Grades')]")
+        self.admin_job_pay_grades_add_button = page.locator("xpath=//button[contains(.,'Add')]")
+        self.admin_job_pay_grades_add_pay_grade_header = page.locator("xpath=//h6[contains(.,'Add Pay Grade')]")
+        self.admin_job_pay_grades_add_pay_grade_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div/div/div[2]/input")
+        self.admin_job_pay_grades_add_pay_grade_save_button = page.locator("xpath=//button[contains(.,'Save')]")
+        self.admin_job_pay_grades_edit_pay_grade_header = page.locator("xpath=//h6[contains(.,'Edit Pay Grade')]")
+
+        # Delete Pay Grades identifiers
+        self.admin_job_pay_grades_delete_pay_grade_delete_selected_button = page.locator("xpath=//button[contains(.,'Delete Selected')]")
+        self.admin_job_pay_grades_delete_pay_grade_delete_confirmation_button = page.locator("xpath=//button[contains(.,'Yes, Delete')]")
+        self.admin_job_pay_grades_delete_pay_grade_delete_confirmation_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
+        self.admin_job_pay_grades_delete_pay_grade_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
+
         #####################################################################################################################
         # Organization section identifiers
         #####################################################################################################################
@@ -311,6 +325,31 @@ class AdminPage:
 
     def click_admin_job_titles_delete_job_title_delete_confirmation_button(self):
         self.admin_job_titles_delete_job_title_delete_confirmation_button.click()
+
+    # Add Pay Grade methods
+    def click_admin_job_pay_grades_add_button(self):
+        self.admin_job_pay_grades_add_button.click()
+
+    def click_admin_job_pay_grades_add_pay_grade_field(self):
+        self.admin_job_pay_grades_add_pay_grade_field.click()
+
+    def enter_admin_job_pay_grades_add_pay_grade_field_value(self, pay_grade):
+        self.admin_job_pay_grades_add_pay_grade_field.fill(pay_grade)
+
+    def click_admin_job_pay_grades_add_pay_grade_save_button(self):
+        self.admin_job_pay_grades_add_pay_grade_save_button.click()
+    
+    # Delete Pay Grade methods
+    def click_admin_job_pay_grades_click_checkbox_by_paygrade(self, pay_grade):
+        checkbox_locator = self.page.locator(f"//div[@class='oxd-table-card']//div[normalize-space()='{pay_grade}']/ancestor::div[@class='oxd-table-card']//span[contains(@class, 'oxd-checkbox-input')]")
+        checkbox_locator.click()
+
+    def click_admin_job_pay_grades_delete_pay_grade_delete_selected_button(self):
+        self.admin_job_pay_grades_delete_pay_grade_delete_selected_button.click()
+
+    def click_admin_job_pay_grades_delete_pay_grade_delete_confirmation_button(self):
+        self.admin_job_pay_grades_delete_pay_grade_delete_confirmation_button.click()
+
 
     #####################################################################################################################
     # Organization section methods
