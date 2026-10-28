@@ -48,6 +48,7 @@ class AdminPage:
         self.admin_job_titles_add_job_title_save_button = page.locator("xpath=//button[contains(.,'Save')]")
         self.admin_job_titles_add_job_title_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
 
+
         # Delete Job Title identifiers
         self.admin_job_titles_delete_job_title_delete_selected_button = page.locator("xpath=//button[contains(.,'Delete Selected')]")
         self.admin_job_titles_delete_job_title_delete_confirmation_button = page.locator("xpath=//button[contains(.,'Yes, Delete')]")
@@ -66,6 +67,20 @@ class AdminPage:
         self.admin_job_pay_grades_delete_pay_grade_delete_confirmation_button = page.locator("xpath=//button[contains(.,'Yes, Delete')]")
         self.admin_job_pay_grades_delete_pay_grade_delete_confirmation_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
         self.admin_job_pay_grades_delete_pay_grade_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
+
+        # Add Employment Status identifiers
+        self.admin_job_employment_status_header = page.locator("xpath=//h6[contains(.,'Employment Status')]")
+        self.admin_job_employment_status_add_button = page.locator("xpath=//button[contains(.,'Add')]")
+        self.admin_job_employment_status_add_employment_status_header = page.locator("xpath=//h6[contains(.,'Add Employment Status')]")
+        self.admin_job_employment_status_add_employment_status_name_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[2]/input")
+        self.admin_job_employment_status_add_employment_save_button = page.locator("xpath=//button[contains(.,'Save')]")
+        self.admin_job_employment_status_add_employment_status_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
+
+        # Delete Employment Status identifiers
+        self.admin_job_employment_status_delete_status_delete_selected_button = page.locator("xpath=//button[contains(.,'Delete Selected')]")
+        self.admin_job_employment_status_delete_status_delete_confirmation_button = page.locator("xpath=//button[contains(.,'Yes, Delete')]")
+        self.admin_job_employment_status_delete_status_delete_confirmation_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
+        self.admin_job_employment_status_delete_status_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
 
         #####################################################################################################################
         # Organization section identifiers
@@ -350,6 +365,29 @@ class AdminPage:
     def click_admin_job_pay_grades_delete_pay_grade_delete_confirmation_button(self):
         self.admin_job_pay_grades_delete_pay_grade_delete_confirmation_button.click()
 
+    # Add Employment Status methods
+    def click_admin_job_employment_status_add_button(self):
+        self.admin_job_employment_status_add_button.click()
+
+    def click_admin_job_employment_status_add_employment_status_name_field(self):
+        self.admin_job_employment_status_add_employment_status_name_field.click()
+
+    def enter_admin_job_employment_status_add_employment_status_name_field_value(self,employment_status):
+        self.admin_job_employment_status_add_employment_status_name_field.fill(employment_status)
+
+    def click_admin_job_employment_status_add_employment_save_button(self):
+        self.admin_job_employment_status_add_employment_save_button.click()
+
+    # Delete Employment Status methods
+    def click_admin_job_employment_status_click_checkbox_by_status(self, status):
+        checkbox_locator = self.page.locator(f"//div[@class='oxd-table-card']//div[normalize-space()='{status}']/ancestor::div[@class='oxd-table-card']//span[contains(@class, 'oxd-checkbox-input')]")
+        checkbox_locator.click()
+
+    def click_admin_job_employment_status_delete_status_delete_selected_button(self):
+        self.admin_job_employment_status_delete_status_delete_selected_button.click()
+
+    def click_admin_job_employment_status_delete_status_delete_confirmation_button(self):
+        self.admin_job_employment_status_delete_status_delete_confirmation_button.click()
 
     #####################################################################################################################
     # Organization section methods

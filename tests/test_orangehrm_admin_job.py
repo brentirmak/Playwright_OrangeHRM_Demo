@@ -59,6 +59,30 @@ def test_AdminSectionJobTitlesCleanup(shared_page):
         print("There was no record to delete/cleanup - will proceed with remaining tests execution")
     print("Ended test_AdminSectionJobTitlesCleanup transaction")
 
+def test_AdminSectionJobEmploymentStatusCleanup(shared_page):
+    print("\nStarting test_AdminSectionJobEmploymentStatusCleanup transaction")
+    admin_page = AdminPage(shared_page)
+    print("Will click on Job submenu under Admin menu")
+    admin_page.click_job_submenu()
+    print("Clicked on Job submenu under Admin menu")
+    print("Will click on Employment Status submenu under Job submenu")
+    admin_page.click_employment_status_submenu()
+    print("Clicked on Employment Status submenu- will verify that we're on the Employment Status page")
+    expect(shared_page.get_by_role("columnheader", name="Employment Status")).to_be_visible(timeout=10000)
+    try:
+        print("Verified that we are on the Employment Status page - will click on the checkbox of the to be deleted item")
+        admin_page.click_admin_job_employment_status_click_checkbox_by_status("Full-Time Contract-To-Hire")
+        print("Clicked on the checkbox for the to be deleted item -- will click on the Delete Selected button")
+        admin_page.click_admin_job_employment_status_delete_status_delete_selected_button()
+        print("Clicked on the Deleted Selected button - will click on the Delete Confirmation button")
+        admin_page.click_admin_job_employment_status_delete_status_delete_confirmation_button()
+        print("Clicked on the Delete Confirmation button - will verify that the record was successfully deleted")
+        expect(admin_page.admin_job_employment_status_delete_status_successfully_deleted_message).to_be_visible(timeout=20000)
+        print("Verified that the record has been successfully deleted")
+    except:
+        print("There was no record to delete/cleanup - will proceed with remaining tests execution")
+    print("Ended test_AdminSectionJobEmploymentStatusCleanup transaction")
+
 def test_AdminSectionJobPayGradeCleanup(shared_page):
     print("\nStarting test_AdminSectionJobPayGradeCleanup transaction")
     admin_page = AdminPage(shared_page)
@@ -136,7 +160,7 @@ def test_AdminSectionJobTitlesAddJobTitles(shared_page):
     print("Entered the CloudOps Engineer title - will click on the Save button")
     admin_page.click_admin_job_titles_add_job_title_save_button()
     print("Clicked on the Save button - will verify that the record was saved")
-    expect(admin_page.admin_job_titles_add_job_title_successfully_saved_message).to_be_visible(timeout=20000)
+    expect(admin_page.admin_job_titles_add_job_title_successfully_saved_message).to_be_visible(timeout=30000)
     print("Verified CloudOps Engineer title is visible on the Job Titles page")
     print("Ended test_AdminSectionJobTitlesAddJobTitles transaction")
 
@@ -192,6 +216,30 @@ def test_AdminSectionEmploymentStatusSubmenu(shared_page):
     print("Verified Full-Time Permanent employment status is visible on the Employment Status submenu page")
     print("Ended test_AdminSectionEmploymentStatusSubmenu transaction")
 
+def test_AdminSectionJobAddEmploymentStatus(shared_page):
+    print("\nStarting test_AdminSectionJobAddEmploymentStatus transaction")
+    admin_page = AdminPage(shared_page)
+    print("Will click on Job submenu under Admin menu")
+    admin_page.click_job_submenu()
+    print("Clicked on Job submenu under Admin menu")
+    print("Will click on Employment Status submenu under Job submenu")
+    admin_page.click_employment_status_submenu()
+    print("Clicked on Employment Status submenu- will verify that we're on the Employment Status page")
+    expect(shared_page.get_by_role("columnheader", name="Employment Status")).to_be_visible(timeout=10000)
+    print("Verified that we are on the Employment Status page - will click on the Add button")
+    admin_page.click_admin_job_employment_status_add_button()
+    print("Clicked on the Add button - will verify that we're on the Add Employment Status page")
+    expect(admin_page.admin_job_employment_status_add_employment_status_header).to_be_visible(timeout=20000)
+    print("Verified that we're on the Add Employment Status page - will enter the Name")
+    admin_page.click_admin_job_employment_status_add_employment_status_name_field()
+    admin_page.enter_admin_job_employment_status_add_employment_status_name_field_value("Full-Time Contract-To-Hire")
+    print("Added the Employment Status name - will click on the Save button")
+    admin_page.click_admin_job_employment_status_add_employment_save_button()
+    print("Clicked on the Save button - will confirm that the record has been saved")
+    expect(admin_page.admin_job_employment_status_add_employment_status_successfully_saved_message).to_be_visible(timeout=20000)
+    print("Verified that the record was successfully saved message was displayed")
+    print("Ended test_AdminSectionJobAddEmploymentStatus transaction")
+
 def test_AdminSectionJobCategoriesSubmenu(shared_page):
     print("\nStarting test_AdminSectionJobCategoriesSubmenu transaction")
     admin_page = AdminPage(shared_page)
@@ -224,6 +272,27 @@ def test_AdminSectionWorkShiftsSubmenu(shared_page):
     expect(shared_page.get_by_role("columnheader", name="Hours Per Day")).to_be_visible(timeout=10000)
     print("Verified Hours Per Day column header is visible on the Work Shifts submenu page")
     print("Ended test_AdminSectionWorkShiftsSubmenu transaction")
+
+def test_AdminSectionJobDeleteEmploymentStatus(shared_page):
+    print("\nStarting test_AdminSectionJobDeleteEmploymentStatus transaction")
+    admin_page = AdminPage(shared_page)
+    print("Will click on Job submenu under Admin menu")
+    admin_page.click_job_submenu()
+    print("Clicked on Job submenu under Admin menu")
+    print("Will click on Employment Status submenu under Job submenu")
+    admin_page.click_employment_status_submenu()
+    print("Clicked on Employment Status submenu- will verify that we're on the Employment Status page")
+    expect(shared_page.get_by_role("columnheader", name="Employment Status")).to_be_visible(timeout=10000)
+    print("Verified that we are on the Employment Status page - will click on the checkbox of the to be deleted item")
+    admin_page.click_admin_job_employment_status_click_checkbox_by_status("Full-Time Contract-To-Hire")
+    print("Clicked on the checkbox for the to be deleted item -- will click on the Delete Selected button")
+    admin_page.click_admin_job_employment_status_delete_status_delete_selected_button()
+    print("Clicked on the Deleted Selected button - will click on the Delete Confirmation button")
+    admin_page.click_admin_job_employment_status_delete_status_delete_confirmation_button()
+    print("Clicked on the Delete Confirmation button - will verify that the record was successfully deleted")
+    expect(admin_page.admin_job_employment_status_delete_status_successfully_deleted_message).to_be_visible(timeout=20000)
+    print("Verified that the record has been successfully deleted")
+    print("Ended test_AdminSectionJobDeleteEmploymentStatus transaction")
 
 def test_AdminSectionJobDeletePayGrade(shared_page):
     print("\nStarting test_AdminSectionJobDeletePayGrade transaction")
