@@ -40,6 +40,7 @@ class AdminPage:
         self.job_categories_submenu = page.get_by_role("menuitem", name="Job Categories")
         self.work_shifts_submenu = page.get_by_role("menuitem", name="Work Shifts")
 
+        # Add job identifiers
         self.admin_job_titles_header = page.locator("xpath=//h6[contains(.,'Job Titles')]")
         self.admin_job_titles_add_button = page.locator("xpath=//button[@type='button'][contains(.,'Add')]")
         self.admin_job_titles_add_job_title_header = page.locator("xpath=//h6[@class='oxd-text oxd-text--h6 orangehrm-main-title'][contains(.,'Add Job Title')]")
@@ -47,6 +48,11 @@ class AdminPage:
         self.admin_job_titles_add_job_title_save_button = page.locator("xpath=//button[contains(.,'Save')]")
         self.admin_job_titles_add_job_title_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
 
+        # Delete job identifiers
+        self.admin_job_titles_delete_job_title_delete_selected_button = page.locator("xpath=//button[contains(.,'Delete Selected')]")
+        self.admin_job_titles_delete_job_title_delete_confirmation_button = page.locator("xpath=//button[contains(.,'Yes, Delete')]")
+        self.admin_job_titles_delete_job_title_delete_confirmation_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
+    
         #####################################################################################################################
         # Organization section identifiers
         #####################################################################################################################
@@ -295,8 +301,16 @@ class AdminPage:
     def click_admin_job_titles_add_job_title_save_button(self):
         self.admin_job_titles_add_job_title_save_button.click()
     
-    ################################################
+    # Delete Job methods
+    def click_admin_job_titles_click_checkbox_by_jobtitle(self, job_title):
+        checkbox_locator = self.page.locator(f"//div[@class='oxd-table-card']//div[normalize-space()='{job_title}']/ancestor::div[@class='oxd-table-card']//span[contains(@class, 'oxd-checkbox-input')]")
+        checkbox_locator.click()
 
+    def click_admin_job_titles_delete_job_title_delete_selected_button(self):
+        self.admin_job_titles_delete_job_title_delete_selected_button.click()
+
+    def click_admin_job_titles_delete_job_title_delete_confirmation_button(self):
+        self.admin_job_titles_delete_job_title_delete_confirmation_button.click()
 
     #####################################################################################################################
     # Organization section methods
