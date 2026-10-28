@@ -59,6 +59,30 @@ def test_AdminSectionJobTitlesCleanup(shared_page):
         print("There was no record to delete/cleanup - will proceed with remaining tests execution")
     print("Ended test_AdminSectionJobTitlesCleanup transaction")
 
+def test_AdminSectionJobPayGradeCleanup(shared_page):
+    print("\nStarting test_AdminSectionJobPayGradeCleanup transaction")
+    admin_page = AdminPage(shared_page)
+    print("Will click on Job submenu under Admin menu")
+    admin_page.click_job_submenu()
+    print("Clicked on Job submenu under Admin menu")
+    print("Will click on Pay Grades submenu under Job submenu")
+    admin_page.click_pay_grades_submenu()
+    print("Clicked on Pay Grades submenu under Job submenu - will confirm that we're on the Pay Grades page")
+    expect(admin_page.admin_job_pay_grades_header).to_be_visible(timeout=20000)
+    try:
+        print("The Pay Grades header has been verified - will click on the checkbox for the to be deleted item")
+        admin_page.click_admin_job_pay_grades_click_checkbox_by_paygrade("Grade10")
+        print("Clicked on the checkbox for the to be deleted item -- will click on the Delete Selected button")
+        admin_page.click_admin_job_pay_grades_delete_pay_grade_delete_selected_button()
+        print("Clicked on the Deleted Selected button - will click on the Delete Confirmation button")
+        admin_page.click_admin_job_pay_grades_delete_pay_grade_delete_confirmation_button()
+        print("Clicked on the Delete Confirmation button - will verify that the record was successfully deleted")
+        expect(admin_page.admin_job_pay_grades_delete_pay_grade_successfully_deleted_message).to_be_visible(timeout=20000)
+        print("Verified that the record has been successfully deleted")
+    except:
+        print("There was no record to delete/cleanup - will proceed with remaining tests execution")
+    print("Ended test_AdminSectionJobPayGradeCleanup transaction")
+
 #######################################################################################################
 #
 #
@@ -128,7 +152,6 @@ def test_AdminSectionPayGradesSubmenu(shared_page):
     expect(shared_page.get_by_role("columnheader", name="Currency")).to_be_visible(timeout=10000)
     print("Verified Currency column header is visible on the Pay Grades submenu page")
     print("Ended test_AdminSectionPayGradesSubmenu transaction")
-
 
 def test_AdminSectionJobAddPayGrade(shared_page):
     print("\nStarting test_AdminSectionJobAddPayGrade transaction")
