@@ -1,3 +1,6 @@
+'''
+10/28 - 12 Tests
+'''
 from playwright.sync_api import Page, expect
 
 from conftest import shared_page
@@ -27,9 +30,63 @@ def test_LoginPage(shared_page):
     print("Verified Dashboard heading is visible on the dashboard page")
     print("Ended test_LoginPage transaction")
 
-# Cleanup Code goes here
-# Cleanup - Employee
-# Cleanup - Report
+##############################################################################################################
+# Start: CLEANUP CODE
+#
+
+def test_PIMPageReportsCleanup(shared_page):
+    print("\nStarting test_PIMPageReportsCleanup transaction")
+    pim_page = PIMPage(shared_page)
+    pim_page.click_pim_menu()
+    print("Clicked PIM menu option - will verify that we're on the Employee Information page")
+    expect(shared_page.get_by_role("heading", name="Employee Information"))
+    print("Verified that we're on the Employee Information page - will now click on the Reports tab")
+    pim_page.click_pim_reports_tab()
+    print("Clicked on the Reports tab")
+    expect(shared_page.get_by_role("heading", name="Employee Reports")).to_be_visible(timeout=10000)
+    try:
+        print("Verified Employee Reports header - will click on the trashbin associated with the report to delete")
+        pim_page.click_pim_reports_trashbin_of_tobedeleted_item("Temporary Test Report")
+        print("Clicked on the trashbin associated with the report - will click on the confirm delete button")
+        pim_page.click_pim_reports_delete_report_confirm_button()
+        expect(shared_page.get_by_text("Successfully deleted")).to_be_visible(timeout=10000)
+        print("Clicked on the confirm delete button - Verified that Successfully Deleted toast message was displayed")
+    except:
+        print("There was no test report to cleanup - proceeding with the tests")
+    print("\nEnded test_PIMPageReportsCleanup transaction")
+
+def test_PIMPageEmployeeListEmployeeCleanup(shared_page):
+    print("\nStarting test_PIMPageEmployeeListEmployeeCleanup transaction")
+    pim_page = PIMPage(shared_page)
+    pim_page.click_pim_menu()
+    print("Clicked PIM menu option")
+    expect(shared_page.get_by_role("heading", name="Employee Information"))
+    print("Verified Employee Information header")
+    try:
+        pim_page.click_pim_employee_list_employee_name_field()
+        pim_page.enter_pim_employee_list_employee_name_field_value("Temporary User")
+        employee_locator = pim_page.get_pim_employee_list_employee_option_by_name("Temporary User")
+        employee_locator.click()
+        pim_page.click_pim_employee_list_employee_search_button()
+        print("Entered Temporary User into the Employee Name field and clicked Search button")
+        expect(shared_page.get_by_text("(1) Record Found")).to_be_visible(timeout=10000)
+        print("Verified that record was found")
+        pim_page.click_pim_employee_list_delete_employee_checkbox_field()
+        print("Clicked on the checkbox associated with the record to delete")
+        pim_page.click_pim_employee_list_delete_employee_delete_selected_button()
+        print("Clicked on the delete button")
+        expect(shared_page.get_by_text("Are you Sure?")).to_be_visible(timeout=10000)
+        pim_page.click_pim_reports_delete_report_confirm_button()
+        print("Clicked on the confirm delete button")
+        expect(shared_page.get_by_text("Successfully deleted")).to_be_visible(timeout=10000)
+        print("Verified that the Successfully Deleted toast message was displayed")
+    except:
+        print("There was no test employee to cleanup - proceeding with the tests")
+    print("\nEnded test_PIMPageEmployeeListEmployeeCleanup transaction")
+
+##############################################################################################################
+# End: CLEANUP CODE
+#
 
 def test_PIMPageEmployeeListCreateEmployee(shared_page):
     print("\nStarting test_PIMPageEmployeeListCreateEmployee transaction")

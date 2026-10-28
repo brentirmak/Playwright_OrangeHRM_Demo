@@ -48,9 +48,6 @@ class PIMPage:
         self.pim_reports_search_report_report_name_field_option = page.get_by_role("option").get_by_text("Temporary Test Report")
         self.pim_reports_search_report_search_button = page.locator("xpath=//button[contains(.,'Search')]")
         self.pim_reports_search_report_test_report_icon = page.get_by_role("button").filter(has_text=re.compile(r"^$")).nth(5)
-        #self.pim_add_report_button = page.get_by_role("button", name=" Add")
-        #self.pim_to_be_deleted_report_checkbox = page.get_by_role("row", name=" Temporary Test Report   ").locator("label")
-        #self.pim_to_be_deleted_report_delete_button = page.get_by_role("button").filter(has_text=re.compile(r"^$")).nth(3)
 
         # Reports / Delete Reports
         self.delete_button = page.get_by_role("button", name=" Delete Selected")
