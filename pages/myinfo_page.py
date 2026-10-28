@@ -30,7 +30,8 @@ class MyInfoPage:
         self.personal_details_lastname_field = page.locator("//input[@name='lastName']")
         self.personal_details_employeeid_field = page.get_by_role("textbox").nth(4)
         self.personal_details_otherid_field = page.get_by_role("textbox").nth(5)
-        self.personal_details_drivers_license_field = page.locator("div:nth-child(2) > div > .oxd-input-group > div:nth-child(2) > .oxd-input")
+        #self.personal_details_drivers_license_field = page.locator("div:nth-child(2) > div > .oxd-input-group > div:nth-child(2) > .oxd-input")
+        self.personal_details_drivers_license_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[1]/form/div[2]/div[2]/div[1]/div/div[2]/input")
         self.personal_details_save_button = page.locator("(//button[contains(.,'Save')])[1]")
         
         # Contact Details

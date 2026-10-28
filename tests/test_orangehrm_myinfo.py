@@ -1,5 +1,5 @@
 # 10/24/26
-# 42 subtransactions
+# 40 subtransactions
 #
 from playwright.sync_api import Page, expect
 from conftest import shared_page
