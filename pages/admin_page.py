@@ -48,7 +48,6 @@ class AdminPage:
         self.admin_job_titles_add_job_title_save_button = page.locator("xpath=//button[contains(.,'Save')]")
         self.admin_job_titles_add_job_title_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
 
-
         # Delete Job Title identifiers
         self.admin_job_titles_delete_job_title_delete_selected_button = page.locator("xpath=//button[contains(.,'Delete Selected')]")
         self.admin_job_titles_delete_job_title_delete_confirmation_button = page.locator("xpath=//button[contains(.,'Yes, Delete')]")
@@ -82,6 +81,19 @@ class AdminPage:
         self.admin_job_employment_status_delete_status_delete_confirmation_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
         self.admin_job_employment_status_delete_status_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
 
+        # Add Job Categories identifiers
+        self.admin_job_categories_header = page.locator("xpath=//h6[contains(.,'Job Categories')]")
+        self.admin_job_categories_add_button = page.locator("xpath=//button[contains(.,'Add')]")
+        self.admin_job_categories_add_job_category_header = page.locator("xpath=//h6[contains(.,'Add Job Category')]")
+        self.admin_job_categories_add_job_category_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[2]/input")
+        self.admin_job_categories_add_job_category_save_button = page.locator("xpath=//button[contains(.,'Save')]")
+        self.admin_job_categories_add_job_category_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
+
+        # Delete Job Categories identifiers
+        self.admin_job_categories_delete_category_delete_selected_button = page.locator("xpath=//button[contains(.,'Delete Selected')]")
+        self.admin_job_categories_delete_category_delete_confirmation_button = page.locator("xpath=//button[contains(.,'Yes, Delete')]")
+        self.admin_job_categories_delete_category_delete_confirmation_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
+        self.admin_job_categories_delete_category_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
         #####################################################################################################################
         # Organization section identifiers
         #####################################################################################################################
@@ -388,6 +400,32 @@ class AdminPage:
 
     def click_admin_job_employment_status_delete_status_delete_confirmation_button(self):
         self.admin_job_employment_status_delete_status_delete_confirmation_button.click()
+
+    # Add Job Categories methods
+    def click_admin_job_categories_add_button(self):
+        self.admin_job_categories_add_button.click()
+
+    def click_admin_job_categories_add_job_category_field(self):
+        self.admin_job_categories_add_job_category_field.click()
+
+    def enter_admin_job_categories_add_job_category_field_value(self, job_category):
+        self.admin_job_categories_add_job_category_field.fill(job_category)
+
+    def click_admin_job_categories_add_job_category_save_button(self):
+        self.admin_job_categories_add_job_category_save_button.click()
+
+    # Delete Job Categories
+    def click_admin_job_categories_click_checkbox_by_category(self, job_category):
+        checkbox_locator = self.page.locator(f"//div[@class='oxd-table-card']//div[normalize-space()='{job_category}']/ancestor::div[@class='oxd-table-card']//span[contains(@class, 'oxd-checkbox-input')]")
+        checkbox_locator.click()
+
+    def click_admin_job_categories_delete_category_delete_selected_button(self):
+        self.admin_job_categories_delete_category_delete_selected_button.click()
+
+    def click_admin_job_categories_delete_category_delete_confirmation_button(self):
+        self.admin_job_categories_delete_category_delete_confirmation_button.click()
+
+
 
     #####################################################################################################################
     # Organization section methods
