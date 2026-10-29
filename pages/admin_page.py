@@ -64,7 +64,7 @@ class AdminPage:
         # Delete Pay Grades identifiers
         self.admin_job_pay_grades_delete_pay_grade_delete_selected_button = page.locator("xpath=//button[contains(.,'Delete Selected')]")
         self.admin_job_pay_grades_delete_pay_grade_delete_confirmation_button = page.locator("xpath=//button[contains(.,'Yes, Delete')]")
-        self.admin_job_pay_grades_delete_pay_grade_delete_confirmation_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
+        ###self.admin_job_pay_grades_delete_pay_grade_delete_confirmation_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
         self.admin_job_pay_grades_delete_pay_grade_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
 
         # Add Employment Status identifiers
@@ -78,7 +78,7 @@ class AdminPage:
         # Delete Employment Status identifiers
         self.admin_job_employment_status_delete_status_delete_selected_button = page.locator("xpath=//button[contains(.,'Delete Selected')]")
         self.admin_job_employment_status_delete_status_delete_confirmation_button = page.locator("xpath=//button[contains(.,'Yes, Delete')]")
-        self.admin_job_employment_status_delete_status_delete_confirmation_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
+        ####self.admin_job_employment_status_delete_status_delete_confirmation_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
         self.admin_job_employment_status_delete_status_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
 
         # Add Job Categories identifiers
@@ -92,8 +92,23 @@ class AdminPage:
         # Delete Job Categories identifiers
         self.admin_job_categories_delete_category_delete_selected_button = page.locator("xpath=//button[contains(.,'Delete Selected')]")
         self.admin_job_categories_delete_category_delete_confirmation_button = page.locator("xpath=//button[contains(.,'Yes, Delete')]")
-        self.admin_job_categories_delete_category_delete_confirmation_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
+        ####self.admin_job_categories_delete_category_delete_confirmation_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
         self.admin_job_categories_delete_category_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
+
+        # Add Work Shifts identifiers
+        self.admin_job_work_shifts_header = page.locator("xpath=//h6[contains(.,'Work Shifts')]")
+        self.admin_job_work_shifts_add_button = page.locator("xpath=//button[contains(.,'Add')]")
+        self.admin_job_work_shifts_add_work_shift_header = page.locator("xpath=//h6[contains(.,'Add Work Shift')]")
+        self.admin_job_work_shifts_add_work_shift_name_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div/div/div[2]/input")
+        self.admin_job_work_shifts_add_work_shift_save_button = page.locator("xpath=//button[contains(.,'Save')]")
+        self.admin_job_work_shifts_add_work_shift_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
+
+        # Delete Work Shifts identifiers
+        self.admin_job_work_shifts_delete_work_shift_delete_selected_button = page.locator("xpath=//button[contains(.,'Delete Selected')]")
+        self.admin_job_work_shifts_delete_work_shift_delete_confirmation_button = page.locator("xpath=//button[contains(.,'Yes, Delete')]")
+        ###self.admin_job_work_shifts_delete_work_shift_delete_confirmation_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
+        self.admin_job_work_shifts_delete_work_shift_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
+
         #####################################################################################################################
         # Organization section identifiers
         #####################################################################################################################
@@ -105,7 +120,6 @@ class AdminPage:
         #####################################################################################################################
         # Qualifications section identifiers
         #####################################################################################################################
-        #self.qualifications_submenu = page.get_by_text("Qualifications")
         self.qualifications_submenu = page.locator("xpath=//span[@class='oxd-topbar-body-nav-tab-item'][contains(.,'Qualifications')]")
         self.skills_submenu = page.get_by_role("menuitem", name="Skills")
         self.education_submenu = page.get_by_role("menuitem", name="Education")
@@ -425,6 +439,29 @@ class AdminPage:
     def click_admin_job_categories_delete_category_delete_confirmation_button(self):
         self.admin_job_categories_delete_category_delete_confirmation_button.click()
 
+    # Add Work Shift
+    def click_admin_job_work_shifts_add_button(self):
+        self.admin_job_work_shifts_add_button.click()
+
+    def click_admin_job_work_shifts_add_work_shift_name_field(self):
+        self.admin_job_work_shifts_add_work_shift_name_field.click()
+
+    def enter_admin_job_work_shifts_add_work_shift_name_field_value(self, shift_name):
+        self.admin_job_work_shifts_add_work_shift_name_field.fill(shift_name)
+
+    def click_admin_job_work_shifts_add_work_shift_save_button(self):
+        self.admin_job_work_shifts_add_work_shift_save_button.click()
+
+    # Delete Work Shift
+    def click_admin_job_work_shifts_click_checkbox_by_shift(self, work_shift):
+        checkbox_locator = self.page.locator(f"//div[@class='oxd-table-card']//div[normalize-space()='{work_shift}']/ancestor::div[@class='oxd-table-card']//span[contains(@class, 'oxd-checkbox-input')]")
+        checkbox_locator.click()
+
+    def click_admin_job_work_shifts_delete_work_shift_delete_selected_button(self):
+        self.admin_job_work_shifts_delete_work_shift_delete_selected_button.click()
+
+    def click_admin_job_work_shifts_delete_work_shift_delete_confirmation_button(self):
+        self.admin_job_work_shifts_delete_work_shift_delete_confirmation_button.click()
 
 
     #####################################################################################################################
