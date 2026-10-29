@@ -4,8 +4,9 @@ class ClaimPage:
 
     def __init__(self, page):
         self.page = page
-        self.claim_menu = page.get_by_role("link", name="Claim")
-        self.claim_employee_claims_header = page.locator("xpath=//h5[contains(.,'Employee Claims')]")
+        #self.claim_menu = page.get_by_role("link", name="Claim")
+        self.claim_menu = page.locator("xpath=//span[@class='oxd-text oxd-text--span oxd-main-menu-item--name'][contains(.,'Claim')]")
+        self.claim_employee_claims_tab = page.locator("xpath=//a[contains(.,'Employee Claims')]")
 
         # Precondition - Employee Name exists
 
@@ -19,6 +20,14 @@ class ClaimPage:
         #####################################################################################################################
         self.claim_employee_claims_search_button = page.locator("xpath=//button[contains(.,'Search')]")
         self.claim_employee_claims_employee_name_field = page.locator("xpath=(//input[@placeholder='Type for hints...'])[1]")
+        self.claim_employee_claims_reference_id_field = page.locator("xpath=(//input[@placeholder='Type for hints...'])[2]")
+        self.claim_employee_claims_record_found_header = page.locator("xpath=//span[contains(.,'(1) Record Found')]")
+        self.claim_employee_claims_view_details_button = page.locator("xpath=//button[@type='button'][contains(.,'View Details')]")
+        self.claim_employee_claims_assign_claim_header = page.locator("xpath=//h6[contains(.,'Assign Claim')]")
+        self.claim_employee_claims_assign_claim_submit_button = page.locator("xpath=//button[contains(.,'Submit')]")
+        self.claim_employee_claims_assign_claim_submit_successful_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
+        self.claim_employee_claims_assign_claim_back_button = page.locator("xpath=//button[contains(.,'Back')]")
+        self.claim_employee_claims_search_result_status_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div[2]/div[3]/div/div[2]/div/div/div[7]/div")
 
         #####################################################################################################################
         # Claim - Employee Claims - Create identifiers
@@ -50,6 +59,34 @@ class ClaimPage:
 
     def click_claim_menu(self):
         self.claim_menu.click()
+
+    def click_claim_employee_claims_tab(self):
+        self.claim_employee_claims_tab.click()
+
+    #########################################################################################################################
+    # Claim - Search Claim - Search Methods
+    #########################################################################################################################
+    def click_claim_employee_claims_reference_id_field(self):
+        self.claim_employee_claims_reference_id_field.click()
+
+    def enter_claim_employee_claims_reference_id_field_value(self, reference_id):
+        self.claim_employee_claims_reference_id_field.fill(reference_id)
+
+    def click_claim_employee_claims_search_button(self):
+        self.claim_employee_claims_search_button.click()
+
+    def click_claim_employee_claims_view_details_button(self):
+        self.claim_employee_claims_view_details_button.click()
+
+    def click_claim_employee_claims_assign_claim_submit_button(self):
+        self.claim_employee_claims_assign_claim_submit_button.click()
+
+    def click_claim_employee_claims_assign_claim_back_button(self):
+        self.claim_employee_claims_assign_claim_back_button.click()
+
+    def capture_claim_status(self):
+        status = self.claim_employee_claims_search_result_status_field.inner_text().strip()
+        return status
 
     #########################################################################################################################
     # Claim - Assign Claim - Create Methods

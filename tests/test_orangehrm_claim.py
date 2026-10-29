@@ -1,5 +1,4 @@
 from datetime import datetime, timedelta
-
 from playwright.sync_api import Page, expect
 from conftest import shared_page
 from pages.home_page import HomePage
@@ -7,6 +6,9 @@ from pages.login_page import LoginPage
 from pages.pim_page import PIMPage
 from pages.claim_page import ClaimPage
 from pages.logout_page import LogoutPage
+import time
+
+shared_data = {}
 
 def test_HomePage(shared_page):
     print("\nStarting test_HomePage transaction")
@@ -30,7 +32,7 @@ def test_LoginPage(shared_page):
     print("Ended test_LoginPage transaction")
 
 ##########################################################################################################
-# PRECONDITION - Create Employee for test
+# PRECONDITION - Start - Create Employee for test
 ##########################################################################################################
 
 def test_CreateEmployeeForClaimUseCases(shared_page):
@@ -61,6 +63,10 @@ def test_CreateEmployeeForClaimUseCases(shared_page):
         print("User was NOT created - most likely it already exists")
     print("\nEnded test_CreateEmployeeForClaimUseCases transaction")
 
+##########################################################################################################
+# PRECONDITION - End - Create Employee for test
+##########################################################################################################
+
 def test_ClaimAssignClaim(shared_page):
     print("\nStarting test_ClaimAssignClaim")
     claim_page = ClaimPage(shared_page)
@@ -90,8 +96,44 @@ def test_ClaimAssignClaim(shared_page):
     expect(claim_page.claim_assign_claim_create_claim_successful_message).to_be_visible(timeout=20000)
     print("Verified that the Claim was successfully created")
     reference_id = claim_page.capture_reference_id_from_created_claim()
+    shared_data["reference_id"] = reference_id
     print(f"The created claim has the following reference id: {reference_id}")
     print("\nEnded test_ClaimAssignClaim")
+
+def test_ClaimSubmitClaim(shared_page):
+    print("\nStarting test_ClaimSubmitClaim")
+    claim_page = ClaimPage(shared_page)
+    print("Will click on the Claim menu")
+    claim_page.click_claim_menu()
+    print("Clicked on the Claim menu - will verify that we're on the Employee Claims page")
+    expect(claim_page.claim_employee_claims_header).to_be_visible(timeout=20000)
+    print("Verified that we're on the Employee Claims page - will search for the record we just created")
+    claim_page.click_claim_employee_claims_reference_id_field()
+    claim_page.enter_claim_employee_claims_reference_id_field_value(shared_data["reference_id"])
+    print("Entered the reference id captured from the claim that was just created - will click on the Search button")
+    claim_page.click_claim_employee_claims_search_button()
+    print("Clicked on the Search button - will verify that 1 record was found")
+    expect(claim_page.claim_employee_claims_record_found_header).to_be_visible(timeout=20000)
+    print("Record found header was displayed - will click on the view Details button")
+    claim_page.click_claim_employee_claims_view_details_button()
+    print("Clicked on the View Details button - will verify that we're on the Assign Claim page")
+    expect(claim_page.claim_employee_claims_assign_claim_header).to_be_visible(timeout=20000)
+    print("Confirmed that we're on the Assign Claim page - will now click on the Submit button")
+    claim_page.click_claim_employee_claims_assign_claim_submit_button()
+    print("Clicked on the Submit button - will verify that the Claim was successfully saved")
+    expect(claim_page.claim_employee_claims_assign_claim_submit_successful_message).to_be_visible(timeout=20000)
+    print("Claim was saved message was displayed - will click on the Back button")
+    claim_page.click_claim_employee_claims_assign_claim_back_button()
+    print("Clicked on the Back button - will verify that the Status is set to Paid")
+    claim_page.click_claim_employee_claims_reference_id_field()
+    claim_page.enter_claim_employee_claims_reference_id_field_value(shared_data["reference_id"])
+    print("Entered the reference id captured from the claim that was just created - will click on the Search button")
+    claim_page.click_claim_employee_claims_search_button()
+    print("Clicked on the Search button - will verify that 1 record was found")
+    expect(claim_page.claim_employee_claims_record_found_header).to_be_visible(timeout=20000)
+    status = claim_page.capture_claim_status()
+    assert status == "Paid", f"Expected status Paid but got {status}"
+    print("\nEnded test_ClaimSubmitClaim")
 
 def test_DeleteEmployeeForClaimUseCases(shared_page):
     print("\nStarting test_DeleteEmployeeForClaimUseCases transaction")
@@ -118,7 +160,7 @@ def test_DeleteEmployeeForClaimUseCases(shared_page):
     expect(shared_page.get_by_text("Successfully deleted")).to_be_visible(timeout=10000)
     print("Verified that the Successfully Deleted toast message was displayed")
     print("\nEnded test_DeleteEmployeeForClaimUseCases transaction")
-    
+
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")
     logout_page = LogoutPage(shared_page)
