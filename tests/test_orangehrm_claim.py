@@ -63,6 +63,38 @@ def test_CreateEmployeeForClaimUseCases(shared_page):
         print("User was NOT created - most likely it already exists")
     print("\nEnded test_CreateEmployeeForClaimUseCases transaction")
 
+def test_ClaimConfigurationEventsEventCleanup(shared_page):
+    print("\nStarting test_ClaimConfigurationEventsEventCleanup")
+    claim_page = ClaimPage(shared_page)
+    print("Will click on the Claim menu")
+    claim_page.click_claim_menu()
+    print("Clicked on the Claim menu - will verify that we're on the Employee Claims page")
+    expect(claim_page.claim_employee_claims_header).to_be_visible(timeout=20000)
+    print("Verified that we're on the Employee Claims page - will now click on the Configuration tab")
+    claim_page.click_claim_configuration_tab()
+    print("Clicked on the Configuration tab - will click on the Events option")
+    claim_page.click_claim_confirguration_events_tab()
+    print("Clicked on the Events tab - will confirm that we're on the Events page")
+    expect(claim_page.claim_configuration_events_header).to_be_visible(timeout=20000)
+    print("Confirmed that we're on the Events page - will search for the record to be deleted")
+    claim_page.click_claim_configuration_search_event_event_name_field()
+    claim_page.enter_claim_configuration_search_event_event_name_field_value("Misc Convention")
+    print("Entered the Event name - will now click on the Search button")
+    claim_page.click_claim_configuration_search_event_search_button()
+    print("Clicked on the Search button - will confirm there's a record returned")
+    try:
+        expect(claim_page.claim_configuration_search_event_record_found).to_be_visible(timeout=20000)
+        print("Confirmed that a record was found - will proceed with the deletion")
+        claim_page.click_claim_configuration_search_event_trash_icon()
+        print("Clicked on the trash icon - will now click on the Delete on the confirmation window")
+        claim_page.click_claim_configuration_search_event_delete_confirmation_button()
+        print("Clicked on the Delete button - will confirm that the deletion was successful")
+        expect(claim_page.claim_configuration_delete_event_successful_message).to_be_visible(timeout=20000)
+        print("Deletion was successul message was displayed")
+    except:
+        print("There was no record to delete - proceeding with the script execution")
+    print("\nEnded test_ClaimConfigurationEventsEventCleanup")
+
 ##########################################################################################################
 # PRECONDITION - End - Create Employee for test
 ##########################################################################################################
