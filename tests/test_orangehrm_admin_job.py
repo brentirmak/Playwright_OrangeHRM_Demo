@@ -1,5 +1,5 @@
 '''
-(10/28) - 21 Tests
+(10/28) - 24 Tests
 '''
 import re
 from playwright.sync_api import Page, expect
@@ -30,10 +30,9 @@ def test_LoginPage(shared_page):
     print("Verified Dashboard heading is visible on the dashboard page")
     print("Ended test_LoginPage transaction")
 
-
 #######################################################################################################
-# CLEANUP
-#
+# CLEANUP - START
+#######################################################################################################
 
 def test_AdminSectionJobTitlesCleanup(shared_page):
     print("\nStarting test_AdminSectionJobTitlesCleanup transaction")
@@ -134,9 +133,32 @@ def test_AdminSectionJobCategoriesCleanup(shared_page):
         print("There was no record to delete/cleanup - will proceed with remaining tests execution")
     print("Ended test_AdminSectionJobCategoriesCleanup transaction")
 
+def test_AdminSectionJobWorkShiftCleanup(shared_page):
+    print("\nStarting test_AdminSectionJobWorkShiftCleanup transaction")
+    admin_page = AdminPage(shared_page)
+    print("Will click on Job submenu under Admin menu")
+    admin_page.click_job_submenu()
+    print("Clicked on Job submenu under Admin menu")
+    print("Will click on Work Shifts submenu under Job submenu")
+    admin_page.click_work_shifts_submenu()
+    print("Clicked on Work Shifts submenu under Job submenu")
+    expect(shared_page.get_by_role("columnheader", name="Hours Per Day")).to_be_visible(timeout=10000)
+    try:
+        print("Verified that we're on the Work Shifts page - will click on the checkbox of the to be deleted item")
+        admin_page.click_admin_job_work_shifts_click_checkbox_by_shift("Default Shift")
+        print("Clicked on the checkbox for the to be deleted item - will click on the Delete Selected button")
+        admin_page.click_admin_job_work_shifts_delete_work_shift_delete_selected_button()
+        print("Clicked on the Deleted Selected button - will click on the Delete Confirmation button")
+        admin_page.click_admin_job_work_shifts_delete_work_shift_delete_confirmation_button()
+        expect(admin_page.admin_job_work_shifts_delete_work_shift_successfully_deleted_message).to_be_visible(timeout=20000)
+        print("Verified that the record has been successfully deleted")
+    except:
+        print("There was no record to delete/cleanup - will proceed with remaining tests execution")
+    print("Ended test_AdminSectionJobWorkShiftCleanup transaction")
+
 #######################################################################################################
-#
-#
+# CLEANUP - END
+#######################################################################################################
 
 def test_AccessAdminSection(shared_page):
     print("\nStarting test_AccessAdminSection transaction")

@@ -64,7 +64,6 @@ class AdminPage:
         # Delete Pay Grades identifiers
         self.admin_job_pay_grades_delete_pay_grade_delete_selected_button = page.locator("xpath=//button[contains(.,'Delete Selected')]")
         self.admin_job_pay_grades_delete_pay_grade_delete_confirmation_button = page.locator("xpath=//button[contains(.,'Yes, Delete')]")
-        ###self.admin_job_pay_grades_delete_pay_grade_delete_confirmation_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
         self.admin_job_pay_grades_delete_pay_grade_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
 
         # Add Employment Status identifiers
@@ -78,7 +77,6 @@ class AdminPage:
         # Delete Employment Status identifiers
         self.admin_job_employment_status_delete_status_delete_selected_button = page.locator("xpath=//button[contains(.,'Delete Selected')]")
         self.admin_job_employment_status_delete_status_delete_confirmation_button = page.locator("xpath=//button[contains(.,'Yes, Delete')]")
-        ####self.admin_job_employment_status_delete_status_delete_confirmation_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
         self.admin_job_employment_status_delete_status_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
 
         # Add Job Categories identifiers
@@ -92,7 +90,6 @@ class AdminPage:
         # Delete Job Categories identifiers
         self.admin_job_categories_delete_category_delete_selected_button = page.locator("xpath=//button[contains(.,'Delete Selected')]")
         self.admin_job_categories_delete_category_delete_confirmation_button = page.locator("xpath=//button[contains(.,'Yes, Delete')]")
-        ####self.admin_job_categories_delete_category_delete_confirmation_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
         self.admin_job_categories_delete_category_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
 
         # Add Work Shifts identifiers
@@ -106,7 +103,6 @@ class AdminPage:
         # Delete Work Shifts identifiers
         self.admin_job_work_shifts_delete_work_shift_delete_selected_button = page.locator("xpath=//button[contains(.,'Delete Selected')]")
         self.admin_job_work_shifts_delete_work_shift_delete_confirmation_button = page.locator("xpath=//button[contains(.,'Yes, Delete')]")
-        ###self.admin_job_work_shifts_delete_work_shift_delete_confirmation_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
         self.admin_job_work_shifts_delete_work_shift_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
 
         #####################################################################################################################
@@ -462,7 +458,6 @@ class AdminPage:
 
     def click_admin_job_work_shifts_delete_work_shift_delete_confirmation_button(self):
         self.admin_job_work_shifts_delete_work_shift_delete_confirmation_button.click()
-
 
     #####################################################################################################################
     # Organization section methods
