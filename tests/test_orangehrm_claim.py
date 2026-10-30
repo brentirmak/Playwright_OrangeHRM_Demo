@@ -98,6 +98,7 @@ def test_ClaimConfigurationEventsEventCleanup(shared_page):
 ##########################################################################################################
 # PRECONDITION - End - Create Employee for test
 ##########################################################################################################
+
 def test_ClaimConfigurationEventsAddEvent(shared_page):
     print("\nStarting test_ClaimConfigurationEventsAddEvent")
     claim_page = ClaimPage(shared_page)
@@ -126,6 +127,36 @@ def test_ClaimConfigurationEventsAddEvent(shared_page):
     print("Clicked on the Save button - will confirm that the save was successful")
     expect(claim_page.claim_configuration_add_event_successful_message).to_be_visible(timeout=20000)
     print("\nEnded test_ClaimConfigurationEventsAddEvent")
+
+def test_ClaimConfigurationEventsAddExpenseType(shared_page):
+    print("\nStarting test_ClaimConfigurationEventsAddExpenseType")
+    claim_page = ClaimPage(shared_page)
+    print("Will click on the Claim menu")
+    claim_page.click_claim_menu()
+    print("Clicked on the Claim menu - will verify that we're on the Employee Claims page")
+    expect(claim_page.claim_employee_claims_header).to_be_visible(timeout=20000)
+    print("Verified that we're on the Employee Claims page - will now click on the Configuration tab")
+    claim_page.click_claim_configuration_tab()
+    print("Clicked on the Configuration tab - will click on the Expense Types option")
+    claim_page.click_claim_confirguration_expense_types_tab()
+    print("Clicked on the Expense Types tab - will confirm that we're on the Expense Types page")
+    expect(claim_page.claim_configuration_expense_types_header).to_be_visible(timeout=20000)
+    print("Confirmed that we're on the Expense Types page - will now click on the Add button")
+    claim_page.click_claim_configuration_expense_types_add_button()
+    print("Clicked on the Add button - will confirm that we're on the Add Expense Type header")
+    expect(claim_page.claim_configuration_expense_types_add_expense_type_header).to_be_visible(timeout=20000)
+    print("Verified that we're on the Add Expense Type page - will now enter the Name")
+    claim_page.click_claim_configuration_expense_types_add_expense_type_name_field()
+    claim_page.enter_claim_configuration_expense_types_add_expense_type_name_field_value("Team Building")
+    print("Entered the Expense Name - will now enter the Expense Description")
+    claim_page.click_claim_configuration_expense_types_add_expense_type_description_field()
+    claim_page.enter_claim_configuration_expense_types_add_expense_type_description_field_value("This is a test expense")
+    print("Entered the Expense Description - will click on the Save button")
+    claim_page.click_claim_configuration_expense_types_save_button()
+    print("Clicked on the Save button - will now click verify that we successfully created the Expense Type")
+    expect(claim_page.claim_configuration_expense_types_add_expense_type_successful_message).to_be_visible(timeout=30000)
+    print("Verified that the Expense Type was sucessfully created message was displayed")
+    print("\nEnded test_ClaimConfigurationEventsAddExpenseType")
 
 def test_ClaimAssignClaim(shared_page):
     print("\nStarting test_ClaimAssignClaim")
@@ -173,7 +204,7 @@ def test_ClaimSubmitClaim(shared_page):
     print("Entered the reference id captured from the claim that was just created - will click on the Search button")
     claim_page.click_claim_employee_claims_search_button()
     print("Clicked on the Search button - will verify that 1 record was found")
-    expect(claim_page.claim_employee_claims_record_found_header).to_be_visible(timeout=20000)
+    expect(claim_page.claim_employee_claims_record_found_header).to_be_visible(timeout=30000)
     print("Record found header was displayed - will click on the view Details button")
     claim_page.click_claim_employee_claims_view_details_button()
     print("Clicked on the View Details button - will verify that we're on the Assign Claim page")
@@ -194,6 +225,30 @@ def test_ClaimSubmitClaim(shared_page):
     status = claim_page.capture_claim_status()
     assert status == "Paid", f"Expected status Paid but got {status}"
     print("\nEnded test_ClaimSubmitClaim")
+
+def test_ClaimConfigurationEventsDeleteExpenseType(shared_page):
+    print("\nStarting test_ClaimConfigurationEventsDeleteExpenseType")
+    claim_page = ClaimPage(shared_page)
+    print("Will click on the Claim menu")
+    claim_page.click_claim_menu()
+    print("Clicked on the Claim menu - will verify that we're on the Employee Claims page")
+    expect(claim_page.claim_employee_claims_header).to_be_visible(timeout=20000)
+    print("Verified that we're on the Employee Claims page - will now click on the Configuration tab")
+    claim_page.click_claim_configuration_tab()
+    print("Clicked on the Configuration tab - will click on the Expense Types option")
+    claim_page.click_claim_confirguration_expense_types_tab()
+    print("Clicked on the Expense Types tab - will confirm that we're on the Expense Types page")
+    expect(claim_page.claim_configuration_expense_types_header).to_be_visible(timeout=20000)
+    print("Confirmed that we're on the Expense Types page - will now search for the Expense Type that was created")
+    claim_page.click_claim_configuration_search_expense_type_expense_type_name_field()
+    claim_page.enter_claim_configuration_search_expense_type_expense_type_name_field_value("Team Building")
+    claim_page.click_claim_configuration_search_expense_type_search_button()
+    expect(claim_page.claim_configuration_search_expense_type_record_found).to_be_visible(timeout=20000)
+    claim_page.click_claim_configuration_search_expense_type_trash_icon()
+    expect(claim_page.claim_configuration_search_expense_type_delete_confirmation_button).to_be_visible(timeout=20000)
+    claim_page.click_claim_configuration_search_expense_type_delete_confirmation_button()
+    expect(claim_page.claim_configuration_delete_expense_type_successful_message).to_be_visible(timeout=20000)
+    print("\nEnded test_ClaimConfigurationEventsDeleteExpenseType")
 
 def test_ClaimConfigurationEventsDeleteEvent(shared_page):
     print("\nStarting test_ClaimConfigurationEventsDeleteEvent")

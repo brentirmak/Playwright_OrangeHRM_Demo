@@ -79,7 +79,30 @@ class ClaimPage:
         self.claim_configuration_search_event_trash_icon = page.locator("xpath=//i[@class='oxd-icon bi-trash']")
         self.claim_configuration_search_event_delete_confirmation_button = page.locator("xpath=//button[contains(.,'Yes, Delete')]")
         self.claim_configuration_delete_event_successful_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
-    
+
+        #####################################################################################################################
+        # Configuration - Create/Add Expense Types identifiers
+        #####################################################################################################################
+        self.claim_configuration_expense_types_header = page.locator("xpath=//h5[contains(.,'Expense Types')]")
+        self.claim_configuration_expense_types_name_field = page.locator("xpath=//input[@placeholder='Type for hints...']")
+        self.claim_configuration_expense_types_add_button = page.locator("xpath=//button[contains(.,'Add')]")
+        self.claim_configuration_expense_types_add_expense_type_header = page.locator("xpath=//h6[contains(.,'Add Expense Type')]")
+        self.claim_configuration_expense_types_add_expense_type_name_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div[1]/div/div[2]/input")
+        self.claim_configuration_expense_types_add_expense_type_description_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div[2]/div/div[2]/textarea")
+        self.claim_configuration_expense_types_save_button = page.locator("//button[contains(.,'Save')]")
+        self.claim_configuration_expense_types_add_expense_type_successful_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
+
+        #####################################################################################################################
+        # Configuration - Search/Delete Expense Types identifiers
+        #####################################################################################################################
+        self.claim_configuration_search_expense_type_expense_type_name_field = page.locator("xpath=//input[@placeholder='Type for hints...']")
+        #self.claim_configuration_search_expense_type_description_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div[2]/div/div[2]/textarea")
+        self.claim_configuration_search_expense_type_search_button = page.locator("xpath=//button[contains(.,'Search')]")       
+        self.claim_configuration_search_expense_type_record_found = page.locator("xpath=//span[contains(.,'(1) Record Found')]")     
+        self.claim_configuration_search_expense_type_trash_icon = page.locator("xpath=//i[@class='oxd-icon bi-trash']")           
+        self.claim_configuration_search_expense_type_delete_confirmation_button = page.locator("xpath=//button[contains(.,'Yes, Delete')]")       
+        self.claim_configuration_delete_expense_type_successful_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")                                                                              
+
     def click_claim_menu(self):
         self.claim_menu.click()
 
@@ -94,6 +117,47 @@ class ClaimPage:
 
     def click_claim_confirguration_expense_types_tab(self):
         self.claim_confirguration_expense_types_tab.click()
+
+    #########################################################################################################################
+    # Claim - Configuration - Add Expense Type Methods
+    #########################################################################################################################
+
+    def click_claim_configuration_expense_types_add_button(self):
+        self.claim_configuration_expense_types_add_button.click()
+
+    def click_claim_configuration_expense_types_add_expense_type_name_field(self):
+        self.claim_configuration_expense_types_add_expense_type_name_field.click()
+
+    def enter_claim_configuration_expense_types_add_expense_type_name_field_value(self,expense_type_name):
+        self.claim_configuration_expense_types_add_expense_type_name_field.fill(expense_type_name)
+
+    def click_claim_configuration_expense_types_add_expense_type_description_field(self):
+        self.claim_configuration_expense_types_add_expense_type_description_field.click()
+
+    def enter_claim_configuration_expense_types_add_expense_type_description_field_value(self, expense_type_description):
+        self.claim_configuration_expense_types_add_expense_type_description_field.fill(expense_type_description)
+
+    def click_claim_configuration_expense_types_save_button(self):
+        self.claim_configuration_expense_types_save_button.click()
+
+    #########################################################################################################################
+    # Claim - Configuration - Delete Expense Type Methods
+    #########################################################################################################################
+
+    def click_claim_configuration_search_expense_type_expense_type_name_field(self):
+        self.claim_configuration_search_expense_type_expense_type_name_field.click()
+
+    def enter_claim_configuration_search_expense_type_expense_type_name_field_value(self, event_name):
+        self.claim_configuration_search_expense_type_expense_type_name_field.fill(event_name)
+
+    def click_claim_configuration_search_expense_type_search_button(self):
+        self.claim_configuration_search_expense_type_search_button.click()
+
+    def click_claim_configuration_search_expense_type_trash_icon(self):
+        self.claim_configuration_search_expense_type_trash_icon.click()
+
+    def click_claim_configuration_search_expense_type_delete_confirmation_button(self):
+        self.claim_configuration_search_expense_type_delete_confirmation_button.click()
 
     #########################################################################################################################
     # Claim - Configuration Events - Add Event Methods
