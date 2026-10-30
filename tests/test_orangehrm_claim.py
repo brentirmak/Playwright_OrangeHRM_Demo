@@ -95,6 +95,39 @@ def test_ClaimConfigurationEventsEventCleanup(shared_page):
         print("There was no record to delete - proceeding with the script execution")
     print("\nEnded test_ClaimConfigurationEventsEventCleanup")
 
+def test_ClaimConfigurationEventsExpenseTypeCleanup(shared_page):
+    print("\nStarting test_ClaimConfigurationEventsExpenseTypeCleanup")
+    claim_page = ClaimPage(shared_page)
+    print("Will click on the Claim menu")
+    claim_page.click_claim_menu()
+    print("Clicked on the Claim menu - will verify that we're on the Employee Claims page")
+    expect(claim_page.claim_employee_claims_header).to_be_visible(timeout=20000)
+    print("Verified that we're on the Employee Claims page - will now click on the Configuration tab")
+    claim_page.click_claim_configuration_tab()
+    print("Clicked on the Configuration tab - will click on the Expense Types option")
+    claim_page.click_claim_confirguration_expense_types_tab()
+    print("Clicked on the Expense Types tab - will confirm that we're on the Expense Types page")
+    try:
+        expect(claim_page.claim_configuration_expense_types_header).to_be_visible(timeout=20000)
+        print("Confirmed that we're on the Expense Types page - will now search for the Expense Type that was created")
+        claim_page.click_claim_configuration_search_expense_type_expense_type_name_field()
+        claim_page.enter_claim_configuration_search_expense_type_expense_type_name_field_value("Team Building")
+        print("Entered the Expense type - will now click on the Search button")
+        claim_page.click_claim_configuration_search_expense_type_search_button()
+        print("Clicked on the Search button - will verify that there's a search result")
+        expect(claim_page.claim_configuration_search_expense_type_record_found).to_be_visible(timeout=20000)
+        print("A search result was returned - will proceed with the deletion")
+        claim_page.click_claim_configuration_search_expense_type_trash_icon()
+        print("Clicked on the Trash icon - will click on the Delete confirmation button")
+        expect(claim_page.claim_configuration_search_expense_type_delete_confirmation_button).to_be_visible(timeout=20000)
+        claim_page.click_claim_configuration_search_expense_type_delete_confirmation_button()
+        print("Clicked on the Delete confirmation button - will confirm that the deletion was successful")
+        expect(claim_page.claim_configuration_delete_expense_type_successful_message).to_be_visible(timeout=20000)
+        print("The deletion was successful message was returned")
+    except:
+        print("There was no record to delete - proceeding with the script execution")
+    print("\nEnded test_ClaimConfigurationEventsExpenseTypeCleanup")
+
 ##########################################################################################################
 # PRECONDITION - End - Create Employee for test
 ##########################################################################################################
@@ -242,12 +275,18 @@ def test_ClaimConfigurationEventsDeleteExpenseType(shared_page):
     print("Confirmed that we're on the Expense Types page - will now search for the Expense Type that was created")
     claim_page.click_claim_configuration_search_expense_type_expense_type_name_field()
     claim_page.enter_claim_configuration_search_expense_type_expense_type_name_field_value("Team Building")
+    print("Entered the Expense type - will now click on the Search button")
     claim_page.click_claim_configuration_search_expense_type_search_button()
+    print("Clicked on the Search button - will verify that there's a search result")
     expect(claim_page.claim_configuration_search_expense_type_record_found).to_be_visible(timeout=20000)
+    print("A search result was returned - will proceed with the deletion")
     claim_page.click_claim_configuration_search_expense_type_trash_icon()
+    print("Clicked on the Trash icon - will click on the Delete confirmation button")
     expect(claim_page.claim_configuration_search_expense_type_delete_confirmation_button).to_be_visible(timeout=20000)
     claim_page.click_claim_configuration_search_expense_type_delete_confirmation_button()
+    print("Clicked on the Delete confirmation button - will confirm that the deletion was successful")
     expect(claim_page.claim_configuration_delete_expense_type_successful_message).to_be_visible(timeout=20000)
+    print("The deletion was successful message was returned")
     print("\nEnded test_ClaimConfigurationEventsDeleteExpenseType")
 
 def test_ClaimConfigurationEventsDeleteEvent(shared_page):
