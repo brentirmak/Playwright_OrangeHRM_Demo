@@ -41,6 +41,45 @@ def test_AccessPerformanceSection(shared_page):
     print("Verified that the Employee Reviews header was displayed")
     print("\nEnded test_AccessPerformanceSection transaction")
 
+################################################################################################################################
+# CLEANUP 
+################################################################################################################################
+
+def test_PerformanceConfigureKPIsCleanupKPI(shared_page):
+    print("\nStarting test_PerformanceConfigureKPIsCleanupKPI transaction")
+    performance_page = PerformancePage(shared_page)
+    print("Will access the Performance section/page")
+    performance_page.click_performance_menu()
+    print("Clicked on the Performance menu item - will verify that we're on the Employee Reviews (default) page")
+    expect(performance_page.performance_manage_reviews_employee_reviews_header).to_be_visible(timeout=20000)
+    print("Verified that we're on the Employee Reviews page - will click on the Configure submenu under Performance section/page")
+    performance_page.click_performance_configure_submenu()
+    print("Clicked on the Configure submenu item")
+    print("Will click on the KPIs submenu under Configure submenu")
+    performance_page.click_performance_configure_kpis_submenu()
+    print("Clicked on the KPIs submenu item")
+    expect(shared_page.get_by_role("heading", name="Key Performance Indicators")).to_be_visible(timeout=20000)
+    print("Verified that we're on the KPI page - will select the Job Title to be searched")
+    performance_page.click_performance_configure_kpis_job_title_dropdown()
+    performance_page.click_performance_configure_kpis_job_title_software_engineer_option()
+    print("Selected the Software Engineer option - will now click on the Search button")
+    performance_page.click_performance_configure_kpis_job_title_search_button()
+    print("Clicked on the Search button - will confirm that there's a result returned")
+    try:
+        expect(performance_page.performance_configure_kpis_job_title_record_found_header).to_be_visible(timeout=20000)
+        print("Verified that a result was returned - will proceed with the deletion")
+        performance_page.click_kpi_trashbin_of_tobedeleted_item("Teamwork_Test")
+        print("Clicked on the trashbin of the to be deleted item - will click on the Confirm button")
+        performance_page.click_kpi_delete_kpi_confirm_button()
+        print("Clicked on the Confirm button on the confirmation window - will verify that a deletion was successful message is returned")
+        expect(performance_page.performance_configure_kpis_delete_kpi_successfully_deleted_message).to_be_visible(timeout=20000)
+        print("Deletion was successful message was displayed")
+    except:
+        print("There was no record to delete and/or there was a problem with the deletion")
+    print("\nEnded test_PerformanceConfigureKPIsCleanupKPI transaction")
+
+################################################################################################################################
+
 def test_AccessPerformanceConfigureKPIsSubmenu(shared_page):
     print("\nStarting test_AccessPerformanceConfigureKPIsSubmenu transaction")
     performance_page = PerformancePage(shared_page)
@@ -231,10 +270,17 @@ def test_PerformanceConfigureKPIsDeleteKPI(shared_page):
     print("Verified that we're on the KPI page - will select the Job Title to be searched")
     performance_page.click_performance_configure_kpis_job_title_dropdown()
     performance_page.click_performance_configure_kpis_job_title_software_engineer_option()
+    print("Selected the Software Engineer option - will now click on the Search button")
     performance_page.click_performance_configure_kpis_job_title_search_button()
+    print("Clicked on the Search button - will confirm that there's a result returned")
+    expect(performance_page.performance_configure_kpis_job_title_record_found_header).to_be_visible(timeout=20000)
+    print("Verified that a result was returned - will proceed with the deletion")
     performance_page.click_kpi_trashbin_of_tobedeleted_item("Teamwork_Test")
+    print("Clicked on the trashbin of the to be deleted item - will click on the Confirm button")
     performance_page.click_kpi_delete_kpi_confirm_button()
+    print("Clicked on the Confirm button on the confirmation window - will verify that a deletion was successful message is returned")
     expect(performance_page.performance_configure_kpis_delete_kpi_successfully_deleted_message).to_be_visible(timeout=20000)
+    print("Deletion was successful message was displayed")
     print("\nEnded test_PerformanceConfigureKPIsDeleteKPI transaction")
 
 def test_Logout(shared_page):

@@ -27,6 +27,7 @@ class PerformancePage:
         self.performance_configure_kpis_job_title_dropdown = page.get_by_text("-- Select --")
         self.performance_configure_kpis_job_title_software_engineer_option = page.get_by_role("listbox").get_by_text("Software Engineer")
         self.performance_configure_kpis_job_title_search_button = page.get_by_role("button", name="Search")
+        self.performance_configure_kpis_job_title_record_found_header = page.locator("xpath=//span[contains(.,'(1) Record Found')]")
         
         # Add identifiers
         self.performance_configure_kpis_add_button = page.locator("xpath=//button[contains(.,'Add')]")
