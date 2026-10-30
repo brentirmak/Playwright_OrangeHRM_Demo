@@ -23,9 +23,19 @@ class PerformancePage:
         ########################################################################################################################################
         # Performance - Configure KPI section/page
         ########################################################################################################################################
+        # Search
         self.performance_configure_kpis_job_title_dropdown = page.get_by_text("-- Select --")
         self.performance_configure_kpis_job_title_qa_lead_option = page.get_by_role("listbox").get_by_text("QA Lead")
         self.performance_configure_kpis_job_title_search_button = page.get_by_role("button", name="Search")
+        
+        # Add
+        self.performance_configure_kpis_add_button = page.locator("xpath=//button[contains(.,'Add')]")
+        self.performance_configure_kpis_add_kpi_header = page.locator("xpath=//p[contains(.,'Add Key Performance Indicator')]")
+        self.performance_configure_kpis_add_kpi_name_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[1]/div/div[2]/input")
+        self.performance_configure_kpis_add_kpi_job_title_dropdown = page.locator("xpath=//i[contains(@class,'oxd-icon bi-caret-down-fill oxd-select-text--arrow')]")
+        self.performance_configure_kpis_add_kpi_job_title_software_engineer_option = page.locator("xpath=//span[contains(.,'Software Engineer')]")
+        self.performance_configure_kpis_add_kpi_job_title_save_button = page.locator("xpath=//button[contains(.,'Save')]")
+        self.performance_configure_kpis_add_kpi_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
 
         ########################################################################################################################################
         # Performance - Configure Trackers section/page
@@ -78,6 +88,7 @@ class PerformancePage:
     ########################################################################################################################################
     # Performance - Configure KPI section/page Methods
     ########################################################################################################################################
+    # Search
     def click_performance_configure_kpis_job_title_dropdown(self):
         self.performance_configure_kpis_job_title_dropdown.click()
 
@@ -86,6 +97,25 @@ class PerformancePage:
 
     def click_performance_configure_kpis_job_title_search_button(self):
         self.performance_configure_kpis_job_title_search_button.click()
+
+    # Add
+    def click_performance_configure_kpis_add_button(self):
+        self.performance_configure_kpis_add_button.click()
+
+    def click_performance_configure_kpis_add_kpi_name_field(self):
+        self.performance_configure_kpis_add_kpi_name_field.click()
+
+    def enter_performance_configure_kpis_add_kpi_name_field_value(self, kpi_name):
+        self.performance_configure_kpis_add_kpi_name_field.fill(kpi_name)
+
+    def click_performance_configure_kpis_add_kpi_job_title_dropdown(self):
+        self.performance_configure_kpis_add_kpi_job_title_dropdown.click()
+
+    def select_performance_configure_kpis_add_kpi_job_title_value(self):
+        self.performance_configure_kpis_add_kpi_job_title_software_engineer_option.click()
+
+    def click_performance_configure_kpis_add_kpi_job_title_save_button(self):
+        self.performance_configure_kpis_add_kpi_job_title_save_button.click()
 
 
 
