@@ -89,7 +89,6 @@ def test_PerformanceConfigureKPIsCreateKPI(shared_page):
     print("Verified that the new KPI was added")
     print("\nEnded test_PerformanceConfigureKPIsCreateKPI transaction")
 
-'''
 def test_KPISearchByJobTitle(shared_page):
     print("\nStarting test_KPISearchByJobTitle transaction")
     performance_page = PerformancePage(shared_page)
@@ -106,18 +105,18 @@ def test_KPISearchByJobTitle(shared_page):
     print("Will click on the Job Title dropdown")
     performance_page.click_performance_configure_kpis_job_title_dropdown()
     print("Clicked on the Job Title dropdown")
-    print("Will select QA Lead option from the Job Title dropdown")
-    performance_page.click_performance_configure_kpis_job_title_qa_lead_option()
+    print("Will select Software Engineer option from the Job Title dropdown")
+    performance_page.click_performance_configure_kpis_job_title_software_engineer_option()
     print("Selected QA Lead option from the Job Title dropdown")
     print("Will click on the Search button")
     performance_page.click_performance_configure_kpis_job_title_search_button()
     print("Clicked on the Search button")
     expect(shared_page.locator("span", has_text=re.compile(r"Records? Found"))).to_be_visible(timeout=10000)
-    print("Verified that Record(s) Found was displayed after searching by Job Title QA Lead")
-    expect(shared_page.get_by_text("QA Lead").nth(1)).to_be_visible(timeout=10000)
+    print("Verified that Record(s) Found was displayed after searching by Job Title Software Engineer")
+    expect(shared_page.get_by_text("Software Engineer").nth(1)).to_be_visible(timeout=10000)
     print("Verified that QA Lead was displayed after searching by Job Title QA Lead")
     print("\nEnded test_KPISearchByJobTitle transaction")
-'''
+
 def test_AccessPerformanceTrackersSubmenu(shared_page):
     print("\nStarting test_AccessPerformanceTrackersSubmenu transaction")
     performance_page = PerformancePage(shared_page)
@@ -214,6 +213,29 @@ def test_AccessPerformanceEmployeeTrackersSubmenu(shared_page):
     expect(shared_page.get_by_role("heading", name="Employee Performance Trackers")).to_be_visible(timeout=10000)
     print("Verified that the Employee Trackers header was displayed")
     print("\nEnded test_AccessPerformanceEmployeeTrackersSubmenu transaction")
+
+def test_PerformanceConfigureKPIsDeleteKPI(shared_page):
+    print("\nStarting test_PerformanceConfigureKPIsDeleteKPI transaction")
+    performance_page = PerformancePage(shared_page)
+    print("Will access the Performance section/page")
+    performance_page.click_performance_menu()
+    print("Clicked on the Performance menu item - will verify that we're on the Employee Reviews (default) page")
+    expect(performance_page.performance_manage_reviews_employee_reviews_header).to_be_visible(timeout=20000)
+    print("Verified that we're on the Employee Reviews page - will click on the Configure submenu under Performance section/page")
+    performance_page.click_performance_configure_submenu()
+    print("Clicked on the Configure submenu item")
+    print("Will click on the KPIs submenu under Configure submenu")
+    performance_page.click_performance_configure_kpis_submenu()
+    print("Clicked on the KPIs submenu item")
+    expect(shared_page.get_by_role("heading", name="Key Performance Indicators")).to_be_visible(timeout=20000)
+    print("Verified that we're on the KPI page - will select the Job Title to be searched")
+    performance_page.click_performance_configure_kpis_job_title_dropdown()
+    performance_page.click_performance_configure_kpis_job_title_software_engineer_option()
+    performance_page.click_performance_configure_kpis_job_title_search_button()
+    performance_page.click_kpi_trashbin_of_tobedeleted_item("Teamwork_Test")
+    performance_page.click_kpi_delete_kpi_confirm_button()
+    expect(performance_page.performance_configure_kpis_delete_kpi_successfully_deleted_message).to_be_visible(timeout=20000)
+    print("\nEnded test_PerformanceConfigureKPIsDeleteKPI transaction")
 
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")

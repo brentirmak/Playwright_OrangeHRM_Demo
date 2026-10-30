@@ -23,12 +23,12 @@ class PerformancePage:
         ########################################################################################################################################
         # Performance - Configure KPI section/page
         ########################################################################################################################################
-        # Search
+        # Search identifiers
         self.performance_configure_kpis_job_title_dropdown = page.get_by_text("-- Select --")
-        self.performance_configure_kpis_job_title_qa_lead_option = page.get_by_role("listbox").get_by_text("QA Lead")
+        self.performance_configure_kpis_job_title_software_engineer_option = page.get_by_role("listbox").get_by_text("Software Engineer")
         self.performance_configure_kpis_job_title_search_button = page.get_by_role("button", name="Search")
         
-        # Add
+        # Add identifiers
         self.performance_configure_kpis_add_button = page.locator("xpath=//button[contains(.,'Add')]")
         self.performance_configure_kpis_add_kpi_header = page.locator("xpath=//p[contains(.,'Add Key Performance Indicator')]")
         self.performance_configure_kpis_add_kpi_name_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[1]/div/div[2]/input")
@@ -37,6 +37,10 @@ class PerformancePage:
         self.performance_configure_kpis_add_kpi_job_title_save_button = page.locator("xpath=//button[contains(.,'Save')]")
         self.performance_configure_kpis_add_kpi_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
 
+        # Delete identifiers
+        self.performance_configure_kpis_delete_kpi_confirm_button = page.locator("xpath=//button[contains(.,'Yes, Delete')]")
+        self.performance_configure_kpis_delete_kpi_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
+
         ########################################################################################################################################
         # Performance - Configure Trackers section/page
         ########################################################################################################################################
@@ -44,7 +48,7 @@ class PerformancePage:
         self.performance_configure_trackers_performance_tracker_employee_name_field = page.locator("xpath=//input[@placeholder='Type for hints...']")
         self.performance_configure_trackers_performance_tracker_search_button = page.get_by_role("button", name="Search")
 
-        # Add Tracker identifier
+        # Add Tracker identifiers
         self.performance_configure_trackers_performance_tracker_add_button = page.locator("xpath=//button[@type='button'][contains(.,'Add')]")
 
         ########################################################################################################################################
@@ -92,8 +96,8 @@ class PerformancePage:
     def click_performance_configure_kpis_job_title_dropdown(self):
         self.performance_configure_kpis_job_title_dropdown.click()
 
-    def click_performance_configure_kpis_job_title_qa_lead_option(self):
-        self.performance_configure_kpis_job_title_qa_lead_option.click()
+    def click_performance_configure_kpis_job_title_software_engineer_option(self):
+        self.performance_configure_kpis_job_title_software_engineer_option.click()
 
     def click_performance_configure_kpis_job_title_search_button(self):
         self.performance_configure_kpis_job_title_search_button.click()
@@ -117,6 +121,14 @@ class PerformancePage:
     def click_performance_configure_kpis_add_kpi_job_title_save_button(self):
         self.performance_configure_kpis_add_kpi_job_title_save_button.click()
 
+    # Delete
+    def click_kpi_trashbin_of_tobedeleted_item(self, kpi_name):
+        row = self.page.locator("div.oxd-table-card").filter(has_text=kpi_name)
+        row.get_by_role("button").filter(has=self.page.locator("i.bi-trash")).click()
+        self.page.wait_for_load_state("networkidle")
+
+    def click_kpi_delete_kpi_confirm_button(self):
+        self.performance_configure_kpis_delete_kpi_confirm_button.click()
 
 
 
