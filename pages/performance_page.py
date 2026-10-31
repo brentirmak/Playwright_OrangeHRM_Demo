@@ -49,7 +49,7 @@ class PerformancePage:
         self.performance_configure_trackers_performance_header = page.locator("xpath=//h5[@class='oxd-text oxd-text--h5 oxd-table-filter-title'][contains(.,'Performance Trackers')]")
         self.performance_configure_trackers_performance_tracker_employee_name_field = page.locator("xpath=//input[@placeholder='Type for hints...']")
         self.performance_configure_trackers_performance_tracker_search_button = page.get_by_role("button", name="Search")
-        self.performance_configure_trackers_performance_tracker_record_found_header = page.locator("xpath=//span[contains(.,'(1) Record Found')]")
+        self.performance_configure_trackers_performance_tracker_record_found_header = page.get_by_text(re.compile(r"\(\d+\)\s+Records?\s+Found"))
 
         # Add Tracker identifiers
         self.performance_configure_trackers_performance_tracker_add_button = page.locator("xpath=//button[@type='button'][contains(.,'Add')]")
@@ -59,6 +59,10 @@ class PerformancePage:
         self.performance_configure_trackers_add_performance_tracker_reviewers_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[2]/div/div[2]/div/div[2]/div/div[1]/input")
         self.performance_configure_trackers_add_performance_tracker_save_button = page.locator("xpath=//button[contains(.,'Save')]")
         self.performance_configure_trackers_add_performance_tracker_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
+
+        # Delete Tracker identifiers
+        self.performance_configure_trackers_delete_performance_tracker_confirm_button = page.locator("xpath=//button[contains(.,'Yes, Delete')]")
+        self.performance_configure_trackers_delete_performance_tracker_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
 
         ########################################################################################################################################
         # Performance - Manage Reviews section/page
@@ -101,6 +105,16 @@ class PerformancePage:
     ########################################################################################################################################
     # Performance - Configure Trackers section/page Methods
     ########################################################################################################################################
+    # Search
+    def click_performance_configure_trackers_performance_tracker_employee_name_field(self):
+        self.performance_configure_trackers_performance_tracker_employee_name_field.click()
+
+    def enter_performance_configure_trackers_performance_tracker_employee_name_field_value(self, employee_name):
+        self.performance_configure_trackers_performance_tracker_employee_name_field.fill(employee_name)
+
+    def click_performance_configure_trackers_performance_tracker_search_button(self):
+        self.performance_configure_trackers_performance_tracker_search_button.click()
+
     # Add
     def click_performance_configure_trackers_performance_tracker_add_button(self):
         self.performance_configure_trackers_performance_tracker_add_button.click()
@@ -129,6 +143,15 @@ class PerformancePage:
 
     def click_performance_configure_trackers_add_performance_tracker_save_button(self):
         self.performance_configure_trackers_add_performance_tracker_save_button.click()
+
+    # Delete
+    def click_performance_tracker_trashbin_of_tobedeleted_item(self, tracker_name):
+        row = self.page.locator("div.oxd-table-card").filter(has_text=tracker_name)
+        row.get_by_role("button").filter(has=self.page.locator("i.bi-trash")).click()
+        self.page.wait_for_load_state("networkidle")
+
+    def click_performance_tracker_delete_tracker_confirm_button(self):
+        self.performance_configure_trackers_delete_performance_tracker_confirm_button.click()
 
     ########################################################################################################################################
     # Performance - Configure KPI section/page Methods
