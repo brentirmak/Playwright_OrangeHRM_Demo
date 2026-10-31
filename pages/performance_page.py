@@ -65,8 +65,25 @@ class PerformancePage:
         self.performance_configure_trackers_delete_performance_tracker_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
 
         ########################################################################################################################################
-        # Performance - Manage Reviews section/page
-        #
+        # Performance - Manage Reviews section/page (WORK IN PROGRESS)
+        ########################################################################################################################################
+        # Search Reviews identifiers
+        self.performance_manage_reviews_manage_reviews_header = page.locator("xpath=//h5[contains(.,'Manage Performance Reviews')]")
+        self.performance_manage_reviews_manage_reviews_employee_name_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div[1]/div[2]/form/div[1]/div[1]/div/div[2]/div/div/input")
+        self.performance_manage_reviews_manage_reviews_search_button = page.locator("xpath=//button[contains(.,'Search')]")
+        
+        # Add Reviews identifiers
+        self.performance_manage_reviews_manage_reviews_add_button = page.locator("xpath=//button[contains(.,'Add')]")
+        self.performance_manage_reviews_manage_reviews_add_review_header = page.locator("xpath=//h6[contains(.,'Add Review')]")
+        self.performance_manage_reviews_manage_reviews_add_review_employee_name_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div/div/div[2]/div/div/input")
+        self.performance_manage_reviews_manage_reviews_add_review_supervisor_reviewer_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[2]/div/div/div/div[2]/div/div/input")
+        # 2026-01-06
+        self.performance_manage_reviews_manage_reviews_add_review_period_start_date_field = page.locator("xpath=(//input[@placeholder='dd-mm-yyyy'])[1]")
+        # 2026-31-12
+        self.performance_manage_reviews_manage_reviews_add_review_period_start_end_field = page.locator("xpath=(//input[@placeholder='dd-mm-yyyy'])[2]")
+        # 2027-15-01
+        self.performance_manage_reviews_manage_reviews_add_review_period_due_date_field = page.locator("xpath=(//input[@placeholder='dd-mm-yyyy'])[3]")
+        self.performance_manage_reviews_manage_reviews_add_review_save_button = page.locator("xpath=//button[contains(.,'Save')]")
         self.performance_manage_reviews_employee_reviews_header = page.locator("xpath=//h5[contains(.,'Employee Reviews')]")
 
     ########################################################################################################################################
