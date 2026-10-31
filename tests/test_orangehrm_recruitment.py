@@ -1,3 +1,12 @@
+'''
+10/30/26 - 19 tests
+
+Preconditions:
+(1) https://opensource-demo.orangehrmlive.com/web/index.php/admin/localization (English/yyyy-dd-mm)
+(2) Under Admin->Job, Software Engineer entry
+(3) Under PIM->Add Employee, Charles Carter entry
+
+'''
 import re
 import time
 from playwright.sync_api import Page, expect
@@ -9,13 +18,6 @@ from pages.pim_page import PIMPage
 from pages.admin_page import AdminPage
 from pages.recruitment_page import RecruitmentPage
 from pages.logout_page import LogoutPage
-
-'''
-Preconditions:
-(1) https://opensource-demo.orangehrmlive.com/web/index.php/admin/localization (English/yyyy-dd-mm)
-(2) Under Admin->Job, Software Engineer entry
-(3) Under PIM->Add Employee, Charles Carter entry
-'''
 
 def test_HomePage(shared_page):
     print("\nStarting test_HomePage transaction")
