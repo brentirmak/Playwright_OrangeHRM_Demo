@@ -1,4 +1,4 @@
-import re
+import re, time
 
 class PerformancePage:
 
@@ -27,7 +27,7 @@ class PerformancePage:
         self.performance_configure_kpis_job_title_dropdown = page.get_by_text("-- Select --")
         self.performance_configure_kpis_job_title_software_engineer_option = page.get_by_role("listbox").get_by_text("Software Engineer")
         self.performance_configure_kpis_job_title_search_button = page.get_by_role("button", name="Search")
-        self.performance_configure_kpis_job_title_record_found_header = page.locator("xpath=//span[contains(.,'(1) Record Found')]")
+        self.performance_configure_kpis_job_title_record_found_header = page.get_by_text(re.compile(r"\(\d+\)\s+Records?\s+Found"))
         
         # Add identifiers
         self.performance_configure_kpis_add_button = page.locator("xpath=//button[contains(.,'Add')]")
@@ -45,12 +45,20 @@ class PerformancePage:
         ########################################################################################################################################
         # Performance - Configure Trackers section/page
         ########################################################################################################################################
+        # Search identifiers
         self.performance_configure_trackers_performance_header = page.locator("xpath=//h5[@class='oxd-text oxd-text--h5 oxd-table-filter-title'][contains(.,'Performance Trackers')]")
         self.performance_configure_trackers_performance_tracker_employee_name_field = page.locator("xpath=//input[@placeholder='Type for hints...']")
         self.performance_configure_trackers_performance_tracker_search_button = page.get_by_role("button", name="Search")
+        self.performance_configure_trackers_performance_tracker_record_found_header = page.locator("xpath=//span[contains(.,'(1) Record Found')]")
 
         # Add Tracker identifiers
         self.performance_configure_trackers_performance_tracker_add_button = page.locator("xpath=//button[@type='button'][contains(.,'Add')]")
+        self.performance_configure_trackers_add_performance_tracker_header = page.locator("xpath=//h6[contains(.,'Add Performance Tracker')]")
+        self.performance_configure_trackers_add_performance_tracker_name_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div/div/div[2]/input")
+        self.performance_configure_trackers_add_performance_tracker_employee_name_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[2]/div/div[1]/div/div[2]/div/div/input")
+        self.performance_configure_trackers_add_performance_tracker_reviewers_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[2]/div/div[2]/div/div[2]/div/div[1]/input")
+        self.performance_configure_trackers_add_performance_tracker_save_button = page.locator("xpath=//button[contains(.,'Save')]")
+        self.performance_configure_trackers_add_performance_tracker_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
 
         ########################################################################################################################################
         # Performance - Manage Reviews section/page
@@ -89,6 +97,38 @@ class PerformancePage:
 
     def click_performance_employee_trackers_submenu(self):
         self.performance_employee_trackers_submenu.click()
+
+    ########################################################################################################################################
+    # Performance - Configure Trackers section/page Methods
+    ########################################################################################################################################
+    # Add
+    def click_performance_configure_trackers_performance_tracker_add_button(self):
+        self.performance_configure_trackers_performance_tracker_add_button.click()
+
+    def click_performance_configure_trackers_add_performance_tracker_name_field(self):
+        self.performance_configure_trackers_add_performance_tracker_name_field.click()
+
+    def enter_performance_configure_trackers_add_performance_tracker_name_value(self, tracker_name):
+        self.performance_configure_trackers_add_performance_tracker_name_field.fill(tracker_name)
+
+    def click_performance_configure_trackers_add_performance_tracker_employee_name_field(self):
+        self.performance_configure_trackers_add_performance_tracker_employee_name_field.click()
+
+    def select_performance_configure_trackers_add_performance_tracker_employee_name_field_value(self, employee_name):
+        self.performance_configure_trackers_add_performance_tracker_employee_name_field.fill(employee_name)
+        time.sleep(1)
+        self.page.locator("//span[contains(.,'Charles  Carter')]").click()
+
+    def click_performance_configure_trackers_add_performance_tracker_reviewers_field(self):
+        self.performance_configure_trackers_add_performance_tracker_reviewers_field.click()
+
+    def select_performance_configure_trackers_add_performance_tracker_reviewers_field_value(self, reviewer_name):
+        self.performance_configure_trackers_add_performance_tracker_reviewers_field.fill(reviewer_name)
+        time.sleep(1)
+        self.page.locator("//span[contains(.,'Peter Mac Anderson')]").click()
+
+    def click_performance_configure_trackers_add_performance_tracker_save_button(self):
+        self.performance_configure_trackers_add_performance_tracker_save_button.click()
 
     ########################################################################################################################################
     # Performance - Configure KPI section/page Methods
