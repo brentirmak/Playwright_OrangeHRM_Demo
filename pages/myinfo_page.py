@@ -527,23 +527,17 @@ class MyInfoPage:
     def click_qualifications_work_experience_trash_icon(self):
         self.qualifications_work_experience_trash_icons.first.click()
 
+    def delete_qualification_by_work_experience_company_name(self, company_name):
+        row = self.page.locator(f"xpath=//h6[text()='Work Experience']/following::div[@class='orangehrm-container'][1]//div[@role='row'][.//*[text()='{company_name}']]")
+        row.locator("button i.bi-trash").click()
+        self.page.get_by_role("button", name="Yes, Delete").click()
+
     def click_qualifications_work_experience_delete_selected_button(self):
         self.qualifications_work_experience_delete_selected_button.click()
 
     def click_qualifications_work_experience_confirm_delete_button(self):
         self.qualifications_work_experience_confirm_delete_button.click()
-
-    def get_qualifications_work_experience_record_count(self):
-        record_count_locator = self.page.locator("xpath=(//span[@class='oxd-text oxd-text--span'])[1]")
-
-        record_count_text = record_count_locator.inner_text()
-        print(f"Record count text:{record_count_text}")
-
-        record_count = int(re.search(r"\((\d+)\)", record_count_text).group(1))
-        print(f"Record count (integer): {record_count}")
-
-        return record_count
-
+      
     ######################################################################################################
     # Qualifications - Education methods
     #

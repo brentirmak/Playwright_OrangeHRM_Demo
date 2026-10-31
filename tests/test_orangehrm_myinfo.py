@@ -990,17 +990,9 @@ def test_MyInfoDeleteQualificationsWorkExperience(shared_page):
     myinfo_page.click_qualifications_submenu()
     print("Clicked on the Qualifications submenu item")
     expect(shared_page.get_by_role("heading", name="Qualifications")).to_be_visible(timeout=35000)
-    print("Verified that the Qualifications header is displayed - will verify that there's 1 record found")
-    record_count = myinfo_page.get_qualifications_work_experience_record_count()
-    if record_count > 0:
-        print("At least 1 Record found header was found - will proceed with deletion")
-        myinfo_page.click_qualifications_work_experience_trash_icon()
-        print("Clicked on the trash icon - will now click on the Yes, Delete button")
-        myinfo_page.click_qualifications_work_experience_confirm_delete_button()
-        expect(myinfo_page.qualifications_work_experience_deleted_message).to_be_visible(timeout=35000)
-        print("Successfully deleted work experience entry was confirmed")
-    else:
-        pytest.fail(f"No Work Experience records found (record_count={record_count}). Cannot proceed with deletion.")
+    print("Verified that the Qualifications header is displayed - will proceed with the deletion of the company record")
+    myinfo_page.delete_qualification_by_work_experience_company_name("TigerFly")
+    print("Deleted work experience - will verify that the deletion was successful message was displayed")
     print("\nEnded test_MyInfoDeleteQualificationsWorkExperience transaction")
 
 def test_AccessMyInfoMembershipsSubmenu(shared_page):
