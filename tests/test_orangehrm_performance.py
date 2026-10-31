@@ -78,6 +78,38 @@ def test_PerformanceConfigureKPIsCleanupKPI(shared_page):
         print("There was no record to delete and/or there was a problem with the deletion")
     print("\nEnded test_PerformanceConfigureKPIsCleanupKPI transaction")
 
+def test_PerformanceTrackersPerformanceTrackerCleanup(shared_page):
+    print("\nStarting test_PerformanceTrackersPerformanceTrackerCleanup transaction")
+    performance_page = PerformancePage(shared_page)
+    print("Will access the Performance section/page")
+    performance_page.click_performance_menu()
+    print("Clicked on the Performance menu item - will verify that we're on the Employee Reviews (default) page")
+    expect(performance_page.performance_manage_reviews_employee_reviews_header).to_be_visible(timeout=30000)
+    print("Verified that we're on the Employee Reviews page - will click on the Configure submenu under Performance section/page")
+    performance_page.click_performance_configure_submenu()
+    print("Clicked on the Configure submenu item")
+    print("Will click on the Trackers submenu under Configure submenu")
+    performance_page.click_performance_configure_trackers_submenu()
+    print("Clicked on the Trackers submenu item")
+    expect(shared_page.get_by_role("heading", name="Performance Trackers")).to_be_visible(timeout=30000)
+    print("Verified that the Performance Trackers header was displayed - will search for the record to be deleted")
+    performance_page.click_performance_configure_trackers_performance_tracker_employee_name_field()
+    performance_page.enter_performance_configure_trackers_performance_tracker_employee_name_field_value("Charles Carter")
+    print("Entered the employee name associated with the tracker to be deleted - will click on the Search button")
+    performance_page.click_performance_configure_trackers_performance_tracker_search_button()
+    print("Clicked on the Search button - will verify that a record was returned")
+    try:
+        expect(performance_page.performance_configure_trackers_performance_tracker_record_found_header).to_be_visible(timeout=20000)
+        print("Confirmed that a record was returned - will proceed with the deletion of the tracker")
+        performance_page.click_performance_tracker_trashbin_of_tobedeleted_item("TrackerTest")
+        print("Entered the tracker name - will click on the delete tracker confirmation button")
+        performance_page.click_performance_tracker_delete_tracker_confirm_button()
+        print("Clicked on the Delete Tracker confirmation button - will verify that a successfully deleted message is displayed")
+        expect(performance_page.performance_configure_trackers_delete_performance_tracker_successfully_deleted_message).to_be_visible(timeout=20000)
+        print("Verified that the performance tracker was deleted message was displayed")
+    except:
+        print("There was no record to delete and/or there was a problem with the deletion")
+    print("\nEnded test_PerformanceTrackersPerformanceTrackerCleanup transaction")
 ################################################################################################################################
 
 def test_AccessPerformanceConfigureKPIsSubmenu(shared_page):
@@ -303,12 +335,17 @@ def test_PerformanceTrackersDeletePerformanceTracker(shared_page):
     print("Verified that the Performance Trackers header was displayed - will search for the record to be deleted")
     performance_page.click_performance_configure_trackers_performance_tracker_employee_name_field()
     performance_page.enter_performance_configure_trackers_performance_tracker_employee_name_field_value("Charles Carter")
+    print("Entered the employee name associated with the tracker to be deleted - will click on the Search button")
     performance_page.click_performance_configure_trackers_performance_tracker_search_button()
+    print("Clicked on the Search button - will verify that a record was returned")
     expect(performance_page.performance_configure_trackers_performance_tracker_record_found_header).to_be_visible(timeout=20000)
-    print("\nEnded test_PerformanceTrackersDeletePerformanceTracker transaction")
+    print("Confirmed that a record was returned - will proceed with the deletion of the tracker")
     performance_page.click_performance_tracker_trashbin_of_tobedeleted_item("TrackerTest")
+    print("Entered the tracker name - will click on the delete tracker confirmation button")
     performance_page.click_performance_tracker_delete_tracker_confirm_button()
+    print("Clicked on the Delete Tracker confirmation button - will verify that a successfully deleted message is displayed")
     expect(performance_page.performance_configure_trackers_delete_performance_tracker_successfully_deleted_message).to_be_visible(timeout=20000)
+    print("Verified that the performance tracker was deleted message was displayed")
     print("\nEnded test_PerformanceTrackersDeletePerformanceTracker transaction")
 
 def test_PerformanceConfigureKPIsDeleteKPI(shared_page):
