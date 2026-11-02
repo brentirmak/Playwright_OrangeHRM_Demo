@@ -128,6 +128,30 @@ def test_BuzzPageLikePost(shared_page):
     print("\nEnded test_BuzzPageLikePost transaction")
 
 '''
+Modify Post
+'''
+def test_BuzzPageModifyPost(shared_page):
+    print("\nStarting test_BuzzPageModifyPost transaction")
+    buzz_page = BuzzPage(shared_page)
+    print("Will access the Buzz page")
+    buzz_page.click_buzz_menu()
+    print("Clicked on the Buzz menu - will verify that we're on the Buzz Newsfeed page")
+    expect(buzz_page.buzz_newsfeed_header).to_be_visible(timeout=20000)
+    print("Verified that we're on the buzz Newsfeed page - will select the Buzz entry to modify")
+    buzz_page.modify_buzz_post("test buzz post")
+    print("Clicked on the edit post option for the Buzz Entry - will verify that we're on the Edit Post page")
+    expect(buzz_page.buzz_post_edit_post_header).to_be_visible(timeout=20000)
+    print("Verified that we're on the Edit Post page - will enter revised post")
+    buzz_page.click_buzz_post_edit_post_field()
+    buzz_page.enter_buzz_post_edit_post_field_value("Hello World! buzz post")
+    print("Entered the revised post message - will click on the Post button")
+    buzz_page.click_buzz_post_edit_post_post_button()
+    print("Clicked on the Post button - will verify that the update was successful message is displayed")
+    expect(buzz_page.buzz_post_successfully_updated_message).to_be_visible(timeout=20000)
+    print("Verified that the post was successfully modified")
+    print("\nEnded test_BuzzPageModifyPost transaction")
+
+'''
 Delete Post
 '''
 def test_BuzzPageDeletePost(shared_page):
@@ -142,7 +166,6 @@ def test_BuzzPageDeletePost(shared_page):
     expect(buzz_page.buzz_post_successfully_deleted_message).to_be_visible(timeout=20000)
     print("Verified that the buzz entry was cleaned up")
     print("\nEnded test_BuzzPageDeletePost transaction")
-
 
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")
