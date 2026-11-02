@@ -25,6 +25,11 @@ class BuzzPage:
         self.buzz_post_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
 
         #
+        # Like Post
+        #
+        self.buzz_post_liked_message = page.locator("xpath=//p[contains(.,'1 Like')]")
+
+        #
         # Delete Post
         #
         self.buzz_post_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
@@ -54,6 +59,29 @@ class BuzzPage:
 
     def click_buzz_post_button(self):
         self.buzz_post_button.click()
+
+    # Modify methods
+    def like_buzz_post(self, keyword):
+        post = (
+            self.page.locator("div.orangehrm-buzz")
+            .filter(has_text=re.compile(keyword, re.IGNORECASE))
+            .first
+        )
+        expect(post).to_be_visible()
+        print("Post is visible - will click on the like icon")
+
+        # The heart icon sits in the post's action bar
+        # Likely: the heart is an svg inside a wrapper div
+        like_icon = post.locator(".orangehrm-heart-icon").first
+        if like_icon.count() == 0:
+            like_icon = post.locator("svg.oxd-icon").filter(
+                has=self.page.locator("path")
+            ).first  # fallback; refine after inspecting the HTML
+
+        expect(like_icon).to_be_visible()
+        like_icon.click()
+        print("Clicked on the like icon")
+
 
     # Delete methods
     def delete_buzz_post(self, keyword):

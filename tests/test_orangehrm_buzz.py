@@ -112,6 +112,22 @@ def test_BuzzPageAddPost(shared_page):
     print("\nEnded test_BuzzPageAddPost transaction")
 
 '''
+Like Post
+'''
+def test_BuzzPageLikePost(shared_page):
+    print("\nStarting test_BuzzPageLikePost transaction")
+    buzz_page = BuzzPage(shared_page)
+    print("Will access the Buzz page")
+    buzz_page.click_buzz_menu()
+    print("Clicked on the Buzz menu - will verify that we're on the Buzz Newsfeed page")
+    expect(buzz_page.buzz_newsfeed_header).to_be_visible(timeout=20000)
+    print("Verified that we're on the Buzz Newsfeed page - will now click on the like button for the specified buzz entry")
+    buzz_page.like_buzz_post("test buzz post")
+    expect(buzz_page.buzz_post_liked_message).to_be_visible(timeout=20000)
+    print("Verified that the post was successfully liked")
+    print("\nEnded test_BuzzPageLikePost transaction")
+
+'''
 Delete Post
 '''
 def test_BuzzPageDeletePost(shared_page):
