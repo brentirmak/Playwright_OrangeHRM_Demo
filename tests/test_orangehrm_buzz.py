@@ -89,6 +89,22 @@ def test_BuzzPageAddPost(shared_page):
     print("Verified that the post was successfully saved")
     print("\nEnded test_BuzzPageAddPost transaction")
 
+'''
+Delete Post
+'''
+def test_BuzzPageDeletePost(shared_page):
+    print("\nStarting test_BuzzPageDeletePost transaction")
+    buzz_page = BuzzPage(shared_page)
+    print("Will access the Buzz page")
+    buzz_page.click_buzz_menu()
+    print("Clicked on the Buzz menu - will verify that we're on the Buzz Newsfeed page")
+    expect(buzz_page.buzz_newsfeed_header).to_be_visible(timeout=20000)
+    print("Verified that we're on the Buzz Newsfeed page - will delete the Test Buzz Post that we just created")
+    buzz_page.delete_buzz_post("buzz post")
+    expect(buzz_page.buzz_post_successfully_deleted_message).to_be_visible(timeout=20000)
+    print("Verified that the post was successfully saved")
+    print("\nEnded test_BuzzPageDeletePost transaction")
+
 
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")
