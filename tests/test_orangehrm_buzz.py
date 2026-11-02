@@ -28,6 +28,28 @@ def test_LoginPage(shared_page):
     print("Verified Dashboard heading is visible on the dashboard page")
     print("Ended test_LoginPage transaction")
 
+##################################################################################################################
+# CLEANUP POSTS
+#
+
+def test_BuzzPagePostCleanup(shared_page):
+    print("\nStarting test_BuzzPagePostCleanup transaction")
+    buzz_page = BuzzPage(shared_page)
+    print("Will access the Buzz page")
+    buzz_page.click_buzz_menu()
+    print("Clicked on the Buzz menu - will verify that we're on the Buzz Newsfeed page")
+    expect(buzz_page.buzz_newsfeed_header).to_be_visible(timeout=20000)
+    print("Verified that we're on the Buzz Newsfeed page - will delete all buzz posts")
+    try:
+        buzz_page.delete_all_buzz_posts()
+        expect(buzz_page.buzz_post_successfully_deleted_message).to_be_visible(timeout=20000)
+        print("Verified that the buzz entries were completely cleaned up")
+    except:
+        print("There was nothing to clean up - procceding with other tests...")
+
+    print("\nEnded test_BuzzPagePostCleanup transaction")
+
+##################################################################################################################
 def test_BuzzPageAccessMostRecentPosts(shared_page):
     print("\nStarting test_BuzzPageAccessMostRecentPosts transaction")
     buzz_page = BuzzPage(shared_page)
@@ -102,7 +124,7 @@ def test_BuzzPageDeletePost(shared_page):
     print("Verified that we're on the Buzz Newsfeed page - will delete the Test Buzz Post that we just created")
     buzz_page.delete_buzz_post("buzz post")
     expect(buzz_page.buzz_post_successfully_deleted_message).to_be_visible(timeout=20000)
-    print("Verified that the post was successfully saved")
+    print("Verified that the buzz entry was cleaned up")
     print("\nEnded test_BuzzPageDeletePost transaction")
 
 

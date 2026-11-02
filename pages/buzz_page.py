@@ -79,4 +79,54 @@ class BuzzPage:
         print("Clicked on Yes, Delete - will confirm the deletion was successful")
         expect(self.page.get_by_text("Successfully Deleted")).to_be_visible()
         print("Deletion was successful message was displayed")
+
+
+    def delete_all_buzz_posts(self, max_posts=100):
+        # Only posts that have the three-dots menu (i.e. ones the logged-in user owns)
+        own_posts = self.page.locator("div.orangehrm-buzz").filter(
+            has=self.page.locator(".orangehrm-buzz-post-header-config")
+        )
+
+        deleted = 0
+        while deleted < max_posts:
+            # Let the feed finish rendering / re-rendering
+            self.page.wait_for_load_state("networkidle")
+
+            if own_posts.count() == 0:
+                # The feed loads more on scroll; try once before concluding we're done
+                self.page.mouse.wheel(0, 3000)
+                self.page.wait_for_timeout(1000)
+                if own_posts.count() == 0:
+                    break
+
+            # Re-evaluated every loop, so it always targets the current top post
+            post = own_posts.first
+            expect(post).to_be_visible()
+            print("Post is visible - will click on the 3 dots")
+
+            post.locator(".orangehrm-buzz-post-header-config").click()
+            print("Clicked on the 3 dots - will click on Delete Post")
+
+            delete_item = post.get_by_text("Delete Post", exact=True)
+            expect(delete_item).to_be_visible()
+            delete_item.click()
+            print("Clicked on Delete post - will click on Yes in the confirmation window")
+
+            self.page.get_by_role("button", name="Yes, Delete").click()
+            print("Clicked on Yes, Delete - will confirm the deletion was successful")
+
+            toast = self.page.get_by_text("Successfully Deleted")
+            expect(toast).to_be_visible()
+            # Wait for the toast to disappear so the next iteration
+            # can't pass on the previous delete's toast
+            expect(toast).to_be_hidden()
+
+            deleted += 1
+            print(f"Deleted post #{deleted}")
+
+        print(f"Cleanup finished - {deleted} post(s) deleted")
+
+
+
+
     
