@@ -68,7 +68,28 @@ def test_BuzzPageAccessMostCommentedPosts(shared_page):
     expect(buzz_page.buzz_no_posts_available_header).to_be_visible(timeout=20000)
     print("Verified that the No Posts Available message is displayed")
     print("\nEnded test_BuzzPageAccessMostCommentedPosts transaction")
-    
+
+'''
+Create Post
+'''
+def test_BuzzPageAddPost(shared_page):
+    print("\nStarting test_BuzzPageAddPost transaction")
+    buzz_page = BuzzPage(shared_page)
+    print("Will access the Buzz page")
+    buzz_page.click_buzz_menu()
+    print("Clicked on the Buzz menu - will verify that we're on the Buzz Newsfeed page")
+    expect(buzz_page.buzz_newsfeed_header).to_be_visible(timeout=20000)
+    print("Verified that we're on the Buzz Newsfeed page - will click on the Buzz field")
+    buzz_page.click_buzz_post_field()
+    buzz_page.enter_buzz_post_field_value("This is a test buzz post")
+    print("Entered a buzz post - will now click on a Post button")
+    buzz_page.click_buzz_post_button()
+    print("Clicked on the Post button - will verify that the post was successfully saved")
+    expect(buzz_page.buzz_post_successfully_saved_message).to_be_visible(timeout=20000)
+    print("Verified that the post was successfully saved")
+    print("\nEnded test_BuzzPageAddPost transaction")
+
+
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")
     logout_page = LogoutPage(shared_page)

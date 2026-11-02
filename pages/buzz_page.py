@@ -12,10 +12,14 @@ class BuzzPage:
         self.buzz_most_recent_posts_button = page.locator("xpath=//button[@type='button'][contains(.,'Most Recent Posts')]")
         self.buzz_most_liked_posts_button = page.locator("xpath=//button[@type='button'][contains(.,'Most Liked Posts')]")
         self.buzz_most_commented_posts_button = page.locator("xpath=//button[@type='button'][contains(.,'Most Commented Posts')]")
-        self.buzz_post_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div[2]/div/div[1]/div[1]/div[2]/form/div/textarea")
+        self.buzz_post_field = page.locator("xpath=//textarea[@class='oxd-buzz-post-input']")
         self.buzz_post_button = page.locator("xpath=//button[@type='submit'][contains(.,'Post')]")
         self.buzz_no_posts_available_header = page.locator("xpath=//p[contains(.,'No Posts Available')]")
 
+        #
+        # Add Post
+        #
+        self.buzz_post_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
 
     def click_buzz_menu(self):
         self.buzz_menu.click()
