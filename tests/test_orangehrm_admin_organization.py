@@ -30,6 +30,33 @@ def test_LoginPage(shared_page):
     print("Verified Dashboard heading is visible on the dashboard page")
     print("Ended test_LoginPage transaction")
 
+################################################################################################################################
+# CLEANUP
+#
+def test_OrganizationLocationsLocationCleanup(shared_page):
+    print("\nStarting test_OrganizationLocationsLocationCleanup transaction")
+    admin_page = AdminPage(shared_page)
+    print("Will click on Admin menu")
+    admin_page.click_admin_menu()
+    print("Clicked on Admin menu")
+    print("Will click on Organization submenu")
+    admin_page.click_organization_submenu()
+    print("Clicked on Organization submenu")
+    admin_page.click_locations_submenu()
+    print("Clicked on Locations submenu")
+    expect(shared_page.get_by_role("heading", name="Locations")).to_be_visible(timeout=10000)
+    print("Verified Locations heading is visible on the Locations page - will proceed with the deletion of the test record")
+    try:
+        admin_page.click_location_trashbin_of_tobedeleted_item("San Jose Development Center")
+        print("Entered the location name - will click on the delete location confirmation button")
+        admin_page.click_location_delete_location_confirm_button()
+        print("Clicked on the Delete Location confirmation button - will verify that a successfully deleted message is displayed")
+        expect(admin_page.admin_organizations_locations_delete_location_successfully_deleted_message).to_be_visible(timeout=10000)
+        print("Verified that the locationw as successfully deleted")
+    except:
+        print("There was no test report to cleanup - proceeding with the tests")
+    print("Ended test_OrganizationLocationsLocationCleanup transaction")
+
 def test_OrganizationGeneralInformation(shared_page):
     print("\nStarting test_OrganizationGeneralInformation transaction")
     admin_page = AdminPage(shared_page)
