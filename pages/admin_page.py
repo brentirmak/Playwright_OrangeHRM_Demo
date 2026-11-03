@@ -157,6 +157,16 @@ class AdminPage:
         self.admin_organizations_locations_delete_location_confirm_button = page.locator("xpath=//button[contains(.,'Yes, Delete')]")
         self.admin_organizations_locations_delete_location_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
 
+        # Structure identifiers
+        # Add Structure
+        self.admin_organization_structure_header = page.locator("xpath=//h6[contains(.,'Organization Structure')]")
+        self.admin_organization_structure_edit_slider = page.locator("xpath=//span[@class='oxd-switch-input oxd-switch-input--active --label-left']")
+        self.admin_organization_structure_add_button = page.locator("xpath=//button[@type='button'][contains(.,'Add')]")
+        self.admin_organization_structure_add_organization_unit_header = page.locator("xpath=//p[contains(.,'Add Organization Unit')]")
+        self.admin_organization_structure_add_organization_unit_name = page.locator("xpath=(//input[@class='oxd-input oxd-input--active'])[3]")
+        self.admin_organization_structure_save_button = page.locator("xpath=//button[contains(.,'Save')]")
+        self.admin_organization_structure_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
+
         #####################################################################################################################
         # Qualifications section identifiers
         #####################################################################################################################
@@ -506,6 +516,7 @@ class AdminPage:
     #####################################################################################################################
     # Organization section methods
     #####################################################################################################################
+    # Tab methods
     def click_organization_submenu(self):
         self.organization_submenu.click()
         self.page.wait_for_load_state("networkidle")
@@ -522,7 +533,9 @@ class AdminPage:
         self.structure_submenu.click()
         self.page.wait_for_load_state("networkidle")
 
+    #####################################################################################################################
     # General Information methods
+    # Edit
     def click_admin_organization_general_information_edit_slider(self):
         self.admin_organization_general_information_edit_slider.click()
 
@@ -559,6 +572,7 @@ class AdminPage:
     def click_admin_organization_general_information_save_button(self):
         self.admin_organization_general_information_save_button.click()
 
+    #####################################################################################################################
     # Locations methods
     # Add
     def click_admin_organizations_locations_add_button(self):
@@ -654,6 +668,24 @@ class AdminPage:
     def click_admin_organizations_locations_edit_location_save_button(self):
         self.admin_organizations_locations_edit_location_save_button.click()
 
+    #####################################################################################################################
+    # Structure methods
+    # Modify/Add
+
+    def click_admin_organization_structure_edit_slider(self):
+        self.admin_organization_structure_edit_slider.click()
+
+    def click_admin_organization_structure_add_button(self):
+        self.admin_organization_structure_add_button.click()
+
+    def click_admin_organization_structure_add_organization_unit_name(self):
+        self.admin_organization_structure_add_organization_unit_name.click()
+
+    def enter_admin_organization_structure_add_organization_unit_name(self, org_name):
+        self.admin_organization_structure_add_organization_unit_name.fill(org_name)
+
+    def click_admin_organization_structure_save_button(self):
+        self.admin_organization_structure_save_button.click()
 
 
 
