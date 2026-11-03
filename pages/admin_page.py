@@ -113,6 +113,16 @@ class AdminPage:
         self.locations_submenu = page.get_by_role("menuitem", name="Locations")
         self.structure_submenu = page.get_by_role("menuitem", name="Structure")
 
+        # General Information identifiers
+        self.admin_organization_general_information_general_information_header = page.locator("xpath=//h6[contains(.,'General Information')]")
+        self.admin_organization_general_information_edit_slider = page.locator("xpath=//span[@class='oxd-switch-input oxd-switch-input--active --label-left']")
+        self.admin_organization_general_information_address1_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[4]/div/div[1]/div/div[2]/input")
+        self.admin_organization_general_information_address2_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[4]/div/div[2]/div/div[2]/input")
+        self.admin_organization_general_information_city_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[4]/div/div[3]/div/div[2]/input")
+        self.admin_organization_general_information_state_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[5]/div/div[1]/div/div[2]/input")
+        self.admin_organization_general_information_zipcode_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[5]/div/div[2]/div/div[2]/input")
+        self.admin_organization_geenral_information_save_button = page.locator("xpath=//button[contains(.,'Save')]")
+        self.admin_organization_general_information_successfully_updated_message = page.locator("xpath=//p[contains(.,'Successfully Updated')]")
         #####################################################################################################################
         # Qualifications section identifiers
         #####################################################################################################################
@@ -477,6 +487,44 @@ class AdminPage:
     def click_structure_submenu(self):
         self.structure_submenu.click()
         self.page.wait_for_load_state("networkidle")
+
+    # General Information methods
+    def click_admin_organization_general_information_edit_slider(self):
+        self.admin_organization_general_information_edit_slider.click()
+
+    def click_admin_organization_general_information_address1_field(self):
+        self.admin_organization_general_information_address1_field.click()
+
+    def enter_admin_organization_general_information_address1_value(self, address1):
+        self.admin_organization_general_information_address1_field.fill(address1)
+
+    def click_admin_organization_general_information_address2_field(self):
+        self.admin_organization_general_information_address2_field.click()
+
+    def enter_admin_organization_general_information_address2_value(self, address2):
+        self.admin_organization_general_information_address2_field.fill(address2)
+    
+    def click_admin_organization_general_information_city_field(self):
+        self.admin_organization_general_information_city_field.click()
+
+    def enter_admin_organization_general_information_city_value(self, city):
+        self.admin_organization_general_information_city_field.fill(city)
+
+    def click_admin_organization_general_information_state_field(self):
+        self.admin_organization_general_information_state_field.click()
+
+    def enter_admin_organization_general_information_state_value(self, state):
+        self.admin_organization_general_information_state_field.fill(state)
+
+    def click_admin_organization_general_information_zipcode_field(self):
+        self.admin_organization_general_information_zipcode_field.click()
+
+    def enter_admin_organization_general_information_zipcode_value(self, state):
+        self.admin_organization_general_information_zipcode_field.fill(state)
+
+    def click_admin_organization_general_information_save_button(self):
+        self.admin_organization_general_information_save_button.click()
+
 
     #####################################################################################################################
     # Qualifications section methods
