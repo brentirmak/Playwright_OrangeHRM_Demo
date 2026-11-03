@@ -33,6 +33,32 @@ def test_LoginPage(shared_page):
 ################################################################################################################################
 # CLEANUP - START
 #
+
+def test_OrganizationStructureDeptCleanup(shared_page):
+    print("\nStarting test_OrganizationStructureDeptCleanup transaction")
+    admin_page = AdminPage(shared_page)
+    print("Will click on Admin menu")
+    admin_page.click_admin_menu()
+    print("Clicked on Admin menu")
+    print("Will click on Organization submenu")
+    admin_page.click_organization_submenu()
+    print("Clicked on Organization submenu")
+    admin_page.click_structure_submenu()
+    print("Clicked on Structure submenu")
+    expect(shared_page.get_by_role("heading", name="Organization Structure")).to_be_visible(timeout=10000)
+    print("Verified Organization Structure heading is visible on the Organization Structure page - will click on the Edit slider")
+    admin_page.click_admin_organization_structure_edit_slider()
+    try:
+        print("Clicked on the Edit slider - will proceed with the deletion of the test record")
+        admin_page.click_org_trashbin_of_tobedeleted_item("Cloud Operations")
+        print("Entered the org name - will click on the delete org confirmation button")
+        admin_page.click_org_delete_org_confirm_button()
+        expect(admin_page.admin_organization_structure_delete_org_successfully_deleted_message).to_be_visible(timeout=20000)
+        print("Verified that the org structure was successfully deleted")
+    except:
+        print("There was no test report to cleanup - proceeding with the tests")
+    print("Ended test_OrganizationStructureDeptCleanup transaction")
+
 def test_OrganizationLocationsLocationCleanup(shared_page):
     print("\nStarting test_OrganizationLocationsLocationCleanup transaction")
     admin_page = AdminPage(shared_page)
