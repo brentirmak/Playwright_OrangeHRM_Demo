@@ -157,6 +157,27 @@ def test_OrganizationStructure(shared_page):
     print("Verified Organization Structure heading is visible on the Organization Structure page")
     print("Ended test_OrganizationStructure transaction")
 
+def test_OrganizationLocationsDeleteLocation(shared_page):
+    print("\nStarting test_OrganizationLocationsAddLocation transaction")
+    admin_page = AdminPage(shared_page)
+    print("Will click on Admin menu")
+    admin_page.click_admin_menu()
+    print("Clicked on Admin menu")
+    print("Will click on Organization submenu")
+    admin_page.click_organization_submenu()
+    print("Clicked on Organization submenu")
+    admin_page.click_locations_submenu()
+    print("Clicked on Locations submenu")
+    expect(shared_page.get_by_role("heading", name="Locations")).to_be_visible(timeout=10000)
+    print("Verified Locations heading is visible on the Locations page - will proceed with the deletion of the test record")
+    admin_page.click_location_trashbin_of_tobedeleted_item("San Jose Development Center")
+    print("Entered the location name - will click on the delete location confirmation button")
+    admin_page.click_location_delete_location_confirm_button()
+    print("Clicked on the Delete Location confirmation button - will verify that a successfully deleted message is displayed")
+    expect(admin_page.admin_organizations_locations_delete_location_successfully_deleted_message).to_be_visible(timeout=10000)
+    print("Verified that the locationw as successfully deleted")
+    print("Ended test_OrganizationLocationsDeleteLocation transaction")
+
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")
     logout_page = LogoutPage(shared_page)

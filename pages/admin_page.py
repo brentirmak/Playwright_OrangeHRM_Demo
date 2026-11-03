@@ -140,7 +140,9 @@ class AdminPage:
         self.admin_organizations_locations_add_location_save_button = page.locator("xpath=//button[contains(.,'Save')]")
         self.admin_organizations_locations_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
 
-
+        # Delete Location identifiers
+        self.admin_organizations_locations_delete_location_confirm_button = page.locator("xpath=//button[contains(.,'Yes, Delete')]")
+        self.admin_organizations_locations_delete_location_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
 
         #####################################################################################################################
         # Qualifications section identifiers
@@ -545,7 +547,7 @@ class AdminPage:
         self.admin_organization_general_information_save_button.click()
 
     # Locations methods
-
+    # Add
     def click_admin_organizations_locations_add_button(self):
         self.admin_organizations_locations_add_button.click()
 
@@ -590,6 +592,16 @@ class AdminPage:
 
     def click_admin_organizations_locations_add_location_save_button(self):
         self.admin_organizations_locations_add_location_save_button.click()
+
+    # Delete
+    def click_location_trashbin_of_tobedeleted_item(self, location_name):
+        row = self.page.locator("div.oxd-table-card").filter(has_text=location_name)
+        row.get_by_role("button").filter(has=self.page.locator("i.bi-trash")).click()
+        self.page.wait_for_load_state("networkidle")
+
+    def click_location_delete_location_confirm_button(self):
+        self.admin_organizations_locations_delete_location_confirm_button.click()
+
 
     #####################################################################################################################
     # Qualifications section methods
