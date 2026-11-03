@@ -167,6 +167,10 @@ class AdminPage:
         self.admin_organization_structure_save_button = page.locator("xpath=//button[contains(.,'Save')]")
         self.admin_organization_structure_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
 
+        # Delete Structure identifiers
+        self.admin_organization_structure_delete_org_confirm_button = page.locator("xpath=//button[contains(.,'Yes, Delete')]")
+        self.admin_organization_structure_delete_org_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
+
         #####################################################################################################################
         # Qualifications section identifiers
         #####################################################################################################################
@@ -687,7 +691,24 @@ class AdminPage:
     def click_admin_organization_structure_save_button(self):
         self.admin_organization_structure_save_button.click()
 
+    # Delete
+    def click_org_trashbin_of_tobedeleted_item(self, org_name):
 
+        org = self.page.get_by_text(org_name, exact=True)
+
+        parent = org.locator("xpath=..")
+
+        trash_button = parent.locator(
+            "button:has(i.bi-trash-fill)"
+        )
+
+        expect(trash_button).to_have_count(1)
+        expect(trash_button).to_be_visible()
+
+        trash_button.click()
+
+    def click_org_delete_org_confirm_button(self):
+        self.admin_organization_structure_delete_org_confirm_button.click()
 
 
 
