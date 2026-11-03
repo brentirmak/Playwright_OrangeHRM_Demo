@@ -31,7 +31,7 @@ def test_LoginPage(shared_page):
     print("Ended test_LoginPage transaction")
 
 ################################################################################################################################
-# CLEANUP
+# CLEANUP - START
 #
 def test_OrganizationLocationsLocationCleanup(shared_page):
     print("\nStarting test_OrganizationLocationsLocationCleanup transaction")
@@ -56,6 +56,10 @@ def test_OrganizationLocationsLocationCleanup(shared_page):
     except:
         print("There was no test report to cleanup - proceeding with the tests")
     print("Ended test_OrganizationLocationsLocationCleanup transaction")
+
+################################################################################################################################
+# CLEANUP - END
+#
 
 def test_OrganizationGeneralInformation(shared_page):
     print("\nStarting test_OrganizationGeneralInformation transaction")
@@ -169,6 +173,32 @@ def test_OrganizationLocationsAddLocation(shared_page):
     print("Verified that the location was successfully saved message was displayed")
     print("Ended test_OrganizationLocationsAddLocation transaction")
 
+def test_OrganizationLocationsModifyLocation(shared_page):
+    print("\nStarting test_OrganizationLocationsModifyLocation transaction")
+    admin_page = AdminPage(shared_page)
+    print("Will click on Admin menu")
+    admin_page.click_admin_menu()
+    print("Clicked on Admin menu")
+    print("Will click on Organization submenu")
+    admin_page.click_organization_submenu()
+    print("Clicked on Organization submenu")
+    admin_page.click_locations_submenu()
+    print("Clicked on Locations submenu")
+    expect(shared_page.get_by_role("heading", name="Locations")).to_be_visible(timeout=10000)
+    print("Verified Locations heading is visible on the Locations page - will click on the to be modified record")
+    admin_page.click_location_pencil_icon_of_tobemodified_item("San Jose Development Center")
+    print("Clicked on the pencil icon for the location - will verify that we're on the Edit page")
+    expect(admin_page.admin_organizations_locations_edit_location_header).to_be_visible(timeout=20000)
+    print("Verified that we're on the Edit Location page - will edit the phone number")
+    admin_page.click_admin_organizations_locations_edit_location_phone_field()
+    admin_page.enter_admin_organizations_locations_edit_location_phone_field("555-555-5555")
+    print("Entered the Phone Number - will now click on the Save button")
+    admin_page.click_admin_organizations_locations_edit_location_save_button()
+    print("Clicked on the Save button - will now confirm that the record was saved")
+    expect(admin_page.admin_organizations_locations_successfully_updated_message).to_be_visible(timeout=20000)
+    print("Verified that the location was successfully saved message was displayed")
+    print("Ended test_OrganizationLocationsModifyLocation transaction")
+
 def test_OrganizationStructure(shared_page):
     print("\nStarting test_OrganizationStructure transaction")
     admin_page = AdminPage(shared_page)
@@ -185,7 +215,7 @@ def test_OrganizationStructure(shared_page):
     print("Ended test_OrganizationStructure transaction")
 
 def test_OrganizationLocationsDeleteLocation(shared_page):
-    print("\nStarting test_OrganizationLocationsAddLocation transaction")
+    print("\nStarting test_OrganizationLocationsDeleteLocation transaction")
     admin_page = AdminPage(shared_page)
     print("Will click on Admin menu")
     admin_page.click_admin_menu()
