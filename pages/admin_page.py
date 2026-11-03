@@ -123,6 +123,25 @@ class AdminPage:
         self.admin_organization_general_information_zipcode_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[5]/div/div[2]/div/div[2]/input")
         self.admin_organization_geenral_information_save_button = page.locator("xpath=//button[contains(.,'Save')]")
         self.admin_organization_general_information_successfully_updated_message = page.locator("xpath=//p[contains(.,'Successfully Updated')]")
+
+        # Location identifiers
+        self.admin_organizations_locations_header = page.locator("xpath=//h5[contains(.,'Locations')]")
+
+        # Add Location identifiers
+        self.admin_organizations_locations_add_button = page.locator("xpath=//button[contains(.,'Add')]")
+        self.admin_organizations_locations_add_location_header = page.locator("xpath=//h6[contains(.,'Add Location')]")
+        self.admin_organizations_locations_add_location_name_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div/div/div[2]/input")
+        self.admin_organizations_locations_add_location_city_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[2]/div/div[1]/div/div[2]/input")
+        self.admin_organizations_locations_add_location_state_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[2]/div/div[2]/div/div[2]/input")
+        self.admin_organizations_locations_add_location_zip_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[2]/div/div[3]/div/div[2]/input")
+        self.admin_organizations_locations_add_location_country_dropdown = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[2]/div/div[4]/div/div[2]/div/div[1]/div[2]/i")
+        self.admin_organizations_locations_add_location_us_option = page.locator("xpath=(//span[contains(.,'United States')])[1]")
+        self.admin_organizations_locations_add_location_phone_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[2]/div/div[5]/div/div[2]/input")
+        self.admin_organizations_locations_add_location_save_button = page.locator("xpath=//button[contains(.,'Save')]")
+        self.admin_organizations_locations_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
+
+
+
         #####################################################################################################################
         # Qualifications section identifiers
         #####################################################################################################################
@@ -525,6 +544,52 @@ class AdminPage:
     def click_admin_organization_general_information_save_button(self):
         self.admin_organization_general_information_save_button.click()
 
+    # Locations methods
+
+    def click_admin_organizations_locations_add_button(self):
+        self.admin_organizations_locations_add_button.click()
+
+    def click_admin_organizations_locations_add_location_name_field(self):
+        self.admin_organizations_locations_add_location_name_field.click()
+
+    def enter_admin_organizations_locations_add_location_name_value(self,location_name):
+        self.admin_organizations_locations_add_location_name_field.fill(location_name)
+
+    def click_admin_organizations_locations_add_location_city_field(self):
+        self.admin_organizations_locations_add_location_city_field.click()
+
+    def enter_admin_organizations_locations_add_location_city_value(self,city):
+        self.admin_organizations_locations_add_location_city_field.fill(city)
+
+    def click_admin_organizations_locations_add_location_state_field(self):
+        self.admin_organizations_locations_add_location_state_field.click()
+
+    def enter_admin_organizations_locations_add_location_state_value(self, state):
+        self.admin_organizations_locations_add_location_state_field.fill(state)
+
+    def click_admin_organizations_locations_add_location_zip_field(self):
+        self.admin_organizations_locations_add_location_zip_field.click()
+
+    def enter_admin_organizations_locations_add_location_zip_value(self, zip):
+        self.admin_organizations_locations_add_location_zip_field.fill(zip)
+
+    def click_admin_organizations_locations_add_location_country_dropdown(self):
+        self.admin_organizations_locations_add_location_country_dropdown.click()
+
+    def select_admin_organizations_locations_add_location_country_value(self):
+        self.admin_organizations_locations_add_location_us_option.click()
+
+    def click_admin_organizations_locations_add_location_phone_field(self):
+        self.admin_organizations_locations_add_location_phone_field.click()
+
+    def click_admin_organizations_locations_add_location_phone_field(self):
+        self.admin_organizations_locations_add_location_phone_field.click()
+
+    def enter_admin_organizations_locations_add_location_phone_field(self, phone_number):
+        self.admin_organizations_locations_add_location_phone_field.fill(phone_number)
+
+    def click_admin_organizations_locations_add_location_save_button(self):
+        self.admin_organizations_locations_add_location_save_button.click()
 
     #####################################################################################################################
     # Qualifications section methods
