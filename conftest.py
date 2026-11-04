@@ -60,14 +60,14 @@ def timing(request):
     yield
     request.node.duration = time.time() - request.node.start_time
 
-def send_failure_alert(test_name: str, error_message: str, screenshot_bytes: bytes, recipient):
+def send_failure_alert(script_name: str, test_name: str, error_message: str, screenshot_bytes: bytes, recipient):
     try:
         encoded_screenshot = base64.b64encode(screenshot_bytes).decode("utf-8")
 
         params = {
             "from": "Playwright - OrangeHRM Test Automation <onboarding@resend.dev>",
             "to": [f"{recipient}"],
-            "subject": f"❌ First Test Failure: {test_name}",
+            "subject": f"❌ {script_name} - First Test Failure: {test_name}",
             "html": f"""
                 <h2>Test Automation Failure Alert</h2>
                 <p><strong>Test Name:</strong> {test_name}</p>
@@ -139,6 +139,7 @@ def pytest_runtest_makereport(item, call):
                     print(f"📸 Capturing screenshot for first failure in '{item.name}'...")
                     screenshot_bytes = page.screenshot(full_page=True)
                     send_failure_alert(
+                        script_name=script_name,
                         test_name=item.name, 
                         error_message=error or "No error traceback available", 
                         screenshot_bytes=screenshot_bytes,
