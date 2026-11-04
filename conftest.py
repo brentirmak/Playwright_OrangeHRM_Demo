@@ -1,8 +1,22 @@
 import pytest
 import time
+import base64
 import os
+import resend
 from playwright.sync_api import sync_playwright
 from utils.mysql_logger import log_test_result
+from playwright.sync_api import Page
+from utils.config import RESEND_API_KEY
+from utils.config import EMAIL_ALERT_RECIPIENT
+
+# Initialize Resend with the imported key
+resend.api_key = RESEND_API_KEY
+email_alert_recipient = EMAIL_ALERT_RECIPIENT
+
+@pytest.hookimpl(tryfirst=True)
+def pytest_sessionstart(session):
+    """Store the flag directly on the Session instance at startup."""
+    session.first_failure_alert_sent = False
 
 def detect_run_type() -> str:
     """Automatically determines if the test execution is running on Jenkins or manually."""
@@ -18,7 +32,6 @@ def pytest_addoption(parser):
         help="Browser to run tests: chromium, firefox, webkit"
     )
 
-#@pytest.fixture(scope="session")
 @pytest.fixture(scope="module")
 def shared_page(request):
     browser_name = request.config.getoption("--browser").lower()
@@ -47,11 +60,38 @@ def timing(request):
     yield
     request.node.duration = time.time() - request.node.start_time
 
+def send_failure_alert(test_name: str, error_message: str, screenshot_bytes: bytes, recipient):
+    try:
+        encoded_screenshot = base64.b64encode(screenshot_bytes).decode("utf-8")
 
-# MySQL logging hook
+        params = {
+            "from": "Playwright - OrangeHRM Test Automation <onboarding@resend.dev>",
+            "to": [f"{recipient}"],
+            "subject": f"❌ First Test Failure: {test_name}",
+            "html": f"""
+                <h2>Test Automation Failure Alert</h2>
+                <p><strong>Test Name:</strong> {test_name}</p>
+                <p><strong>Error Details:</strong></p>
+                <pre style="background: #f4f4f4; padding: 10px; border-radius: 5px;">{error_message}</pre>
+                <p>A screenshot of the failure state is attached below.</p>
+            """,
+            "attachments": [
+                {
+                    "filename": f"{test_name}_failure.png",
+                    "content": encoded_screenshot,
+                }
+            ],
+        }
+
+        email = resend.Emails.send(params)
+        print(f"📧 [Resend] First failure email sent successfully! ID: {email.get('id')}")
+    
+    except Exception as e:
+        print(f"⚠️ [Resend Error] Failed to send error alert email: {e}")
+
+# MySQL logging & First-Failure Alerting hook
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item, call):
-
     outcome = yield
     result = outcome.get_result()
 
@@ -60,18 +100,12 @@ def pytest_runtest_makereport(item, call):
 
     status = "passed" if result.passed else "failed"
     error = str(result.longrepr) if result.failed else None
-
     login_duration = getattr(item, "login_duration", None)
-
-    # pytest's call report already provides the test duration
     duration = result.duration
-
     script_name = os.path.basename(str(item.fspath))
-
     run_type = detect_run_type()
 
-    print(f"Run Type detected: {run_type}")
-
+    # 1. Log to MySQL normally
     log_test_result(
         test_name=item.name,
         script_name=script_name,
@@ -81,3 +115,36 @@ def pytest_runtest_makereport(item, call):
         login_duration=login_duration,
         run_type=run_type,
     )
+
+    # 2. Handle First-Failure Email Alert
+    if result.failed:
+        session = item.session
+        already_sent = getattr(session, "first_failure_alert_sent", False)
+
+        if not already_sent:
+            # Smart lookup: find the Playwright Page object regardless of fixture name ('page', 'shared_page', etc.)
+            page = item.funcargs.get("page", None)
+            if not page:
+                for arg_name, arg_value in item.funcargs.items():
+                    # Check if the object is a Playwright Page instance
+                    if type(arg_value).__name__ == "Page":
+                        page = arg_value
+                        break
+
+            if page:
+                # Flip lock only AFTER we confirm we found a valid page to screenshot
+                session.first_failure_alert_sent = True
+                
+                try:
+                    print(f"📸 Capturing screenshot for first failure in '{item.name}'...")
+                    screenshot_bytes = page.screenshot(full_page=True)
+                    send_failure_alert(
+                        test_name=item.name, 
+                        error_message=error or "No error traceback available", 
+                        screenshot_bytes=screenshot_bytes,
+                        recipient=email_alert_recipient,
+                    )
+                except Exception as e:
+                    print(f"⚠️ Could not capture screenshot or send failure alert: {e}")
+            else:
+                print(f"⚠️ No Playwright Page fixture found in funcargs for '{item.name}'. Skipping alert.")
