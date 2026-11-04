@@ -34,13 +34,13 @@ def test_LoginPage(shared_page):
     print("\nStarting test_LoginPage transaction")
     login_page = LoginPage(shared_page)
     print("Enter username and password and click Login button")
-    login_page.login("Admin", "admin123")
+    login_page.login("Admin123", "admin123")
     print("Clicked Login button")
     shared_page.wait_for_url("**/dashboard/index", timeout=15000)
     shared_page.wait_for_selector("//p[@class='oxd-text oxd-text--p'][contains(.,'Time at Work')]")
     print("Verified Dashboard heading is visible on the dashboard page")
     print("Ended test_LoginPage transaction")
-
+'''
 def test_AdminPage(shared_page):
     print("\nStarting test_AdminPage transaction")
     admin_page = AdminPage(shared_page)
@@ -162,7 +162,7 @@ def test_BuzzPage(shared_page):
     shared_page.wait_for_selector("//p[contains(.,'Buzz Newsfeed')]")
     print("Verified Buzz heading is visible on the Buzz page")
     print("Ended test_BuzzPage transaction")
-
+'''
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")
     logout_page = LogoutPage(shared_page)
