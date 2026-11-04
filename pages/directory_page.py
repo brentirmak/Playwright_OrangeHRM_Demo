@@ -14,9 +14,10 @@ class DirectoryPage:
         self.directory_reset_button = page.locator("xpath=//button[contains(.,'Reset')]")
         self.directory_employee_name_field = page.locator("xpath=//input[@placeholder='Type for hints...']")
         self.directory_job_title_dropdown = page.locator("xpath=(//div[@class='oxd-select-text-input'][contains(.,'-- Select --')])[1]")
+        self.directory_job_title_software_engineer_option = page.locator("xpath=//span[contains(.,'Software Engineer')]")
+        self.directory_job_title_chief_financial_officer_option = page.locator("xpath=//span[contains(.,'Chief Financial Officer')]")
         self.directory_location_dropdown = page.locator("xpath=(//div[@class='oxd-select-text-input'][contains(.,'-- Select --')])[2]")
-        self.directory_job_title_software_engineer_option = page.locator("xpath=div[role='option']", has_text="Software Engineer")
-        self.directory_job_title_chief_financial_officer_option = page.locator("xpath=div[role='option']", has_text="Chief Financial Officer")
+
 
         self.directory_records_found = page.locator("xpath=//span[contains(.,'Record Found')] | //span[contains(.,'Records Found')]")
     
@@ -31,10 +32,10 @@ class DirectoryPage:
         self.directory_job_title_dropdown.click()
 
     def click_directory_software_engineer_selection(self):
-        self.directory_software_engineer_selection.click()
+        self.directory_job_title_software_engineer_option.click()
 
     def click_directory_chief_financial_officer_selection(self):
-        self.directory_chief_financial_officer_selection.click()
+        self.directory_job_title_chief_financial_officer_option.click()
         
     def click_directory_search_button(self):
         self.directory_search_button.click()

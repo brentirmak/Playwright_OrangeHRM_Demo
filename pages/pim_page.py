@@ -13,7 +13,28 @@ class PIMPage:
         self.pim_employee_add_employee_id_field = page.get_by_role("textbox").nth(4)
         self.pim_employee_add_employee_save_button = page.locator("xpath=//button[contains(.,'Save')]")
         self.pim_employee_add_employee_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
-        
+
+        # Employee List / Edit Employee
+        self.pim_employee_edit_employee_personal_details_header = page.locator("xpath=//h6[contains(.,'Personal Details')]")
+        self.pim_employee_edit_employee_gender_male_selection = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[1]/form/div[3]/div[2]/div[2]/div/div[2]/div[1]/div[2]/div/label/span")
+        self.pim_employee_edit_employee_gender_female_selection = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[1]/form/div[3]/div[2]/div[2]/div/div[2]/div[2]/div[2]/div/label/span")
+        self.pim_employee_edit_employee_job_tab = page.locator("xpath=//a[contains(.,'Job')]")
+        self.pim_employee_edit_employee_job_details_header = page.locator("xpath=//h6[contains(.,'Job Details')]")
+        self.pim_employee_edit_employee_job_title_dropdown = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[1]/form/div[1]/div/div[2]/div/div[2]/div/div[1]/div[2]/i")
+        self.pim_employee_edit_employee_software_engineer_option = page.locator("xpath=//div[@role='option'][contains(.,'Software Engineer')]")
+        self.pim_employee_edit_employee_job_category_dropdown = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[1]/form/div[1]/div/div[4]/div/div[2]/div/div[1]/div[2]/i")
+        self.pim_employee_edit_employee_professionals_option = page.locator("xpath=//div[@role='option'][contains(.,'Professionals')]")
+        self.pim_employee_edit_employee_sub_unit_dropdown = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[1]/form/div[1]/div/div[5]/div/div[2]/div/div[1]/div[2]/i")
+        self.pim_employee_edit_employee_engineering_option = page.locator("xpath=//span[contains(.,'Engineering')]")
+        self.pim_employee_edit_employee_location_dropdown = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[1]/form/div[1]/div/div[6]/div/div[2]/div/div[1]/div[2]/i")
+        self.pim_employee_edit_employee_hq_ca_option = page.locator("xpath=//span[contains(.,'HQ - CA, USA')]")
+        self.pim_employee_edit_employee_employment_status_dropdown = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[1]/form/div[1]/div/div[7]/div/div[2]/div/div[1]/div[2]/i")
+        self.pim_employee_edit_employee_full_time_permanent_option = page.locator("xpath=//div[@role='option'][contains(.,'Full-Time Permanent')]")
+        self.pim_employee_edit_employee_save1_button = page.locator("xpath=(//button[@type='submit'][contains(.,'Save')])[1]")
+        self.pim_employee_edit_employee_save2_button = page.locator("xpath=//button[contains(.,'Save')]")
+        self.pim_employee_edit_employee_successfully_updated_message = page.locator("xpath=//p[contains(.,'Successfully Updated')]")
+        self.pim_employee_edit_employee_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
+
         # Employee List / Search Employee
         self.pim_employee_list_employee_name_field = page.get_by_role("textbox", name="Type for hints...").first
         self.pim_employee_list_employee_search_button = page.get_by_role("button", name="Search")
@@ -86,6 +107,55 @@ class PIMPage:
 
     def click_pim_employee_add_employee_save_button(self):
         self.pim_employee_add_employee_save_button.click()
+
+    #################################################################################################################
+    # PIM - Edit Employee methods
+    #################################################################################################################
+
+    def click_pim_employee_edit_employee_gender_male_selection(self):
+        self.pim_employee_edit_employee_gender_male_selection.click()
+
+    def click_pim_employee_edit_employee_gender_female_selection(self):
+        self.pim_employee_edit_employee_gender_female_selection.click()
+
+    def click_pim_employee_edit_employee_job_tab(self):
+        self.pim_employee_edit_employee_job_tab.click()
+
+    def click_pim_employee_edit_employee_job_title_dropdown(self):
+        self.pim_employee_edit_employee_job_title_dropdown.click()
+
+    def select_pim_employee_edit_employee_job_title_value(self):
+        self.pim_employee_edit_employee_software_engineer_option.click()
+
+    def click_pim_employee_edit_employee_job_category_dropdown(self):
+        self.pim_employee_edit_employee_job_category_dropdown.click()
+
+    def select_pim_employee_edit_employee_job_category_value(self):
+        self.pim_employee_edit_employee_professionals_option.click()
+
+    def click_pim_employee_edit_employee_sub_unit_dropdown(self):
+        self.pim_employee_edit_employee_sub_unit_dropdown.click()
+
+    def select_pim_employee_edit_employee_sub_unit_value(self):
+        self.pim_employee_edit_employee_engineering_option.click()
+
+    def click_pim_employee_edit_employee_location_dropdown(self):
+        self.pim_employee_edit_employee_location_dropdown.click()
+
+    def select_pim_employee_edit_employee_location_value(self):
+        self.pim_employee_edit_employee_hq_ca_option.click()
+
+    def click_pim_employee_edit_employee_employment_status_dropdown(self):
+        self.pim_employee_edit_employee_employment_status_dropdown.click()
+
+    def select_pim_employee_edit_employee_employment_status_value(self):
+        self.pim_employee_edit_employee_full_time_permanent_option.click()
+
+    def click_pim_employee_edit_employee_save1_button(self):
+        self.pim_employee_edit_employee_save1_button.click()
+
+    def click_pim_employee_edit_employee_save2_button(self):
+        self.pim_employee_edit_employee_save2_button.click()
 
     #################################################################################################################
     # PIM - Search Employee methods
