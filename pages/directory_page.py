@@ -1,3 +1,5 @@
+import time
+
 class DirectoryPage:
 
     def __init__(self, page):
@@ -17,16 +19,25 @@ class DirectoryPage:
         self.directory_job_title_software_engineer_option = page.locator("xpath=//span[contains(.,'Software Engineer')]")
         self.directory_job_title_chief_financial_officer_option = page.locator("xpath=//span[contains(.,'Chief Financial Officer')]")
         self.directory_location_dropdown = page.locator("xpath=(//div[@class='oxd-select-text-input'][contains(.,'-- Select --')])[2]")
-
-
+        self.directory_employee_name_chris_collins_value = page.locator("xpath=//div[@role='option'][contains(.,'Chris  Collins')]")
         self.directory_records_found = page.locator("xpath=//span[contains(.,'Record Found')] | //span[contains(.,'Records Found')]")
-    
+        self.directory_records_chris_collins_found = page.locator("xpath=//p[contains(.,'Chris  Collins')]")
+        self.directory_record_found = page.locator("xpath=//span[contains(.,'(1) Record Found')]")
     ###################################################################################################################
     # Directory - Methods
     #
 
     def click_directory_menu(self):
         self.directory_menu.click()
+
+    def click_directory_employee_name_field(self):
+        self.directory_employee_name_field.click()
+
+    def enter_directory_employee_name_value(self,employee_name):
+        if employee_name == "Chris Collins":
+            self.directory_employee_name_field.fill("Chris")
+            time.sleep(1)
+            self.directory_employee_name_chris_collins_value.click()
 
     def click_directory_job_title_dropdown(self):
         self.directory_job_title_dropdown.click()
