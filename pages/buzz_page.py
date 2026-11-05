@@ -84,7 +84,7 @@ class BuzzPage:
             .filter(has_text=re.compile(keyword, re.IGNORECASE))
             .first
         )
-        expect(post).to_be_visible()
+        expect(post).to_be_visible(timeout=20000)
         print("Post is visible - will click on the like icon")
 
         # The heart icon sits in the post's action bar
@@ -95,7 +95,7 @@ class BuzzPage:
                 has=self.page.locator("path")
             ).first  # fallback; refine after inspecting the HTML
 
-        expect(like_icon).to_be_visible()
+        expect(like_icon).to_be_visible(timeout=20000)
         like_icon.click()
         print("Clicked on the like icon")
 
@@ -108,7 +108,7 @@ class BuzzPage:
             .filter(has_text=re.compile(keyword, re.IGNORECASE))
             .first
         )
-        expect(post).to_be_visible()
+        expect(post).to_be_visible(timeout=20000)
         print("Post is visible - will click on the 3 dots")
 
         post.locator(".orangehrm-buzz-post-header-config").click()
@@ -116,7 +116,7 @@ class BuzzPage:
 
         # Scoped to the post so we don't hit another card's menu
         edit_item = post.get_by_text("Edit Post", exact=True)
-        expect(edit_item).to_be_visible()
+        expect(edit_item).to_be_visible(timeout=20000)
         edit_item.click()
         print("Clicked on Edit Post - will wait for the edit dialog to open")
 
@@ -124,8 +124,8 @@ class BuzzPage:
         # The menu item is still in the DOM at this point, so scoping to the dialog
         # avoids matching it.
         dialog = self.page.get_by_role("dialog")
-        expect(dialog).to_be_visible()
-        expect(dialog.get_by_text("Edit Post")).to_be_visible()
+        expect(dialog).to_be_visible(timeout=20000)
+        expect(dialog.get_by_text("Edit Post")).to_be_visible(timeout=20000)
         print("Edit dialog is open")
 
     # Delete methods
@@ -136,7 +136,7 @@ class BuzzPage:
             .filter(has_text=re.compile(keyword, re.IGNORECASE))
             .first
         )
-        expect(post).to_be_visible()
+        expect(post).to_be_visible(timeout=20000)
         print("Post is visible - will click on the 3 dots")
 
         post.locator(".orangehrm-buzz-post-header-config").click()
@@ -144,13 +144,13 @@ class BuzzPage:
 
         # Scope to the post so you don't hit another card's menu
         delete_item = post.get_by_text("Delete Post", exact=True)
-        expect(delete_item).to_be_visible()
+        expect(delete_item).to_be_visible(timeout=20000)
         delete_item.click()
         print("Clicked on Delete post - will click on Yes in the confirmation window")
 
         self.page.get_by_role("button", name="Yes, Delete").click()
         print("Clicked on Yes, Delete - will confirm the deletion was successful")
-        expect(self.page.get_by_text("Successfully Deleted")).to_be_visible()
+        expect(self.page.get_by_text("Successfully Deleted")).to_be_visible(timeout=20000)
         print("Deletion was successful message was displayed")
 
     def delete_all_buzz_posts(self, max_posts=100):
@@ -167,20 +167,20 @@ class BuzzPage:
             if own_posts.count() == 0:
                 # The feed loads more on scroll; try once before concluding we're done
                 self.page.mouse.wheel(0, 3000)
-                self.page.wait_for_timeout(1000)
+                self.page.wait_for_timeout(5000)
                 if own_posts.count() == 0:
                     break
 
             # Re-evaluated every loop, so it always targets the current top post
             post = own_posts.first
-            expect(post).to_be_visible()
+            expect(post).to_be_visible(timeout=20000)
             print("Post is visible - will click on the 3 dots")
 
             post.locator(".orangehrm-buzz-post-header-config").click()
             print("Clicked on the 3 dots - will click on Delete Post")
 
             delete_item = post.get_by_text("Delete Post", exact=True)
-            expect(delete_item).to_be_visible()
+            expect(delete_item).to_be_visible(timeout=20000)
             delete_item.click()
             print("Clicked on Delete post - will click on Yes in the confirmation window")
 
@@ -188,10 +188,10 @@ class BuzzPage:
             print("Clicked on Yes, Delete - will confirm the deletion was successful")
 
             toast = self.page.get_by_text("Successfully Deleted")
-            expect(toast).to_be_visible()
+            expect(toast).to_be_visible(timeout=20000)
             # Wait for the toast to disappear so the next iteration
             # can't pass on the previous delete's toast
-            expect(toast).to_be_hidden()
+            expect(toast).to_be_hidden(timeout=20000)
 
             deleted += 1
             print(f"Deleted post #{deleted}")

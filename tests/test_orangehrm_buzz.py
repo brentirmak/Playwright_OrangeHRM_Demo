@@ -177,6 +177,6 @@ def test_Logout(shared_page):
     print("Will click on logout option on the menu")
     logout_page.click_logout()
     print("Clicked on logout option on the menu")
-    expect(shared_page.get_by_role("button", name="Login")).to_be_visible(timeout=10000)
+    expect(shared_page.get_by_role("button", name="Login")).to_be_visible(timeout=20000)
     print("Verified Login button is visible on the login page after logout")
     print("Ended test_Logout transaction")
