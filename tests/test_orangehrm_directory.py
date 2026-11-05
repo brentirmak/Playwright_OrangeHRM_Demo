@@ -1,9 +1,10 @@
 '''
-(11/4) - 7 Tests
+(11/4) - 8 Tests
 Precondition: An employee (Software Engineer) needs to exist
 Precondition Check/Setup: Exists
 '''
 import re
+import time
 from playwright.sync_api import Page, expect
 
 from conftest import shared_page
@@ -159,6 +160,25 @@ def test_SearchDirectoryByEmployeeName(shared_page):
     expect(directory_page.directory_records_chris_collins_found).to_be_visible(timeout=20000)
     print("Verified that the record found is Chris Collins")
     print("Ended test_SearchDirectoryByEmployeeName transaction")
+
+def test_SearchDirectoryByLocationName(shared_page):
+    print("\nStarting test_SearchDirectoryByEmployeeName transaction")
+    directory_page = DirectoryPage(shared_page)
+    print("Will click on the Directory menu item")
+    directory_page.click_directory_menu()
+    print("Clicked on the Directory menu item")
+    expect(directory_page.directory_directory_header).to_be_visible(timeout=20000)
+    print("Verified the Directory heading is visible on the Directory page - will enter the location name to search")
+    directory_page.click_directory_location_dropdown()
+    directory_page.click_directory_location_selection()
+    print("Entered the location name - will now click on the Search button")
+    directory_page.click_directory_search_button()
+    print("Clicked on the Search button - will verify that a record was found")
+    expect(directory_page.directory_record_found).to_be_visible(timeout=20000)
+    print("A record was found - will verify that the record is for Chris Collins")
+    expect(directory_page.directory_records_chris_collins_found).to_be_visible(timeout=20000)
+    print("Verified that the record found is Chris Collins")
+    print("Ended test_SearchDirectoryByLocationName transaction")
 
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")
