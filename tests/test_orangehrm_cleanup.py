@@ -41,7 +41,6 @@ def test_LoginPage(shared_page):
     print("Verified Dashboard heading is visible on the dashboard page")
     print("Ended test_LoginPage transaction")
 
-
 def test_AdminSectionUserManagementBulkCleanup(shared_page):
     print("\nStarting test_AdminSectionUserManagementBulkCleanup transaction")
     admin_page = AdminPage(shared_page)
@@ -145,6 +144,62 @@ def test_AdminSectionJobTitlesBulkCleanup(shared_page):
     except Exception as e:
         print(f"There was no record to delete/cleanup or an error occurred: {e} - will proceed with remaining tests execution")
     print("Ended test_AdminSectionJobTitlesBulkCleanup transaction")
+
+def test_QualificationsSkillsBulkCleanup(shared_page):
+    print("\nStarting test_QualificationsSkillsBulkCleanup transaction")
+    admin_page = AdminPage(shared_page)
+    print("Will click on Admin menu")
+    admin_page.click_admin_menu()
+    print("Clicked on Admin menu")
+    print("Will click on Qualifications submenu")
+    admin_page.click_qualifications_submenu()
+    print("Clicked on Qualifications submenu")
+    print("Will click on Skills submenu")
+    admin_page.click_skills_submenu()
+    print("Clicked on Skills submenu")
+    expect(shared_page.get_by_role("heading", name="Skills")).to_be_visible(timeout=10000)
+    print("Verified that the Skills header was displayed - will proceed with scanning for records to cleanup")
+    
+    try:
+        preserved_skills = {
+            "Content Creation", "Copywriting", "G Suite", "Google Analytics", 
+            "Java", "JavaScript", "JIRA", "Office Suite", "Perl", "Photoshop", 
+            "PHP", "Python", "React Native", "Ruby", "Search Engine Optimization (SEO)", 
+            "SQL", "Swift", "Trello", "UI/UX Design", "Wireframing"
+        }
+        
+        skill_name_elements = shared_page.locator("div.oxd-table-body div.oxd-table-card div.oxd-table-cell:nth-child(2)")
+        current_skills = skill_name_elements.all_inner_texts()
+        skills_to_delete = [skill.strip() for skill in current_skills if skill.strip() and skill.strip() not in preserved_skills]
+        
+        if skills_to_delete:
+            print(f"Found {len(skills_to_delete)} unpreserved skill(s) to delete: {skills_to_delete}")
+            
+            for skill in skills_to_delete:
+                try:
+                    print(f"Attempting to delete skill: {skill}")
+                    # Find the specific row and click its trash icon safely
+                    row = shared_page.locator("div.oxd-table-row").filter(has_text=skill)
+                    row.locator("button i.bi-trash").click()
+                    
+                    # Confirm deletion on the modal popup window that appears
+                    confirm_btn = shared_page.locator("button.oxd-button--label-danger", has_text="Yes, Delete")
+                    confirm_btn.click()
+                    
+                    # Wait for the success toast message and for the modal overlay to fully detach/disappear
+                    expect(admin_page.qualifications_successfully_deleted_message).to_be_visible(timeout=10000)
+                    shared_page.locator("div.oxd-dialog-container-default").wait_for(state="detached", timeout=10000)
+                    
+                    print(f"Successfully deleted skill: {skill}")
+                except Exception as inner_e:
+                    print(f"Could not delete skill '{skill}' due to error: {inner_e}")
+        else:
+            print("No cleanup needed: All current skills are in the preserved list.")
+            
+    except Exception as e:
+        print(f"There was no record to delete/cleanup or an error occurred: {e} - OK to proceed")
+        
+    print("\nEnded test_QualificationsSkillsBulkCleanup transaction")
 
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")
