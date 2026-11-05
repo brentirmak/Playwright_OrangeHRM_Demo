@@ -294,28 +294,10 @@ class AdminPage:
         self.page.wait_for_load_state("networkidle")
 
     def enter_employee_name(self, employee_name=""):
-        if employee_name == "FName Mname LName":
+        if employee_name == "Steve Smith":
             self.employee_name_field.fill(employee_name)
             self.page.wait_for_load_state("networkidle")
             self.page.get_by_text(employee_name).click()
-            self.page.wait_for_load_state("networkidle")
-        elif employee_name == "John Doe":
-            self.employee_name_field.clear()
-            self.employee_name_field.fill(employee_name)
-            self.page.wait_for_load_state("networkidle")
-            self.page.get_by_text(employee_name).first.click()
-            self.page.wait_for_load_state("networkidle")
-        elif employee_name == "TestUser123":
-            self.employee_name_field.clear()
-            self.employee_name_field.fill(employee_name)
-            self.page.wait_for_load_state("networkidle")
-            self.page.get_by_text(employee_name).first.click()
-            self.page.wait_for_load_state("networkidle")
-        else:
-            self.employee_name_field.clear()
-            self.page.get_by_role("textbox", name="Type for hints...").fill("test")
-            self.page.wait_for_load_state("networkidle")
-            self.page.get_by_text("AI", exact=False).first.click()
             self.page.wait_for_load_state("networkidle")
 
     def click_status_dropdown(self):
@@ -338,32 +320,32 @@ class AdminPage:
         self.create_username_field.click()
         self.page.wait_for_load_state("networkidle")
 
-    def enter_create_username(self):
-        self.create_username_field.fill("TestUser123")
+    def enter_create_username(self, username):
+        self.create_username_field.fill(username)
         self.page.wait_for_load_state("networkidle")
 
     def click_create_password_field(self):
         self.create_password_field.click()
         self.page.wait_for_load_state("networkidle")
 
-    def enter_create_password(self):
-        self.create_password_field.fill("TestUser123")
+    def enter_create_password(self, password):
+        self.create_password_field.fill(password)
         self.page.wait_for_load_state("networkidle")
 
     def click_confirm_create_password_field(self):
         self.confirm_create_password_field.click()
         self.page.wait_for_load_state("networkidle")
 
-    def enter_confirm_create_password(self):
-        self.confirm_create_password_field.fill("TestUser123")
+    def enter_confirm_create_password(self,password):
+        self.confirm_create_password_field.fill(password)
         self.page.wait_for_load_state("networkidle")
 
     def click_save_button(self):
         self.save_button.click()
         self.page.wait_for_load_state("networkidle")
 
-    def click_trashbin_of_tobedeleted_item(self):
-        row = self.page.locator("div.oxd-table-card").filter(has_text="TestUser123")
+    def click_trashbin_of_tobedeleted_item(self, employee_name):
+        row = self.page.locator("div.oxd-table-card").filter(has_text=employee_name)
         row.get_by_role("button").filter(has=self.page.locator("i.bi-trash")).click()
         self.page.wait_for_load_state("networkidle")
 
