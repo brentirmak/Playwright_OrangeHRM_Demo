@@ -42,8 +42,8 @@ def test_LoginPage(shared_page):
     print("Ended test_LoginPage transaction")
 
 
-def test_AdminSectionUserManagementCleanup(shared_page):
-    print("\nStarting test_AdminSectionUserManagementCleanup transaction")
+def test_AdminSectionUserManagementBulkCleanup(shared_page):
+    print("\nStarting test_AdminSectionUserManagementBulkCleanup transaction")
     admin_page = AdminPage(shared_page)
     print("Will click on admin option on the menu")
     admin_page.click_admin_menu()
@@ -82,7 +82,69 @@ def test_AdminSectionUserManagementCleanup(shared_page):
         expect(admin_page.admin_user_management_system_users_one_record_found_header).to_be_visible(timeout=20000)
         print("Only 1 record found - there's nothing to cleanup")
     
-    print("\nEnded test_AdminSectionUserManagementCleanup transaction")
+    print("\nEnded test_AdminSectionUserManagementBulkCleanup transaction")
+
+def test_AdminSectionJobTitlesBulkCleanup(shared_page):
+    print("\nStarting test_AdminSectionJobTitlesBulkCleanup transaction")
+    admin_page = AdminPage(shared_page)
+    print("Will click on admin option on the menu")
+    admin_page.click_admin_menu()
+    print("Will click on Job submenu under Admin menu")
+    admin_page.click_job_submenu()
+    print("Clicked on Job submenu under Admin menu")
+    print("Will click on Job Titles submenu under Job submenu")
+    admin_page.click_job_titles_submenu()
+    print("Clicked on Job Titles submenu under Job submenu")
+    expect(shared_page.get_by_role("columnheader", name="Job Description")).to_be_visible(timeout=10000)
+    expect(admin_page.admin_job_titles_header).to_be_visible(timeout=20000)
+    try:
+        print("Verified that we're on the Job Titles page - scanning for records to cleanup...")
+        
+        # Define the set of job titles to keep/preserve
+        preserved_titles = {
+            "Account Assistant", "Chief Executive Officer", "Chief Financial Officer", 
+            "Chief Technical Officer", "Content Specialist", "Customer Success Manager", 
+            "Database Administrator", "Finance Manager", "Financial Analyst", 
+            "Head of Support", "HR Associate", "HR Manager", "IT Manager", 
+            "Network Administrator", "Payroll Administrator", "Pre-Sales Coordinator", 
+            "QA Engineer", "QA Lead", "Sales Representative", "Social Media Marketer", 
+            "Software Architect", "Software Engineer", "Support Specialist", 
+            "VP - Client Services", "VP - Sales & Marketing"
+        }
+        
+        # Locate all job title cells in the table (adjust the selector if your page object has a specific locator for them)
+        # OrangeHRM typically stores job titles in the second column of the table rows
+        job_title_elements = admin_page.page.locator("div.oxd-table-body div.oxd-table-card div.oxd-table-cell:nth-child(2)")
+        
+        # Get all text contents currently displayed on the page
+        current_titles = job_title_elements.all_inner_texts()
+        
+        # Filter out titles that are in our preserved list
+        titles_to_delete = [title.strip() for title in current_titles if title.strip() and title.strip() not in preserved_titles]
+        
+        if titles_to_delete:
+            print(f"Found {len(titles_to_delete)} unpreserved job title(s) to delete: {titles_to_delete}")
+            
+            # Select the checkboxes for each unpreserved job title using your existing page helper
+            for title in titles_to_delete:
+                admin_page.click_admin_job_titles_click_checkbox_by_jobtitle(title)
+                print(f"Clicked on the checkbox associated with {title}")
+                
+            # Perform the bulk delete for all selected items
+            admin_page.click_admin_job_titles_delete_job_title_delete_selected_button()
+            print("Clicked on the Delete Selected button - will now click on the Yes, Delete button on the confirmation window")
+            
+            admin_page.click_admin_job_titles_delete_job_title_delete_confirmation_button()
+            print("Clicked on the Yes, Delete button, will confirm that the records have been deleted")
+            
+            expect(admin_page.admin_job_titles_delete_job_title_delete_confirmation_message).to_be_visible(timeout=10000)
+            print("Verified unpreserved job titles have been successfully deleted")
+        else:
+            print("No cleanup needed: All current job titles are in the preserved list.")
+
+    except Exception as e:
+        print(f"There was no record to delete/cleanup or an error occurred: {e} - will proceed with remaining tests execution")
+    print("Ended test_AdminSectionJobTitlesBulkCleanup transaction")
 
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")
