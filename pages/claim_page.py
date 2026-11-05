@@ -238,7 +238,10 @@ class ClaimPage:
     def enter_claim_assign_claim_create_claim_employee_name_field_value(self, employee_name):
         self.claim_assign_claim_create_claim_employee_name_field.fill(employee_name)
         time.sleep(1)
-        self.page.locator("xpath=//span[contains(.,'FN_ClaimTest  LN_ClaimTest')]").click()
+        if employee_name == "FN_ClaimTest LN_ClaimTest":
+            self.page.locator("xpath=//span[contains(.,'FN_ClaimTest  LN_ClaimTest')]").click()
+        else:
+            self.page.locator(f"xpath=//span[contains(.,'{employee_name}')]").click()
 
     def click_claim_assign_claim_create_claim_event_dropdown(self):
         self.claim_assign_claim_create_claim_event_dropdown.click()
