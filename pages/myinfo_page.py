@@ -463,7 +463,8 @@ class MyInfoPage:
         if country == "United States":
             self.page.locator("//div[@role='listbox']//span[text()='United States']").click()
         else:
-            print("Country isn't United States")
+            print("Country isn't United States - trying another value")
+            self.page.locator(f"//div[@role='listbox']//span[text()='{country}']").click()
 
     def click_immigration_eligible_review_date_field(self):
         self.immigration_eligible_review_date_field.click()
