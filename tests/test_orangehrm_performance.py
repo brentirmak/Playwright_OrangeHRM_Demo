@@ -1,5 +1,9 @@
 '''
 10/30/26 - 18 tests
+Preconditions: 
+Charles Carter - EmployeeId: 0320
+Peter Mac Anderson - EmployeeId: 0007, Job Title: Chief Financial Officer, Job Category: Officials and Managers, Sub Unit: Administration, Location: New York Sales Office
+Employment Status: Full-Time Probation
 '''
 import re
 
@@ -9,6 +13,7 @@ from conftest import shared_page
 from pages import performance_page
 from pages.home_page import HomePage
 from pages.login_page import LoginPage
+from pages.pim_page import PIMPage
 from pages.performance_page import PerformancePage
 from pages.logout_page import LogoutPage
 
@@ -44,8 +49,43 @@ def test_AccessPerformanceSection(shared_page):
     print("Verified that the Employee Reviews header was displayed")
     print("\nEnded test_AccessPerformanceSection transaction")
 
+###############################################################################################################################
+# PRECONDITION - Start
+#
+def test_PIMPagePreReqCreateCharlesCarterEmployee(shared_page):
+    print("\nStarting test_PIMPagePreReqCreateCharlesCarterEmployee transaction")
+    pim_page = PIMPage(shared_page)
+    pim_page.click_pim_menu()
+    print("Clicked PIM menu option")
+    expect(shared_page.get_by_role("heading", name="Employee Information"))
+    print("Verified Employee Information header - will now click on the Add button")
+    pim_page.click_pim_employee_list_add_employee_button()
+    print("Clicked on Add button - will verify the Add Employee header")
+    expect(shared_page.get_by_role("heading", name="Add Employee")).to_be_visible(timeout=10000)
+    print("Verified Add Employee header - will enter the First Name")
+    pim_page.click_pim_employee_add_employee_first_name_field()
+    pim_page.enter_pim_employee_add_employee_first_name_field_value("Charles")
+    print("Entered the First Name, will now enter the Last Name")
+    pim_page.click_pim_employee_add_employee_last_name_field()
+    pim_page.enter_pim_employee_add_employee_last_name_field_value("Carter")
+    print("Entered the Last Name, will now enter the employee id")
+    pim_page.click_pim_employee_add_employee_id_field()
+    pim_page.enter_pim_employee_add_employee_id_field_value("0320")
+    try:
+        print("Entered the employee id, will click on the Save button")
+        pim_page.click_pim_employee_add_employee_save_button()
+        expect(shared_page.get_by_text("Successfully Saved")).to_be_visible(timeout=10000)
+        print("Successfully created the Charles Carter employee")
+    except:
+        print("Was not able to create the Charles Carter employee - most likely it already exists")
+    print("\nEnded test_PIMPagePreReqCreateCharlesCarterEmployee transaction")
+
+###############################################################################################################################
+# PRECONDITION - End
+#
+
 ################################################################################################################################
-# CLEANUP 
+# CLEANUP - Start
 ################################################################################################################################
 
 def test_PerformanceConfigureKPIsCleanupKPI(shared_page):
@@ -113,6 +153,9 @@ def test_PerformanceTrackersPerformanceTrackerCleanup(shared_page):
     except:
         print("There was no record to delete and/or there was a problem with the deletion")
     print("\nEnded test_PerformanceTrackersPerformanceTrackerCleanup transaction")
+
+################################################################################################################################
+# CLEANUP - End
 ################################################################################################################################
 
 def test_AccessPerformanceConfigureKPIsSubmenu(shared_page):
