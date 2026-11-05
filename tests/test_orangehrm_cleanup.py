@@ -1,23 +1,13 @@
 '''
-(11/2) - 14 Tests
+(11/5) - 7 Tests
+Preconditions: None
 '''
 import time, re
-
 from playwright.sync_api import Page, expect
-
 from pages.home_page import HomePage
 from pages.login_page import LoginPage
 from pages.admin_page import AdminPage
 from pages.pim_page import PIMPage
-from pages.leave_page import LeavePage
-from pages.time_page import TimePage
-from pages.recruitment_page import RecruitmentPage
-from pages.myinfo_page import MyInfoPage
-from pages.performance_page import PerformancePage
-from pages.directory_page import DirectoryPage
-from pages.maintenance_page import MaintenancePage
-from pages.claim_page import ClaimPage
-from pages.buzz_page import BuzzPage
 from pages.logout_page import LogoutPage
 
 def test_HomePage(shared_page):
