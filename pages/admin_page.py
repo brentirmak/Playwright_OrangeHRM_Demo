@@ -29,9 +29,15 @@ class AdminPage:
         self.confirm_create_password_field = page.get_by_role("textbox").nth(4)
         self.save_button = page.get_by_role("button", name="Save")
         self.delete_button = page.get_by_role("button", name=" Yes, Delete")
-
+        self.user_records = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div[2]/div[2]/div/span")
+        # Bulk Delete
+        self.admin_user_management_system_users_all_checkbox = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div[2]/div[3]/div/div[1]/div/div[1]/div/label/span/i")
+        self.admin_user_management_system_users_delete_selected_button = page.locator("xpath=//button[@type='button'][contains(.,'Delete Selected')]")
+        self.admin_user_management_system_users_delete_confirmation_button = page.locator("xpath=//button[contains(.,'Yes, Delete')]")
+        self.admin_user_management_system_users_delete_successful_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
+        self.admin_user_management_system_users_one_record_found_header = page.locator("xpath=//span[contains(.,'(1) Record Found')]")
         #####################################################################################################################
-        # Job section indentifiers
+        # Job section identifiers
         #####################################################################################################################
         self.job_submenu = page.get_by_role("listitem").filter(has_text="Job")
         self.job_titles_submenu = page.get_by_role("menuitem", name="Job Titles")
@@ -352,6 +358,16 @@ class AdminPage:
     def click_delete_button(self):
         self.delete_button.click()
         self.page.wait_for_load_state("networkidle")
+
+    # Bulk Delete
+    def click_admin_user_management_system_users_all_checkbox(self):
+        self.admin_user_management_system_users_all_checkbox.click()
+
+    def click_admin_user_management_system_users_delete_selected_button(self):
+        self.admin_user_management_system_users_delete_selected_button.click()
+
+    def click_admin_user_management_system_users_delete_confirmation_button(self):
+        self.admin_user_management_system_users_delete_confirmation_button.click()
 
     #####################################################################################################################
     # Job section methods
