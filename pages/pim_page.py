@@ -40,7 +40,8 @@ class PIMPage:
         self.pim_employee_list_employee_search_button = page.get_by_role("button", name="Search")
         self.pim_employee_list_reset_button = page.get_by_role("button", name="Reset")
         self.pim_employee_list_employment_status_dropdown = page.get_by_text("-- Select --").first
-        self.pim_employee_list_employment_full_time_permanent_option = page.get_by_text("Full-Time Permanent")
+        self.pim_employee_list_employment_full_time_permanent_option = page.locator("xpath=//span[contains(.,'Full-Time Permanent')]")
+        self.pim_employee_list_employment_full_time_permanent_result = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div[2]/div[3]/div/div[2]/div[1]/div/div[6]/div")
 
         # Employee List / Delete Employee
         self.pim_employee_list_delete_employee_checkbox_field = page.locator(".oxd-table-card-cell-checkbox > .oxd-checkbox-wrapper > label > .oxd-checkbox-input > .oxd-icon")

@@ -146,7 +146,8 @@ def test_PIMPageEmployeeListSearchByEmploymentStatus(shared_page):
     print("Clicked on Search button - will confirm that a result was returned")
     expect(shared_page.locator(":text-matches('Records? Found')")).to_be_visible(timeout=10000)
     print("Verified that records were found")
-    expect(shared_page.get_by_text("Full-Time Permanent").nth(1)).to_be_visible(timeout=10000)
+    pim_page.pim_employee_list_employment_full_time_permanent_result.wait_for(state="visible")
+    expect(pim_page.pim_employee_list_employment_full_time_permanent_result).to_have_text("Full-Time Permanent", timeout=20000)
     print("Verified that Full-Time Permanent text is visible")
     print("\nEnded test_PIMPageEmployeeListSearchByEmploymentStatus transaction")
 
