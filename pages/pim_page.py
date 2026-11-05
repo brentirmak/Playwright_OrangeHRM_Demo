@@ -42,11 +42,19 @@ class PIMPage:
         self.pim_employee_list_employment_status_dropdown = page.get_by_text("-- Select --").first
         self.pim_employee_list_employment_full_time_permanent_option = page.locator("xpath=//span[contains(.,'Full-Time Permanent')]")
         self.pim_employee_list_employment_full_time_permanent_result = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div[2]/div[3]/div/div[2]/div[1]/div/div[6]/div")
+        self.pim_employee_list_user_records = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div[2]/div[2]/div/span")
 
         # Employee List / Delete Employee
         self.pim_employee_list_delete_employee_checkbox_field = page.locator(".oxd-table-card-cell-checkbox > .oxd-checkbox-wrapper > label > .oxd-checkbox-input > .oxd-icon")
         self.pim_employee_list_delete_employee_delete_selected_button = page.locator("xpath=//button[contains(.,'Delete Selected')]")
         self.pim_employee_list_delete_employee_confirm_button = page.locator("xpath=//button[@type='button'][contains(.,'Yes, Delete')]")
+
+        # Bulk Delete
+        self.pim_employee_list_bulk_delete_checkbox = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div[2]/div[3]/div/div[1]/div/div[1]/div/label/span/i")
+        self.pim_employee_list_bulk_delete_delete_selected_button = page.locator("xpath=//button[contains(.,'Delete Selected')]")
+        self.pim_employee_list_bulk_delete_delete_confirmation_button = page.locator("xpath=//button[@type='button'][contains(.,'Yes, Delete')]")
+        self.pim_employee_list_bulk_delete_successfully_deleted_message = page.locator("xpath=//p[contains(.,'Successfully Deleted')]")
+        self.pim_employee_list_one_record_found_header = page.locator("xpath=//span[contains(.,'(1) Record Found')]")
 
         # Reports / Add Reports
         self.pim_reports_tab = page.get_by_role("listitem").filter(has_text="Reports")
@@ -197,6 +205,16 @@ class PIMPage:
     def click_pim_employee_list_delete_employee_confirm_button(self):
         self.pim_employee_list_delete_employee_confirm_button.click()
 
+    # Bulk Delete
+    def click_pim_employee_list_bulk_delete_checkbox(self):
+        self.pim_employee_list_bulk_delete_checkbox.click()
+
+    def click_pim_employee_list_bulk_delete_delete_selected_button(self):
+        self.pim_employee_list_bulk_delete_delete_selected_button.click()
+
+    def click_pim_employee_list_bulk_delete_delete_confirmation_button(self):
+        self.pim_employee_list_bulk_delete_delete_confirmation_button.click()
+    
     #################################################################################################################
     # PIM - Add Reports methods
     #################################################################################################################

@@ -198,8 +198,49 @@ def test_QualificationsSkillsBulkCleanup(shared_page):
             
     except Exception as e:
         print(f"There was no record to delete/cleanup or an error occurred: {e} - OK to proceed")
-        
     print("\nEnded test_QualificationsSkillsBulkCleanup transaction")
+
+def test_PIMPageEmployeeBulkCleanup(shared_page):
+    print("\nStarting test_PIMPageEmployeeBulkCleanup transaction")
+    pim_page = PIMPage(shared_page)
+    pim_page.click_pim_menu()
+    print("Clicked PIM menu option")
+    expect(shared_page.get_by_role("heading", name="Employee Information"))
+    print("Verified Employee Information header")
+
+    print("Will capture the current user count")
+
+    pim_page.pim_employee_list_user_records.wait_for(state="visible")
+    user_count_text = pim_page.pim_employee_list_user_records.inner_text()
+    match = re.search(r"\d+", user_count_text)
+    if match:
+        user_count = int(match.group())
+    print("User Count:", user_count)
+
+    if int(user_count) > 1:
+        while int(user_count) > 1:
+            print("Will click on the checkbox to highlight all records")
+            pim_page.click_pim_employee_list_bulk_delete_checkbox()
+            print("Clicked on the checkbox to highlight all records - will click on the Delete Selected button")
+            pim_page.click_pim_employee_list_bulk_delete_delete_selected_button()
+            print("Clicked on the Delete Selected button - will click on Yes on the confirmation window")
+            pim_page.click_pim_employee_list_bulk_delete_delete_confirmation_button()
+            print("Clicked on Yes, Delete on the confirmation window - will verify that the deletion was successful")
+            expect(pim_page.pim_employee_list_bulk_delete_successfully_deleted_message).to_be_visible(timeout=20000)
+
+            pim_page.pim_employee_list_user_records.wait_for(state="visible")
+            user_count_text = pim_page.pim_employee_list_user_records.inner_text()
+            match = re.search(r"\d+", user_count_text)
+            if match:
+                user_count = int(match.group())
+            print("User Count:", user_count)
+
+            expect(pim_page.pim_employee_list_one_record_found_header).to_be_visible(timeout=20000)
+            print("Verified that there's only 1 record found - cleanup is complete")
+    else:
+        expect(pim_page.pim_employee_list_one_record_found_header).to_be_visible(timeout=20000)
+        print("Only 1 record found - there's nothing to cleanup")
+    print("\nEnded test_PIMPageEmployeeBulkCleanup transaction")
 
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")
