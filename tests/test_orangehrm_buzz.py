@@ -1,5 +1,5 @@
 # 11/2/26
-# 11 subtransactions
+# 12 subtransactions
 #
 
 from datetime import datetime, timedelta
@@ -7,6 +7,7 @@ from playwright.sync_api import Page, expect
 from conftest import shared_page
 from pages.home_page import HomePage
 from pages.login_page import LoginPage
+from pages.admin_page import AdminPage
 from pages.buzz_page import BuzzPage
 from pages.logout_page import LogoutPage
 import time
@@ -28,9 +29,38 @@ def test_LoginPage(shared_page):
     login_page.login("Admin", "admin123")
     print("Clicked Login button")
     shared_page.wait_for_url("**/dashboard/index", timeout=15000)
-    shared_page.wait_for_selector("//p[@class='oxd-text oxd-text--p'][contains(.,'Time at Work')]")
+    expect(login_page.dashboard_page_header).to_be_visible(timeout=30000)
     print("Verified Dashboard heading is visible on the dashboard page")
     print("Ended test_LoginPage transaction")
+
+def test_CheckAdminConfigurationModuleStatus(shared_page):
+    print("\nStarting test_CheckAdminConfigurationModuleStatus transaction")
+    admin_page = AdminPage(shared_page)
+    print("Will go to https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewModules")
+    shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewModules")
+    print("Accessed the Modules page - will verify that we see the Modules Configuration header")
+    expect(admin_page.admin_configuration_module_configuration_header).to_be_visible(timeout=20000)
+    print("Verified that we see the Modules Configuration header - will check individual slider status and toggle if needed")
+    print("Checking Leave Module Slider")
+    admin_page.verify_admin_configuration_modules_leave_module_slider_status()
+    print("Checking Time Module Slider")
+    admin_page.verify_admin_configuration_modules_time_module_slider_status()
+    print("Checking Recruitment Module Slider")
+    admin_page.verify_admin_configuration_modules_recruitment_module_slider_status()
+    print("Checking Performance Module Slider")
+    admin_page.verify_admin_configuration_modules_performance_module_slider_status()
+    print("Checking Directory Module Slider")
+    admin_page.verify_admin_configuration_modules_directory_module_slider_status()
+    print("Checking Maintenance Module Slider")
+    admin_page.verify_admin_configuration_modules_maintenance_module_slider_status()
+    print("Checking Mobile Module Slider")
+    admin_page.verify_admin_configuration_modules_mobile_module_slider_status()
+    print("Checking Claim Module Slider")
+    admin_page.verify_admin_configuration_modules_claim_module_slider_status()
+    print("Checking Buzz Module Slider")
+    admin_page.verify_admin_configuration_modules_buzz_module_slider_status()
+    print("\nStarting test_CheckAdminConfigurationModuleStatus transaction")
+
 
 ##################################################################################################################
 # CLEANUP POSTS
@@ -95,9 +125,9 @@ def test_BuzzPageAccessMostCommentedPosts(shared_page):
     print("Verified that the No Posts Available message is displayed")
     print("\nEnded test_BuzzPageAccessMostCommentedPosts transaction")
 
-'''
-Create Post
-'''
+
+# Create Post
+
 def test_BuzzPageAddPost(shared_page):
     print("\nStarting test_BuzzPageAddPost transaction")
     buzz_page = BuzzPage(shared_page)
@@ -115,9 +145,9 @@ def test_BuzzPageAddPost(shared_page):
     print("Verified that the post was successfully saved")
     print("\nEnded test_BuzzPageAddPost transaction")
 
-'''
-Like Post
-'''
+
+# Like Post
+
 def test_BuzzPageLikePost(shared_page):
     print("\nStarting test_BuzzPageLikePost transaction")
     buzz_page = BuzzPage(shared_page)
@@ -131,9 +161,9 @@ def test_BuzzPageLikePost(shared_page):
     print("Verified that the post was successfully liked")
     print("\nEnded test_BuzzPageLikePost transaction")
 
-'''
-Modify Post
-'''
+
+# Modify Post
+
 def test_BuzzPageModifyPost(shared_page):
     print("\nStarting test_BuzzPageModifyPost transaction")
     buzz_page = BuzzPage(shared_page)
@@ -155,9 +185,9 @@ def test_BuzzPageModifyPost(shared_page):
     print("Verified that the post was successfully modified")
     print("\nEnded test_BuzzPageModifyPost transaction")
 
-'''
-Delete Post
-'''
+
+# Delete Post
+
 def test_BuzzPageDeletePost(shared_page):
     print("\nStarting test_BuzzPageDeletePost transaction")
     buzz_page = BuzzPage(shared_page)
