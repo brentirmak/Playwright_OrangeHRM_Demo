@@ -256,6 +256,29 @@ class AdminPage:
         self.register_oauth_client_submenu = page.get_by_role("menuitem", name="Register OAuth Client")
         self.ldap_configuration_submenu = page.get_by_role("menuitem", name="LDAP Configuration")
 
+        # Configuration - Modules
+        self.admin_configuration_module_configuration_header = page.locator("xpath=//h6[contains(.,'Module Configuration')]")
+        self.admin_configuration_modules_leave_module_slider = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[3]/div/label/span")
+        self.admin_configuration_modules_leave_module_checkbox = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[3]/div//input[@type='checkbox']")
+        self.admin_configuration_modules_time_module_slider = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[4]/div/label/span")
+        self.admin_configuration_modules_time_module_checkbox = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[4]/div//input[@type='checkbox']")
+        self.admin_configuration_modules_recruitment_module_slider = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[5]/div/label/span")
+        self.admin_configuration_modules_recruitment_module_checkbox = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[5]/div//input[@type='checkbox']")
+        self.admin_configuration_modules_performance_module_slider = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[6]/div/label/span")
+        self.admin_configuration_modules_performance_module_checkbox = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[6]/div//input[@type='checkbox']")
+        self.admin_configuration_modules_directory_module_slider = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[7]/div/label/span")
+        self.admin_configuration_modules_directory_module_checkbox = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[7]/div//input[@type='checkbox']")
+        self.admin_configuration_modules_maintenance_module_slider = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[8]/div/label/span")
+        self.admin_configuration_modules_maintenance_module_checkbox = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[8]/div//input[@type='checkbox']")
+        self.admin_configuration_modules_mobile_module_slider = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[9]/div/label/span")
+        self.admin_configuration_modules_mobile_module_checkbox = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[9]/div//input[@type='checkbox']")
+        self.admin_configuration_modules_claim_module_slider = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[10]/div/label/span")
+        self.admin_configuration_modules_claim_module_checkbox = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[10]/div//input[@type='checkbox']")
+        self.admin_configuration_modules_buzz_module_slider = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[11]/div/label/span")
+        self.admin_configuration_modules_buzz_module_checkbox = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[11]/div//input[@type='checkbox']")
+        self.admin_configuration_modules_save_button = page.locator("xpath=//button[contains(.,'Save')]")
+        self.admin_configuration_modules_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
+
         # Configuration - Localization
         self.admin_configuration_localization_localization_header = page.locator("xpath=//h6[contains(.,'Localization')]")
         self.admin_configuration_localization_language_dropdown = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div/div/div[2]/div/div[1]/div[2]/i")
@@ -708,27 +731,6 @@ class AdminPage:
     def click_org_delete_org_confirm_button(self):
         self.admin_organization_structure_delete_org_confirm_button.click()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     
     # Delete
     def click_location_trashbin_of_tobedeleted_item(self, location_name):
@@ -988,3 +990,125 @@ class AdminPage:
 
     def click_admin_configuration_localization_save_button(self):
         self.admin_configuration_localization_save_button.click()
+
+    #
+    # Modules - Methods
+    #
+
+    def verify_admin_configuration_modules_leave_module_slider_status(self):
+        is_on = self.admin_configuration_modules_leave_module_checkbox.is_checked()
+        if is_on == False:
+            print("The leave slider is False, need to toggle it")
+            self.admin_configuration_modules_leave_module_slider.click()
+            print("Clicked on the leave slider to toggle it - will click on the Save button")
+            self.admin_configuration_modules_save_button.click()
+            print("Clicked on the Save button - will confirm that the slider is ON")
+            is_on = self.admin_configuration_modules_leave_module_checkbox.is_checked()
+            print("Status: ", is_on)
+        else:
+            print("Status already set to True: ", is_on)
+
+    def verify_admin_configuration_modules_time_module_slider_status(self):
+        is_on = self.admin_configuration_modules_time_module_checkbox.is_checked()
+        if is_on == False:
+            print("The time slider is False, need to toggle it")
+            self.admin_configuration_modules_time_module_slider.click()
+            print("Clicked on the time slider to toggle it - will click on the Save button")
+            self.admin_configuration_modules_save_button.click()
+            print("Clicked on the Save button - will confirm that the slider is ON")
+            is_on = self.admin_configuration_modules_time_module_checkbox.is_checked()
+            print("Status: ", is_on)
+        else:
+            print("Status already set to True: ", is_on)
+
+    def verify_admin_configuration_modules_recruitment_module_slider_status(self):
+        is_on = self.admin_configuration_modules_recruitment_module_checkbox.is_checked()
+        if is_on == False:
+            print("The recruitment slider is False, need to toggle it")
+            self.admin_configuration_modules_recruitment_module_slider.click()
+            print("Clicked on the recruitment slider to toggle it - will click on the Save button")
+            self.admin_configuration_modules_save_button.click()
+            print("Clicked on the Save button - will confirm that the slider is ON")
+            is_on = self.admin_configuration_modules_recruitment_module_checkbox.is_checked()
+            print("Status: ", is_on)
+        else:
+            print("Status already set to True: ", is_on)
+
+    def verify_admin_configuration_modules_performance_module_slider_status(self):
+        is_on = self.admin_configuration_modules_performance_module_checkbox.is_checked()
+        if is_on == False:
+            print("The performance slider is False, need to toggle it")
+            self.admin_configuration_modules_performance_module_slider.click()
+            print("Clicked on the performance slider to toggle it - will click on the Save button")
+            self.admin_configuration_modules_save_button.click()
+            print("Clicked on the Save button - will confirm that the slider is ON")
+            is_on = self.admin_configuration_modules_performance_module_checkbox.is_checked()
+            print("Status: ", is_on)
+        else:
+            print("Status already set to True: ", is_on)
+
+    def verify_admin_configuration_modules_directory_module_slider_status(self):
+        is_on = self.admin_configuration_modules_directory_module_checkbox.is_checked()
+        if is_on == False:
+            print("The directory slider is False, need to toggle it")
+            self.admin_configuration_modules_directory_module_slider.click()
+            print("Clicked on the directory slider to toggle it - will click on the Save button")
+            self.admin_configuration_modules_save_button.click()
+            print("Clicked on the Save button - will confirm that the slider is ON")
+            is_on = self.admin_configuration_modules_directory_module_checkbox.is_checked()
+            print("Status: ", is_on)
+        else:
+            print("Status already set to True: ", is_on)
+
+    def verify_admin_configuration_modules_maintenance_module_slider_status(self):
+        is_on = self.admin_configuration_modules_maintenance_module_checkbox.is_checked()
+        if is_on == False:
+            print("The maintenance slider is False, need to toggle it")
+            self.admin_configuration_modules_maintenance_module_slider.click()
+            print("Clicked on the maintenance slider to toggle it - will click on the Save button")
+            self.admin_configuration_modules_save_button.click()
+            print("Clicked on the Save button - will confirm that the slider is ON")
+            is_on = self.admin_configuration_modules_maintenance_module_checkbox.is_checked()
+            print("Status: ", is_on)
+        else:
+            print("Status already set to True: ", is_on)
+
+    def verify_admin_configuration_modules_mobile_module_slider_status(self):
+        is_on = self.admin_configuration_modules_mobile_module_checkbox.is_checked()
+        if is_on == False:
+            print("The mobile slider is False, need to toggle it")
+            self.admin_configuration_modules_mobile_module_slider.click()
+            print("Clicked on the mobile slider to toggle it - will click on the Save button")
+            self.admin_configuration_modules_save_button.click()
+            print("Clicked on the Save button - will confirm that the slider is ON")
+            is_on = self.admin_configuration_modules_mobile_module_checkbox.is_checked()
+            print("Status: ", is_on)
+        else:
+            print("Status already set to True: ", is_on)
+
+    def verify_admin_configuration_modules_claim_module_slider_status(self):
+        is_on = self.admin_configuration_modules_claim_module_checkbox.is_checked()
+        if is_on == False:
+            print("The claim slider is False, need to toggle it")
+            self.admin_configuration_modules_claim_module_slider.click()
+            print("Clicked on the claim slider to toggle it - will click on the Save button")
+            self.admin_configuration_modules_save_button.click()
+            print("Clicked on the Save button - will confirm that the slider is ON")
+            is_on = self.admin_configuration_modules_claim_module_checkbox.is_checked()
+            print("Status: ", is_on)
+        else:
+            print("Status already set to True: ", is_on)
+
+    def verify_admin_configuration_modules_buzz_module_slider_status(self):
+        is_on = self.admin_configuration_modules_buzz_module_checkbox.is_checked()
+        if is_on == False:
+            print("The buzz slider is False, need to toggle it")
+            self.admin_configuration_modules_buzz_module_slider.click()
+            print("Clicked on the buzz slider to toggle it - will click on the Save button")
+            self.admin_configuration_modules_save_button.click()
+            print("Clicked on the Save button - will confirm that the slider is ON")
+            is_on = self.admin_configuration_modules_buzz_module_checkbox.is_checked()
+            print("Status: ", is_on)
+        else:
+            print("Status already set to True: ", is_on)
+
