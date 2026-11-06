@@ -15,7 +15,7 @@ class DirectoryPage:
         # Search by Name
         self.directory_employee_name_field = page.locator("xpath=//input[@placeholder='Type for hints...']")
         self.directory_employee_name_chris_collins_value = page.locator("xpath=//div[@role='option'][contains(.,'Chris  Collins')]").first
-        self.directory_records_chris_collins_found = page.locator("xpath=//p[contains(.,'Chris  Collins')]")
+        self.directory_records_chris_collins_found = page.locator("xpath=//p[contains(.,'Chris  Collins')]").first
 
         # Search by Job Title
         self.directory_job_title_dropdown = page.locator("xpath=(//div[@class='oxd-select-text-input'][contains(.,'-- Select --')])[1]")
@@ -62,10 +62,5 @@ class DirectoryPage:
     def click_directory_location_selection(self):
         self.directory_location_hq_ca_option.click()
 
-
-
-
-
-        
     def click_directory_search_button(self):
         self.directory_search_button.click()
