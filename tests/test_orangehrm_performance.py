@@ -1,5 +1,5 @@
 '''
-11/05/26 - 19 tests
+11/05/26 - 20 tests
 Preconditions: 
 Charles Carter - EmployeeId: 0320
 Peter Mac Anderson - EmployeeId: 0007, Job Title: Chief Financial Officer, Job Category: Officials and Managers, Sub Unit: Administration, Location: New York Sales Office
@@ -13,6 +13,7 @@ from conftest import shared_page
 from pages import performance_page
 from pages.home_page import HomePage
 from pages.login_page import LoginPage
+from pages.admin_page import AdminPage
 from pages.pim_page import PIMPage
 from pages.performance_page import PerformancePage
 from pages.logout_page import LogoutPage
@@ -33,10 +34,38 @@ def test_LoginPage(shared_page):
     print("Enter username and password and click Login button")
     login_page.login("Admin", "admin123")
     print("Clicked Login button")
-    shared_page.wait_for_url("**/dashboard/index", timeout=30000)
-    shared_page.wait_for_selector("//p[@class='oxd-text oxd-text--p'][contains(.,'Time at Work')]")
+    shared_page.wait_for_url("**/dashboard/index", timeout=15000)
+    expect(login_page.dashboard_page_header).to_be_visible(timeout=30000)
     print("Verified Dashboard heading is visible on the dashboard page")
     print("Ended test_LoginPage transaction")
+
+def test_CheckAdminConfigurationModuleStatus(shared_page):
+    print("\nStarting test_CheckAdminConfigurationModuleStatus transaction")
+    admin_page = AdminPage(shared_page)
+    print("Will go to https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewModules")
+    shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewModules")
+    print("Accessed the Modules page - will verify that we see the Modules Configuration header")
+    expect(admin_page.admin_configuration_module_configuration_header).to_be_visible(timeout=20000)
+    print("Verified that we see the Modules Configuration header - will check individual slider status and toggle if needed")
+    print("Checking Leave Module Slider")
+    admin_page.verify_admin_configuration_modules_leave_module_slider_status()
+    print("Checking Time Module Slider")
+    admin_page.verify_admin_configuration_modules_time_module_slider_status()
+    print("Checking Recruitment Module Slider")
+    admin_page.verify_admin_configuration_modules_recruitment_module_slider_status()
+    print("Checking Performance Module Slider")
+    admin_page.verify_admin_configuration_modules_performance_module_slider_status()
+    print("Checking Directory Module Slider")
+    admin_page.verify_admin_configuration_modules_directory_module_slider_status()
+    print("Checking Maintenance Module Slider")
+    admin_page.verify_admin_configuration_modules_maintenance_module_slider_status()
+    print("Checking Mobile Module Slider")
+    admin_page.verify_admin_configuration_modules_mobile_module_slider_status()
+    print("Checking Claim Module Slider")
+    admin_page.verify_admin_configuration_modules_claim_module_slider_status()
+    print("Checking Buzz Module Slider")
+    admin_page.verify_admin_configuration_modules_buzz_module_slider_status()
+    print("\nStarting test_CheckAdminConfigurationModuleStatus transaction")
 
 def test_AccessPerformanceSection(shared_page):
     print("\nStarting test_AccessPerformanceSection transaction")
