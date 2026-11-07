@@ -31,6 +31,10 @@ def test_LoginPage(shared_page):
     print("Verified Dashboard heading is visible on the dashboard page")
     print("Ended test_LoginPage transaction")
 
+##################################################################################################################
+# START PRECONDITION SETUP - No Input Data Required
+#
+
 def test_CheckAdminConfigurationModuleStatus(shared_page):
     print("\nStarting test_CheckAdminConfigurationModuleStatus transaction")
     admin_page = AdminPage(shared_page)
@@ -58,6 +62,43 @@ def test_CheckAdminConfigurationModuleStatus(shared_page):
     print("Checking Buzz Module Slider")
     admin_page.verify_admin_configuration_modules_buzz_module_slider_status()
     print("\nStarting test_CheckAdminConfigurationModuleStatus transaction")
+
+def test_CheckLocalizationSetup(shared_page):
+    print("\nStarting test_CheckLocalizationSetup transaction")
+    admin_page = AdminPage(shared_page)
+    
+    try:
+        print("Starting Localization Setup Check...")
+        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/localization")
+        print("We should be on the Localization screen - will check for the Localization header being displayed")
+        expect(admin_page.admin_configuration_localization_localization_header).to_be_visible(timeout=10000)
+        print("Localization header displayed - will check for the English language being selected")
+        expect(admin_page.admin_configuration_localization_language_dropdown).to_be_visible(timeout=10000)
+        print("The English language is selected, will check for the 'yyyy-dd-mm' format being used")
+        expect(admin_page.admin_configuration_localization_date_format_dropdown).to_be_visible(timeout=10000)
+        print("The 'yyyy-dd-mm' format is being used")
+        print("Localization Setup Check Completed with SUCCESS")
+    except:
+        print("Localization Setup Check - FAILED")
+        print("Will click on the Localization Language dropdown")
+        admin_page.click_admin_configuration_localization_language_dropdown()
+        print("Clicked on the Localization Language dropdown - will select the English language")
+        admin_page.select_admin_configuration_localization_english_dropdown_option()
+        print("Selected the English language - will now click on the Localization Date format dropdown")
+        admin_page.click_admin_configuration_localization_date_format_dropdown()
+        print("Clicked on the Localization Date format dropdown - will select the 'yyyy-dd-mm' format")
+        admin_page.select_admin_configuration_localization_date_option()
+        print("Selected the 'yyyy-dd-mm' format - will click on the Save button")
+        admin_page.click_admin_configuration_localization_save_button()
+        print("Clicked on the Save button - will verify that the Localization header is displayed")
+        expect(admin_page.admin_configuration_localization_localization_header).to_be_visible(timeout=10000)
+        print("Localization Setup Check Completed with SUCCESS")
+
+    print("\nEnding test_CheckLocalizationSetup transaction")
+
+##################################################################################################################
+# END PRECONDITION SETUP - No Input Data Required
+#
 
 ################################################################################################################################
 # CLEANUP - START
