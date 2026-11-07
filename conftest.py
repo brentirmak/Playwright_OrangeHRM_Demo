@@ -42,7 +42,12 @@ def shared_page(request):
             browser = playwright.firefox.launch(headless=True)
         elif browser_name == "webkit":
             browser = playwright.webkit.launch(headless=True)
+        elif browser_name in ["edge", "msedge"]:
+            browser = playwright.chromium.launch(channel="msedge", headless=True)
+        elif browser_name in ["chrome", "google-chrome"]:
+            browser = playwright.chromium.launch(channel="chrome", headless=True)
         else:
+            # Default to standard Playwright Chromium
             browser = playwright.chromium.launch(headless=True)
 
         context = browser.new_context()
@@ -60,16 +65,17 @@ def timing(request):
     yield
     request.node.duration = time.time() - request.node.start_time
 
-def send_failure_alert(script_name: str, test_name: str, error_message: str, screenshot_bytes: bytes, recipient):
+def send_failure_alert(script_name: str, test_name: str, error_message: str, screenshot_bytes: bytes, recipient, browser_type: str):
     try:
         encoded_screenshot = base64.b64encode(screenshot_bytes).decode("utf-8")
 
         params = {
             "from": "Playwright - OrangeHRM Test Automation <onboarding@resend.dev>",
             "to": [f"{recipient}"],
-            "subject": f"❌ {script_name} - First Test Failure: {test_name}",
+            "subject": f"❌ [{browser_type.upper()}] {script_name} - First Test Failure: {test_name}",
             "html": f"""
                 <h2>Test Automation Failure Alert</h2>
+                <p><strong>Browser:</strong> {browser_type}</p>
                 <p><strong>Test Name:</strong> {test_name}</p>
                 <p><strong>Error Details:</strong></p>
                 <pre style="background: #f4f4f4; padding: 10px; border-radius: 5px;">{error_message}</pre>
@@ -77,7 +83,7 @@ def send_failure_alert(script_name: str, test_name: str, error_message: str, scr
             """,
             "attachments": [
                 {
-                    "filename": f"{test_name}_failure.png",
+                    "filename": f"{test_name}_{browser_type}_failure.png",
                     "content": encoded_screenshot,
                 }
             ],
@@ -122,6 +128,9 @@ def pytest_runtest_makereport(item, call):
         already_sent = getattr(session, "first_failure_alert_sent", False)
 
         if not already_sent:
+            # Extract browser type dynamically from pytest config
+            browser_type = item.config.getoption("--browser", default="chromium")
+
             # Smart lookup: find the Playwright Page object regardless of fixture name ('page', 'shared_page', etc.)
             page = item.funcargs.get("page", None)
             if not page:
@@ -144,6 +153,7 @@ def pytest_runtest_makereport(item, call):
                         error_message=error or "No error traceback available", 
                         screenshot_bytes=screenshot_bytes,
                         recipient=email_alert_recipient,
+                        browser_type=browser_type, # Passed successfully here
                     )
                 except Exception as e:
                     print(f"⚠️ Could not capture screenshot or send failure alert: {e}")
