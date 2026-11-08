@@ -24,6 +24,8 @@ def detect_run_type() -> str:
         return "jenkins"
     return "manual"
 
+'''
+11/7 - Commented out for Jenkins
 def pytest_addoption(parser):
     parser.addoption(
         "--browser",
@@ -31,6 +33,7 @@ def pytest_addoption(parser):
         default="chromium",
         help="Browser to run tests: chromium, firefox, webkit"
     )
+'''
 
 @pytest.fixture(scope="module")
 def shared_page(request):
