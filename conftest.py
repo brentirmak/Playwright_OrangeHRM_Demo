@@ -37,7 +37,8 @@ def pytest_addoption(parser):
 
 @pytest.fixture(scope="module")
 def shared_page(request):
-    browser_name = request.config.getoption("--browser").lower()
+    browser_val = request.config.getoption("--browser")
+    browser_name = browser_val[0].lower() if isinstance(browser_val, list) else browser_val.lower()
     playwright = sync_playwright().start()
     browser = None
     try:
