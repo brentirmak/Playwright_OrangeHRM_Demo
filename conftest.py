@@ -24,20 +24,26 @@ def detect_run_type() -> str:
         return "jenkins"
     return "manual"
 
-'''
-11/7 - Commented out for Jenkins
 def pytest_addoption(parser):
-    parser.addoption(
-        "--browser",
-        action="store",
-        default="chromium",
-        help="Browser to run tests: chromium, firefox, webkit"
-    )
-'''
-def pytest_addoption(parser):
-    parser.addoption("--browser", action="store", default="chromium", help="Browser to run tests")
-    parser.addoption("--browser-channel", action="store", default=None, help="Browser channel (e.g., msedge, chrome)")
+    """Register custom options only if they haven't already been registered by plugins."""
+    opt_names = [opt.names() for opt in parser._anonymous._optionals._actions]
+    flat_opt_names = [name for sublist in opt_names for name in sublist]
 
+    if "--browser" not in flat_opt_names:
+        parser.addoption(
+            "--browser",
+            action="store",
+            default="chromium",
+            help="Browser to run tests: chromium, firefox, webkit, chrome, msedge"
+        )
+    
+    if "--browser-channel" not in flat_opt_names:
+        parser.addoption(
+            "--browser-channel",
+            action="store",
+            default=None,
+            help="Browser channel (e.g., msedge, chrome)"
+        )
 
 @pytest.fixture(scope="module")
 def shared_page(request):
