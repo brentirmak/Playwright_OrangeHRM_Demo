@@ -34,7 +34,7 @@ def test_LoginPage(shared_page):
     print("\nStarting test_LoginPage transaction")
     login_page = LoginPage(shared_page)
     print("Enter username and password and click Login button")
-    login_page.login("Admin123", "admin123")
+    login_page.login("Admin", "admin123")
     print("Clicked Login button")
     shared_page.wait_for_url("**/dashboard/index", timeout=15000)
     expect(login_page.dashboard_page_header).to_be_visible(timeout=30000)
