@@ -34,6 +34,10 @@ def pytest_addoption(parser):
         help="Browser to run tests: chromium, firefox, webkit"
     )
 '''
+def pytest_addoption(parser):
+    parser.addoption("--browser", action="store", default="chromium", help="Browser to run tests")
+    parser.addoption("--browser-channel", action="store", default=None, help="Browser channel (e.g., msedge, chrome)")
+
 
 @pytest.fixture(scope="module")
 def shared_page(request):
@@ -71,15 +75,20 @@ def timing(request):
 
 def send_failure_alert(script_name: str, test_name: str, error_message: str, screenshot_bytes: bytes, recipient, browser_type: str):
     try:
+        # Ensure browser_type is safely a string
+        if isinstance(browser_type, list):
+            browser_type = browser_type[0] if browser_type else "chromium"
+        browser_str = str(browser_type)
+
         encoded_screenshot = base64.b64encode(screenshot_bytes).decode("utf-8")
 
         params = {
             "from": "Playwright - OrangeHRM Test Automation <onboarding@resend.dev>",
             "to": [f"{recipient}"],
-            "subject": f"❌ [{browser_type.upper()}] {script_name} - First Test Failure: {test_name}",
+            "subject": f"❌ [{browser_str.upper()}] {script_name} - First Test Failure: {test_name}",
             "html": f"""
                 <h2>Test Automation Failure Alert</h2>
-                <p><strong>Browser:</strong> {browser_type}</p>
+                <p><strong>Browser:</strong> {browser_str}</p>
                 <p><strong>Test Name:</strong> {test_name}</p>
                 <p><strong>Error Details:</strong></p>
                 <pre style="background: #f4f4f4; padding: 10px; border-radius: 5px;">{error_message}</pre>
@@ -87,7 +96,7 @@ def send_failure_alert(script_name: str, test_name: str, error_message: str, scr
             """,
             "attachments": [
                 {
-                    "filename": f"{test_name}_{browser_type}_failure.png",
+                    "filename": f"{test_name}_{browser_str}_failure.png",
                     "content": encoded_screenshot,
                 }
             ],

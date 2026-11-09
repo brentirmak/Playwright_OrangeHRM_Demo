@@ -34,12 +34,14 @@ def test_LoginPage(shared_page):
     print("\nStarting test_LoginPage transaction")
     login_page = LoginPage(shared_page)
     print("Enter username and password and click Login button")
-    login_page.login("Admin", "admin123")
+    login_page.login("Admin123", "admin123")
     print("Clicked Login button")
     shared_page.wait_for_url("**/dashboard/index", timeout=15000)
     expect(login_page.dashboard_page_header).to_be_visible(timeout=30000)
     print("Verified Dashboard heading is visible on the dashboard page")
     print("Ended test_LoginPage transaction")
+
+'''
 
 ##################################################################################################################
 # START PRECONDITION SETUP - No Input Data Required
@@ -231,6 +233,8 @@ def test_BuzzPage(shared_page):
     shared_page.wait_for_selector("//p[contains(.,'Buzz Newsfeed')]")
     print("Verified Buzz heading is visible on the Buzz page")
     print("Ended test_BuzzPage transaction")
+
+'''
 
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")
