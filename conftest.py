@@ -138,14 +138,21 @@ def pytest_runtest_makereport(item, call):
         already_sent = getattr(session, "first_failure_alert_sent", False)
 
         if not already_sent:
-            # Extract browser type dynamically from pytest config
-            browser_type = item.config.getoption("--browser", default="chromium")
+            # Extract both browser and channel from pytest config
+            raw_browser = item.config.getoption("--browser", default="chromium")
+            raw_channel = item.config.getoption("--browser-channel", default=None)
+
+            # Normalize lists or strings safely
+            b_type = raw_browser[0] if isinstance(raw_browser, list) and raw_browser else str(raw_browser or "chromium")
+            b_channel = raw_channel[0] if isinstance(raw_channel, list) and raw_channel else str(raw_channel or "")
+
+            # Prioritize browser-channel (e.g., msedge) if defined, otherwise use browser
+            browser_type = b_channel if b_channel else b_type
 
             # Smart lookup: find the Playwright Page object regardless of fixture name ('page', 'shared_page', etc.)
             page = item.funcargs.get("page", None)
             if not page:
                 for arg_name, arg_value in item.funcargs.items():
-                    # Check if the object is a Playwright Page instance
                     if type(arg_value).__name__ == "Page":
                         page = arg_value
                         break
@@ -163,7 +170,7 @@ def pytest_runtest_makereport(item, call):
                         error_message=error or "No error traceback available", 
                         screenshot_bytes=screenshot_bytes,
                         recipient=email_alert_recipient,
-                        browser_type=browser_type, # Passed successfully here
+                        browser_type=browser_type,
                     )
                 except Exception as e:
                     print(f"⚠️ Could not capture screenshot or send failure alert: {e}")
