@@ -207,9 +207,9 @@ def test_AdminSectionUserManagementAddUser(shared_page):
         print("First attempt - Entered password for the 2nd time will click on Save button")
     except:
         time.sleep(1)
-        print("2nd attempt - Entered password, will now click on Confirm Password field")
-        admin_page.click_confirm_create_password_field()
-        print("2nd attempt - Clicked on Confirm Password field, will now re-enter TestUser123")
+        print("2nd attempt - Entered password, will now TAB over to the Confirm Password field")
+        admin_page.create_password_field.press("Tab")
+        print("2nd attempt - Tabbed over to the Confirm Password field, will now re-enter TestUser123")
         admin_page.enter_confirm_create_password("TestUser123")
         print("2nd attempt - Entered password for the 2nd time will click on Save button")
     admin_page.click_save_button()
