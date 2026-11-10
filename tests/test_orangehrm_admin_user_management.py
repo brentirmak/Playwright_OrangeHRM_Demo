@@ -11,6 +11,7 @@ from pages.login_page import LoginPage
 from pages.pim_page import PIMPage
 from pages.admin_page import AdminPage
 from pages.logout_page import LogoutPage
+import time
 
 def test_HomePage(shared_page):
     print("\nStarting test_HomePage transaction")
@@ -197,11 +198,20 @@ def test_AdminSectionUserManagementAddUser(shared_page):
     admin_page.click_create_password_field()
     print("Clicked on Create Password field, will now enter TestUser123")
     admin_page.enter_create_password("TestUser123")
-    print("Entered password, will now click on Confirm Password field")
-    admin_page.click_confirm_create_password_field()
-    print("Clicked on Confirm Password field, will now re-enter TestUser123")
-    admin_page.enter_confirm_create_password("TestUser123")
-    print("Entered password for the 2nd time will click on Save button")
+    try:
+        time.sleep(1)
+        print("First attempt - Entered password, will now click on Confirm Password field")
+        admin_page.click_confirm_create_password_field()
+        print("First attempt - Clicked on Confirm Password field, will now re-enter TestUser123")
+        admin_page.enter_confirm_create_password("TestUser123")
+        print("First attempt - Entered password for the 2nd time will click on Save button")
+    except:
+        time.sleep(1)
+        print("2nd attempt - Entered password, will now click on Confirm Password field")
+        admin_page.click_confirm_create_password_field()
+        print("2nd attempt - Clicked on Confirm Password field, will now re-enter TestUser123")
+        admin_page.enter_confirm_create_password("TestUser123")
+        print("2nd attempt - Entered password for the 2nd time will click on Save button")
     admin_page.click_save_button()
     print("Clicked on the Save button")
     expect(shared_page.get_by_text("Successfully Saved")).to_be_visible(timeout=10000)
