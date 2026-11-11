@@ -21,8 +21,9 @@ class ClaimPage:
         # Claim - Employee Claims - Search identifiers
         #####################################################################################################################
         self.claim_employee_claims_search_button = page.locator("xpath=//button[contains(.,'Search')]")
-        self.claim_employee_claims_employee_name_field = page.locator("xpath=(//input[@placeholder='Type for hints...'])[1]")
+        self.claim_employee_claims_employee_name_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div[1]/div[2]/form/div[1]/div/div[1]/div/div[2]/div/div/input")
         self.claim_employee_claims_reference_id_field = page.locator("xpath=(//input[@placeholder='Type for hints...'])[2]")
+        self.claim_employee_claims_employee_name_test_value = page.locator("xpath=//span[contains(.,'FN_ClaimTest LN_ClaimTest')]")
         self.claim_employee_claims_record_found_header = page.locator("xpath=//span[contains(.,'(1) Record Found')]")
         self.claim_employee_claims_view_details_button = page.locator("xpath=//button[@type='button'][contains(.,'View Details')]")
         self.claim_employee_claims_assign_claim_header = page.locator("xpath=//h6[contains(.,'Assign Claim')]")
@@ -208,6 +209,14 @@ class ClaimPage:
 
     def enter_claim_employee_claims_reference_id_field_value(self, reference_id):
         self.claim_employee_claims_reference_id_field.fill(reference_id)
+
+    def click_claim_employee_claims_employee_name_field(self):
+        self.claim_employee_claims_employee_name_field.click()
+
+    def enter_claim_employee_claims_employee_name_value(self, employee_first_name):
+        self.claim_employee_claims_employee_name_field.fill(employee_first_name)
+        time.sleep(1)
+        self.claim_employee_claims_employee_name_test_value.click()
 
     def click_claim_employee_claims_search_button(self):
         self.claim_employee_claims_search_button.click()
