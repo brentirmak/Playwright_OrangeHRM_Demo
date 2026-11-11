@@ -15,7 +15,7 @@ class AdminPage:
         #####################################################################################################################
         self.search_button = page.get_by_role("button", name="Search")
         self.username_field = page.get_by_role("textbox").nth(1)
-        self.reset_button = page.get_by_role("button", name="Reset")
+        self.reset_button = page.locator("xpath=//button[@type='button'][contains(.,'Reset')]")
         self.user_role_dropdown = page.get_by_text("-- Select --").first
         self.admin_option = page.get_by_role("option", name="Admin")
         self.employee_name_field = page.get_by_role("textbox", name="Type for hints...")
