@@ -1,9 +1,10 @@
 '''
-11/05/26 - 20 tests
+11/11/26 - 22 tests
 Preconditions: 
 Charles Carter - EmployeeId: 0320
 Peter Mac Anderson - EmployeeId: 0007, Job Title: Chief Financial Officer, Job Category: Officials and Managers, Sub Unit: Administration, Location: New York Sales Office
 Employment Status: Full-Time Probation
+Job: Software Engineer option exists
 '''
 import re
 
@@ -149,6 +150,25 @@ def test_PIMPagePreReqCreateCharlesCarterEmployee(shared_page):
     except:
         print("Was not able to create the Charles Carter employee - most likely it already exists")
     print("\nEnded test_PIMPagePreReqCreateCharlesCarterEmployee transaction")
+
+def test_PIMPagePreReqCreateSoftwareEngineer(shared_page):
+    print("\nStarting test_PIMPagePreReqCreateSoftwareEngineer transaction")
+    admin_page = AdminPage(shared_page)
+    try:
+        print("Will go to https://opensource-demo.orangehrmlive.com/web/index.php/admin/saveJobTitle")
+        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/saveJobTitle")
+        expect(admin_page.admin_job_titles_add_job_title_header).to_be_visible(timeout=20000)
+        print("We are on the Add Job Title page - will now enter the job Title")
+        admin_page.click_admin_job_titles_add_job_title_field()
+        admin_page.enter_admin_job_titles_add_job_title_field_value("Software Engineer")
+        print("Entered the CloudOps Engineer title - will click on the Save button")
+        admin_page.click_admin_job_titles_add_job_title_save_button()
+        print("Clicked on the Save button - will verify that the record was saved")
+        expect(admin_page.admin_job_titles_add_job_title_successfully_saved_message).to_be_visible(timeout=30000)
+        print("Verified Software Engineer title is visible on the Job Titles page")
+    except:
+        print("Was not able to create the Software Engineer option - most likely it already exists")
+    print("Ended test_PIMPagePreReqCreateSoftwareEngineer transaction")
 
 ###############################################################################################################################
 # PRECONDITION - End
