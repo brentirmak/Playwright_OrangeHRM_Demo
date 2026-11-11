@@ -41,7 +41,7 @@ class AdminPage:
         #####################################################################################################################
         self.job_submenu = page.get_by_role("listitem").filter(has_text="Job")
         self.job_titles_submenu = page.get_by_role("menuitem", name="Job Titles")
-        self.pay_grades_submenu = page.get_by_role("menuitem", name="Pay Grades")
+        self.pay_grades_submenu = page.locator("xpath=//a[contains(.,'Pay Grades')]")
         self.employment_status_submenu = page.get_by_role("menuitem", name="Employment Status")
         self.job_categories_submenu = page.get_by_role("menuitem", name="Job Categories")
         self.work_shifts_submenu = page.get_by_role("menuitem", name="Work Shifts")
