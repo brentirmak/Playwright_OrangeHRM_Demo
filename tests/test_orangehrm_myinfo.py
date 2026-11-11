@@ -1,6 +1,10 @@
 # 11/06/26
-# 41 subtransactions
+# 44 subtransactions
 #
+# Prequisities:
+# 1) Need to have Content Creation available as a skill
+# 2) Localization needs to be in 'yyyy-dd-mm' format
+
 from playwright.sync_api import Page, expect
 from conftest import shared_page
 from pages.home_page import HomePage
@@ -99,8 +103,74 @@ def test_CheckLocalizationSetup(shared_page):
 
     print("\nEnding test_CheckLocalizationSetup transaction")
 
+def test_RecruitmentPreconditionSetup(shared_page):
+    print("\nStarting test_RecruitmentPreconditionSetup transaction")
+    admin_page = AdminPage(shared_page)
+    
+    try:
+        print("Starting Localization Setup Check...")
+        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/localization")
+        print("We should be on the Localization screen - will check for the Localization header being displayed")
+        expect(admin_page.admin_configuration_localization_localization_header).to_be_visible(timeout=10000)
+        print("Localization header displayed - will check for the English language being selected")
+        expect(admin_page.admin_configuration_localization_language_dropdown).to_be_visible(timeout=10000)
+        print("The English language is selected, will check for the 'yyyy-dd-mm' format being used")
+        expect(admin_page.admin_configuration_localization_date_format_dropdown).to_be_visible(timeout=10000)
+        print("The 'yyyy-dd-mm' format is being used")
+        print("Localization Setup Check Completed with SUCCESS")
+    except:
+        print("Localization Setup Check - FAILED")
+        print("Will click on the Localization Language dropdown")
+        admin_page.click_admin_configuration_localization_language_dropdown()
+        print("Clicked on the Localization Language dropdown - will select the English language")
+
+        admin_page.select_admin_configuration_localization_english_dropdown_option()
+        
+        print("Selected the English language - will now click on the Localization Date format dropdown")
+        admin_page.click_admin_configuration_localization_date_format_dropdown()
+        print("Clicked on the Localization Date format dropdown - will select the 'yyyy-dd-mm' format")
+
+        admin_page.select_admin_configuration_localization_date_option()
+        print("Selected the 'yyyy-dd-mm' format - will click on the Save button")
+        admin_page.click_admin_configuration_localization_save_button()
+        print("Clicked on the Save button - will verify that the Localization header is displayed")
+        expect(admin_page.admin_configuration_localization_localization_header).to_be_visible(timeout=10000)
+        print("Localization Setup Check Completed with SUCCESS")
+
+    print("\nEnding test_RecruitmentPreconditionSetup transaction")
+
 ##################################################################################################################
 # END PRECONDITION SETUP - No Input Data Required
+#
+
+##################################################################################################################
+# START PRECONDITION SETUP - Input Data Required
+# Need to have Spanish available as a language (To Be Added Later)
+# 
+def test_CheckSkillPrerequisite(shared_page):
+    print("\nStarting test_CheckSkillPrerequisite transaction")
+    admin_page = AdminPage(shared_page)
+    try:
+        print("Going to https://opensource-demo.orangehrmlive.com/web/index.php/admin/saveSkills")
+        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/saveSkills")
+        expect(admin_page.qualifications_add_skill_header).to_be_visible(timeout=20000)
+        print("Verified that we are on the Add Skill page - will enter the Name")
+        admin_page.click_qualifications_add_skill_name_field()
+        admin_page.enter_qualifications_add_skill_name_value("Content Creation")
+        print("Entered the Skill Name - will enter the Description")
+        admin_page.click_qualifications_add_skill_description_field()
+        admin_page.enter_qualifications_add_skill_description_value("Marketing Skill")
+        print("Entered the description - will now click on the Save button")
+        admin_page.click_qualifications_add_skill_save_button()
+        print("Clicked on the Save button - will verify that the record was created")
+        expect(admin_page.qualifications_successfully_added_message).to_be_visible(timeout=20000)
+        print("New record has been created")
+    except:
+        print("Unable to create the Content Creation skill - it probably already exists. Proceeding...")
+    print("\nEnded test_CheckSkillPrerequisite transaction")
+
+##################################################################################################################
+# END PRECONDITION SETUP - Input Data Required
 #
 
 #######################################################################################################################
