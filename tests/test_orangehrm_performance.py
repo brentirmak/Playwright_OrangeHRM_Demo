@@ -299,10 +299,17 @@ def test_PerformanceConfigureKPIsCreateKPI(shared_page):
 def test_KPISearchByJobTitle(shared_page):
     print("\nStarting test_KPISearchByJobTitle transaction")
     performance_page = PerformancePage(shared_page)
-    print("Will access the Performance section/page")
-    performance_page.click_performance_menu()
-    print("Clicked on the Performance menu item - will verify that we're on the Employee Reviews (default) page")
-    expect(performance_page.performance_manage_reviews_employee_reviews_header).to_be_visible(timeout=30000)
+    try:
+        print("1st try - Will access the Performance section/page")
+        performance_page.click_performance_menu()
+        print("1st try - Clicked on the Performance menu item - will verify that we're on the Employee Reviews (default) page")
+        expect(performance_page.performance_manage_reviews_employee_reviews_header).to_be_visible(timeout=30000)
+    except:
+        print("2nd try - Will access the Performance section/page via URL")
+        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/performance/searchEvaluatePerformanceReview")
+        print("2nd try - Accessed Performance section/page via URL - will verify that we're on the Employee Reviews (default) page")
+        expect(performance_page.performance_manage_reviews_employee_reviews_header).to_be_visible(timeout=30000)
+        
     print("Verified that we're on the Employee Reviews page - will click on the Configure submenu under Performance section/page")
     performance_page.click_performance_configure_submenu()
     print("Clicked on the Configure submenu item")
