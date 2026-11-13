@@ -41,8 +41,6 @@ def test_LoginPage(shared_page):
     print("Verified Dashboard heading is visible on the dashboard page")
     print("Ended test_LoginPage transaction")
 
-'''
-
 ##################################################################################################################
 # START PRECONDITION SETUP - No Input Data Required
 #
@@ -233,8 +231,6 @@ def test_BuzzPage(shared_page):
     shared_page.wait_for_selector("//p[contains(.,'Buzz Newsfeed')]")
     print("Verified Buzz heading is visible on the Buzz page")
     print("Ended test_BuzzPage transaction")
-
-'''
 
 def test_Logout(shared_page):
     print("\nStarting test_Logout transaction")
