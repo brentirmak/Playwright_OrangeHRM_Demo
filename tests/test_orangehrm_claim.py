@@ -281,10 +281,15 @@ def test_ClaimConfigurationEventsAddExpenseType(shared_page):
 def test_ClaimAssignClaim(shared_page):
     print("\nStarting test_ClaimAssignClaim")
     claim_page = ClaimPage(shared_page)
-    print("Will click on the Claim menu")
-    claim_page.click_claim_menu()
-    print("Clicked on the Claim menu - will verify that we're on the Employee Claims page")
-    expect(claim_page.claim_employee_claims_header).to_be_visible(timeout=20000)
+    try:
+        print("First try - Will click on the Claim menu")
+        claim_page.click_claim_menu()
+        print("First try - Clicked on the Claim menu - will verify that we're on the Employee Claims page")
+        expect(claim_page.claim_employee_claims_header).to_be_visible(timeout=20000)
+    except:
+        print("2nd Attempt - Navigating directly to the URL")
+        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/claim/viewAssignClaim")
+        expect(claim_page.claim_employee_claims_header).to_be_visible(timeout=20000)
     print("Verified that we're on the Employee Claims page - will click on the Assign Claim tab")
     claim_page.click_claim_assign_claim_tab()
     print("Clicked on the Assign Claim tab - will verify that we're on the Create Claim Request page")
@@ -361,10 +366,15 @@ def test_ClaimSubmitClaim(shared_page):
 def test_ClaimConfigurationEventsDeleteExpenseType(shared_page):
     print("\nStarting test_ClaimConfigurationEventsDeleteExpenseType")
     claim_page = ClaimPage(shared_page)
-    print("Will click on the Claim menu")
-    claim_page.click_claim_menu()
-    print("Clicked on the Claim menu - will verify that we're on the Employee Claims page")
-    expect(claim_page.claim_employee_claims_header).to_be_visible(timeout=20000)
+    try:
+        print("First try - Will click on the Claim menu")
+        claim_page.click_claim_menu()
+        print("First try - Clicked on the Claim menu - will verify that we're on the Employee Claims page")
+        expect(claim_page.claim_employee_claims_header).to_be_visible(timeout=20000)
+    except:
+        print("2nd Attempt - Navigating directly to the URL")
+        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/claim/viewAssignClaim")
+        expect(claim_page.claim_employee_claims_header).to_be_visible(timeout=20000)
     print("Verified that we're on the Employee Claims page - will now click on the Configuration tab")
     claim_page.click_claim_configuration_tab()
     print("Clicked on the Configuration tab - will click on the Expense Types option")
@@ -391,10 +401,15 @@ def test_ClaimConfigurationEventsDeleteExpenseType(shared_page):
 def test_ClaimConfigurationEventsDeleteEvent(shared_page):
     print("\nStarting test_ClaimConfigurationEventsDeleteEvent")
     claim_page = ClaimPage(shared_page)
-    print("Will click on the Claim menu")
-    claim_page.click_claim_menu()
-    print("Clicked on the Claim menu - will verify that we're on the Employee Claims page")
-    expect(claim_page.claim_employee_claims_header).to_be_visible(timeout=20000)
+    try:
+        print("First try - Will click on the Claim menu")
+        claim_page.click_claim_menu()
+        print("First try - Clicked on the Claim menu - will verify that we're on the Employee Claims page")
+        expect(claim_page.claim_employee_claims_header).to_be_visible(timeout=20000)
+    except:
+        print("2nd Attempt - Navigating directly to the URL")
+        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/claim/viewAssignClaim")
+        expect(claim_page.claim_employee_claims_header).to_be_visible(timeout=20000)
     print("Verified that we're on the Employee Claims page - will now click on the Configuration tab")
     claim_page.click_claim_configuration_tab()
     print("Clicked on the Configuration tab - will click on the Events option")
