@@ -2,7 +2,8 @@ class TimePage:
 
     def __init__(self, page):
         self.page = page
-        self.time_menu = page.get_by_role("link", name="Time")
+        #self.time_menu = page.get_by_role("link", name="Time")
+        self.time_menu = page.locator("xpath=//span[@class='oxd-text oxd-text--span oxd-main-menu-item--name'][contains(.,'Time')]")
         self.timesheets_submenu = page.get_by_label("Topbar Menu").get_by_text("Timesheets")
         self.my_timesheets_submenu = page.get_by_role("menuitem", name="My Timesheets")
         self.attendance_submenu = page.get_by_role("listitem").filter(has_text="Attendance")
@@ -17,6 +18,7 @@ class TimePage:
         self.project_info_submenu = page.get_by_role("listitem").filter(has_text="Project Info")
         self.customers_submenu = page.get_by_role("menuitem", name="Customers")
         self.projects_submenu = page.get_by_role("menuitem", name="Projects")
+        self.employee_timesheets_header = page.locator("xpath=//h6[contains(.,'Select Employee')]")
 
         #####################################################################################################################
         #

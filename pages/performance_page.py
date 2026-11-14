@@ -9,7 +9,8 @@ class PerformancePage:
         ########################################################################################################################################
         # Performance - Menu/Tab Options
         ########################################################################################################################################
-        self.performance_menu = page.get_by_role("link", name="Performance")
+        #self.performance_menu = page.get_by_role("link", name="Performance")
+        self.performance_menu = page.locator("xpath=//span[@class='oxd-text oxd-text--span oxd-main-menu-item--name'][contains(.,'Performance')]")
         self.performance_configure_submenu = page.locator("//span[@class='oxd-topbar-body-nav-tab-item'][contains(.,'Configure')]")
         self.performance_configure_kpis_submenu = page.get_by_role("listitem").filter(has_text=re.compile(r"^KPIs$"))
         self.performance_configure_trackers_submenu = page.get_by_role("menuitem", name="Trackers")
