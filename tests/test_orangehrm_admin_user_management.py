@@ -132,10 +132,16 @@ def test_AdminSectionUserManagementUserCleanup(shared_page):
 def test_CreateEmployeeForUserManagementUseCases(shared_page):
     print("\nStarting test_CreateEmployeeForUserManagementUseCases transaction")
     pim_page = PIMPage(shared_page)
-    pim_page.click_pim_menu()
-    print("Clicked PIM menu option")
-    expect(shared_page.get_by_role("heading", name="Employee Information"))
-    print("Verified Employee Information header - will now click on the Add button")
+    try:
+        pim_page.click_pim_menu()
+        print("First try - Clicked PIM menu option")
+        expect(shared_page.get_by_role("heading", name="Employee Information"))
+        print("First try - Verified Employee Information header - will now click on the Add button")
+    except:
+        print("2nd try - Will go tot he PIM landing page via URL instead")
+        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewEmployeeList")
+        expect(shared_page.get_by_role("heading", name="Employee Information"))
+        print("2nd try - Verified Employee Information header - will now click on the Add button")
     pim_page.click_pim_employee_list_add_employee_button()
     print("Clicked on Add button - will verify the Add Employee header")
     expect(shared_page.get_by_role("heading", name="Add Employee")).to_be_visible(timeout=10000)

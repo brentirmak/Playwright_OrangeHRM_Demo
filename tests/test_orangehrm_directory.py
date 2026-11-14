@@ -244,7 +244,7 @@ def test_SearchDirectoryByLocationName(shared_page):
     print("Entered the location name - will now click on the Search button")
     directory_page.click_directory_search_button()
     print("Clicked on the Search button - will verify that a record was found")
-    expect(directory_page.directory_record_found).to_be_visible(timeout=20000)
+    expect(directory_page.directory_records_found).to_be_visible(timeout=20000)
     print("A record was found - will verify that the record is for Chris Collins")
     expect(directory_page.directory_records_chris_collins_found).to_be_visible(timeout=20000)
     print("Verified that the record found is Chris Collins")

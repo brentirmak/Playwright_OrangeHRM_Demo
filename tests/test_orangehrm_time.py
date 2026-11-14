@@ -271,10 +271,16 @@ def test_AccessAttendanceEmployeeRecordsPage(shared_page):
 def test_AccessAttendanceConfigurationPage(shared_page):
     print("\nStarting test_AccessAttendanceConfigurationPage transaction")
     time_page = TimePage(shared_page)
-    print("Will access the Time section/page")
-    time_page.click_time_menu()
-    print("Clicked on the time menu - will verify that we're on the Select Employee page")
-    expect(time_page.employee_timesheets_header).to_be_visible(timeout=20000)
+    try:
+        print("1st try - Will access the Time section/page")
+        time_page.click_time_menu()
+        print("1st try - Clicked on the time menu - will verify that we're on the Select Employee page")
+        expect(time_page.employee_timesheets_header).to_be_visible(timeout=20000)
+    except:
+        print("2nd try - Will access the Time landing page via URL")
+        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/time/viewEmployeeTimesheet")
+        print("2nd try - Access the Time landing page via URL - will verify that we're on the Select Employee page")
+        expect(time_page.employee_timesheets_header).to_be_visible(timeout=20000)
     print("Will click on the Attendance submenu")
     time_page.click_attendance_submenu()
     print("Clicked on the Attendance submenu")

@@ -4,7 +4,8 @@ class PIMPage:
 
     def __init__(self, page):
         self.page = page
-        self.pim_menu = page.get_by_role("link", name="PIM")
+        #self.pim_menu = page.get_by_role("link", name="PIM")
+        self.pim_menu = page.locator("xpath=//span[@class='oxd-text oxd-text--span oxd-main-menu-item--name'][contains(.,'PIM')]")
 
         # Employee List / Add Employee
         self.pim_employee_list_add_button = page.locator("xpath=//button[@type='button'][contains(.,'Add')]")
