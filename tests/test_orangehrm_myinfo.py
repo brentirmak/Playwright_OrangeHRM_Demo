@@ -781,10 +781,16 @@ def test_MyInfoAddDependent(shared_page):
         myinfo_page.enter_dependents_date_of_birth_value1("11-11-1980")
         print("Entered date of birth using 1st method - will now click on the Save button")
     except:
-        print("Trying 2nd method - yyyy-dd-mm")
-        myinfo_page.click_dependents_date_of_birth_field("yyyy-dd-mm")
-        myinfo_page.enter_dependents_date_of_birth_value2("1980-11-11")
-        print("Entered date of birth using 2nd method - will now click on the Save button")
+        try:
+            print("Trying 2nd method - yyyy-dd-mm")
+            myinfo_page.click_dependents_date_of_birth_field("yyyy-dd-mm")
+            myinfo_page.enter_dependents_date_of_birth_value2("1980-11-11")
+            print("Entered date of birth using 2nd method - will now click on the Save button")
+        except:
+            print("Trying 3rd method - yyyy-mm-dd")
+            myinfo_page.click_dependents_date_of_birth_field("yyyy-mm-dd")
+            myinfo_page.enter_dependents_date_of_birth_value3("1980-11-11")
+            print("Entered date of birth using 3rd method - will now click on the Save button")
     myinfo_page.click_dependents_save_button()
     print("Clicked on the Save button")
     expect(myinfo_page.dependents_successfully_saved_message).to_be_visible(timeout=35000)

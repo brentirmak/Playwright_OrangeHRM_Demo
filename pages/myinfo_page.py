@@ -67,6 +67,7 @@ class MyInfoPage:
         self.dependents_relationship_child_option = page.get_by_role("option", name="Child")
         self.dependents_date_of_birth_field_opt1 = page.locator("//input[contains(@placeholder,'dd-mm-yyyy')]")
         self.dependents_date_of_birth_field_opt2 = page.locator("//input[contains(@placeholder,'yyyy-dd-mm')]")
+        self.dependents_date_of_birth_field_opt3 = page.locator("//input[contains(@placeholder,'yyyy-mm-dd')]")
         self.dependents_date_of_birth_clear_button = page.locator("xpath=//div[@class='oxd-date-input-link --clear'][contains(.,'Clear')]")
         self.dependents_save_button = page.get_by_role("button", name="Save")
         self.dependents_successfully_saved_message = page.locator("//p[contains(.,'Successfully Saved')]")
@@ -396,10 +397,14 @@ class MyInfoPage:
             print("Trying 1st method - dd-mm-yyyy")
             self.dependents_date_of_birth_field_opt1.click()
             print("1st method - dd-mm-yyyy has been clicked.")
-        else:
+        if date_format == "yyyy-dd-mm":
             print("Trying 2nd method - yyyy-dd-mm")
             self.dependents_date_of_birth_field_opt2.click()
             print("2nd method - yyyy-dd-mm has been clicked.")
+        if date_format == "yyyy-mm-dd":
+            print("Trying 2nd method - yyyy-mm-dd")
+            self.dependents_date_of_birth_field_opt3.click()
+            print("2nd method - yyyy-mm-dd has been clicked.")
 
     def enter_dependents_date_of_birth_value1(self, dob):
         print("Trying 1st method - dd-mm-yyyy")
@@ -410,6 +415,11 @@ class MyInfoPage:
         print("Trying 2nd method - yyyy-dd-mm")
         self.dependents_date_of_birth_field_opt2.fill(dob)
         print("2nd method - yyyy-dd-mm has been entered.")
+
+    def enter_dependents_date_of_birth_value3(self, dob):
+        print("Trying 2nd method - yyyy-mm-dd")
+        self.dependents_date_of_birth_field_opt3.fill(dob)
+        print("2nd method - yyyy-mm-dd has been entered.")
 
     def click_dependents_save_button(self):
         self.dependents_save_button.click()
