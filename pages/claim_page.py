@@ -213,8 +213,14 @@ class ClaimPage:
     def click_claim_employee_claims_employee_name_field(self):
         self.claim_employee_claims_employee_name_field.click()
 
-    def enter_claim_employee_claims_employee_name_value(self, employee_first_name):
-        self.claim_employee_claims_employee_name_field.fill(employee_first_name)
+    def enter_claim_employee_claims_employee_name_value(self, employee_name):
+        if employee_name == "FN_ClaimTest LN_ClaimTest":
+            self.employee_name_field.fill(employee_name)
+            self.page.wait_for_load_state("networkidle")
+            self.page.get_by_text(employee_name).click()
+            self.page.wait_for_load_state("networkidle")
+
+        self.claim_employee_claims_employee_name_field.fill(employee_name)
         time.sleep(1)
         self.claim_employee_claims_employee_name_test_value.click()
 
