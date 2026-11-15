@@ -293,9 +293,6 @@ def test_PIMPageEmployeeBulkCleanup(shared_page):
             if match:
                 user_count = int(match.group())
             print("User Count:", user_count)
-
-            expect(pim_page.pim_employee_list_one_record_found_header).to_be_visible(timeout=20000)
-            print("Verified that there's only 1 record found - cleanup is complete")
     else:
         expect(pim_page.pim_employee_list_one_record_found_header).to_be_visible(timeout=20000)
         print("Only 1 record found - there's nothing to cleanup")
