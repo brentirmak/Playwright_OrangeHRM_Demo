@@ -336,7 +336,7 @@ def test_ClaimSubmitClaim(shared_page):
         print("2nd try - Verified that we're on the Employee Claims page - will search for the record we just created")
         print("2nd try - Searching by Employee Name")
         claim_page.click_claim_employee_claims_employee_name_field()
-        claim_page.enter_claim_employee_claims_employee_name_value("FN_ClaimTest")
+        claim_page.enter_claim_employee_claims_employee_name_value("FN_ClaimTest LN_ClaimTest")
         print("2nd try - Entered the employee name for the claim that was just created - will click on the Search button")
         claim_page.click_claim_employee_claims_search_button()
         print("2nd try - Clicked on the Search button - will verify that 1 record was found")
