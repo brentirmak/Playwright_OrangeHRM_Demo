@@ -16,6 +16,7 @@ def log_test_result(
     error_message=None,
     login_duration=None,
     run_type="manual",
+    browser_type=None,
 ):
     conn = None
     cursor = None
@@ -25,9 +26,16 @@ def log_test_result(
         if run_type not in ("jenkins", "manual"):
             run_type = "manual"
 
+        # Normalize browser_type (chromium / firefox / webkit)
+        if browser_type:
+            browser_type = str(browser_type).lower()
+        else:
+            browser_type = "unknown"
+
         print(f"MySQL host: {MYSQL_URL}")
         print(f"MySQL user: {MYSQL_USERNAME}")
         print(f"Run type: {run_type}")
+        print(f"Browser type: {browser_type}")
 
         conn = mysql.connector.connect(
             host=MYSQL_URL,
@@ -50,9 +58,10 @@ def log_test_result(
                 error_message,
                 executed_at,
                 login_duration,
-                run_type
+                run_type,
+                browser_type
             )
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
 
         values = (
@@ -64,6 +73,7 @@ def log_test_result(
             datetime.datetime.now(),
             login_duration,
             run_type,
+            browser_type,
         )
 
         print(f"MySQL insert values: {values}")
@@ -73,7 +83,7 @@ def log_test_result(
 
         print(
             f"MySQL logging successful: "
-            f"{test_name} / {run_type}"
+            f"{test_name} / {run_type} / {browser_type}"
         )
 
     except Exception as e:

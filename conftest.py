@@ -24,6 +24,12 @@ def detect_run_type() -> str:
         return "jenkins"
     return "manual"
 
+def get_browser_name(config) -> str:
+    """Return the browser actually used for this run (first --browser value, lowercased)."""
+    raw = config.getoption("--browser", default="chromium")
+    name = raw[0] if isinstance(raw, list) and raw else raw
+    return str(name or "chromium").lower()
+
 def pytest_addoption(parser):
     """Safely register browser options for both local and Jenkins environments."""
     for opt, kwargs in [
@@ -38,8 +44,9 @@ def pytest_addoption(parser):
 
 @pytest.fixture(scope="module")
 def shared_page(request):
-    browser_val = request.config.getoption("--browser")
-    browser_name = browser_val[0].lower() if isinstance(browser_val, list) else browser_val.lower()
+    #browser_val = request.config.getoption("--browser")
+    #browser_name = browser_val[0].lower() if isinstance(browser_val, list) else browser_val.lower()
+    browser_name = get_browser_name(request.config)
     playwright = sync_playwright().start()
     browser = None
     try:
@@ -120,6 +127,7 @@ def pytest_runtest_makereport(item, call):
     duration = result.duration
     script_name = os.path.basename(str(item.fspath))
     run_type = detect_run_type()
+    browser_name = get_browser_name(item.config)
 
     # 1. Log to MySQL normally
     log_test_result(
@@ -130,6 +138,7 @@ def pytest_runtest_makereport(item, call):
         error_message=error,
         login_duration=login_duration,
         run_type=run_type,
+        browser_type=browser_name,
     )
 
     # 2. Handle First-Failure Email Alert
