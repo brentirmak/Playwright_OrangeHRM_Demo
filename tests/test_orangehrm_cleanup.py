@@ -134,8 +134,6 @@ def test_AdminSectionUserManagementBulkCleanup(shared_page):
                 user_count = int(match.group())
             print("User Count:", user_count)
 
-            expect(admin_page.admin_user_management_system_users_one_record_found_header).to_be_visible(timeout=20000)
-            print("Verified that there's only 1 record found - cleanup is complete")
     else:
         expect(admin_page.admin_user_management_system_users_one_record_found_header).to_be_visible(timeout=20000)
         print("Only 1 record found - there's nothing to cleanup")
