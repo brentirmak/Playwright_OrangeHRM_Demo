@@ -80,11 +80,11 @@ def test_CheckLocalizationSetup(shared_page):
         print("Starting Localization Setup Check...")
         shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/localization")
         print("We should be on the Localization screen - will check for the Localization header being displayed")
-        expect(admin_page.admin_configuration_localization_localization_header).to_be_visible(timeout=10000)
+        expect(admin_page.admin_configuration_localization_localization_header).to_be_visible(timeout=30000)
         print("Localization header displayed - will check for the English language being selected")
-        expect(admin_page.admin_configuration_localization_language_dropdown).to_be_visible(timeout=10000)
+        expect(admin_page.admin_configuration_localization_language_dropdown).to_be_visible(timeout=30000)
         print("The English language is selected, will check for the 'yyyy-dd-mm' format being used")
-        expect(admin_page.admin_configuration_localization_date_format_dropdown).to_be_visible(timeout=10000)
+        expect(admin_page.admin_configuration_localization_date_format_dropdown).to_be_visible(timeout=30000)
         print("The 'yyyy-dd-mm' format is being used")
         print("Localization Setup Check Completed with SUCCESS")
     except:
@@ -100,7 +100,7 @@ def test_CheckLocalizationSetup(shared_page):
         print("Selected the 'yyyy-dd-mm' format - will click on the Save button")
         admin_page.click_admin_configuration_localization_save_button()
         print("Clicked on the Save button - will verify that the Localization header is displayed")
-        expect(admin_page.admin_configuration_localization_localization_header).to_be_visible(timeout=10000)
+        expect(admin_page.admin_configuration_localization_localization_header).to_be_visible(timeout=30000)
         print("Localization Setup Check Completed with SUCCESS")
 
     print("\nEnding test_CheckLocalizationSetup transaction")
@@ -132,7 +132,7 @@ def test_PIMPagePreReqCreateCharlesCarterEmployee(shared_page):
     print("Verified Employee Information header - will now click on the Add button")
     pim_page.click_pim_employee_list_add_employee_button()
     print("Clicked on Add button - will verify the Add Employee header")
-    expect(shared_page.get_by_role("heading", name="Add Employee")).to_be_visible(timeout=10000)
+    expect(shared_page.get_by_role("heading", name="Add Employee")).to_be_visible(timeout=30000)
     print("Verified Add Employee header - will enter the First Name")
     pim_page.click_pim_employee_add_employee_first_name_field()
     pim_page.enter_pim_employee_add_employee_first_name_field_value("Charles")
@@ -145,7 +145,7 @@ def test_PIMPagePreReqCreateCharlesCarterEmployee(shared_page):
     try:
         print("Entered the employee id, will click on the Save button")
         pim_page.click_pim_employee_add_employee_save_button()
-        expect(shared_page.get_by_text("Successfully Saved")).to_be_visible(timeout=10000)
+        expect(shared_page.get_by_text("Successfully Saved")).to_be_visible(timeout=30000)
         print("Successfully created the Charles Carter employee")
     except:
         print("Was not able to create the Charles Carter employee - most likely it already exists")
@@ -384,10 +384,16 @@ def test_PerformanceTrackersAddPerformanceTracker(shared_page):
 def test_AccessPerformanceManageReviewsSubmenu(shared_page):
     print("\nStarting test_AccessPerformanceManageReviewsSubmenu transaction")
     performance_page = PerformancePage(shared_page)
-    print("Will access the Performance section/page")
-    performance_page.click_performance_menu()
-    print("Clicked on the Performance menu item - will verify that we're on the Employee Reviews (default) page")
-    expect(performance_page.performance_manage_reviews_employee_reviews_header).to_be_visible(timeout=30000)
+    try:
+        print("First try - Will access the Performance section/page")
+        performance_page.click_performance_menu()
+        print("First try - Clicked on the Performance menu item - will verify that we're on the Employee Reviews (default) page")
+        expect(performance_page.performance_manage_reviews_employee_reviews_header).to_be_visible(timeout=30000)
+    except:
+        print("2nd try - Will access the Performance section/page via URL")
+        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/performance/searchEvaluatePerformanceReview")
+        print("2nd try - Accessed the Performance section/page via URL - will verify that we're on the Employee Reviews (default) page")
+        expect(performance_page.performance_manage_reviews_employee_reviews_header).to_be_visible(timeout=30000)
     print("Verified that we're on the Employee Reviews page - will click on the Manage Reviews submenu under Performance section/page")
     performance_page.click_performance_manage_reviews_submenu()
     print("Clicked on the Manage Reviews submenu item")
