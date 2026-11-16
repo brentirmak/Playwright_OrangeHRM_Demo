@@ -1,7 +1,7 @@
 '''
 11/11/26 - 22 tests
 Preconditions: 
-Charles Carter - EmployeeId: 0320
+Charles Carter - EmployeeId: 3200
 Peter Mac Anderson - EmployeeId: 0007, Job Title: Chief Financial Officer, Job Category: Officials and Managers, Sub Unit: Administration, Location: New York Sales Office
 Employment Status: Full-Time Probation
 Job: Software Engineer option exists
@@ -141,7 +141,7 @@ def test_PIMPagePreReqCreateCharlesCarterEmployee(shared_page):
     pim_page.enter_pim_employee_add_employee_last_name_field_value("Carter")
     print("Entered the Last Name, will now enter the employee id")
     pim_page.click_pim_employee_add_employee_id_field()
-    pim_page.enter_pim_employee_add_employee_id_field_value("0320")
+    pim_page.enter_pim_employee_add_employee_id_field_value("3200")
     try:
         print("Entered the employee id, will click on the Save button")
         pim_page.click_pim_employee_add_employee_save_button()

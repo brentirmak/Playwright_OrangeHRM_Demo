@@ -4,7 +4,7 @@
 Preconditions:
 (1) https://opensource-demo.orangehrmlive.com/web/index.php/admin/localization (English/yyyy-dd-mm)
 (2) Under Admin->Job, Software Engineer entry
-(3) Under PIM->Add Employee, Charles Carter entry
+(3) Under PIM->Add Employee, Charles Carter entry, EmployeeId: 3200
 
 '''
 import re
@@ -166,6 +166,9 @@ def test_RecruitmentPreconditionSetup(shared_page):
             print("Entered the First Name, will now enter the Last Name")
             pim_page.click_pim_employee_add_employee_last_name_field()
             pim_page.enter_pim_employee_add_employee_last_name_field_value("Carter")
+            print("Entered the Last Name, will now enter the employee id")
+            pim_page.click_pim_employee_add_employee_id_field()
+            pim_page.enter_pim_employee_add_employee_id_field_value("3200")
             print("Entered the Last Name, will click on the Save button")
             pim_page.click_pim_employee_add_employee_save_button()
             print("Clicked on the Save button - will verify that the employee was successfully added")
