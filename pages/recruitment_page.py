@@ -237,7 +237,7 @@ class RecruitmentPage:
 
     def enter_vacancies_hiring_manager(self, initial_character):
         self.vacancies_add_vacancy_hiring_manager_field.fill(initial_character)
-        self.vacancies_add_vacancy_hiring_manager_charles_carter_option.click()
+        self.vacancies_add_vacancy_hiring_manager_charles_carter_option.first.click()
 
     def click_vacancies_add_vacancy_save_button(self):
         self.vacancies_add_vacancy_save_button.click()

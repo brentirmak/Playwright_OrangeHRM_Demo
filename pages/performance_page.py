@@ -149,7 +149,7 @@ class PerformancePage:
     def select_performance_configure_trackers_add_performance_tracker_employee_name_field_value(self, employee_name):
         self.performance_configure_trackers_add_performance_tracker_employee_name_field.fill(employee_name)
         time.sleep(1)
-        self.page.locator("//span[contains(.,'Charles  Carter')]").click()
+        self.page.locator("//span[contains(.,'Charles  Carter')]").first.click()
 
     def click_performance_configure_trackers_add_performance_tracker_reviewers_field(self):
         self.performance_configure_trackers_add_performance_tracker_reviewers_field.click()
