@@ -251,9 +251,11 @@ def test_AdminSectionJobTitlesSubmenu(shared_page):
     expect(shared_page.get_by_role("columnheader", name="Job Description")).to_be_visible(timeout=20000)
     print("Verified Job Description column header is visible on the Job Titles submenu page")
     if shared_page.get_by_text("Automaton Tester").count() > 0:
-        expect(shared_page.get_by_text("Automaton Tester")).to_be_visible(timeout=20000)
+        #expect(shared_page.get_by_text("Automaton Tester")).to_be_visible(timeout=20000)
+        expect(shared_page.get_by_text("Automaton Tester", exact=True)).to_be_visible(timeout=20000)
     else:
-        expect(shared_page.get_by_text("QA Engineer")).to_be_visible(timeout=20000)
+        #expect(shared_page.get_by_text("QA Engineer")).to_be_visible(timeout=20000)
+        expect(shared_page.get_by_text("QA Engineer", exact=True)).to_be_visible(timeout=20000)
     print("Verified Automaton Tester job title is visible on the Job Titles submenu page")
     print("Ended test_AdminSectionJobTitlesSubmenu transaction")
 
