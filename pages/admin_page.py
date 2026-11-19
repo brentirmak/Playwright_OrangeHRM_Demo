@@ -77,6 +77,8 @@ class AdminPage:
         self.admin_job_employment_status_add_button = page.locator("xpath=//button[contains(.,'Add')]")
         self.admin_job_employment_status_add_employment_status_header = page.locator("xpath=//h6[contains(.,'Add Employment Status')]")
         self.admin_job_employment_status_add_employment_status_name_field = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[2]/input")
+        #self.admin_job_employment_status_full_time_permanent_record = page.locator("xpath=(//div[contains(.,'Full-Time Permanent')])[13]")
+        self.admin_job_employment_status_full_time_permanent_record = page.get_by_text("Full-Time Permanent",exact=True)
         self.admin_job_employment_status_add_employment_save_button = page.locator("xpath=//button[contains(.,'Save')]")
         self.admin_job_employment_status_add_employment_status_successfully_saved_message = page.locator("xpath=//p[contains(.,'Successfully Saved')]")
 

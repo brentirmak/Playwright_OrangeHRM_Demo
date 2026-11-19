@@ -1,5 +1,5 @@
 '''
-11/6 - 13 Tests
+11/18 - 15 Tests
 '''
 from playwright.sync_api import Page, expect
 
@@ -100,6 +100,39 @@ def test_CheckLocalizationSetup(shared_page):
 
 ##################################################################################################################
 # END PRECONDITION SETUP - No Input Data Required
+#
+
+##################################################################################################################
+# START PRECONDITION SETUP - Input Data May Be Required
+#
+def test_EmploymentStatusFullTimePermanentExists(shared_page):
+    print("\nStarting test_EmploymentStatusFullTimePermanentExists transaction")
+    admin_page = AdminPage(shared_page)
+    print("Go to https://opensource-demo.orangehrmlive.com/web/index.php/admin/employmentStatus")
+    shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/employmentStatus")
+    expect(shared_page.get_by_role("columnheader", name="Employment Status")).to_be_visible(timeout=20000)
+    try:
+        print("We are on the Employment Status page - will check to see if the Full-Time Permanent entry exists")
+        expect(admin_page.admin_job_employment_status_full_time_permanent_record).to_be_visible(timeout=10000)
+        print("The Full-Time Permanent entry exists - OK to proceed with the tests")
+    except:
+        print("We do not see the Full-Time Permanent entry - need to create it first before proceeding")
+        print("Go to URL - will verify that we're on the Add Employment Status page")
+        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/saveEmploymentStatus")
+        expect(admin_page.admin_job_employment_status_add_employment_status_header).to_be_visible(timeout=20000)
+        print("Verified that we're on the Add Employment Status page - will enter the Name")
+        admin_page.click_admin_job_employment_status_add_employment_status_name_field()
+        admin_page.enter_admin_job_employment_status_add_employment_status_name_field_value("Full-Time Permanent")
+        print("Added the Employment Status name - will click on the Save button")
+        admin_page.click_admin_job_employment_status_add_employment_save_button()
+        print("Clicked on the Save button - will confirm that the record has been saved")
+        expect(admin_page.admin_job_employment_status_add_employment_status_successfully_saved_message).to_be_visible(timeout=20000)
+        print("Verified that the record was successfully saved message was displayed")
+        print("We can proceed with the rest of the test")
+    print("\nEnding test_EmploymentStatusFullTimePermanentExists transaction")
+
+##################################################################################################################
+# END PRECONDITION SETUP - Input Data May Be Required
 #
 
 ##############################################################################################################
