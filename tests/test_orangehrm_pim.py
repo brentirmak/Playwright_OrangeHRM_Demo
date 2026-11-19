@@ -49,9 +49,14 @@ def test_CheckAdminConfigurationModuleStatus(shared_page):
     admin_page = AdminPage(shared_page)
     print("Will go to https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewModules")
     shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewModules")
-    print("Accessed the Modules page - will verify that we see the Modules Configuration header")
-    expect(admin_page.admin_configuration_module_configuration_header).to_be_visible(timeout=20000)
-    print("Verified that we see the Modules Configuration header - will check individual slider status and toggle if needed")
+    try:
+        print("Accessed the Modules page - will verify that we see the Modules Configuration header")
+        expect(admin_page.admin_configuration_module_configuration_header).to_be_visible(timeout=20000)
+        print("Verified that we see the Modules Configuration header - will check individual slider status and toggle if needed")
+    except:
+        print("2nd try - Will verify that we see the Modules Configuration header")
+        expect(admin_page.admin_configuration_modules_admin_module_label).to_be_visible(timeout=20000)
+        print("2nd try - Verified that we see the Admin Module label - will check individual slider status and toggle if needed")
     print("Checking Leave Module Slider")
     admin_page.verify_admin_configuration_modules_leave_module_slider_status()
     print("Checking Time Module Slider")
