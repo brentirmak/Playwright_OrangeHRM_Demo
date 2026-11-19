@@ -131,6 +131,14 @@ def test_BuzzPagePostCleanup(shared_page):
         expect(buzz_page.buzz_post_successfully_deleted_message).to_be_visible(timeout=30000)
         print("Verified that the buzz entries were completely cleaned up")
     except:
+        try:
+            print("Checking to see if the No Posts Available is seen")
+            expect(buzz_page.buzz_no_posts_available_header).to_be_visible(timeout=30000)
+            print("Confirmed - No Posts Available is seen")
+        except:
+            buzz_page.delete_all_buzz_posts()
+            expect(buzz_page.buzz_post_successfully_deleted_message).to_be_visible(timeout=30000)
+            print("Verified that the buzz entries were completely cleaned up")
         print("There was nothing to clean up - procceding with other tests...")
 
     print("\nEnded test_BuzzPagePostCleanup transaction")
