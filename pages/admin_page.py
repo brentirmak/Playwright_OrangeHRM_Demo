@@ -260,6 +260,7 @@ class AdminPage:
 
         # Configuration - Modules
         self.admin_configuration_module_configuration_header = page.locator("xpath=//h6[contains(.,'Module Configuration')]")
+        self.admin_configuration_modules_admin_module_label = page.locator("xpath=//p[contains(.,'Admin Module')]")
         self.admin_configuration_modules_leave_module_slider = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[3]/div/label/span")
         self.admin_configuration_modules_leave_module_checkbox = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[3]/div//input[@type='checkbox']")
         self.admin_configuration_modules_time_module_slider = page.locator("xpath=/html/body/div[1]/div[1]/div[2]/div[2]/div/div/form/div[1]/div/div[4]/div/label/span")
