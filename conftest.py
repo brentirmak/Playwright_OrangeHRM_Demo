@@ -44,30 +44,44 @@ def pytest_addoption(parser):
 
 @pytest.fixture(scope="module")
 def shared_page(request):
-    #browser_val = request.config.getoption("--browser")
-    #browser_name = browser_val[0].lower() if isinstance(browser_val, list) else browser_val.lower()
+    # browser_val = request.config.getoption("--browser")
+    # browser_name = browser_val[0].lower() if isinstance(browser_val, list) else browser_val.lower()
+
     browser_name = get_browser_name(request.config)
     playwright = sync_playwright().start()
     browser = None
+
     try:
         if browser_name == "firefox":
             browser = playwright.firefox.launch(headless=True)
         elif browser_name == "webkit":
             browser = playwright.webkit.launch(headless=True)
         elif browser_name in ["edge", "msedge"]:
-            browser = playwright.chromium.launch(channel="msedge", headless=True)
+            browser = playwright.chromium.launch(
+                channel="msedge",
+                headless=True
+            )
         elif browser_name in ["chrome", "google-chrome"]:
-            browser = playwright.chromium.launch(channel="chrome", headless=True)
+            browser = playwright.chromium.launch(
+                channel="chrome",
+                headless=True
+            )
         else:
             # Default to standard Playwright Chromium
             browser = playwright.chromium.launch(headless=True)
 
         context = browser.new_context()
         page = context.new_page()
+
+        # Set default Playwright timeout to 10 seconds (10,000 ms)
+        page.set_default_timeout(15000)
+
         yield page
+
     finally:
         if browser:
             browser.close()
+
         playwright.stop()
 
 # attach login duration if needed
