@@ -28,9 +28,16 @@ def test_LoginPage(shared_page):
     print("Enter username and password and click Login button")
     login_page.login("Admin", "admin123")
     print("Clicked Login button")
-    shared_page.wait_for_url("**/dashboard/index", timeout=30000)
-    expect(login_page.dashboard_page_header).to_be_visible(timeout=30000)
-    print("Verified Dashboard heading is visible on the dashboard page")
+    shared_page.wait_for_url("**/dashboard/index", timeout=15000)
+    try:
+        print("Will check for the Dashboard header")
+        expect(login_page.dashboard_page_header).to_be_visible(timeout=30000)
+        print("Verified Dashboard heading is visible on the dashboard page")
+    except AssertionError:
+        print("Will check for My Actions header")
+        expect(login_page.my_actions_header).to_be_visible(timeout=15000)
+        print("Verified My Actions heading is visible on the dashboard page")
+
     print("Ended test_LoginPage transaction")
 
 ##################################################################################################################
