@@ -10,6 +10,7 @@ class PIMPage:
         # Employee List / Add Employee
         self.pim_employee_list_add_button = page.locator("xpath=//button[@type='button'][contains(.,'Add')]")
         self.pim_employee_add_employee_first_name_field = page.locator("xpath=//input[@placeholder='First Name']")
+        self.pim_employee_add_employee_middle_name_field = page.locator("xpath=//input[@placeholder='Middle Name']")
         self.pim_employee_add_employee_last_name_field = page.locator("xpath=//input[@placeholder='Last Name']")
         self.pim_employee_add_employee_id_field = page.get_by_role("textbox").nth(4)
         self.pim_employee_add_employee_save_button = page.locator("xpath=//button[contains(.,'Save')]")
@@ -102,6 +103,12 @@ class PIMPage:
 
     def enter_pim_employee_add_employee_first_name_field_value(self,first_name):
         self.pim_employee_add_employee_first_name_field.fill(first_name)
+
+    def click_pim_employee_add_employee_middle_name_field(self):
+        self.pim_employee_add_employee_middle_name_field.click()
+
+    def enter_pim_employee_add_employee_middle_name_field_value(self,middle_name):
+        self.pim_employee_add_employee_middle_name_field.fill(middle_name)
 
     def click_pim_employee_add_employee_last_name_field(self):
         self.pim_employee_add_employee_last_name_field.click()

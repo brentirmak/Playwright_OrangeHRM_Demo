@@ -1,5 +1,5 @@
 '''
-11/11/26 - 22 tests
+11/11/26 - 23 tests
 Preconditions: 
 Charles Carter - EmployeeId: 3200
 Peter Mac Anderson - EmployeeId: 0007, Job Title: Chief Financial Officer, Job Category: Officials and Managers, Sub Unit: Administration, Location: New York Sales Office
@@ -162,6 +162,38 @@ def test_PIMPagePreReqCreateCharlesCarterEmployee(shared_page):
     except:
         print("Was not able to create the Charles Carter employee - most likely it already exists")
     print("\nEnded test_PIMPagePreReqCreateCharlesCarterEmployee transaction")
+
+def test_PIMPagePreReqCreatePeterMacAndersonEmployee(shared_page):
+    print("\nStarting test_PIMPagePreReqCreatePeterMacAndersonEmployee transaction")
+    pim_page = PIMPage(shared_page)
+    pim_page.click_pim_menu()
+    print("Clicked PIM menu option")
+    expect(shared_page.get_by_role("heading", name="Employee Information"))
+    print("Verified Employee Information header - will now click on the Add button")
+    pim_page.click_pim_employee_list_add_employee_button()
+    print("Clicked on Add button - will verify the Add Employee header")
+    expect(shared_page.get_by_role("heading", name="Add Employee")).to_be_visible(timeout=30000)
+    print("Verified Add Employee header - will enter the First Name")
+    pim_page.click_pim_employee_add_employee_first_name_field()
+    pim_page.enter_pim_employee_add_employee_first_name_field_value("Peter")
+    print("Entered the First Name, will now enter the Middle Name")
+
+    pim_page.click_pim_employee_add_employee_middle_name_field()
+    pim_page.enter_pim_employee_add_employee_middle_name_field_value("Mac")
+    print("Entered the Middle Name, will now enter the Last Name")
+    pim_page.click_pim_employee_add_employee_last_name_field()
+    pim_page.enter_pim_employee_add_employee_last_name_field_value("Anderson")
+    print("Entered the Last Name, will now enter the employee id")
+    pim_page.click_pim_employee_add_employee_id_field()
+    pim_page.enter_pim_employee_add_employee_id_field_value("0007")
+    try:
+        print("Entered the employee id, will click on the Save button")
+        pim_page.click_pim_employee_add_employee_save_button()
+        expect(shared_page.get_by_text("Successfully Saved")).to_be_visible(timeout=30000)
+        print("Successfully created the Peter Mac Anderson employee")
+    except:
+        print("Was not able to create the Charles Carter employee - most likely it already exists")
+    print("\nEnded test_PIMPagePreReqCreatePeterMacAndersonEmployee transaction")
 
 def test_PIMPagePreReqCreateSoftwareEngineer(shared_page):
     print("\nStarting test_PIMPagePreReqCreateSoftwareEngineer transaction")
