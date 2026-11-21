@@ -271,7 +271,7 @@ def test_RecruitmentPageCreateVacancy(shared_page):
     recruitment_page.enter_vacancies_add_vacancy_description_field_value("Test position for automation purposes")
     print("Entered a description for the vacancy - will now select the hiring manager")
     recruitment_page.click_vacancies_add_vacancy_hiring_manager_field()
-    recruitment_page.enter_vacancies_hiring_manager("Ch")
+    recruitment_page.enter_vacancies_hiring_manager("Charl")
     print("Entered hiring manager - will now click on the Save button")
     recruitment_page.click_vacancies_add_vacancy_save_button()
     expect(recruitment_page.vacancies_edit_vacancy_edit_vacancy_title).to_be_visible(timeout=30000)
