@@ -184,12 +184,14 @@ def test_AccessAdminSection(shared_page):
         print("1st try - Will click on admin option on the menu")
         admin_page.click_admin_menu()
         print("1st try - Clicked on admin option on the menu")
+        expect(shared_page.get_by_role("heading", name="System Users")).to_be_visible(timeout=25000)
+        print("1st try - Verified System Users heading is visible on the admin page")
     except:
         print("2nd try - will go to Admin section via URL")
         shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewSystemUsers")
         print("2nd try - accessed the Admin section via URL")
-    expect(shared_page.get_by_role("heading", name="System Users")).to_be_visible(timeout=25000)
-    print("Verified System Users heading is visible on the admin page")
+        expect(shared_page.get_by_role("heading", name="System Users")).to_be_visible(timeout=25000)
+        print("2nd try - Verified System Users heading is visible on the admin page")
     print("Ended test_AccessAdminSection transaction")
 
 def test_AdminSectionUserManagementAddUser(shared_page):
