@@ -131,7 +131,7 @@ class MyInfoPage:
         self.qualifications_add_skill_skill_dropdown_sql_option = page.locator("xpath=//div[@class='oxd-select-text-input'][contains(.,'SQL')]")
         self.qualifications_add_skill_years_of_experience_field = page.get_by_role("textbox").nth(1)
         self.qualifications_add_skill_comments_field = page.locator("textarea")        
-        self.qualifications_add_skill_save_button = page.get_by_role("button", name="Save")
+        self.qualifications_add_skill_save_button = page.get_by_role("button", name="Save").first
         self.qualifications_skill_successfully_saved_message = page.locator("//p[contains(.,'Successfully Saved')]")
         self.qualifications_skill_delete_selected_button = page.locator("xpath=//button[@type='button'][contains(.,'Delete Selected')]")
 
