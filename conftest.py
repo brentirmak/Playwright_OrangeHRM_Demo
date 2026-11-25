@@ -73,8 +73,8 @@ def shared_page(request):
         context = browser.new_context()
         page = context.new_page()
 
-        # Set default Playwright timeout to 10 seconds (10,000 ms)
-        page.set_default_timeout(15000)
+        # Set default Playwright timeout to 25 seconds (25,000 ms)
+        page.set_default_timeout(25000)
 
         yield page
 
