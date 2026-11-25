@@ -15,7 +15,7 @@ import time
 def test_HomePage(shared_page):
     print("\nStarting test_HomePage transaction")
     print("Will go to home page")
-    shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
+    shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login", timeout=35000)
     print("Loaded home page")
     home_page = HomePage(shared_page)
     home_page.verify_branding_image_visible()
@@ -48,7 +48,7 @@ def test_CheckAdminConfigurationModuleStatus(shared_page):
     print("\nStarting test_CheckAdminConfigurationModuleStatus transaction")
     admin_page = AdminPage(shared_page)
     print("Will go to https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewModules")
-    shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewModules")
+    shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewModules", timeout=35000)
     try:
         print("Accessed the Modules page - will verify that we see the Modules Configuration header")
         expect(admin_page.admin_configuration_module_configuration_header).to_be_visible(timeout=20000)
@@ -83,7 +83,7 @@ def test_CheckLocalizationSetup(shared_page):
     
     try:
         print("Starting Localization Setup Check...")
-        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/localization")
+        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/localization", timeout=35000)
         print("We should be on the Localization screen - will check for the Localization header being displayed")
         expect(admin_page.admin_configuration_localization_localization_header).to_be_visible(timeout=20000)
         print("Localization header displayed - will check for the English language being selected")
@@ -121,7 +121,7 @@ def test_EmploymentStatusFullTimePermanentExists(shared_page):
     print("\nStarting test_EmploymentStatusFullTimePermanentExists transaction")
     admin_page = AdminPage(shared_page)
     print("Go to https://opensource-demo.orangehrmlive.com/web/index.php/admin/employmentStatus")
-    shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/employmentStatus")
+    shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/employmentStatus", timeout=35000)
     expect(shared_page.get_by_role("columnheader", name="Employment Status")).to_be_visible(timeout=20000)
     try:
         print("We are on the Employment Status page - will check to see if the Full-Time Permanent entry exists")
@@ -251,7 +251,7 @@ def test_PIMPageEmployeeListSearchByEmployeeName(shared_page):
         employee_locator.click()
     except:
         print("2nd Attempt - Navigating directly to the URL")
-        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewEmployeeList")
+        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewEmployeeList", timeout=35000)
         pim_page.click_pim_employee_list_employee_name_field()
         pim_page.enter_pim_employee_list_employee_name_field_value("Temporary User")
         print("2nd attempt - Entered the Employee Name - will click on it now")

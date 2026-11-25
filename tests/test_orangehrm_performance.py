@@ -22,7 +22,7 @@ from pages.logout_page import LogoutPage
 def test_HomePage(shared_page):
     print("\nStarting test_HomePage transaction")
     print("Will go to home page")
-    shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
+    shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login", timeout=35000)
     print("Loaded home page")
     home_page = HomePage(shared_page)
     home_page.verify_branding_image_visible()
@@ -55,7 +55,7 @@ def test_CheckAdminConfigurationModuleStatus(shared_page):
     print("\nStarting test_CheckAdminConfigurationModuleStatus transaction")
     admin_page = AdminPage(shared_page)
     print("Will go to https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewModules")
-    shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewModules")
+    shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewModules", timeout=35000)
     try:
         print("Accessed the Modules page - will verify that we see the Modules Configuration header")
         expect(admin_page.admin_configuration_module_configuration_header).to_be_visible(timeout=20000)
@@ -90,7 +90,7 @@ def test_CheckLocalizationSetup(shared_page):
     
     try:
         print("Starting Localization Setup Check...")
-        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/localization")
+        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/localization", timeout=35000)
         print("We should be on the Localization screen - will check for the Localization header being displayed")
         expect(admin_page.admin_configuration_localization_localization_header).to_be_visible(timeout=30000)
         print("Localization header displayed - will check for the English language being selected")
@@ -200,7 +200,7 @@ def test_PIMPagePreReqCreateSoftwareEngineer(shared_page):
     admin_page = AdminPage(shared_page)
     try:
         print("Will go to https://opensource-demo.orangehrmlive.com/web/index.php/admin/saveJobTitle")
-        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/saveJobTitle")
+        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/saveJobTitle", timeout=35000)
         expect(admin_page.admin_job_titles_add_job_title_header).to_be_visible(timeout=20000)
         print("We are on the Add Job Title page - will now enter the job Title")
         admin_page.click_admin_job_titles_add_job_title_field()
@@ -350,7 +350,7 @@ def test_KPISearchByJobTitle(shared_page):
         expect(performance_page.performance_manage_reviews_employee_reviews_header).to_be_visible(timeout=30000)
     except:
         print("2nd try - Will access the Performance section/page via URL")
-        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/performance/searchEvaluatePerformanceReview")
+        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/performance/searchEvaluatePerformanceReview", timeout=35000)
         print("2nd try - Accessed Performance section/page via URL - will verify that we're on the Employee Reviews (default) page")
         expect(performance_page.performance_manage_reviews_employee_reviews_header).to_be_visible(timeout=30000)
         
@@ -435,7 +435,7 @@ def test_AccessPerformanceManageReviewsSubmenu(shared_page):
         expect(performance_page.performance_manage_reviews_employee_reviews_header).to_be_visible(timeout=30000)
     except:
         print("2nd try - Will access the Performance section/page via URL")
-        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/performance/searchEvaluatePerformanceReview")
+        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/performance/searchEvaluatePerformanceReview", timeout=35000)
         print("2nd try - Accessed the Performance section/page via URL - will verify that we're on the Employee Reviews (default) page")
         expect(performance_page.performance_manage_reviews_employee_reviews_header).to_be_visible(timeout=30000)
     print("Verified that we're on the Employee Reviews page - will click on the Manage Reviews submenu under Performance section/page")
