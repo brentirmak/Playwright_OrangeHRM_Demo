@@ -16,7 +16,7 @@ import time
 def test_HomePage(shared_page):
     print("\nStarting test_HomePage transaction")
     print("Will go to home page")
-    shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
+    shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login", timeout=35000)
     print("Loaded home page")
     home_page = HomePage(shared_page)
     home_page.verify_branding_image_visible()
@@ -49,7 +49,7 @@ def test_CheckAdminConfigurationModuleStatus(shared_page):
     print("\nStarting test_CheckAdminConfigurationModuleStatus transaction")
     admin_page = AdminPage(shared_page)
     print("Will go to https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewModules")
-    shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewModules")
+    shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewModules", timeout=35000)
     try:
         print("Accessed the Modules page - will verify that we see the Modules Configuration header")
         expect(admin_page.admin_configuration_module_configuration_header).to_be_visible(timeout=20000)
@@ -84,7 +84,7 @@ def test_CheckLocalizationSetup(shared_page):
     
     try:
         print("Starting Localization Setup Check...")
-        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/localization")
+        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/localization", timeout=35000)
         print("We should be on the Localization screen - will check for the Localization header being displayed")
         expect(admin_page.admin_configuration_localization_localization_header).to_be_visible(timeout=20000)
         print("Localization header displayed - will check for the English language being selected")
@@ -245,7 +245,7 @@ def test_AttendancePunchOut(shared_page):
         expect(time_page.employee_timesheets_header).to_be_visible(timeout=20000)
     except:
         print("2nd try - Will access the Time section/page via URL")
-        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/time/viewEmployeeTimesheet")
+        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/time/viewEmployeeTimesheet", timeout=35000)
         print("2nd try - Acessed the Time section/page via URL - will verify that we're on the Select Employee page")
         expect(time_page.employee_timesheets_header).to_be_visible(timeout=20000)
         
@@ -281,7 +281,7 @@ def test_AccessAttendanceEmployeeRecordsPage(shared_page):
         expect(time_page.employee_timesheets_header).to_be_visible(timeout=20000)
     except:
         print("2nd try - Will access the Time section/page via URL")
-        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/time/viewEmployeeTimesheet")
+        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/time/viewEmployeeTimesheet", timeout=35000)
     print("Verified that we're on the Select Employee page - Will click on the Attendance submenu")
     time_page.click_attendance_submenu()
     print("Clicked on the Attendance submenu")
@@ -301,7 +301,7 @@ def test_AccessAttendanceConfigurationPage(shared_page):
         expect(time_page.employee_timesheets_header).to_be_visible(timeout=20000)
     except:
         print("2nd try - Will access the Time landing page via URL")
-        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/time/viewEmployeeTimesheet")
+        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/time/viewEmployeeTimesheet", timeout=35000)
         print("2nd try - Access the Time landing page via URL - will verify that we're on the Select Employee page")
         expect(time_page.employee_timesheets_header).to_be_visible(timeout=20000)
     print("Will click on the Attendance submenu")

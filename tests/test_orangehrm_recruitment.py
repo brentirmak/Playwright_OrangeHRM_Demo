@@ -22,7 +22,7 @@ from pages.logout_page import LogoutPage
 def test_HomePage(shared_page):
     print("\nStarting test_HomePage transaction")
     print("Will go to home page")
-    shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
+    shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login", timeout=35000)
     print("Loaded home page")
     home_page = HomePage(shared_page)
     home_page.verify_branding_image_visible()
@@ -55,7 +55,7 @@ def test_CheckAdminConfigurationModuleStatus(shared_page):
     print("\nStarting test_CheckAdminConfigurationModuleStatus transaction")
     admin_page = AdminPage(shared_page)
     print("Will go to https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewModules")
-    shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewModules")
+    shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewModules", timeout=35000)
     try:
         print("Accessed the Modules page - will verify that we see the Modules Configuration header")
         expect(admin_page.admin_configuration_module_configuration_header).to_be_visible(timeout=20000)
@@ -100,7 +100,7 @@ def test_RecruitmentPreconditionSetup(shared_page):
 
     try:
         print("Starting Localization Setup Check...")
-        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/localization")
+        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/localization", timeout=35000)
         print("We should be on the Localization screen - will check for the Localization header being displayed")
         expect(admin_page.admin_configuration_localization_localization_header).to_be_visible(timeout=10000)
         print("Localization header displayed - will check for the English language being selected")
@@ -132,7 +132,7 @@ def test_RecruitmentPreconditionSetup(shared_page):
 
     try:
         print("Starting 'Under Admin->Job, Software Engineer entry' Check...")
-        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewJobTitleList")
+        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewJobTitleList", timeout=35000)
         expect(shared_page.locator(".oxd-table-body .oxd-table-card").first).to_be_visible(timeout=20000)
         row = shared_page.get_by_role("row").filter(has=shared_page.get_by_text("Software Engineer", exact=True))
         print("Match count: ", row.count())
@@ -161,7 +161,7 @@ def test_RecruitmentPreconditionSetup(shared_page):
 
     try:
         print("Starting Check 'Under PIM->Add Employee, Charles Carter entry'")
-        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewEmployeeList")
+        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/pim/viewEmployeeList", timeout=35000)
         expect(shared_page.locator(".oxd-table-body .oxd-table-card").first).to_be_visible(timeout=20000)
         row = shared_page.get_by_role("row").filter(has=shared_page.get_by_text("Carter", exact=True))
         print("Match count: ", row.count())

@@ -23,7 +23,7 @@ from pages.logout_page import LogoutPage
 def test_HomePage(shared_page):
     print("\nStarting test_HomePage transaction")
     print("Will go to home page")
-    shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
+    shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login", timeout=35000)
     print("Loaded home page")
     home_page = HomePage(shared_page)
     home_page.verify_branding_image_visible()
@@ -56,7 +56,7 @@ def test_CheckAdminConfigurationModuleStatus(shared_page):
     print("\nStarting test_CheckAdminConfigurationModuleStatus transaction")
     admin_page = AdminPage(shared_page)
     print("Will go to https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewModules")
-    shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewModules")
+    shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/viewModules", timeout=35000)
     try:
         print("Accessed the Modules page - will verify that we see the Modules Configuration header")
         expect(admin_page.admin_configuration_module_configuration_header).to_be_visible(timeout=20000)
@@ -91,7 +91,7 @@ def test_CheckLocalizationSetup(shared_page):
     
     try:
         print("Starting Localization Setup Check...")
-        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/localization")
+        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/localization", timeout=35000)
         print("We should be on the Localization screen - will check for the Localization header being displayed")
         expect(admin_page.admin_configuration_localization_localization_header).to_be_visible(timeout=25000)
         print("Localization header displayed - will check for the English language being selected")
