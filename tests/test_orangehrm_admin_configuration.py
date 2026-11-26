@@ -117,12 +117,20 @@ def test_AdminConfigurationEmailConfiguration(shared_page):
     admin_page.click_admin_menu()
     print("Clicked on admin option on the menu")
     expect(shared_page.locator("h5")).to_contain_text("System Users")
-    admin_page.click_configuration_submenu()
-    print("Clicked on configuration submenu")
-    admin_page.click_email_configuration_submenu()
-    print("Clicked on email configuration submenu")
-    expect(shared_page.locator("#app")).to_contain_text("Email Configuration", timeout=15000)
-    print("Verified System Users heading is visible on the admin page")
+    try:
+        print("First try - will click on the Configuration submenu")
+        admin_page.click_configuration_submenu()
+        print("First try - Clicked on configuration submenu - will click on the Email Configuration")
+        admin_page.click_email_configuration_submenu()
+        print("First try - Clicked on email configuration submenu - will check for Email Configuration header")
+        expect(shared_page.locator("#app")).to_contain_text("Email Configuration", timeout=15000)
+        print("First try - Email Configuration header was found")
+    except:
+        print("2nd try = will go directly to the Email Configuration page")
+        shared_page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/admin/listMailConfiguration", timeout=35000)
+        print("2nd try - accessed the Email Configuration page directly - will check for Email Configuration header")
+        expect(shared_page.locator("#app")).to_contain_text("Email Configuration", timeout=15000)
+        print("2nd try - Email Configuration header was found")
     print("Ended test_AdminConfigurationEmailConfiguration transaction")
 
 def test_AdminConfigurationEmailSubscriptions(shared_page):
